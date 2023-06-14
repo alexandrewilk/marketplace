@@ -15,7 +15,7 @@ export default function SignUp() {
   }
   return (
     <section>
-      <h1 className='text-2xl text-center'>Sign IN</h1>
+      <h1 className='text-2xl text-center'>Sign UP</h1>
       <div className='text-center'>
       <form className='m-auto max-w-xs'>
       <input type='text' id='name' value={name} onChange={onChange} placeholder='nom' className='rounded'/>
