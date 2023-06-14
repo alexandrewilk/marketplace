@@ -1,8 +1,20 @@
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import { useLocation, useNavigate} from 'react-router-dom'
-
+import {auth} from '../firebase'
+import { onAuthStateChanged } from 'firebase/auth'
 
 export default function Header() {
+    const [pageState, setPageState] = useState('Sign In')
+    
+    useEffect(()=>{
+      onAuthStateChanged(auth, (user)=>{
+        if(user){
+          setPageState('Profile')
+      }else{
+        setPageState('Sign IN')
+      }
+      })
+    }, [auth])
     const location = useLocation();
     const navigate = useNavigate();
     function routeMathPath(route){
@@ -23,8 +35,8 @@ export default function Header() {
                 onClick={()=>navigate("/")}>Home</li>
                 <li className= {`cursor-pointer border-b ${routeMathPath('/offers') && "border-b-red-400"}`}
                 onClick={()=>navigate("/offers")}>Offers</li>
-                <li className= {`cursor-pointer border-b ${routeMathPath('/sign-in') && "border-b-red-400"}`}
-                onClick={()=>navigate("/sign-in")}>SignIn</li>
+                <li className= {`cursor-pointer border-b ${(routeMathPath('/sign-in') || routeMathPath('/profile')) && "border-b-red-400"}`}
+                onClick={()=>navigate("/profile")}>{pageState}</li>
             </ul>
         </div>
       </header>
