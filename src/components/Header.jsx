@@ -12,7 +12,7 @@ export default function Header() {
     }
 
   return (
-    <div className='border-b'>
+    <div className='border-b bg-white'>
       <header className='flex justify-between items-center px-3'>
         <div>
             MarketPlace
