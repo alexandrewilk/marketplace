@@ -37,8 +37,8 @@ export default function SignIn() {
       <div className="signin-form">
         <h1 className="title">Se connecter</h1>
         <form onSubmit={onSubmit} className="form">
-          <input type="email" id="email" value={email} onChange={onChange} placeholder="email" className="input-field" />
-          <input type="password" id="password" value={password} onChange={onChange} placeholder="password" className="input-field" />
+          <input type="email" id="email" value={email} onChange={onChange} placeholder="Email" className="input-field" />
+          <input type="password" id="password" value={password} onChange={onChange} placeholder="Mot de passe" className="input-field" />
           <button type="submit" className="submit-button">Se connecter</button>
         </form>
         <div className="links">

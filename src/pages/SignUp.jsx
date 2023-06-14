@@ -7,6 +7,8 @@ import { useNavigate } from 'react-router-dom'
 import { Dots } from "react-activity";
 import {toast} from 'react-toastify'
 import "react-activity/dist/library.css";
+import '../style.css/SignUp.css'
+
 
 export default function SignUp() {
   const navigate = useNavigate()
@@ -42,20 +44,22 @@ export default function SignUp() {
     }
   }
   return (
-    <section>
-      <h1 className='text-2xl text-center'>Sign UP</h1>
-      <div className='text-center'>
-      <form className='m-auto max-w-xs flex flex-col' onSubmit={onSubmit}>
-      <input type='text' id='name' value={name} onChange={onChange} placeholder='nom' className='rounded'/>
-        <input type='email' id='email' value={email} onChange={onChange} placeholder='email' className='rounded'/>
-        <input type='password' id='password' value={password} onChange={onChange} placeholder='password' className='rounded'/>
-        {loading ? <Dots /> :<button type='submit' className='bg-blue-600 text-white rounded my-3'>S'inscrire</button>}
-      </form>
-      
-      <p>
-          Déjà membre ?<Link to="/sign-in" className='text-red-800'>Se Connecter</Link>
-      </p>
+    <section className="container">
+      <div className="signup-form">
+        <h1 className="title">S'inscrire</h1>
+        <form className="form" onSubmit={onSubmit}>
+          <input type='text' id='name' value={name} onChange={onChange} placeholder='Nom' className="input-field" />
+          <input type='email' id='email' value={email} onChange={onChange} placeholder='Email' className="input-field" />
+          <input type='password' id='password' value={password} onChange={onChange} placeholder='Mot de passe' className="input-field" />
+          {loading ? <Dots /> :<button type='submit' className='submit-button'>S'inscrire</button>}
+        </form>
+        <p className="links">
+          Déjà membre ? <Link to="/sign-in" className='link'>Se Connecter</Link>
+        </p>
+      </div>
+      <div className="image">
+        <img src={require('../assets/images/SignIn.jpg')} alt="Image description" />
       </div>
     </section>
-  )
+  );
 }
