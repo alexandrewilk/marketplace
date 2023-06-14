@@ -9,6 +9,7 @@ body {
     flex-direction: row;
     width: 100vw;
     height: 100vh;
+    padding-top: 70px;
   }
   
   .image {
@@ -16,6 +17,7 @@ body {
     display: flex;
     justify-content: center;
     align-items: center;
+    padding: 20px;
   }
   
   .image img {
