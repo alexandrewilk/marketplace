@@ -7,7 +7,7 @@ import { useNavigate } from 'react-router-dom'
 import { Dots } from "react-activity";
 import {toast} from 'react-toastify'
 import "react-activity/dist/library.css";
-import '../style.css/SignUp.css'
+import '../styles/SignUp.css'
 
 
 export default function SignUp() {

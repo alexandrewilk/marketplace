@@ -3,7 +3,7 @@ import { Link, useNavigate } from 'react-router-dom';
 import { auth } from '../firebase';
 import { toast } from 'react-toastify';
 import { signInWithEmailAndPassword } from 'firebase/auth';
-import '../style.css/SignIn.css'
+import '../styles/SignIn.css'
 
 export default function SignIn() {
   const [formData, setFormData] = useState({
