@@ -1,21 +1,35 @@
-import React from 'react'
-
+import React, {useState} from 'react'
+import { Link } from 'react-router-dom'
 export default function SignIn() {
+  const [formData, setFormData] = useState({
+    email : "",
+    password: "",
+  })
+  const {email, password} = formData
+  function onChange(e){
+    setFormData((prev) =>({
+      ...prev,
+      [e.target.id] : e.target.value
+    }))
+  }
   return (
     <section>
       <h1 className='text-2xl text-center'>Sign IN</h1>
+      <div className='text-center'>
+      <form className='m-auto max-w-xs'>
+        <input type='email' id='email' value={email} onChange={onChange} placeholder='email' className='rounded'/>
+        <input type='password' id='password' value={password} onChange={onChange} placeholder='password' className='rounded'/>
+      </form>
+      <button type='submit' className='bg-blue-600 text-white rounded my-3'>Se connecter</button>
       <div>
-        <div className='md:w-[67%] lg:w-[50%]'>
-          <img src='https://images.unsplash.com/photo-1685280947549-a0ddbce42613?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxlZGl0b3JpYWwtZmVlZHw3fHx8ZW58MHx8fHx8&auto=format&fit=crop&w=900&q=60'
-          className='w-full rounded'/>
-        </div>
-        <div>
-          <form>
-            <input type='text'/>
-          </form>
-        </div>
+        <p>
+          Pas de compte ? <Link to="/sign-up" className='text-red-800'>Creer un compte</Link>
+        </p>
+        <p>
+          <Link to="/forgot-password" className='text-blue-800'>Mot de passe oublié ? </Link>
+        </p>
       </div>
-
+      </div>
     </section>
   )
 }
