@@ -23,7 +23,7 @@ export default function Profile() {
         setListings(listings)
       } catch (error) {
         alert(error.message)
-      }finally{setLoading(false)}
+      }finally{setLoadingList(false)}
     }
     getUserListing();
   }, [])
@@ -81,7 +81,14 @@ export default function Profile() {
           </Link>
         </button>
       </div>
-      
+      <div>
+        <h1 className='text-2xl text-center'>MES ANNONCES</h1>
+        {loadingList ? <Dots/> : listings.map((l)=>{
+          return(
+            <h1  key={l.id}>{l.data.adresse}</h1>
+          )
+        })}
+      </div>
     </section>
     </>
   )
