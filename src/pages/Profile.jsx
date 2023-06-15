@@ -1,13 +1,34 @@
-import React, {useState} from 'react'
+import React, {useState, useEffect} from 'react'
 import {auth, db} from '../firebase'
 import { Link, useNavigate } from 'react-router-dom'
 import { Dots } from 'react-activity'
 import "react-activity/dist/library.css";
 import {toast} from 'react-toastify'
 import { updateProfile } from 'firebase/auth';
-import { doc, updateDoc } from 'firebase/firestore';
+import { doc, getDocs, orderBy, updateDoc } from 'firebase/firestore';
 import {HiOutlineHomeModern} from 'react-icons/hi2'
+import { collection, query, where } from 'firebase/firestore';
 export default function Profile() {
+  useEffect(()=>{
+    async function getUserListing(){
+      try {
+        setLoadingList(true)
+        const q = query(collection(db, 'Listings'), where('userRef', '==', auth.currentUser.uid), orderBy('timestamp', 'desc'));
+        const querySnap = await getDocs(q);
+        let listings = []
+        querySnap.forEach((doc)=>{return(listings.push({
+          id: doc.id,
+          data: doc.data()
+        }))})
+        setListings(listings)
+      } catch (error) {
+        alert(error.message)
+      }finally{setLoading(false)}
+    }
+    getUserListing();
+  }, [])
+  const [listings, setListings] = useState([]);
+  const [loadingList, setLoadingList] = useState(false);
   const [formData, setFormData] = useState({
     name: auth.currentUser.displayName,
     email: auth.currentUser.email
@@ -60,6 +81,7 @@ export default function Profile() {
           </Link>
         </button>
       </div>
+      
     </section>
     </>
   )
