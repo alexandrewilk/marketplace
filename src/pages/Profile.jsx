@@ -85,7 +85,7 @@ export default function Profile() {
         <h1 className='text-2xl text-center'>MES ANNONCES</h1>
         {loadingList ? <Dots/> : listings.map((l)=>{
           return(
-            <h1  key={l.id}>{l.data.adresse}</h1>
+            <h1  key={l.id} onClick={(e)=>{e.preventDefault();navigate(`/listings/${l.id}`)}}>{l.data.adresse}</h1>
           )
         })}
       </div>
