@@ -20,7 +20,7 @@ export default function CreateListing() {
     const [logement, setLogement] = useState('');
     const [nbRooms, setNbRooms] = useState(null);
     const adresseRef = useRef();
-    const [loyer, setLoyer] = useState(0);
+    const [loyer, setLoyer] = useState('');
     const [images, setImages] = useState(null);
     const [loading, setLoading] = useState(false);
 
@@ -72,7 +72,7 @@ export default function CreateListing() {
             alert('adresse?')
             return
         }
-        if(loyer==0){
+        if(isNaN(loyer)){
             alert('loyer')
             return
         }
@@ -148,7 +148,7 @@ export default function CreateListing() {
         <input type='text' onChange={(e)=>{e.preventDefault()}} ref={adresseRef}placeholder='adresse'/>
         </Autocomplete>
         <label>Prix du loyer potow</label>
-        <input type='number' onChange={(e)=>{e.preventDefault();setLoyer(e.target.value)}} placeholder='Loyer'/>
+        <input type='text' onChange={(e)=>{e.preventDefault();setLoyer(e.target.value)}} placeholder='Loyer'/>
         <label>Image du délire stp</label>
         <input type='file' id='images' accept='.jpg, .png, .jpeg' multiple onChange={(e)=>{e.preventDefault();setImages(e.target.files)}}></input>
         {loading ?  <Dots /> :<button onClick={handleAddListing} className='bg-blue-800 text-white'>Lister mon Annonce</button>}
