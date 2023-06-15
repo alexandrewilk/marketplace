@@ -3,6 +3,10 @@ body {
   padding: 0;
 }
 
+.page {
+  margin-top: 70px;
+}
+
 .grid {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
@@ -10,5 +14,4 @@ body {
   justify-items: center;
   padding: 20px;
   width: 100vw; 
-  margin-top: 70px;
 }
