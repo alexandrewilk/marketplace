@@ -47,7 +47,7 @@ export default function Header() {
             <li className={`cursor-pointer ${routeMatchPath('/offers') ? 'active' : ''}`} onClick={() => navigate("/offers")}>
               Offres
             </li>
-            <li className={`cursor-pointer ${routeMatchPath('/offers') ? 'active' : ''}`} onClick={() => navigate("/offers")}>
+            <li className={`cursor-pointer ${routeMatchPath('/offers') ? 'active' : ''}`} onClick={() => navigate("/Annonce")}>
               Annonces
             </li>
             <li className={`cursor-pointer ${routeMatchPath('/offers') ? 'active' : ''}`} onClick={() => navigate("/offers")}>
