@@ -1,4 +1,4 @@
-import React, { useState, useEffect }from 'react'
+import React, { useState, useEffect, useRef }from 'react'
 import "react-activity/dist/library.css";
 import { Dots } from "react-activity";
 import {storage, auth, db} from '../firebase'
@@ -6,16 +6,25 @@ import { ref, getDownloadURL, uploadBytesResumable } from 'firebase/storage';
 import {v4 as uuid} from 'uuid'
 import { addDoc, collection, doc, serverTimestamp } from 'firebase/firestore';
 import { useNavigate } from 'react-router-dom';
+import {useJsApiLoader, Autocomplete} from '@react-google-maps/api'
+import { SkeletonText} from '@chakra-ui/react'
 const logements = ['Villa', 'Appart', 'Maison'];
 const rooms = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]
+const libraries = ['places']
 export default function CreateListing() {
+    const {isLoaded} = useJsApiLoader({
+      googleMapsApiKey: process.env.REACT_APP_MAPS_API_KEY,
+      libraries: libraries
+    })
     const navigate = useNavigate();
     const [logement, setLogement] = useState('');
     const [nbRooms, setNbRooms] = useState(null);
-    const [adresse, setAdresse] = useState('');
+    const adresseRef = useRef();
     const [loyer, setLoyer] = useState(0);
     const [images, setImages] = useState(null);
     const [loading, setLoading] = useState(false);
+
+
     async function storeImage(image){
         return new Promise((resolve, reject)=>{
             const filename = `${auth.currentUser.uid}-${image.name}-${uuid()}`;
@@ -59,7 +68,7 @@ export default function CreateListing() {
             alert('nb de rooms')
             return
         }
-        if(adresse==''){
+        if(adresseRef==''){
             alert('adresse?')
             return
         }
@@ -76,16 +85,28 @@ export default function CreateListing() {
             return
         }
         try{
+            //getting lattitude and longitude from adresseRef
             setLoading(true)
+            const adresse = adresseRef.current.value
+            const response = await fetch(`https://maps.googleapis.com/maps/api/geocode/json?address=${adresse}&key=${process.env.REACT_APP_MAPS_API_KEY}`)
+            const data = await response.json()
+            if(data.status !== 'OK'){
+              alert(`ton adresse n'a pas été trouvée!`)
+              return
+            }
+            const geolocation = {};
+            geolocation.lat = data.results[0].geometry.location.lat;
+            geolocation.lng = data.results[0].geometry.location.lng;
             const imgUrls = await Promise.all([...images].map((image) => storeImage(image)))
             const entry = {
                 type: logement,
                 nbPieces: nbRooms,
-                adresse: adresse,
+                adresse: adresseRef.current.value,
                 loyer: Number(loyer),
                 imgUrls: imgUrls,
                 timestamp: serverTimestamp(),
-                userRef: auth.currentUser.uid
+                userRef: auth.currentUser.uid,
+                geolocation: geolocation
             }
             const collectionRef = collection(db, 'Listings');
             const docRef = await addDoc(collectionRef, entry)
@@ -99,6 +120,11 @@ export default function CreateListing() {
         
 
 
+    }
+    if(!isLoaded){
+      return(
+        <SkeletonText/>
+      )
     }
   return (
     <div className='flex flex-col items-center'>
@@ -118,11 +144,13 @@ export default function CreateListing() {
             ))}
         </select>
         <label>C quoi ladresse</label>
-        <input type='text' onChange={(e)=>{setAdresse(e.target.value)}} placeholder='adresse'/>
+        <Autocomplete>
+        <input type='text' onChange={(e)=>{e.preventDefault()}} ref={adresseRef}placeholder='adresse'/>
+        </Autocomplete>
         <label>Prix du loyer potow</label>
-        <input type='number' onChange={(e)=>{setLoyer(e.target.value)}} placeholder='Loyer'/>
+        <input type='number' onChange={(e)=>{e.preventDefault();setLoyer(e.target.value)}} placeholder='Loyer'/>
         <label>Image du délire stp</label>
-        <input type='file' id='images' accept='.jpg, .png, .jpeg' multiple onChange={(e)=>setImages(e.target.files)}></input>
+        <input type='file' id='images' accept='.jpg, .png, .jpeg' multiple onChange={(e)=>{e.preventDefault();setImages(e.target.files)}}></input>
         {loading ?  <Dots /> :<button onClick={handleAddListing} className='bg-blue-800 text-white'>Lister mon Annonce</button>}
     </div>
   )
