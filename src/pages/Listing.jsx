@@ -9,8 +9,10 @@ export default function Listing() {
     const params = useParams();
     const [listing, setListing] = useState(null);
     const [loading, setLoading] = useState(true);
+    const libraries = ['places']
     const {isLoaded} = useJsApiLoader({
-        googleMapsApiKey: process.env.REACT_APP_MAPS_API_KEY
+        googleMapsApiKey: process.env.REACT_APP_MAPS_API_KEY,
+        libraries: libraries
     })
     useEffect(()=>{
         async function fetchListing(){
