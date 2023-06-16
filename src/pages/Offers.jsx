@@ -1,10 +1,10 @@
 import React from 'react'
+import '../styles/offres.css'
 
 export default function Offers() {
   return (
-    <div>
-      Offers!
-
+    <div className="Page">
+      Offers! 
     </div>
   )
 }

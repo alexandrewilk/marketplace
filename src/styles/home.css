@@ -7,11 +7,31 @@ body {
   margin-top: 70px;
 }
 
+.main-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 20px;
+  width: 100vw;
+  padding: 20px;
+}
+
 .grid {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+  grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
   gap: 20px;
   justify-items: center;
-  padding: 20px;
-  width: 100vw; 
+  max-height: 80vh;
+  overflow: auto;
+  -ms-overflow-style: none; 
+  scrollbar-width: none;  
+}
+
+.grid::-webkit-scrollbar {
+  display: none;
+}
+
+
+.map {
+ background-color: red;
+ height: calc(100vh - 180px);
 }
