@@ -22,7 +22,7 @@ export default function Header() {
   return (
     <nav className="bg-white fixed w-full z-20 top-0 left-0 border-b border-gray-200">
       <div className="max-w-screen-xl flex flex-wrap items-center justify-between mx-auto p-4">
-        <a href="#" className="flex items-center">
+        <a href="/" className="flex items-center">
           <img src="https://coloc.fr/wp-content/uploads/2023/01/Coloc.fr_-1.png" className="h-8 mr-3" alt="Flowbite Logo"/>
         </a>
         <div className="flex md:order-2">
