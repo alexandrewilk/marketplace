@@ -40,7 +40,7 @@ const LinkItems = [
   { name: 'Settings', icon: FiSettings, href: '/Settings'},
 ];
 
-export default function SidebarWithHeader({ children }) {
+export default function Sidebar({ children }) {
   const { isOpen, onOpen, onClose } = useDisclosure();
   return (
     <Box minH="100vh" bg={useColorModeValue('gray.100', 'gray.900')}>
@@ -69,7 +69,7 @@ export default function SidebarWithHeader({ children }) {
   );
 }
 
-SidebarWithHeader.propTypes = {
+Sidebar.propTypes = {
   children: PropTypes.node.isRequired,
 };
 
