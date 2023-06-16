@@ -8,6 +8,7 @@ import { updateProfile } from 'firebase/auth';
 import { doc, getDocs, orderBy, updateDoc } from 'firebase/firestore';
 import {HiOutlineHomeModern} from 'react-icons/hi2'
 import { collection, query, where } from 'firebase/firestore';
+import Sidebar from '../components/SideBar';
 export default function Profile() {
   useEffect(()=>{
     async function getUserListing(){
@@ -65,6 +66,7 @@ export default function Profile() {
   }
   return (
     <>
+    <Sidebar/>
     <section>
       <h1 className='text-center text-2xl'>Profile</h1>
       <div className='text-center flex flex-col items-center'>
