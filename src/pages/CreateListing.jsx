@@ -90,10 +90,15 @@ export default function CreateListing() {
             const adresse = adresseRef.current.value
             const response = await fetch(`https://maps.googleapis.com/maps/api/geocode/json?address=${adresse}&key=${process.env.REACT_APP_MAPS_API_KEY}`)
             const data = await response.json()
+
+            
+            
             if(data.status !== 'OK'){
               alert(`ton adresse n'a pas été trouvée!`)
+              console.log(data.status)
               return
             }
+            const ville = data.results[0].address_components.find(elt => elt.types.includes('locality')).long_name
             const geolocation = {};
             geolocation.lat = data.results[0].geometry.location.lat;
             geolocation.lng = data.results[0].geometry.location.lng;
@@ -106,7 +111,8 @@ export default function CreateListing() {
                 imgUrls: imgUrls,
                 timestamp: serverTimestamp(),
                 userRef: auth.currentUser.uid,
-                geolocation: geolocation
+                geolocation: geolocation,
+                ville: ville,
             }
             const collectionRef = collection(db, 'Listings');
             const docRef = await addDoc(collectionRef, entry)
