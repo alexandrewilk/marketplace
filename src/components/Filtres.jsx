@@ -24,10 +24,7 @@ export default function Filtres() {
           <option value="1000">1000€</option>
           <option value="1500">1500€</option>
         </Select>
-
-        <Input placeholder="Localisation" />
-
-        <Button colorScheme="blue">Filtrer</Button>
+        <Button colorScheme="blue" width={"300px"}>Filtrer</Button>
       </Stack>
     </Box>
   );
