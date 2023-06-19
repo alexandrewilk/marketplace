@@ -9,7 +9,7 @@ import { collection, limit, orderBy, query, getDocs } from 'firebase/firestore'
 import { db } from '../firebase'
 
 
-export default function Offers() {
+export default function Home() {
   const {isLoaded} = useJsApiLoader({
     googleMapsApiKey: process.env.REACT_APP_MAPS_API_KEY,
     libraries: ['places']
