@@ -17,6 +17,7 @@ import MesAnnonces from './pages/MesAnnonces';
 import MesLikes from './pages/MesLikes';
 import MesAlertes from './pages/MesAlertes';
 import Settings from './pages/Settings';
+import { FiltersContext } from "./context/FiltersContext";
 
 export default function App() {
   return (
