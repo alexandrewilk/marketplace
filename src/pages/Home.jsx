@@ -3,10 +3,18 @@ import AnnonceCard from '../components/AnnonceCard'
 import '../styles/home.css'
 import Filtres from '../components/Filtres'
 import { Image } from '@chakra-ui/react'
-import { GoogleMap, Marker, LoadScript } from '@react-google-maps/api'
+import { GoogleMap, MarkerF, useJsApiLoader } from '@react-google-maps/api'
 
 
 export default function Home() {
+  const {isLoaded} = useJsApiLoader({
+    googleMapsApiKey: process.env.REACT_APP_MAPS_API_KEY,
+    libraries: ['places']
+})
+  const containerStyle = {
+    height: 'calc(100vh - 180px)'
+  };
+  const center={lat:45.764043, lng:4.835659}
   return (
     <div className="page">
     <Filtres/>
@@ -22,17 +30,16 @@ export default function Home() {
           <AnnonceCard/>
         </div>
         <div className="map"> 
-        <LoadScript googleMapsApiKey={process.env.REACT_APP_MAPS_API_KEY}>
-        <GoogleMap
-          id="example-map"
-          mapContainerStyle={{ width: '100%', height: '100%' }}
-          center={{ lat: -34.397, lng: 150.644 }}
-          zoom={8}
-        >
-          <Marker position={{ lat: -34.397, lng: 150.644 }}/>
-        </GoogleMap>
-      </LoadScript>
-
+        {isLoaded ?
+        <GoogleMap center={center} zoom={13} mapContainerStyle={containerStyle}
+            options={{
+                zoomControl: false,
+                streetViewControl: false,
+                mapTypeControl: false,
+                fullscreenControl: false,
+            }}>
+                <MarkerF position={center}/>
+            </GoogleMap> : <p>LOADING</p>}
         </div>
       </div>
     </div>
