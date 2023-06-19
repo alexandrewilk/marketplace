@@ -4,5 +4,7 @@
 }
 
 .Page {
-    background-color: green;
+    background-color: white;
+    margin-top: 100px;
+    margin-bottom: 100px;
 }
