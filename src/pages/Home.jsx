@@ -4,6 +4,7 @@ import '../styles/home.css'
 import Filtres from '../components/Filtres'
 import { Image } from '@chakra-ui/react'
 import { GoogleMap, MarkerF, useJsApiLoader } from '@react-google-maps/api'
+import { Dots } from 'react-activity'
 
 
 export default function Home() {
@@ -39,7 +40,7 @@ export default function Home() {
                 fullscreenControl: false,
             }}>
                 <MarkerF position={center}/>
-            </GoogleMap> : <p>LOADING</p>}
+            </GoogleMap> :<div className='flex  justify-center'><Dots/></div>}
         </div>
       </div>
     </div>
