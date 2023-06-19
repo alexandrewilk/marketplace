@@ -1,29 +1,48 @@
 import React from "react";
-import { Box, Center, Image, Flex, Text } from "@chakra-ui/react";
+import { Box, Image, Flex, Text, Spacer } from "@chakra-ui/react";
 import CustomBadge from './CustomBadge';
+import IconBadge from './IconBadge';
+import { FaStar } from "react-icons/fa";
 
 export default function AnnonceCard() {
   return (
-    <Center>
-    <Box p="5" maxW="320px" borderWidth="1px">
-      <Image borderRadius="md" src="https://bit.ly/2k1H1t6" />
-      <Flex align="baseline" mt={2}>
-        <CustomBadge text="Seloger" />
-        <Text
-          ml={2}
-          textTransform="uppercase"
-          fontSize="sm"
-          fontWeight="bold"
-          color="pink.800"
-        >
-          Vérifié &bull; Lyon
-        </Text>
+    <Box 
+      maxW="800px" 
+      borderWidth="1px" 
+      borderRadius="16px" 
+      overflow="hidden" 
+      boxShadow="base" 
+      height="200px"
+      transition="box-shadow 0.2s ease-in-out"
+      _hover={{ boxShadow: "lg" }}
+      mb={4}
+    >
+      <Flex direction={["column", "row"]} height="100%">
+        <Box flex="1" height="100%">
+          <Image src="https://bit.ly/2k1H1t6" alt="Appartement" objectFit="cover" height="100%"/>
+        </Box>
+        <Box flex="2" p="5" display="flex" flexDirection="column" justifyContent="space-between" height="100%">
+          <Box>
+            <Flex align="baseline" mb={2}>
+              <CustomBadge text="Seloger" />
+              <Spacer />
+            </Flex>
+            <Text fontSize="xl" fontWeight="semibold" lineHeight="short">
+              Appartement lyon spacieux
+            </Text>
+            <Flex align="baseline" mt={2}>
+              <IconBadge icon={FaStar} text="5 chambres" marginRight={2} />
+              <IconBadge icon={FaStar} text="300m²" marginRight={2} />
+              <IconBadge icon={FaStar} text="2 salle de bain" />
+            </Flex>
+          </Box>
+          <Box alignSelf="flex-end" textAlign="right">
+            <Text fontSize="xl" color="blue.500" mt={2}>
+              550€/mois
+            </Text>
+          </Box>
+        </Box>
       </Flex>
-      <Text mt={2} fontSize="xl" fontWeight="semibold" lineHeight="short">
-        Appartement lyon spacieux
-      </Text>
-      <Text mt={2}>550€/mois</Text>
     </Box>
-  </Center>
   );
 }
