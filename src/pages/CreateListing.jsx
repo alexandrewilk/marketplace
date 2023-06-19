@@ -8,7 +8,7 @@ import { addDoc, collection, doc, serverTimestamp } from 'firebase/firestore';
 import { useNavigate } from 'react-router-dom';
 import {useJsApiLoader, Autocomplete} from '@react-google-maps/api'
 import { SkeletonText} from '@chakra-ui/react'
-const logements = ['Villa', 'Appart', 'Maison'];
+const logements = ['Villa', 'Appartement', 'Maison'];
 const rooms = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]
 const libraries = ['places']
 export default function CreateListing() {

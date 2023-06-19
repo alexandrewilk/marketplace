@@ -10,7 +10,7 @@ export default function Filtres() {
         <Select placeholder="Type de logement">
           <option value="maison">Maison</option>
           <option value="appartement">Appartement</option>
-          <option value="studio">Studio</option>
+          <option value="studio">Villa</option>
         </Select>
 
         <Select placeholder="Nombre de pièces">
@@ -24,6 +24,7 @@ export default function Filtres() {
           <option value="1000">1000€</option>
           <option value="1500">1500€</option>
         </Select>
+        
         <Button colorScheme="blue" width={"300px"}>Filtrer</Button>
       </Stack>
     </Box>
