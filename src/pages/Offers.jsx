@@ -37,9 +37,10 @@ export default function Home() {
   const center={lat:45.764043, lng:4.835659}
   return (
     <div className="page">
-    <Filtres/>
+    
       <div className="main-grid">
         <div className="grid">
+        <Filtres/>
           <AnnonceCard/>
           <AnnonceCard/>
           <AnnonceCard/>
