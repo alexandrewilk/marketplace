@@ -5,7 +5,7 @@ import CustomBadge from "../components/CustomBadge";
 
 export default function Annonce() {
   return (
-    <Box width="80%" margin="auto" marginTop="90px">
+    <Box maxWidth="1280px" margin="auto" marginTop="90px">
     <Grid templateColumns={["repeat(1, 1fr)", "repeat(2, 1fr)"]} gap={6}>
       <Image src="https://bit.ly/2k1H1t6" objectFit="cover" borderRadius="md" height="100%" maxHeight="500px" />
       <Box>

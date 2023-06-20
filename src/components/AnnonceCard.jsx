@@ -9,8 +9,11 @@ export default function AnnonceCard() {
 
   return (
     <Box 
-      maxW={["80%", "45%"]} 
-      borderWidth="1px" 
+      maxW={["80%", "95%"]}
+      marginLeft={["10%", "5%"]}
+      marginRight={["10%", "5%"]}  
+      borderWidth="1px"
+      backgroundColor={"white"} 
       borderRadius="16px" 
       overflow="hidden" 
       boxShadow="base" 
