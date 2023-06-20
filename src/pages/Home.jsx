@@ -1,12 +1,20 @@
-import React from 'react'
+import React, { useState } from 'react'
 import '../styles/home.css'
 import { Box, Heading, Input, InputGroup, InputLeftElement } from '@chakra-ui/react';
 import { SearchIcon } from '@chakra-ui/icons';
+import { useNavigate } from 'react-router-dom';
 
 
 
 export default function Home() {
+  const [ville, setVille] = useState('');
+  const navigate = useNavigate();
 
+  function handleKeyDown(e){
+    if(e.key=='Enter'){
+      navigate(`/recherche/${ville}`)
+    }
+  }
   return (
     <div className="page">
     <Box
@@ -34,6 +42,8 @@ export default function Home() {
         <Input
           type="search"
           placeholder="Entrez le nom de la ville..."
+          onKeyDown={handleKeyDown}
+          onChange={(e)=>{e.preventDefault();setVille(e.target.value)}}
         />
       </InputGroup>
     </Box>

@@ -17,6 +17,7 @@ import MesAnnonces from './pages/MesAnnonces';
 import MesLikes from './pages/MesLikes';
 import MesAlertes from './pages/MesAlertes';
 import Settings from './pages/Settings';
+import Recherche from "./pages/Recherche";
 
 
 export default function App() {
@@ -38,6 +39,7 @@ export default function App() {
         <Route path='/forgot-password' element={<ForgotPassword/>}/>
         <Route path='/offers' element={<Offers/>}/>
         <Route path='/listings/:listingID' element={<Listing/>}/>
+        <Route path='/recherche/:ville' element={<Recherche/>}/>
         <Route path='/create-listing' element={<PrivateRoute/>}>
           <Route path='/create-listing' element={<CreateListing/>}/>
         </Route>

@@ -10,9 +10,10 @@ import { db } from '../firebase'
 
 
 export default function Home() {
+  const libraries = ['places']
   const {isLoaded} = useJsApiLoader({
     googleMapsApiKey: process.env.REACT_APP_MAPS_API_KEY,
-    libraries: ['places']
+    libraries: libraries
 })
   const [annonces, setAnnonces] = useState([]);
   useEffect(()=>{
