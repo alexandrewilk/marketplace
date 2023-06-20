@@ -66,7 +66,6 @@ export default function Profile() {
   }
   return (
     <>
-    <Sidebar/>
     <section>
       <h1 className='text-center text-2xl'>Profile</h1>
       <div className='text-center flex flex-col items-center'>
