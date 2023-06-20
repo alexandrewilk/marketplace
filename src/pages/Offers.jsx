@@ -7,6 +7,7 @@ import { GoogleMap, MarkerF, useJsApiLoader } from '@react-google-maps/api'
 import { Dots } from 'react-activity'
 import { collection, limit, orderBy, query, getDocs } from 'firebase/firestore'
 import { db } from '../firebase'
+import { useSearchParams } from 'react-router-dom'
 
 
 export default function Home() {
@@ -15,8 +16,14 @@ export default function Home() {
     googleMapsApiKey: process.env.REACT_APP_MAPS_API_KEY,
     libraries: libraries
 })
+  const [searchParams, setSearchParams] = useSearchParams();
+  const filters = []
+  for (let entries of searchParams.entries()){
+    filters.push(entries)
+  }
   const [annonces, setAnnonces] = useState([]);
   useEffect(()=>{
+    if(!filters){
     async function getData(){
       try {
         const q = query(collection(db, 'Listings'), orderBy('timestamp', 'desc'), limit(10))
@@ -30,7 +37,7 @@ export default function Home() {
       } catch (error) {
         console.log(error.message)
       }
-    }
+    }}
   }, [])
   const containerStyle = {
     height: 'calc(100vh - 180px)'
