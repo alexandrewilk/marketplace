@@ -18,10 +18,7 @@ const containerStyle = {
 export default function Recherche() {
     const params = useParams()
     const [searchParams, setSearchParams] = useSearchParams();
-    // const filters = []
-    // for (let entries of searchParams.entries()){
-    //     filters.push(entries)
-    // }
+ 
     const [currentFilters, setCurrentFilters] = useState(()=>{
         var rObj = {}
         for (let filter of availableFilters){
@@ -33,6 +30,7 @@ export default function Recherche() {
     const navigate = useNavigate();
     const [loading, setLoading] = useState(true)
     const [annonces, setAnnonces] = useState([])
+    const [filteredAnnonces, setFilteredAnnonces] = useState([])
     const libraries = ['places']
     const {isLoaded} = useJsApiLoader({
     googleMapsApiKey: process.env.REACT_APP_MAPS_API_KEY,
@@ -51,7 +49,9 @@ export default function Recherche() {
                     id: doc.id,
                     data : doc.data()
                 }))})
+                console.log(annonces)
                 setAnnonces(annonces)
+                setFilteredAnnonces(filterAnnonces(annonces))
             } catch (error) {
                 alert(error.message)
             }finally{
@@ -62,11 +62,42 @@ export default function Recherche() {
         fetchData();
     }, [])
 
+    useEffect(()=>{
+        var searchParamObj = {}
+        for (let filter of availableFilters){
+            if(searchParams.get(filter)){
+            searchParamObj[filter] = searchParams.get(filter)}
+        }
+        if(searchParamObj != currentFilters){
+            setSearchParams(currentFilters)
+        }
+        setFilteredAnnonces(filterAnnonces(annonces))
+    }, [currentFilters])
+
+    function filterAnnonces(annonces){
+        for (let key in currentFilters){
+            if(key == 'prixMax'){
+                let annoncesSetter = annonces.filter((a) => {return(a.data.loyer <= currentFilters[key])})
+                return annoncesSetter
+            }
+            if(key == 'type'){
+                let annoncesSetter = annonces.filter((a) => {return(a.data.type == currentFilters[key])})
+                return annoncesSetter
+            }
+            if (key == 'nbPieces'){
+                let annoncesSetter = annonces.filter((a) => {return(Number(a.data.nbPieces) <= currentFilters[key])})
+                return annoncesSetter
+            }
+        }
+        return annonces
+    }
+   
     function renderContent(){
+
         if(loading){return (<Dots/>)}
         if(!villeInfo){return(<h1>VILLE CLOCHARDE DSL PAS SUPPORTÉ</h1>)}
-        if(annonces.length == 0){return(<h1>PAS DANNONCES DANS CETTE VILLE</h1>)}
-        return(annonces.map((a)=>{
+        if(filteredAnnonces.length == 0){return(<h1>PAS DANNONCES DANS CETTE VILLE</h1>)}
+        return(filteredAnnonces.map((a)=>{
             return(
                 <div key = {a.id} onClick={(e)=>{e.preventDefault();navigate(`/listings/${a.id}`)}}>
                 <AnnonceCard key={a.id} data = {a.data}/>
@@ -85,9 +116,9 @@ export default function Recherche() {
         direction={['column', 'row']}
         spacing={4}
       >
-        <Select placeholder="Type de logement">
+        <Select placeholder="Type de logement" onChange={(e)=>{setCurrentFilters((prev)=>{let filter = {...prev, ['type'] : e.target.value};return filter})}}>
           <option value="maison">Maison</option>
-          <option value="appartement">Appartement</option>
+          <option value="Appart">Appartement</option>
           <option value="studio">Villa</option>
         </Select>
 
