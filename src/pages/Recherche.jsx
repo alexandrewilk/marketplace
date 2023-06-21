@@ -14,16 +14,21 @@ const containerStyle = {
   };
 
   const availableFilters = ['type', 'nbPieces', 'prixMax']
-
+  
 export default function Recherche() {
-    const params = useParams()
-    const [searchParams, setSearchParams] = useSearchParams();
- 
-    const [currentFilters, setCurrentFilters] = useState(()=>{
+    const libraries = ['places']
+    const {isLoaded} = useJsApiLoader({
+    googleMapsApiKey: process.env.REACT_APP_MAPS_API_KEY,
+    libraries: libraries
+    })
+  
+    const params = useParams() //params est la ville
+    const [searchParams, setSearchParams] = useSearchParams(); //les searchparams sont les filtres
+    const [currentFilters, setCurrentFilters] = useState(()=>{ //on récupères les searchparams 'localement', que l'on pourra éditer dans un forme
         var rObj = {}
         for (let filter of availableFilters){
-            if(searchParams.get(filter)){
-            rObj[filter] = searchParams.get(filter)}
+            
+            rObj[filter] = searchParams.get(filter)
         }
         return rObj
     })
@@ -31,11 +36,6 @@ export default function Recherche() {
     const [loading, setLoading] = useState(true)
     const [annonces, setAnnonces] = useState([])
     const [filteredAnnonces, setFilteredAnnonces] = useState([])
-    const libraries = ['places']
-    const {isLoaded} = useJsApiLoader({
-    googleMapsApiKey: process.env.REACT_APP_MAPS_API_KEY,
-    libraries: libraries
-    })
     const villeInfo = villes.find((v)=>{return(v.city == params.ville)})
     const center = villeInfo ? {lat: villeInfo.lat, lng: villeInfo.lng} : {lat:0, lng:0}
     useEffect(()=>{
@@ -49,8 +49,8 @@ export default function Recherche() {
                     id: doc.id,
                     data : doc.data()
                 }))})
-                setAnnonces(annonces)
-                setFilteredAnnonces(filterAnnonces(annonces))
+                setAnnonces(annonces) //on récupère toutes les annonces
+                setFilteredAnnonces(filterAnnonces(annonces)) //ça c'est les annonces qui s'afficheront, celles filtrées selon searchparams
             } catch (error) {
                 alert(error.message)
             }finally{
@@ -62,7 +62,7 @@ export default function Recherche() {
     }, [])
 
     useEffect(()=>{
-        var searchParamObj = {}
+        var searchParamObj = {} //dès qu'on update (localement) les filtres, on set les searchParams dans l'url puis on filtre les annonces selon ces nouveaux params
         for (let filter of availableFilters){
             if(searchParams.get(filter)){
             searchParamObj[filter] = searchParams.get(filter)}
@@ -75,7 +75,7 @@ export default function Recherche() {
 
     function filterAnnonces(annonces){
         for (let key in currentFilters){
-            console.log(key)
+            if (currentFilters[key]!="null"){
             if(key == 'prixMax'){
                 annonces = annonces.filter((a) => {return(a.data.loyer <= currentFilters[key])})
             }
@@ -85,7 +85,7 @@ export default function Recherche() {
             if (key == 'nbPieces'){
                 annonces = annonces.filter((a) => {return(Number(a.data.nbPieces) >= Number(currentFilters[key]))}) 
             }
-        }
+        }}
         return annonces
     }
    
