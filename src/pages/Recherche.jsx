@@ -16,9 +16,9 @@ const containerStyle = {
   const availableFilters = ['type', 'nbPieces', 'prixMax']
 
 export default function Recherche() {
-    const params = useParams()
-    const [searchParams, setSearchParams] = useSearchParams();
-    const [currentFilters, setCurrentFilters] = useState(()=>{
+    const params = useParams() //params est la ville
+    const [searchParams, setSearchParams] = useSearchParams(); //les searchparams sont les filtres
+    const [currentFilters, setCurrentFilters] = useState(()=>{ //on récupères les searchparams 'localement', que l'on pourra éditer dans un forme
         var rObj = {}
         for (let filter of availableFilters){
             
@@ -48,8 +48,8 @@ export default function Recherche() {
                     id: doc.id,
                     data : doc.data()
                 }))})
-                setAnnonces(annonces)
-                setFilteredAnnonces(filterAnnonces(annonces))
+                setAnnonces(annonces) //on récupère toutes les annonces
+                setFilteredAnnonces(filterAnnonces(annonces)) //ça c'est les annonces qui s'afficheront, celles filtrées selon searchparams
             } catch (error) {
                 alert(error.message)
             }finally{
@@ -61,7 +61,7 @@ export default function Recherche() {
     }, [])
 
     useEffect(()=>{
-        var searchParamObj = {}
+        var searchParamObj = {} //dès qu'on update (localement) les filtres, on set les searchParams dans l'url puis on filtre les annonces selon ces nouveaux params
         for (let filter of availableFilters){
             if(searchParams.get(filter)){
             searchParamObj[filter] = searchParams.get(filter)}
