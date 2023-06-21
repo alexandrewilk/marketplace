@@ -49,7 +49,6 @@ export default function Recherche() {
                     id: doc.id,
                     data : doc.data()
                 }))})
-                console.log(annonces)
                 setAnnonces(annonces)
                 setFilteredAnnonces(filterAnnonces(annonces))
             } catch (error) {
@@ -76,17 +75,15 @@ export default function Recherche() {
 
     function filterAnnonces(annonces){
         for (let key in currentFilters){
+            console.log(key)
             if(key == 'prixMax'){
-                let annoncesSetter = annonces.filter((a) => {return(a.data.loyer <= currentFilters[key])})
-                return annoncesSetter
+                annonces = annonces.filter((a) => {return(a.data.loyer <= currentFilters[key])})
             }
             if(key == 'type'){
-                let annoncesSetter = annonces.filter((a) => {return(a.data.type == currentFilters[key])})
-                return annoncesSetter
+                annonces = annonces.filter((a) => {return(a.data.type == currentFilters[key])})
             }
             if (key == 'nbPieces'){
-                let annoncesSetter = annonces.filter((a) => {return(Number(a.data.nbPieces) <= currentFilters[key])})
-                return annoncesSetter
+                annonces = annonces.filter((a) => {return(Number(a.data.nbPieces) >= Number(currentFilters[key]))}) 
             }
         }
         return annonces
@@ -122,7 +119,7 @@ export default function Recherche() {
           <option value="studio">Villa</option>
         </Select>
 
-        <Select placeholder="Nombre de pièces">
+        <Select placeholder="Nombre de pièces" onChange={(e)=>{setCurrentFilters((prev)=>{let filter = {...prev, ['nbPieces'] : e.target.value};return filter})}}>
           <option value="1">1</option>
           <option value="2">2</option>
           <option value="3">3</option>
