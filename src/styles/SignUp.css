@@ -8,8 +8,7 @@ body {
     display: flex;
     flex-direction: row;
     width: 100vw;
-    height: 100vh;
-    padding-top: 70px;
+    height: 100vh
   }
   
   .image {

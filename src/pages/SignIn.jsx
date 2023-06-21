@@ -1,9 +1,9 @@
 import React, { useState } from 'react';
-import { Link, useNavigate } from 'react-router-dom';
+import { Link as RouterLink, useNavigate } from 'react-router-dom';
 import { auth } from '../firebase';
 import { toast } from 'react-toastify';
 import { signInWithEmailAndPassword } from 'firebase/auth';
-import '../styles/SignIn.css'
+import { Box, Button, Flex, Image, Input, Link, Stack, Text, useBreakpointValue } from '@chakra-ui/react';
 
 export default function SignIn() {
   const [formData, setFormData] = useState({
@@ -32,27 +32,28 @@ export default function SignIn() {
     }
   }
 
+  const flexDirection = useBreakpointValue({ base: "column-reverse", md: "row-reverse" })
+  const displayValue = useBreakpointValue({ base: "none", md: "flex" })
+
   return (
-  <section className="container">
-      <div className="signin-form">
-        <h1 className="title">Se connecter</h1>
-        <form onSubmit={onSubmit} className="form">
-          <input type="email" id="email" value={email} onChange={onChange} placeholder="Email" className="input-field" />
-          <input type="password" id="password" value={password} onChange={onChange} placeholder="Mot de passe" className="input-field" />
-          <button type="submit" className="submit-button">Se connecter</button>
+    <Flex direction={flexDirection} w="100vw" h="93vh">
+      <Box flex={{ base: "1", md: "2"}} display={displayValue} alignItems="center" justifyContent="center" p="20px">
+        <Image src={require('../assets/images/SignIn.jpg')} alt="Image description" objectFit="cover" borderRadius="10px" h="100%" />
+      </Box>
+      <Box flex="1" display="flex" flexDirection="column" alignItems="center" justifyContent="center" p="1rem">
+        <Text fontSize="2rem" textAlign="center" color="#333333" mb="2rem">Se connecter</Text>
+        <form onSubmit={onSubmit}>
+          <Stack spacing="1rem" mb="1rem" maxW="400px" w="100%">
+            <Input type="email" id="email" value={email} onChange={onChange} placeholder="Email" bg="white" borderColor="#cccccc" borderRadius="4px" p="1rem" />
+            <Input type="password" id="password" value={password} onChange={onChange} placeholder="Mot de passe" bg="white" borderColor="#cccccc" borderRadius="4px" p="1rem" />
+            <Button type="submit" colorScheme="blue" borderRadius="4px" p="1rem" fontSize="1rem">Se connecter</Button>
+          </Stack>
         </form>
-        <div className="links">
-          <p>
-            Pas de compte ? <Link to="/sign-up" className="link">Creer un compte</Link>
-          </p>
-          <p>
-            <Link to="/forgot-password" className="link">Mot de passe oublié ? </Link>
-          </p>
-        </div>
-      </div>
-      <div className="image">
-        <img src={require('../assets/images/SignIn.jpg')} alt="Image description" />
-      </div>
-    </section>
+        <Stack textAlign="center">
+          <Text>Pas de compte ? <Link as={RouterLink} to="/sign-up" color="blue.500">Creer un compte</Link></Text>
+          <Text><Link as={RouterLink} to="/forgot-password" color="blue.500">Mot de passe oublié ? </Link></Text>
+        </Stack>
+      </Box>
+    </Flex>
   );
 }

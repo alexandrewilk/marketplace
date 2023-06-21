@@ -6,6 +6,7 @@ import { onAuthStateChanged } from 'firebase/auth';
 import { Text, Box, Flex, Avatar, Link, Button, Menu, MenuButton, MenuList, MenuItem, MenuDivider, useDisclosure, useColorModeValue, Stack, useColorMode, Center, Image, Input } from '@chakra-ui/react';
 import { InputGroup, InputLeftElement, Icon } from "@chakra-ui/react";
 import { FiSearch } from "react-icons/fi";
+import NoPP from '../assets/images/NoPP.webp';
 
 export default function Nav() {
   const { colorMode, toggleColorMode } = useColorMode();
@@ -73,16 +74,21 @@ export default function Nav() {
                 minW={0}>
                 <Avatar
                   size={'sm'}
-                  src={'https://avatars.dicebear.com/api/male/username.svg'}
+                  src={pageState === 'Profile' ? 'https://avatars.dicebear.com/api/male/username.svg' : 'https://avatars.dicebear.com/api/female/username.svg'}
                 />
               </MenuButton>
               <MenuList alignItems={'center'}>
               <Center mt={2} mb={2}>
-                  <Avatar size={'lg'} src={'https://avatars.dicebear.com/api/male/username.svg'} />
+                  <Avatar 
+                  size={'lg'}                   
+                  src={pageState === 'Profile' ? 'https://avatars.dicebear.com/api/male/username.svg' : 'https://avatars.dicebear.com/api/female/username.svg'}
+ />
               </Center>
-              <Center mt={2} mb={2}>
-                 <Text>Boumara91</Text>
-              </Center>
+              {pageState === 'Profile' && (
+                <Center mt={2} mb={2}>
+                  <Text>Boumara91</Text>
+                </Center>
+              )}
                 <MenuDivider />
                 {pageState === 'Profile' ? (
                   <>
