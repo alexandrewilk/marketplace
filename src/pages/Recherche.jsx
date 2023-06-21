@@ -39,7 +39,7 @@ export default function Recherche() {
     libraries: libraries
     })
     const villeInfo = villes.find((v)=>{return(v.city == params.ville)})
-    const center = {lat: villeInfo.lat, lng: villeInfo.lng}
+    const center = villeInfo ? {lat: villeInfo.lat, lng: villeInfo.lng} : {lat:0, lng:0}
     useEffect(()=>{
         async function fetchData(){
             if(!villeInfo){setLoading(false);return}
@@ -61,7 +61,7 @@ export default function Recherche() {
         }
         fetchData();
     }, [])
-    
+
     function renderContent(){
         if(loading){return (<Dots/>)}
         if(!villeInfo){return(<h1>VILLE CLOCHARDE DSL PAS SUPPORTÉ</h1>)}

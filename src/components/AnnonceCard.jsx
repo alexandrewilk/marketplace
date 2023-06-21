@@ -6,6 +6,7 @@ import { FaStar } from "react-icons/fa";
 
 export default function AnnonceCard({data}) {
   const [isLargerThan768] = useMediaQuery("(min-width: 768px)");
+  
   return (
     <Box 
       maxW={["80%", "95%"]}
