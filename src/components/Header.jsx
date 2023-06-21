@@ -15,6 +15,11 @@ export default function Nav() {
   
   const [searchValue, setSearchValue] = useState('');
   const [pageState, setPageState] = useState('Se connecter');
+  const [formData, setFormData] = useState({
+    name: auth.currentUser.displayName,
+    email: auth.currentUser.email
+  })
+  const {name, email} = formData
 
   useEffect(() => {
     onAuthStateChanged(auth, (user) => {
@@ -86,7 +91,7 @@ export default function Nav() {
               </Center>
               {pageState === 'Profile' && (
                 <Center mt={2} mb={2}>
-                  <Text>Boumara91</Text>
+                  <Text>{name}</Text>
                 </Center>
               )}
                 <MenuDivider />
