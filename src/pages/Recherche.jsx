@@ -14,8 +14,14 @@ const containerStyle = {
   };
 
   const availableFilters = ['type', 'nbPieces', 'prixMax']
-
+  
 export default function Recherche() {
+    const libraries = ['places']
+    const {isLoaded} = useJsApiLoader({
+    googleMapsApiKey: process.env.REACT_APP_MAPS_API_KEY,
+    libraries: libraries
+    })
+  
     const params = useParams() //params est la ville
     const [searchParams, setSearchParams] = useSearchParams(); //les searchparams sont les filtres
     const [currentFilters, setCurrentFilters] = useState(()=>{ //on récupères les searchparams 'localement', que l'on pourra éditer dans un forme
@@ -30,11 +36,6 @@ export default function Recherche() {
     const [loading, setLoading] = useState(true)
     const [annonces, setAnnonces] = useState([])
     const [filteredAnnonces, setFilteredAnnonces] = useState([])
-    const libraries = ['places']
-    const {isLoaded} = useJsApiLoader({
-    googleMapsApiKey: process.env.REACT_APP_MAPS_API_KEY,
-    libraries: libraries
-    })
     const villeInfo = villes.find((v)=>{return(v.city == params.ville)})
     const center = villeInfo ? {lat: villeInfo.lat, lng: villeInfo.lng} : {lat:0, lng:0}
     useEffect(()=>{
