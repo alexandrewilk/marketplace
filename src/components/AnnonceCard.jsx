@@ -4,9 +4,8 @@ import CustomBadge from './CustomBadge';
 import IconBadge from './IconBadge';
 import { FaStar } from "react-icons/fa";
 
-export default function AnnonceCard() {
+export default function AnnonceCard({data}) {
   const [isLargerThan768] = useMediaQuery("(min-width: 768px)");
-
   return (
     <Box 
       maxW={["80%", "95%"]}
@@ -24,7 +23,7 @@ export default function AnnonceCard() {
     >
       <Flex direction={["column", "row"]} height="100%">
         <Box width={["100%", "35%"]} height={["200px", "100%"]}>
-          <Image src="https://bit.ly/2k1H1t6" alt="Appartement" objectFit="cover" width="100%" height="100%"/>
+          <Image src={data.imgUrls ? data.imgUrls[0] : "https://bit.ly/2k1H1t6"} alt="Appartement" objectFit="cover" width="100%" height="100%"/>
         </Box>
         <Box flex="2" p={["2", "5"]} display="flex" flexDirection="column" justifyContent="space-between" height="100%">
           <Box>
@@ -33,7 +32,7 @@ export default function AnnonceCard() {
               <Spacer />
             </Flex>
             <Text fontSize={["md", "xl"]} fontWeight="semibold" lineHeight="short">
-              Appartement lyon spacieux
+              {data.type} , loyer de {data.loyer}€ , {data.nbPieces} pièces
             </Text>
             <Box overflowX={["auto", "visible"]}>
               <Flex align="baseline" mt={2}>
