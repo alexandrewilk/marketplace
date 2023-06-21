@@ -6,7 +6,7 @@ import { db } from '../firebase'
 import AnnonceCard from '../components/AnnonceCard'
 import '../styles/home.css'
 import { useJsApiLoader, MarkerF, GoogleMap } from '@react-google-maps/api'
-import { Box, Stack, Select, Input, Button } from '@chakra-ui/react';
+import { Box, Stack, Select, Button } from '@chakra-ui/react';
 import { useSearchParams } from 'react-router-dom'
 const villes = require('../assets/data/villes2.json')
 const containerStyle = {
