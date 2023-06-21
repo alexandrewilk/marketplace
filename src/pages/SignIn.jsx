@@ -36,7 +36,7 @@ export default function SignIn() {
   const displayValue = useBreakpointValue({ base: "none", md: "flex" })
 
   return (
-    <Flex direction={flexDirection} w="100vw" h="93vh">
+    <Flex direction={flexDirection} w="100vw" h="91vh">
       <Box flex={{ base: "1", md: "2"}} display={displayValue} alignItems="center" justifyContent="center" p="20px">
         <Image src={require('../assets/images/SignIn.jpg')} alt="Image description" objectFit="cover" borderRadius="10px" h="100%" />
       </Box>
