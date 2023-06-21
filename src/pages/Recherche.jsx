@@ -18,12 +18,11 @@ const containerStyle = {
 export default function Recherche() {
     const params = useParams()
     const [searchParams, setSearchParams] = useSearchParams();
- 
     const [currentFilters, setCurrentFilters] = useState(()=>{
         var rObj = {}
         for (let filter of availableFilters){
-            if(searchParams.get(filter)){
-            rObj[filter] = searchParams.get(filter)}
+            
+            rObj[filter] = searchParams.get(filter)
         }
         return rObj
     })
@@ -75,7 +74,7 @@ export default function Recherche() {
 
     function filterAnnonces(annonces){
         for (let key in currentFilters){
-            console.log(key)
+            if (currentFilters[key]!="null"){
             if(key == 'prixMax'){
                 annonces = annonces.filter((a) => {return(a.data.loyer <= currentFilters[key])})
             }
@@ -85,7 +84,7 @@ export default function Recherche() {
             if (key == 'nbPieces'){
                 annonces = annonces.filter((a) => {return(Number(a.data.nbPieces) >= Number(currentFilters[key]))}) 
             }
-        }
+        }}
         return annonces
     }
    
