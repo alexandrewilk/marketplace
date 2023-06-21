@@ -2,7 +2,6 @@ import { BrowserRouter as Router, Routes, Route} from "react-router-dom";
 import Home from "./pages/Home";
 import ForgotPassword from "./pages/ForgotPassword";
 import SignIn from "./pages/SignIn"
-import Offers from "./pages/Offers";
 import SignUp from "./pages/SignUp"
 import Profile from "./pages/Profile"
 import Header from "./components/Header";
@@ -12,7 +11,6 @@ import 'react-toastify/dist/ReactToastify.css';
 import PrivateRoute from "./components/PrivateRoute";
 import CreateListing from "./pages/CreateListing";
 import Listing from "./pages/Listing";
-import Annonce from './pages/Annonce';
 import MesAnnonces from './pages/MesAnnonces';
 import MesLikes from './pages/MesLikes';
 import MesAlertes from './pages/MesAlertes';

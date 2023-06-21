@@ -23,7 +23,7 @@ export default function CreateListing() {
     const [loyer, setLoyer] = useState('');
     const [images, setImages] = useState(null);
     const [loading, setLoading] = useState(false);
-
+    const [desc, setDesc] = useState('');
 
     async function storeImage(image){
         return new Promise((resolve, reject)=>{
@@ -113,6 +113,7 @@ export default function CreateListing() {
                 userRef: auth.currentUser.uid,
                 geolocation: geolocation,
                 ville: ville,
+                desc: desc
             }
             const collectionRef = collection(db, 'Listings');
             const docRef = await addDoc(collectionRef, entry)
@@ -155,6 +156,8 @@ export default function CreateListing() {
         </Autocomplete>
         <label>Prix du loyer potow</label>
         <input type='text' onChange={(e)=>{e.preventDefault();setLoyer(e.target.value)}} placeholder='Loyer'/>
+        <label>Desc ma g</label>
+        <input type='text' onChange={(e)=>{e.preventDefault();setDesc(e.target.value)}} placeholder='Description'/>
         <label>Image du délire stp</label>
         <input type='file' id='images' accept='.jpg, .png, .jpeg' multiple onChange={(e)=>{e.preventDefault();setImages(e.target.files)}}></input>
         {loading ?  <Dots /> :<button onClick={handleAddListing} className='bg-blue-800 text-white'>Lister mon Annonce</button>}

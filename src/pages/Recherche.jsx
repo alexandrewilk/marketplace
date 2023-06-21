@@ -4,15 +4,42 @@ import { Dots } from 'react-activity'
 import { useNavigate, useParams } from 'react-router-dom'
 import { db } from '../firebase'
 import AnnonceCard from '../components/AnnonceCard'
-
-
+import '../styles/home.css'
+import { useJsApiLoader, MarkerF, GoogleMap } from '@react-google-maps/api'
+import { Box, Stack, Select, Input, Button } from '@chakra-ui/react';
+import { useSearchParams } from 'react-router-dom'
 const villes = require('../assets/data/villes2.json')
+const containerStyle = {
+    height: 'calc(100vh - 180px)'
+  };
+
+  const availableFilters = ['type', 'nbPieces', 'prixMax']
+
 export default function Recherche() {
     const params = useParams()
+    const [searchParams, setSearchParams] = useSearchParams();
+    // const filters = []
+    // for (let entries of searchParams.entries()){
+    //     filters.push(entries)
+    // }
+    const [currentFilters, setCurrentFilters] = useState(()=>{
+        var rObj = {}
+        for (let filter of availableFilters){
+            if(searchParams.get(filter)){
+            rObj[filter] = searchParams.get(filter)}
+        }
+        return rObj
+    })
     const navigate = useNavigate();
     const [loading, setLoading] = useState(true)
     const [annonces, setAnnonces] = useState([])
+    const libraries = ['places']
+    const {isLoaded} = useJsApiLoader({
+    googleMapsApiKey: process.env.REACT_APP_MAPS_API_KEY,
+    libraries: libraries
+    })
     const villeInfo = villes.find((v)=>{return(v.city == params.ville)})
+    const center = {lat: villeInfo.lat, lng: villeInfo.lng}
     useEffect(()=>{
         async function fetchData(){
             if(!villeInfo){setLoading(false);return}
@@ -30,28 +57,72 @@ export default function Recherche() {
             }finally{
                 setLoading(false)
             }
+
         }
         fetchData();
     }, [])
+    
     function renderContent(){
         if(loading){return (<Dots/>)}
         if(!villeInfo){return(<h1>VILLE CLOCHARDE DSL PAS SUPPORTÉ</h1>)}
         if(annonces.length == 0){return(<h1>PAS DANNONCES DANS CETTE VILLE</h1>)}
         return(annonces.map((a)=>{
             return(
-                <h1 key={a.id} onClick={(e)=>{e.preventDefault();navigate(`/listings/${a.id}`)}}>{a.data.adresse}</h1>
+                <div key = {a.id} onClick={(e)=>{e.preventDefault();navigate(`/listings/${a.id}`)}}>
+                <AnnonceCard key={a.id} data = {a.data}/>
+                </div>
             )
         }))
     }
   return (
     <div>
-        <h1>AHAHA</h1>
-        <h1>AHAHA</h1>
-        <h1>AHAHA</h1>
-        <h1>AHAHA</h1>
-        <h1>AHAHA</h1>
-        <h1>AHAHA</h1>
-        {renderContent()}
+       <div className="page">
+    
+    <div className="main-grid">
+      <div className="grid">
+      <Box bg="gray.100" p={4}>
+      <Stack
+        direction={['column', 'row']}
+        spacing={4}
+      >
+        <Select placeholder="Type de logement">
+          <option value="maison">Maison</option>
+          <option value="appartement">Appartement</option>
+          <option value="studio">Villa</option>
+        </Select>
+
+        <Select placeholder="Nombre de pièces">
+          <option value="1">1</option>
+          <option value="2">2</option>
+          <option value="3">3</option>
+        </Select>
+
+        <Select placeholder="Prix max">
+          <option value="500">500€</option>
+          <option value="1000">1000€</option>
+          <option value="1500">1500€</option>
+        </Select>
+        
+        <Button colorScheme="blue" width={"300px"}>Filtrer</Button>
+      </Stack>
+    </Box>
+       {renderContent()}
+      </div>
+      <div className="map"> 
+      {isLoaded ?
+      <GoogleMap center={center} zoom={13} mapContainerStyle={containerStyle}
+          options={{
+              zoomControl: false,
+              streetViewControl: false,
+              mapTypeControl: false,
+              fullscreenControl: false,
+          }}>
+              
+          </GoogleMap> :<div className='flex  justify-center'><Dots/></div>}
+      </div>
+    </div>
+  </div>
+       
         
     </div>
     
