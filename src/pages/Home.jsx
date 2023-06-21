@@ -68,10 +68,12 @@ export default function Home() {
         <InputGroup>
           <InputLeftElement
             pointerEvents="none"
-            children={<SearchIcon color="gray.300" />}
+            children={<SearchIcon color="white" />}
           />
           <Input
+            width="500px"
             type="search"
+            borderColor="white"
             placeholder="Entrez le nom de la ville..."
             onKeyDown={handleKeyDown}
             onChange={handleInput}
@@ -97,9 +99,10 @@ export default function Home() {
                   <ListItem 
                     key={s} 
                     p={2} 
-                    bg={index === activeSuggestionIndex ? "gray.500" : "gray.100"} 
+                    bg={index === activeSuggestionIndex ? "gray.200" : "white"} 
                     borderRadius="md" 
                     width="100%"
+                    align="start"
                     _hover={{ bg: "gray.200" }}
                   >
                     {s}
