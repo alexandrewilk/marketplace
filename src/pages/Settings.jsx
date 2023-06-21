@@ -16,12 +16,12 @@ export default function Settings() {
         templateColumns={{ base: 'repeat(1, 1fr)', md: 'repeat(3, 1fr)' }}
         gap={6}
       >
-    <SettingsCard icon={AiOutlineUser} title="Informations personnelles" text="Fournissez des renseignements personnels et indiquez comment nous pouvons vous joindre" />
-    <SettingsCard icon={AiOutlineUser} title="Informations personnelles" text="Fournissez des renseignements personnels et indiquez comment nous pouvons vous joindre" />
-    <SettingsCard icon={AiOutlineUser} title="Informations personnelles" text="Fournissez des renseignements personnels et indiquez comment nous pouvons vous joindre" />
-    <SettingsCard icon={AiOutlineUser} title="Informations personnelles" text="Fournissez des renseignements personnels et indiquez comment nous pouvons vous joindre" />
-    <SettingsCard icon={AiOutlineUser} title="Informations personnelles" text="Fournissez des renseignements personnels et indiquez comment nous pouvons vous joindre" />
-    <SettingsCard icon={AiOutlineUser} title="Informations personnelles" text="Fournissez des renseignements personnels et indiquez comment nous pouvons vous joindre" />
+    <SettingsCard icon={AiOutlineUser} title="Informations personnelles" text="Fournissez des renseignements personnels et indiquez comment nous pouvons vous joindre" href="/"/>
+    <SettingsCard icon={AiOutlineUser} title="Informations personnelles" text="Fournissez des renseignements personnels et indiquez comment nous pouvons vous joindre" href="/"/>
+    <SettingsCard icon={AiOutlineUser} title="Informations personnelles" text="Fournissez des renseignements personnels et indiquez comment nous pouvons vous joindre" href="/"/>
+    <SettingsCard icon={AiOutlineUser} title="Informations personnelles" text="Fournissez des renseignements personnels et indiquez comment nous pouvons vous joindre" href="/"/>
+    <SettingsCard icon={AiOutlineUser} title="Informations personnelles" text="Fournissez des renseignements personnels et indiquez comment nous pouvons vous joindre" href="/"/>
+    <SettingsCard icon={AiOutlineUser} title="Informations personnelles" text="Fournissez des renseignements personnels et indiquez comment nous pouvons vous joindre" href="/"/>
       </Grid>
     </Container>
   );

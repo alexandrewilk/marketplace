@@ -6,15 +6,23 @@ import { onAuthStateChanged } from 'firebase/auth';
 import { Text, Box, Flex, Avatar, Link, Button, Menu, MenuButton, MenuList, MenuItem, MenuDivider, useDisclosure, useColorModeValue, Stack, useColorMode, Center, Image, Input } from '@chakra-ui/react';
 import { InputGroup, InputLeftElement, Icon } from "@chakra-ui/react";
 import { FiSearch } from "react-icons/fi";
+import NoPP from '../assets/images/NoPP.webp';
+import { useAuthStatus } from '../hooks/useAuthStatus';
 
 export default function Nav() {
+  const {loggedId, loading} = useAuthStatus();
   const { colorMode, toggleColorMode } = useColorMode();
   const location = useLocation();
   const navigate = useNavigate();
   
   const [searchValue, setSearchValue] = useState('');
   const [pageState, setPageState] = useState('Se connecter');
-
+  const [formData, setFormData] = useState({
+    name: auth.currentUser ? auth.currentUser.displayName : '',
+    email: auth.currentUser ? auth.currentUser.email : ''
+  });
+  const {name, email} = formData
+  
   useEffect(() => {
     onAuthStateChanged(auth, (user) => {
       setPageState(user ? 'Profile' : 'Se connecter');
@@ -73,16 +81,21 @@ export default function Nav() {
                 minW={0}>
                 <Avatar
                   size={'sm'}
-                  src={'https://avatars.dicebear.com/api/male/username.svg'}
+                  src={pageState === 'Profile' ? 'https://avatars.dicebear.com/api/male/username.svg' : 'https://avatars.dicebear.com/api/female/username.svg'}
                 />
               </MenuButton>
               <MenuList alignItems={'center'}>
               <Center mt={2} mb={2}>
-                  <Avatar size={'lg'} src={'https://avatars.dicebear.com/api/male/username.svg'} />
+                  <Avatar 
+                  size={'lg'}                   
+                  src={pageState === 'Profile' ? 'https://avatars.dicebear.com/api/male/username.svg' : 'https://avatars.dicebear.com/api/female/username.svg'}
+ />
               </Center>
-              <Center mt={2} mb={2}>
-                 <Text>Boumara91</Text>
-              </Center>
+              {pageState === 'Profile' && (
+                <Center mt={2} mb={2}>
+                  <Text>{auth.currentUser ? auth.currentUser.displayName : 'tg'}</Text>
+                </Center>
+              )}
                 <MenuDivider />
                 {pageState === 'Profile' ? (
                   <>
