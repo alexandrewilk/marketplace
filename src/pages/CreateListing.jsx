@@ -1,5 +1,4 @@
 import React, { useState, useEffect, useRef }from 'react'
-import "react-activity/dist/library.css";
 import { Dots } from "react-activity";
 import {storage, auth, db} from '../firebase'
 import { ref, getDownloadURL, uploadBytesResumable } from 'firebase/storage';
@@ -7,7 +6,8 @@ import {v4 as uuid} from 'uuid'
 import { addDoc, collection, doc, serverTimestamp } from 'firebase/firestore';
 import { useNavigate } from 'react-router-dom';
 import {useJsApiLoader, Autocomplete} from '@react-google-maps/api'
-import { SkeletonText} from '@chakra-ui/react'
+import { SkeletonText, Box, VStack, HStack, Heading, FormControl, FormLabel, Select, Input, Textarea, Button, Stack, Flex, Spacer } from '@chakra-ui/react' // New imports here
+
 const logements = ['Villa', 'Appartement', 'Maison'];
 const rooms = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]
 const libraries = ['places']
@@ -133,34 +133,46 @@ export default function CreateListing() {
         <SkeletonText/>
       )
     }
-  return (
-    <div className='flex flex-col items-center'>
-      <h1 className='text-center'>CREATELISTING</h1>
-        <label >Choisis un type de logement:</label>
-        <select onChange={(e) => {setLogement(e.target.value)}} id='logement'>
-        <option value="">--Type de logement--</option>
-        {logements.map((option) => (
-              <option value={option} key={option}>{option}</option>
-            ))}
-        </select>
-        <label >Combien de pièces brother</label>
-        <select onChange={(e) => {setNbRooms(e.target.value)}} id='room'>
-        <option value="">--Nombre de pièces--</option>
-        {rooms.map((option, index) => (
-              <option value={option} key={option}>{index ===9 ? option+'+': option}</option>
-            ))}
-        </select>
-        <label>C quoi ladresse</label>
-        <Autocomplete>
-        <input type='text' onChange={(e)=>{e.preventDefault()}} ref={adresseRef}placeholder='adresse'/>
-        </Autocomplete>
-        <label>Prix du loyer potow</label>
-        <input type='text' onChange={(e)=>{e.preventDefault();setLoyer(e.target.value)}} placeholder='Loyer'/>
-        <label>Desc ma g</label>
-        <input type='text' onChange={(e)=>{e.preventDefault();setDesc(e.target.value)}} placeholder='Description'/>
-        <label>Image du délire stp</label>
-        <input type='file' id='images' accept='.jpg, .png, .jpeg' multiple onChange={(e)=>{e.preventDefault();setImages(e.target.files)}}></input>
-        {loading ?  <Dots /> :<button onClick={handleAddListing} className='bg-blue-800 text-white'>Lister mon Annonce</button>}
-    </div>
-  )
+    return (
+      <Flex direction="column" align="center" mt="20px">
+          <Heading as="h1" size="xl" mb="4">Ajouter une annonce</Heading>
+          <form>
+              <Stack spacing={4} width="500px">
+                  <FormControl id="logement">
+                      <FormLabel>Type de Logement</FormLabel>
+                      <Select placeholder="Type de logement" onChange={(e) => {setLogement(e.target.value)}}>
+                          {logements.map((option) => (
+                              <option value={option} key={option}>{option}</option>
+                          ))}
+                      </Select>
+                  </FormControl>
+                  <FormControl id="room">
+                      <FormLabel>Nombre de Pièces</FormLabel>
+                      <Select placeholder="Nombre de pièces" onChange={(e) => {setNbRooms(e.target.value)}}>
+                          {rooms.map((option, index) => (
+                              <option value={option} key={option}>{index === 9 ? option + '+' : option}</option>
+                          ))}
+                      </Select>
+                  </FormControl>
+                  <FormControl id="adresse">
+                      <FormLabel>Adresse</FormLabel>
+                      <Input ref={adresseRef} placeholder="Adresse"/>
+                  </FormControl>
+                  <FormControl id="loyer">
+                      <FormLabel>Loyer</FormLabel>
+                      <Input type="number" placeholder="Loyer" onChange={(e) => {setLoyer(e.target.value)}}/>
+                  </FormControl>
+                  <FormControl id="description">
+                      <FormLabel>Description</FormLabel>
+                      <Textarea placeholder="Description" onChange={(e) => {setDesc(e.target.value)}}/>
+                  </FormControl>
+                  <FormControl id="images">
+                      <FormLabel>Image</FormLabel>
+                      <Input type='file' accept='.jpg, .png, .jpeg' multiple onChange={(e) => {setImages(e.target.files)}}/>
+                  </FormControl>
+                  <Button colorScheme="blue" onClick={handleAddListing} isLoading={loading}>Lister mon Annonce</Button>
+              </Stack>
+          </form>
+      </Flex>
+  );
 }
