@@ -8,7 +8,8 @@ import { updateProfile } from 'firebase/auth';
 import { doc, getDocs, orderBy, updateDoc } from 'firebase/firestore';
 import {HiOutlineHomeModern} from 'react-icons/hi2'
 import { collection, query, where } from 'firebase/firestore';
-import Sidebar from '../components/SideBar';
+import { Text, Box, Container, Grid, Breadcrumb, BreadcrumbItem, BreadcrumbLink, BreadcrumbSeparator, } from '@chakra-ui/react';
+
 export default function Profile() {
   useEffect(()=>{
     async function getUserListing(){
@@ -65,9 +66,17 @@ export default function Profile() {
     }
   }
   return (
-    <>
-    <section>
-      <h1 className='text-center text-2xl'>Profile</h1>
+    <Container maxWidth="1200px" mt={70}>
+      <Breadcrumb>
+        <BreadcrumbItem>
+          <BreadcrumbLink href='/Settings'>Paramètres</BreadcrumbLink>
+        </BreadcrumbItem>
+        <BreadcrumbItem>
+          <BreadcrumbLink href='/MesLikes'>Mes informations personnelles</BreadcrumbLink>
+        </BreadcrumbItem>
+      </Breadcrumb>
+      <Text fontSize="4xl" as="b">Mes informations personnelles</Text>
+
       <div className='text-center flex flex-col items-center'>
         <h2>nom :{name}</h2>
         <form onSubmit={onSubmit}>
@@ -90,7 +99,6 @@ export default function Profile() {
           )
         })}
       </div>
-    </section>
-    </>
+    </Container>
   )
 }
