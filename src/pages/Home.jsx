@@ -50,16 +50,17 @@ export default function Home() {
       bgImage="url('https://coloc.fr/wp-content/uploads/2023/04/HeroImage.webp')"
       bgSize="cover"
       bgPosition="center"
-      minHeight="70vh"
       display="flex"
       alignItems="center"
       justifyContent="center"
       flexDirection="column"
       textAlign="center"
-      padding="4rem"
       margin="20px"
       borderRadius="12px"
       height="86vh"
+      maxWidth="1400px"
+      maxHeight="676px"
+      marginX="auto"
     >
       <Heading as="h1" size="2xl" marginBottom="1rem">
         Trouve ta colocation <Box as="span" display="inline-block" borderBottom="2px solid">idéale</Box>

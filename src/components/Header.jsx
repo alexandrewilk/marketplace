@@ -49,7 +49,7 @@ export default function Nav() {
 
   return (
     <Box bg={'white.100'} px={12} borderBottomWidth={1} borderBottomColor={'gray.100'}>
-      <Flex h={16} alignItems={'center'} justifyContent={'space-between'}>
+      <Flex h={16} alignItems={'center'} justifyContent={'space-between'} maxWidth="1400px" marginX={"auto"}>
         <Box>
           <Image
           src='https://coloc.fr/wp-content/uploads/2023/01/Coloc.fr_-1.png'
