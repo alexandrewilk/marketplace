@@ -48,12 +48,16 @@ export default function Nav() {
   };
 
   return (
-    <Box bg={'white.100'} px={4} borderBottomWidth={1} borderBottomColor={'gray.100'}>
+    <Box bg={'white.100'} px={12} borderBottomWidth={1} borderBottomColor={'gray.100'}>
       <Flex h={16} alignItems={'center'} justifyContent={'space-between'}>
-        <Box width="8%">
-          <Image src='https://coloc.fr/wp-content/uploads/2023/01/Coloc.fr_-1.png' alt='Dan Abramov' />
+        <Box>
+          <Image
+          src='https://coloc.fr/wp-content/uploads/2023/01/Coloc.fr_-1.png'
+          alt='Coloc.fr'
+          objectFit="contain" // Ajuste l'image pour qu'elle soit contenue dans son conteneur
+          boxSize={{ base: "50px", sm: "80px", md: "100px", lg: "130px" }} // Tailles d'image pour différentes tailles d'écran
+          />        
         </Box>
-
         <Box width="40%">
           <InputGroup>
             <InputLeftElement
@@ -99,7 +103,7 @@ export default function Nav() {
                 <MenuDivider />
                 {pageState === 'Profile' ? (
                   <>
-                    <MenuItem onClick={() => navigate('/profile')}>Mes likes</MenuItem>
+                    <MenuItem onClick={() => navigate('/MesLikes')}>Mes likes</MenuItem>
                     <MenuItem 
                       className={`cursor-pointer ${routeMatchPath('/Settings') ? 'active' : ''}`} 
                       onClick={() => navigate("/Settings")}
