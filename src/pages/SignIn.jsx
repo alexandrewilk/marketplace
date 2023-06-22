@@ -60,11 +60,11 @@ export default function SignIn() {
           Se connecter
         </Text>
         <form onSubmit={onSubmit}>
-          <Stack spacing="1rem" mb="1rem" maxW="600px" w="100%">
+          <Stack spacing="1rem" mb="1rem" maxW="600px" w="100%" alignContent="center">
             <FormControl id="email">
               <FormLabel>Email</FormLabel>
               <Input
-                width="400px"
+                width={{ base: '100%', md: '400px' }}
                 type="email"
                 value={email}
                 onChange={onChange}
@@ -77,7 +77,7 @@ export default function SignIn() {
             <FormControl id="password">
               <FormLabel>Mot de passe</FormLabel>
               <Input
-                width="400px"
+                width={{ base: '100%', md: '400px' }}
                 type="password"
                 value={password}
                 onChange={onChange}
@@ -88,7 +88,7 @@ export default function SignIn() {
               />
             </FormControl>
             <Button
-              width="400px"
+              width={{ base: '100%', md: '400px' }}
               type="submit"
               colorScheme="blue"
               size="lg"
@@ -98,12 +98,12 @@ export default function SignIn() {
               Se connecter
             </Button>
             <Button
-              w={'full'}
+              width={{ base: '100%', md: '400px' }}
               maxW={'md'}
               variant={'outline'}
               leftIcon={<FcGoogle />}>
               <Center>
-                <Text>Sign in with Google</Text>
+                <Text>Se connecter avec Google</Text>
               </Center>
             </Button>
           </Stack>

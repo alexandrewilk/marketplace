@@ -4,7 +4,9 @@ import { auth, db } from '../firebase';
 import { createUserWithEmailAndPassword, updateProfile } from 'firebase/auth';
 import { serverTimestamp, setDoc, doc } from 'firebase/firestore';
 import { toast } from 'react-toastify';
-import { Box, Button, Flex, Image, Input, Link, Spinner, Stack, Text, useBreakpointValue } from '@chakra-ui/react';
+import { Box, Text, Stack, Input, Button, FormControl, FormLabel, Link, useColorModeValue, Flex, Image, Spinner, Center } from '@chakra-ui/react';
+import { useBreakpointValue } from '@chakra-ui/react'
+import { FcGoogle } from 'react-icons/fc';
 
 export default function SignUp() {
   const navigate = useNavigate();
@@ -51,18 +53,95 @@ export default function SignUp() {
       <Box flex={{ base: "1", md: "2"}} display={displayValue} alignItems="center" justifyContent="center" p="20px">
         <Image src={require('../assets/images/SignIn.jpg')} alt="Image description" objectFit="cover" borderRadius="10px" h="100%" />
       </Box>
-      <Box flex="1" display="flex" flexDirection="column" alignItems="center" justifyContent="center" p="1rem">
-        <Text fontSize="2rem" textAlign="center" color="#333333" mb="2rem">S'inscrire</Text>
-        <form onSubmit={onSubmit}>
-          <Stack spacing="1rem" mb="1rem" maxW="400px" w="100%">
-            <Input type="text" id="name" value={name} onChange={onChange} placeholder="Nom" bg="white" borderColor="#cccccc" borderRadius="4px" p="1rem" />
-            <Input type="email" id="email" value={email} onChange={onChange} placeholder="Email" bg="white" borderColor="#cccccc" borderRadius="4px" p="1rem" />
-            <Input type="password" id="password" value={password} onChange={onChange} placeholder="Mot de passe" bg="white" borderColor="#cccccc" borderRadius="4px" p="1rem" />
-            {loading ? <Spinner /> : <Button type="submit" colorScheme="blue" borderRadius="4px" p="1rem" fontSize="1rem">S'inscrire</Button>}
-          </Stack>
-        </form>
-        <Text textAlign="center">Déjà membre ? <Link as={RouterLink} to="/sign-in" color="blue.500">Se Connecter</Link></Text>
-      </Box>
+      <Box
+  flex="1"
+  display="flex"
+  flexDirection="column"
+  alignItems="center"
+  justifyContent="center"
+  p="1rem"
+>
+  <Text
+    fontSize="2xl"
+    fontWeight="bold"
+    textAlign="center"
+    color={useColorModeValue('gray.700', 'gray.50')}
+    mb="2rem"
+  >
+    S'inscrire
+  </Text>
+  <form onSubmit={onSubmit}>
+    <Stack spacing="1rem" mb="1rem" maxW="600px" w="100%">
+      <FormControl id="name">
+        <FormLabel>Nom</FormLabel>
+        <Input
+           width={{ base: '100%', md: '400px' }}
+          type="text"
+          value={name}
+          onChange={onChange}
+          placeholder="Entrez votre nom"
+          bg="white"
+          borderColor={useColorModeValue('gray.300', 'gray.700')}
+          borderRadius="lg"
+        />
+      </FormControl>
+      <FormControl id="email">
+        <FormLabel>Email</FormLabel>
+        <Input
+           width={{ base: '100%', md: '400px' }}
+          type="email"
+          value={email}
+          onChange={onChange}
+          placeholder="Entrez votre Email"
+          bg="white"
+          borderColor={useColorModeValue('gray.300', 'gray.700')}
+          borderRadius="lg"
+        />
+      </FormControl>
+      <FormControl id="password">
+        <FormLabel>Mot de passe</FormLabel>
+        <Input
+           width={{ base: '100%', md: '400px' }}
+          type="password"
+          value={password}
+          onChange={onChange}
+          placeholder="Entrez votre mot de passe"
+          bg="white"
+          borderColor={useColorModeValue('gray.300', 'gray.700')}
+          borderRadius="lg"
+        />
+      </FormControl>
+      {loading ? (
+        <Spinner />
+      ) : (
+        <Button
+           width={{ base: '100%', md: '400px' }}
+          type="submit"
+          colorScheme="blue"
+          size="lg"
+          fontSize="md"
+        >
+          S'inscrire
+        </Button>
+      )}
+      <Button
+         width={{ base: '100%', md: '400px' }}
+        maxW={'md'}
+        variant={'outline'}
+        leftIcon={<FcGoogle />}>
+        <Center>
+            <Text>S'inscrire avec Google</Text>
+        </Center>
+      </Button>
+    </Stack>
+  </form>
+  <Text fontSize="sm" textAlign="center">
+    Déjà membre ?{' '}
+    <Link as={RouterLink} to="/sign-in" color="blue.500">
+      Se connecter
+    </Link>
+  </Text>
+</Box>
     </Flex>
   );
 }
