@@ -32,7 +32,9 @@ export default function App() {
         <Route path='/MesAnnonces' element={<PrivateRoute/>}>
           <Route path='/MesAnnonces' element={<MesAnnonces/>}/>
         </Route>
+        <Route path='/MesLikes' element={<PrivateRoute/>}>
         <Route path='/MesLikes' element={<MesLikes/>}/>
+        </Route>
         <Route path='/MesAlertes' element={<MesAlertes/>}/>
         <Route path='/Settings' element={<PrivateRoute/>}>
           <Route path='/Settings' element={<Settings/>}/>
