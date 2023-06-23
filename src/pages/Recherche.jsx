@@ -5,7 +5,7 @@ import { useNavigate, useParams } from 'react-router-dom'
 import { db } from '../firebase'
 import AnnonceCard from '../components/AnnonceCard'
 import '../styles/home.css'
-import { useJsApiLoader, MarkerF, GoogleMap } from '@react-google-maps/api'
+import { useJsApiLoader, InfoWindowF, GoogleMap, MarkerF } from '@react-google-maps/api'
 import { Box, Stack, Select, Button } from '@chakra-ui/react';
 import { useSearchParams } from 'react-router-dom'
 const villes = require('../assets/data/villes2.json')
@@ -27,7 +27,6 @@ export default function Recherche() {
     const [currentFilters, setCurrentFilters] = useState(()=>{ //on récupères les searchparams 'localement', que l'on pourra éditer dans un forme
         var rObj = {}
         for (let filter of availableFilters){
-            
             rObj[filter] = searchParams.get(filter)
         }
         return rObj
@@ -49,8 +48,9 @@ export default function Recherche() {
                     id: doc.id,
                     data : doc.data()
                 }))})
+                console.log(filterAnnonces(annonces)) 
                 setAnnonces(annonces) //on récupère toutes les annonces
-                setFilteredAnnonces(filterAnnonces(annonces)) //ça c'est les annonces qui s'afficheront, celles filtrées selon searchparams
+                setFilteredAnnonces(filterAnnonces(annonces))//ça c'est les annonces qui s'afficheront, celles filtrées selon searchparams
             } catch (error) {
                 alert(error.message)
             }finally{
@@ -75,7 +75,7 @@ export default function Recherche() {
 
     function filterAnnonces(annonces){
         for (let key in currentFilters){
-            if (currentFilters[key]!="null"){
+            if (currentFilters[key]!="null" && currentFilters[key]){
             if(key == 'prixMax'){
                 annonces = annonces.filter((a) => {return(a.data.loyer <= currentFilters[key])})
             }
@@ -125,13 +125,11 @@ export default function Recherche() {
           <option value="3">3</option>
         </Select>
 
-        <Select placeholder="Prix max">
+        <Select placeholder="Loyer Max" onChange={(e)=>{setCurrentFilters((prev)=>{let filter = {...prev, ['prixMax'] : e.target.value};return filter})}}>
           <option value="500">500€</option>
           <option value="1000">1000€</option>
           <option value="1500">1500€</option>
         </Select>
-        
-        <Button colorScheme="blue" width={"300px"}>Filtrer</Button>
       </Stack>
     </Box>
        {renderContent()}
@@ -145,7 +143,10 @@ export default function Recherche() {
               mapTypeControl: false,
               fullscreenControl: false,
           }}>
-              
+              <MarkerF
+        position={center}
+        onClick={(e)=>{console.log('clicked')}}
+        ></MarkerF>
           </GoogleMap> :<div className='flex  justify-center'><Dots/></div>}
       </div>
     </div>
