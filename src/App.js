@@ -34,7 +34,9 @@ export default function App() {
         </Route>
         <Route path='/MesLikes' element={<MesLikes/>}/>
         <Route path='/MesAlertes' element={<MesAlertes/>}/>
-        <Route path='/Settings' element={<Settings/>}/>
+        <Route path='/Settings' element={<PrivateRoute/>}>
+          <Route path='/Settings' element={<Settings/>}/>
+        </Route>
         <Route path='/forgot-password' element={<ForgotPassword/>}/>
         <Route path='/listings/:listingID' element={<Listing/>}/>
         <Route path='/recherche/:ville' element={<Recherche/>}/>

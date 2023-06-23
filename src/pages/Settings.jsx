@@ -18,7 +18,7 @@ export default function Settings() {
       <Text fontSize="4xl" as="b">
         Paramètres
       </Text>
-      <Text fontSize="lg">{auth.currentUser ? auth.currentUser.displayName : 'tg'}, {auth.currentUser ? auth.currentUser.email : 'tg'}</Text>
+      <Text fontSize="lg">{auth.currentUser ? auth.currentUser.displayName : ''} </Text>
       </Box>
       <Grid
         templateColumns={{ base: 'repeat(1, 1fr)', md: 'repeat(3, 1fr)' }}
