@@ -58,6 +58,7 @@ export default function Nav() {
           alt='Coloc.fr'
           objectFit="contain" 
           boxSize={"100px"}
+          onClick={(e)=>{e.preventDefault();navigate('/')}}
           />        
         </Box>
 
