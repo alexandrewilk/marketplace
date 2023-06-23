@@ -9,9 +9,6 @@ export default function AnnonceCard({data}) {
   
   return (
     <Box 
-      maxW={["80%", "95%"]}
-      marginLeft={["10%", "5%"]}
-      marginRight={["10%", "5%"]}  
       borderWidth="1px"
       backgroundColor={"white"} 
       borderRadius="16px" 
@@ -19,7 +16,7 @@ export default function AnnonceCard({data}) {
       boxShadow="base" 
       height={["auto", "200px"]} 
       transition="box-shadow 0.2s ease-in-out"
-      _hover={isLargerThan768 ? { boxShadow: "lg" } : {}}
+      _hover={isLargerThan768 ? { boxShadow: "md" } : {}}
       mb={4}
     >
       <Flex direction={["column", "row"]} height="100%">

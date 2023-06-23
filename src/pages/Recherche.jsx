@@ -4,9 +4,8 @@ import { Dots } from 'react-activity'
 import { useNavigate, useParams } from 'react-router-dom'
 import { db } from '../firebase'
 import AnnonceCard from '../components/AnnonceCard'
-import '../styles/home.css'
 import { useJsApiLoader, InfoWindowF, GoogleMap, MarkerF } from '@react-google-maps/api'
-import { Box, Stack, Select, Button } from '@chakra-ui/react';
+import { Box, Stack, Select, Button, Grid, Center, Flex, VStack, GridItem, Spinner, Text, Switch, Spacer, Heading } from '@chakra-ui/react';
 import { useSearchParams } from 'react-router-dom'
 const villes = require('../assets/data/villes2.json')
 const containerStyle = {
@@ -17,6 +16,7 @@ const containerStyle = {
   
 export default function Recherche() {
     const libraries = ['places']
+    const [isMapVisible, setMapVisible] = useState(true);
     const {isLoaded} = useJsApiLoader({
     googleMapsApiKey: process.env.REACT_APP_MAPS_API_KEY,
     libraries: libraries
@@ -102,58 +102,66 @@ export default function Recherche() {
             )
         }))
     }
-  return (
-    <div>
-       <div className="page">
-    
-    <div className="main-grid">
-      <div className="grid">
-      <Box bg="gray.100" p={4}>
-      <Stack
-        direction={['column', 'row']}
-        spacing={4}
-      >
-        <Select placeholder="Type de logement" onChange={(e)=>{setCurrentFilters((prev)=>{let filter = {...prev, ['type'] : e.target.value};return filter})}}>
-          <option value="maison">Maison</option>
-          <option value="Appart">Appartement</option>
-          <option value="studio">Villa</option>
-        </Select>
+    return (
+        <Flex direction="column" alignItems="center">
+          <Grid templateColumns={isMapVisible ? "repeat(2, 1fr)" : "repeat(1, 1fr)"} w="100vw">
+            <GridItem mx={isMapVisible ? "0px": "10%"} maxW={isMapVisible ? "auto": "1200px"}>
+              <Box p={4}>
+              <Stack
+                    direction={['column', 'row']}
+                    spacing={4}
+                >
+                    <Select placeholder="Type de logement" onChange={(e)=>{setCurrentFilters((prev)=>{let filter = {...prev, ['type'] : e.target.value};return filter})}}>
+                    <option value="maison">Maison</option>
+                    <option value="Appart">Appartement</option>
+                    <option value="studio">Villa</option>
+                    </Select>
 
-        <Select placeholder="Nombre de pièces" onChange={(e)=>{setCurrentFilters((prev)=>{let filter = {...prev, ['nbPieces'] : e.target.value};return filter})}}>
-          <option value="1">1</option>
-          <option value="2">2</option>
-          <option value="3">3</option>
-        </Select>
+                    <Select placeholder="Nombre de pièces" onChange={(e)=>{setCurrentFilters((prev)=>{let filter = {...prev, ['nbPieces'] : e.target.value};return filter})}}>
+                    <option value="1">1</option>
+                    <option value="2">2</option>
+                    <option value="3">3</option>
+                    </Select>
 
-        <Select placeholder="Loyer Max" onChange={(e)=>{setCurrentFilters((prev)=>{let filter = {...prev, ['prixMax'] : e.target.value};return filter})}}>
-          <option value="500">500€</option>
-          <option value="1000">1000€</option>
-          <option value="1500">1500€</option>
-        </Select>
-      </Stack>
-    </Box>
-       {renderContent()}
-      </div>
-      <div className="map"> 
-      {isLoaded ?
-      <GoogleMap center={center} zoom={13} mapContainerStyle={containerStyle}
-          options={{
-              zoomControl: false,
-              streetViewControl: false,
-              mapTypeControl: false,
-              fullscreenControl: false,
-          }}>
-              <MarkerF
-        position={center}
-        onClick={(e)=>{console.log('clicked')}}
-        ></MarkerF>
-          </GoogleMap> :<div className='flex  justify-center'><Dots/></div>}
-      </div>
-    </div>
-  </div>
-       
-        
-    </div>
-    
-  )
+                    <Select placeholder="Loyer Max" onChange={(e)=>{setCurrentFilters((prev)=>{let filter = {...prev, ['prixMax'] : e.target.value};return filter})}}>
+                    <option value="500">500€</option>
+                    <option value="1000">1000€</option>
+                    <option value="1500">1500€</option>
+                    </Select>
+                </Stack>
+
+              </Box>
+              <Flex align="center" m="12px">
+                <Heading as='h4' size='md'>193 annonces à Paris</Heading>
+                <Spacer />
+                <Heading as='h4' size='md' mr="12px">Carte</Heading>
+                <Switch size='md' isChecked={isMapVisible} onChange={(e) => setMapVisible(e.target.checked)}/>
+            </Flex>
+              {renderContent()}
+            </GridItem>
+            {isMapVisible && 
+            <GridItem h="calc(100vh - 68px)">
+                {isLoaded ?
+                    <GoogleMap
+                    center={center}
+                    zoom={13}
+                    mapContainerStyle={{ height: '100%' }}
+                    options={{
+                        zoomControl: true,
+                        streetViewControl: false,
+                        mapTypeControl: false,
+                        fullscreenControl: false,
+                    }}>
+                        <MarkerF position={center} onClick={(e) => { console.log('clicked') }} />
+                    </GoogleMap>
+                    :
+                    <Flex justify="center" align="center" height="100%">
+                    <Spinner size="xl" />
+                    </Flex>
+                }
+                </GridItem>
+            }   
+          </Grid>
+        </Flex>
+      );
 }
