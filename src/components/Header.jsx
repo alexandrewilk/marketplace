@@ -5,11 +5,13 @@ import { onAuthStateChanged } from 'firebase/auth';
 
 import { Text, Box, Flex, Avatar, Link, Button, Menu, MenuButton, MenuList, MenuItem, MenuDivider, useDisclosure, useColorModeValue, Stack, useColorMode, Center, Image, Input } from '@chakra-ui/react';
 import { InputGroup, InputLeftElement, Icon } from "@chakra-ui/react";
+import { useMediaQuery } from "@chakra-ui/react";
 import { FiSearch } from "react-icons/fi";
 import NoPP from '../assets/images/NoPP.webp';
 import { useAuthStatus } from '../hooks/useAuthStatus';
 
 export default function Nav() {
+  const [isLargerThan] = useMediaQuery("(min-width: 650px)");
   const {loggedId, loading} = useAuthStatus();
   const { colorMode, toggleColorMode } = useColorMode();
   const location = useLocation();
@@ -48,16 +50,18 @@ export default function Nav() {
   };
 
   return (
-    <Box bg={'white.100'} px={12} borderBottomWidth={1} borderBottomColor={'gray.100'}>
-      <Flex h={16} alignItems={'center'} justifyContent={'space-between'} maxWidth="1400px" marginX={"auto"}>
+    <Box bg={'white.100'} px={12} borderBottomWidth={1} borderBottomColor={'gray.100'} paddingX={isLargerThan ? "50px" : "20px"} >
+      <Flex h={16} alignItems={'center'} justifyContent={'space-between'} maxWidth="1400px">
         <Box>
           <Image
           src='https://coloc.fr/wp-content/uploads/2023/01/Coloc.fr_-1.png'
           alt='Coloc.fr'
-          objectFit="contain" // Ajuste l'image pour qu'elle soit contenue dans son conteneur
-          boxSize={{ base: "50px", sm: "80px", md: "100px", lg: "130px" }} // Tailles d'image pour différentes tailles d'écran
+          objectFit="contain" 
+          boxSize={"100px"}
           />        
         </Box>
+
+        {isLargerThan && (
         <Box width="40%">
           <InputGroup>
             <InputLeftElement
@@ -73,6 +77,7 @@ export default function Nav() {
             />
           </InputGroup>
         </Box>
+        )}
 
         <Flex alignItems={'center'}>
           <Stack direction={'row'} spacing={7}>
