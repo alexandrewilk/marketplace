@@ -156,7 +156,9 @@ export default function CreateListing() {
                   </FormControl>
                   <FormControl id="adresse">
                       <FormLabel>Adresse</FormLabel>
+                      <Autocomplete>
                       <Input ref={adresseRef} placeholder="Adresse"/>
+                      </Autocomplete>
                   </FormControl>
                   <FormControl id="loyer">
                       <FormLabel>Loyer</FormLabel>
