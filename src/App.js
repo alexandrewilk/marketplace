@@ -29,7 +29,9 @@ export default function App() {
         </Route>
         <Route path='/sign-in' element={<SignIn/>}/>
         <Route path='/sign-up' element={<SignUp/>}/>
-        <Route path='/MesAnnonces' element={<MesAnnonces/>}/>
+        <Route path='/MesAnnonces' element={<PrivateRoute/>}>
+          <Route path='/MesAnnonces' element={<MesAnnonces/>}/>
+        </Route>
         <Route path='/MesLikes' element={<MesLikes/>}/>
         <Route path='/MesAlertes' element={<MesAlertes/>}/>
         <Route path='/Settings' element={<Settings/>}/>
