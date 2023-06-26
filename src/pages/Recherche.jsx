@@ -4,7 +4,6 @@ import { Dots } from 'react-activity';
 import { useNavigate, useParams, useSearchParams } from 'react-router-dom';
 import { Box, Stack, Select, Button, Grid, Center, Flex, VStack, GridItem, Spinner, Text, Switch, Spacer, Heading, Input, InputGroup, InputLeftElement, List, ListItem } from '@chakra-ui/react';
 import { SearchIcon } from '@chakra-ui/icons';
-import { useJsApiLoader, InfoWindowF, GoogleMap, MarkerF } from '@react-google-maps/api';
 import AnnonceCard from '../components/AnnonceCard';
 import { db } from '../firebase';
 import villes from '../assets/data/villes2.json';
@@ -60,10 +59,6 @@ export default function Recherche() {
 
   const libraries = ['places'];
   const [isMapVisible, setMapVisible] = useState(true);
-  const { isLoaded } = useJsApiLoader({
-    googleMapsApiKey: process.env.REACT_APP_MAPS_API_KEY,
-    libraries: libraries
-  });
   const params = useParams();
   const [searchParams, setSearchParams] = useSearchParams();
   const [currentFilters, setCurrentFilters] = useState(() => {
