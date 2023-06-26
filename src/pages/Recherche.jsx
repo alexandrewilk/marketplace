@@ -8,6 +8,8 @@ import { useJsApiLoader, InfoWindowF, GoogleMap, MarkerF } from '@react-google-m
 import AnnonceCard from '../components/AnnonceCard';
 import { db } from '../firebase';
 import villes from '../assets/data/villes2.json';
+import { MapContainer, TileLayer, Marker, Popup } from 'react-leaflet';
+import 'leaflet/dist/leaflet.css';
 
 const containerStyle = {
   height: 'calc(100vh - 180px)'
@@ -76,7 +78,7 @@ export default function Recherche() {
   const [annonces, setAnnonces] = useState([]);
   const [filteredAnnonces, setFilteredAnnonces] = useState([]);
   const villeInfo = villes.find((v) => v.city === params.ville);
-  const center = villeInfo ? { lat: villeInfo.lat, lng: villeInfo.lng } : { lat: 0, lng: 0 };
+  const center = villeInfo ? [villeInfo.lat, villeInfo.lng] : [0, 0];
 
   useEffect(() => {
     async function fetchData() {
@@ -260,25 +262,14 @@ export default function Recherche() {
 
           {isMapVisible && (
             <GridItem h="calc(100vh - 68px)">
-              {isLoaded ? (
-                <GoogleMap
-                  center={center}
-                  zoom={13}
-                  mapContainerStyle={{ height: '100%' }}
-                  options={{
-                    zoomControl: true,
-                    streetViewControl: false,
-                    mapTypeControl: false,
-                    fullscreenControl: false
-                  }}
-                >
-                  <MarkerF position={center} onClick={(e) => { console.log('clicked'); }} />
-                </GoogleMap>
-              ) : (
-                <Flex justify="center" align="center" height="100%">
-                  <Spinner size="xl" />
-                </Flex>
-              )}
+              <MapContainer center={center} zoom={13}  style={{height : "calc(100vh - 68px)"}}>
+    <TileLayer
+      attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
+      url="https://{s}.basemaps.cartocdn.com/rastertiles/voyager/{z}/{x}/{y}{r}.png'"
+    />
+   
+
+  </MapContainer>
             </GridItem>
           )}
         </Grid>
