@@ -7,8 +7,18 @@ import { SearchIcon } from '@chakra-ui/icons';
 import AnnonceCard from '../components/AnnonceCard';
 import { db } from '../firebase';
 import villes from '../assets/data/villes2.json';
-import { MapContainer, TileLayer, Marker, Popup } from 'react-leaflet';
+import { MapContainer, TileLayer, Marker } from 'react-leaflet';
 import 'leaflet/dist/leaflet.css';
+import L from 'leaflet';
+import icon from 'leaflet/dist/images/marker-icon.png';
+import iconShadow from 'leaflet/dist/images/marker-shadow.png';
+
+let DefaultIcon = L.icon({
+    iconUrl: icon,
+    shadowUrl: iconShadow
+});
+
+L.Marker.prototype.options.icon = DefaultIcon;
 
 const containerStyle = {
   height: 'calc(100vh - 180px)'
@@ -26,7 +36,6 @@ export default function Recherche() {
   const [ville, setVille] = useState('');
   const [suggestions, setSuggestions] = useState([]);
   const [activeSuggestionIndex, setActiveSuggestionIndex] = useState(0);
-
   function handleKeyDown(e) {
     switch (e.key) {
       case 'Enter': // naviguer quand l'utilisateur presse entré
@@ -264,7 +273,7 @@ export default function Recherche() {
       attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
       url="https://{s}.basemaps.cartocdn.com/rastertiles/voyager/{z}/{x}/{y}{r}.png'"
     />
-   
+   {filteredAnnonces.map((a)=>{return <Marker position={[a.data.geolocation.lat, a.data.geolocation.lng]}></Marker>})}
 
   </MapContainer>
             </GridItem>
