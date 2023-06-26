@@ -60,6 +60,7 @@ export default function Home() {
       height="86vh"
       maxWidth="1400px"
       maxHeight="676px"
+
     >
       <Heading as="h1" size="2xl" marginBottom="1rem">
         Trouve ta colocation <Box as="span" display="inline-block" borderBottom="2px solid">idéale</Box>

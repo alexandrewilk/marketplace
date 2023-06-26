@@ -57,24 +57,6 @@ export default function Nav() {
           />        
         </Box>
 
-        {isLargerThan && (
-        <Box width="40%">
-          <InputGroup>
-            <InputLeftElement
-              pointerEvents="none"
-              children={<Icon as={FiSearch} color="gray.300" />}
-            />
-            <Input
-              placeholder="Entrez une ville"
-              value={searchValue}
-              onChange={handleSearchChange}
-              borderRadius="full"
-              bg="white.50"
-            />
-          </InputGroup>
-        </Box>
-        )}
-
         <Flex alignItems={'center'}>
           <Stack direction={'row'} spacing={7}>
             <Menu>
