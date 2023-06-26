@@ -257,7 +257,9 @@ export default function Recherche() {
               </Heading>
               <Switch size="md" isChecked={isMapVisible} onChange={(e) => setMapVisible(e.target.checked)} />
             </Flex>
-            {renderContent()}
+            <Box width="95%" marginX="2.5%">
+              {renderContent()}
+            </Box>
           </GridItem>
 
           {isMapVisible && (
