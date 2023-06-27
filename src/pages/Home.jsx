@@ -2,7 +2,7 @@ import React, { useState } from 'react'
 import '../styles/home.css'
 import { Box, Heading, Input, InputGroup, InputLeftElement, VStack, ListItem, Container, List, ListProps } from '@chakra-ui/react';
 import { SearchIcon } from '@chakra-ui/icons';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, useLocation } from 'react-router-dom';
 
 const villes = require('../assets/data/villes2.json').map((v)=>{return v.city})
 
@@ -15,6 +15,7 @@ export default function Home() {
   const [suggestions, setSuggestions] = useState([])
   const [activeSuggestionIndex, setActiveSuggestionIndex] = useState(0);
   const navigate = useNavigate();
+  const location = useLocation();
   
   function handleKeyDown(e){ 
     switch(e.key) {

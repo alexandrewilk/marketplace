@@ -1,22 +1,28 @@
-import { ReactNode, useState, useEffect } from 'react';
+import { useState, useEffect } from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
 import { auth } from '../firebase';
 import { onAuthStateChanged } from 'firebase/auth';
-
-import { Text, Box, Flex, Avatar, Link, Button, Menu, MenuButton, MenuList, MenuItem, MenuDivider, useDisclosure, useColorModeValue, Stack, useColorMode, Center, Image, Input } from '@chakra-ui/react';
-import { InputGroup, InputLeftElement, Icon } from "@chakra-ui/react";
+import { Text, Box, Flex, Avatar, Button, Menu, MenuButton, MenuList, VStack, List, ListItem, MenuItem, MenuDivider, Stack, useColorMode, Center, Image, Input, InputLeftElement, InputGroup } from '@chakra-ui/react';
 import { useMediaQuery } from "@chakra-ui/react";
-import { FiSearch } from "react-icons/fi";
-import NoPP from '../assets/images/NoPP.webp';
 import { useAuthStatus } from '../hooks/useAuthStatus';
+import { SearchIcon } from '@chakra-ui/icons';
+
+const villes = require('../assets/data/villes2.json').map((v)=>{return v.city})
+
+function search(input){
+  return villes.filter((v)=>{return(v.slice(0, input.length) == input)})
+}
 
 export default function Nav() {
+  const [ville, setVille] = useState('');
+  const [suggestions, setSuggestions] = useState([])
+  const [activeSuggestionIndex, setActiveSuggestionIndex] = useState(0);
   const [isLargerThan] = useMediaQuery("(min-width: 650px)");
   const {loggedId, loading} = useAuthStatus();
   const { colorMode, toggleColorMode } = useColorMode();
   const location = useLocation();
   const navigate = useNavigate();
-  
+  const [isLargerThan750] = useMediaQuery("(min-width: 750px)");
   const [searchValue, setSearchValue] = useState('');
   const [pageState, setPageState] = useState('Se connecter');
   
@@ -26,9 +32,36 @@ export default function Nav() {
     });
   }, [auth]);
 
-  const handleSearchChange = (event) => {
-    setSearchValue(event.target.value);
-  };
+  function handleKeyDown(e){ 
+    switch(e.key) {
+      case 'Enter': // naviguer quand l'utilisateur presse entré
+        navigate(`/recherche/${suggestions[activeSuggestionIndex]}`);
+        setSuggestions([]); //reset des suggestions apres entrer
+        setVille(''); //reset de l'input apres entrer
+        break;
+      case 'ArrowUp': // sélectionner la suggestion précédente
+        if (activeSuggestionIndex > 0) {
+          setActiveSuggestionIndex(activeSuggestionIndex - 1);
+        }
+        break;
+      case 'ArrowDown': // sélectionner la suggestion suivante
+        if (activeSuggestionIndex < suggestions.length - 1) {
+          setActiveSuggestionIndex(activeSuggestionIndex + 1);
+        }
+        break;
+    }
+  }
+
+  function handleInput(e){
+    e.preventDefault();
+    if(e.target.value==''){
+      setSuggestions([]);
+      setActiveSuggestionIndex(0);
+      return;
+    }
+    setVille(e.target.value);
+    setSuggestions([...search(e.target.value)])
+  }
 
   const routeMatchPath = (route) => {
     return route === location.pathname;
@@ -57,6 +90,58 @@ export default function Nav() {
           />        
         </Box>
 
+      {isLargerThan750 && location.pathname !== '/' && (
+        <Box position="relative" width="40%">
+        <InputGroup>
+          <InputLeftElement
+              pointerEvents="none"
+              children={<SearchIcon color="gray" />}
+            />
+          <Input
+            value={ville}
+            
+            type="search"
+            borderColor="gray"
+            placeholder="Entrez le nom de la ville..."
+            onKeyDown={handleKeyDown}
+            onChange={handleInput}
+          />
+        </InputGroup>
+        {suggestions.length > 0 && (
+            <VStack 
+              align="start" 
+              spacing={2} 
+              width="100%" 
+              maxHeight="200px" 
+              overflowY="auto" 
+              boxShadow="md" 
+              borderRadius="md" 
+              p={2} 
+              backgroundColor="white" 
+              position="absolute"
+              mt={2} 
+              zIndex={1001}
+            >
+              <List w="100%">
+                {suggestions.map((s, index) => (
+                  <ListItem 
+                    key={s} 
+                    p={2} 
+                    bg={index === activeSuggestionIndex ? "gray.200" : "white"} 
+                    borderRadius="md" 
+                    width="100%"
+                    align="start"
+                    _hover={{ bg: "gray.200" }}
+                  >
+                    {s}
+                  </ListItem>
+                ))}
+              </List>
+            </VStack>
+          )}
+          </Box>
+          )}
+
         <Flex alignItems={'center'}>
           <Stack direction={'row'} spacing={7}>
             <Menu>
@@ -71,7 +156,7 @@ export default function Nav() {
                   src={pageState === 'Profile' ? 'https://avatars.dicebear.com/api/male/username.svg' : 'https://avatars.dicebear.com/api/female/username.svg'}
                 />
               </MenuButton>
-              <MenuList alignItems={'center'}>
+              <MenuList zIndex={1000} alignItems={'center'}>
               <Center mt={2} mb={2}>
                   <Avatar 
                   size={'lg'}                   
@@ -86,7 +171,7 @@ export default function Nav() {
                 <MenuDivider />
                 {pageState === 'Profile' ? (
                   <>
-                    <MenuItem onClick={() => navigate('/MesLikes')}>Mes likes</MenuItem>
+                    <MenuItem onClick={() => navigate('/create-listing')}>Déposer une annonce</MenuItem>
                     <MenuItem 
                       className={`cursor-pointer ${routeMatchPath('/Settings') ? 'active' : ''}`} 
                       onClick={() => navigate("/Settings")}
