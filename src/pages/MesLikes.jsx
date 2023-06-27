@@ -3,7 +3,7 @@ import { Text, Container, Grid, Breadcrumb, BreadcrumbItem, BreadcrumbLink, Brea
 import { doc, getDoc } from 'firebase/firestore';
 import { db, auth } from '../firebase';
 import { Dots } from 'react-activity';
-import AnnonceCard from '../components/AnnonceCard';
+import AnnonceCard from '../components/AnnonceCardPageMesLikes';
 
 
 export default function MesLikes() {
@@ -39,7 +39,7 @@ export default function MesLikes() {
     <Text fontSize="4xl" as="b">Mes annonces sauvegardées</Text>
     {loading ? <Dots/> : 
               likes.map((l)=>{return(
-                <AnnonceCard key={l.id} data={l.data}/>
+                <AnnonceCard key={l.id} data={l.data} id = {l.id} pageLike/>
               )})}
   </Container>
   )

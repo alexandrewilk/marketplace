@@ -20,28 +20,27 @@ export default function AnnonceCard({ data, id }) {
     { icon: FaBath, text: "2 salle de bain" }
   ];
 
-  const [userLikes, setUserLikes] = useContext(LikesContext)
 
-  async function handleLike(){
-    try {
-      if(Array.isArray(userLikes)){
-      if(userLikes.includes(id)){
-      await updateDoc(doc(db, 'Users', auth.currentUser.uid), {likes: arrayRemove(id)})
-      setUserLikes(userLikes.filter(like => like !== id))
-    }else{
-      await updateDoc(doc(db, 'Users', auth.currentUser.uid), {likes: arrayUnion(id)})
-      setUserLikes([...userLikes, id])
-    }}else{
-      await updateDoc(doc(db, 'Users', auth.currentUser.uid), {likes: arrayUnion(id)})
-      setUserLikes([...userLikes, id])
-    }
-
-    } catch (error) {
+//   async function handleLike(){
+//     try {
+//       if(Array.isArray(userLikes)){
+//       if(userLikes.includes(id)){
+//       await updateDoc(doc(db, 'Users', auth.currentUser.uid), {likes: arrayRemove(id)})
       
-    }finally{
-      console.log(userLikes)
-    }
-  }
+//     }else{
+//       await updateDoc(doc(db, 'Users', auth.currentUser.uid), {likes: arrayUnion(id)})
+
+//     }}else{
+//       await updateDoc(doc(db, 'Users', auth.currentUser.uid), {likes: arrayUnion(id)})
+
+//     }
+
+//     } catch (error) {
+      
+//     }finally{
+
+//     }
+//   }
 
   return (
     <Box
@@ -61,7 +60,7 @@ export default function AnnonceCard({ data, id }) {
         </Box>
         <Flex width="65%" flexDirection="column" justifyContent="space-between" padding={4} h="100%">
           <Flex justifyContent="flex-end" >
-            <IconButton icon={userLikes.includes(id) ? <AiFillHeart /> :<AiOutlineHeart /> } isRound onClick={(e)=>{e.preventDefault();handleLike();}}/>
+            <IconButton icon={<AiFillHeart />  } isRound onClick={(e)=>{e.preventDefault()}}/>
           </Flex>
           <Flex flexDirection="column" justifyContent="space-between" h="100%" spacing={2} onClick={(e)=>{e.preventDefault();navigate(`/listings/${id}`)}}>
             <Text fontSize="xl" fontWeight="semibold">

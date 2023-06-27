@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { collection, getDocs, limit, query, where } from 'firebase/firestore';
+import { collection, doc, getDoc, getDocs, limit, query, where } from 'firebase/firestore';
 import { Dots } from 'react-activity';
 import { useNavigate, useParams, useSearchParams } from 'react-router-dom';
 import {
@@ -17,6 +17,9 @@ import L from 'leaflet';
 import icon from 'leaflet/dist/images/marker-icon.png';
 import iconShadow from 'leaflet/dist/images/marker-shadow.png';
 import '../styles/home.css'
+import { useAuthStatus } from '../hooks/useAuthStatus';
+import { auth } from '../firebase';
+import { LikesContext } from '../context/LikesContext';
 
 let DefaultIcon = L.icon({
     iconUrl: icon,
@@ -31,8 +34,8 @@ export default function Recherche() {
     const [ville, setVille] = useState('');
     const [suggestions, setSuggestions] = useState([]);
     const [activeSuggestionIndex, setActiveSuggestionIndex] = useState(0);
-
-    const libraries = ['places'];
+    const {loggedIn, loadingAuth} = useAuthStatus();
+    const [userLikes, setUserLikes] = useState([])
     const [isMapVisible, setMapVisible] = useState(true);
     const params = useParams();
     const [searchParams, setSearchParams] = useSearchParams();
@@ -61,7 +64,6 @@ export default function Recherche() {
                 const q = query(collection(db, 'Listings'), where('ville', '==', villeInfo.city), limit(100));
                 const querySnap = await getDocs(q);
                 const annonces = querySnap.docs.map((doc) => ({ id: doc.id, data: doc.data() }));
-                console.log(filterAnnonces(annonces));
                 setAnnonces(annonces);
                 setFilteredAnnonces(filterAnnonces(annonces));
             } catch (error) {
@@ -86,6 +88,17 @@ export default function Recherche() {
         setFilteredAnnonces(filterAnnonces(annonces));
     }, [currentFilters]);
 
+    useEffect(()=>{
+      async function getUserLikes(){
+        if(loggedIn){
+          const data = await getDoc(doc(db, 'Users', auth.currentUser.uid))
+          if(data.data().likes){
+            setUserLikes(data.data().likes)
+          }
+        }
+      }
+      getUserLikes();
+    }, [loggedIn])
     function filterAnnonces(annonces) {
         return annonces.filter((a) => {
             for (let key in currentFilters) {
@@ -100,20 +113,13 @@ export default function Recherche() {
     }
 
     function renderContent() {
+      
         if (loading) return <Dots />;
         if (!villeInfo) return <h1>VILLE CLOCHARDE DSL PAS SUPPORTÉ</h1>;
         if (filteredAnnonces.length === 0) return <h1>PAS DANNONCES DANS CETTE VILLE</h1>;
 
         return filteredAnnonces.map((a) => (
-            <div
-                key={a.id}
-                onClick={(e) => {
-                    e.preventDefault();
-                    navigate(`/listings/${a.id}`);
-                }}
-            >
-                <AnnonceCard key={a.id} data={a.data} />
-            </div>
+                <AnnonceCard key={a.id} data={a.data} id={a.id}/>
         ));
     }
 
@@ -235,7 +241,9 @@ export default function Recherche() {
               <Switch size="md" isChecked={isMapVisible} onChange={(e) => setMapVisible(e.target.checked)} />
             </Flex>
             <Box width="95%" marginX="2.5%">
+              <LikesContext.Provider value={[userLikes, setUserLikes]}>
               {renderContent()}
+              </LikesContext.Provider>
             </Box>
           </GridItem>
 
@@ -246,7 +254,7 @@ export default function Recherche() {
                   attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
                   url="https://{s}.basemaps.cartocdn.com/rastertiles/voyager/{z}/{x}/{y}{r}.png'"
                 />
-              {filteredAnnonces.map((a)=>{return <Marker position={[a.data.geolocation.lat, a.data.geolocation.lng]}></Marker>})}
+              {filteredAnnonces.map((a)=>{return <Marker key={a.id}position={[a.data.geolocation.lat, a.data.geolocation.lng]}></Marker>})}
 
               </MapContainer>
             </GridItem>
