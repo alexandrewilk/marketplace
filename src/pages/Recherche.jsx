@@ -5,7 +5,7 @@ import { useNavigate, useParams, useSearchParams } from 'react-router-dom';
 import {
     Box, Stack, Select, Button, Grid, Center, Flex, VStack, GridItem,
     Spinner, Text, Switch, Spacer, Heading, Input, InputGroup,
-    InputLeftElement, List, ListItem
+    InputLeftElement, List, ListItem, useColorModeValue, useMediaQuery
 } from '@chakra-ui/react';
 import { SearchIcon } from '@chakra-ui/icons';
 import AnnonceCard from '../components/AnnonceCard';
@@ -31,6 +31,7 @@ L.Marker.prototype.options.icon = DefaultIcon;
 const availableFilters = ['type', 'nbPieces', 'prixMax'];
 
 export default function Recherche() {
+    const [isLargerThan750] = useMediaQuery("(min-width: 750px)");
     const [ville, setVille] = useState('');
     const [suggestions, setSuggestions] = useState([]);
     const [activeSuggestionIndex, setActiveSuggestionIndex] = useState(0);
@@ -126,16 +127,22 @@ export default function Recherche() {
   return (
     <Box>
       <Box>
-        <Box border="1px" borderColor="gray.100" boxShadow="sm" p={3}>
+        <Box 
+         border="1px"
+         borderColor="gray.100"
+         boxShadow="sm"
+         p={3}
+         position="relative"
+         overflow="hidden"
+        >
         <Flex 
-            direction="row" 
+            direction="row"
             overflowX="auto"
-            className="shadowScroll" 
-            gap={6} 
+            gap={6}
             css={{
-              scrollbarWidth: 'none', 
-              '&::-webkit-scrollbar': { 
-                display: 'none' 
+              scrollbarWidth: 'none',
+              '&::-webkit-scrollbar': {
+                display: 'none'
               }
             }}
           >
@@ -223,13 +230,24 @@ export default function Recherche() {
                 <option value="1500">1500€</option>
               </Select>
             </Flex>
+            <Box
+              position="absolute"
+              right="0"
+              top="0"
+              bottom="0"
+              width="50px"
+              backgroundImage={`linear-gradient(to left, ${
+                useColorModeValue('white', 'gray.800')
+              }, transparent)`}
+            />
         </Box>
       </Box>
 
 
       <Flex direction="column" alignItems="center">
-        <Grid templateColumns={isMapVisible ? 'repeat(2, 1fr)' : 'repeat(1, 1fr)'} w="100vw">
+      <Grid templateColumns={isLargerThan750 && isMapVisible ? 'repeat(2, 1fr)' : 'repeat(1, 1fr)'} w="100vw">
           <GridItem mx={isMapVisible ? '0px' : '10%'} maxW={isMapVisible ? 'auto' : '1200px'} overflowY="scroll" h="calc(100vh - 68px)">
+          {isLargerThan750 && (
             <Flex align="center" m="12px">
               <Heading as="h4" size="md">
                 193 annonces à {ville}
@@ -240,6 +258,7 @@ export default function Recherche() {
               </Heading>
               <Switch size="md" isChecked={isMapVisible} onChange={(e) => setMapVisible(e.target.checked)} />
             </Flex>
+          )}
             <Box width="95%" marginX="2.5%">
               <LikesContext.Provider value={[userLikes, setUserLikes]}>
               {renderContent()}
@@ -247,7 +266,7 @@ export default function Recherche() {
             </Box>
           </GridItem>
 
-          {isMapVisible && (
+          {isLargerThan750 && isMapVisible && (
             <GridItem h="calc(100vh - 68px)">
               <MapContainer center={center} zoom={13}  style={{height : "calc(100vh - 68px)"}}>
                 <TileLayer
