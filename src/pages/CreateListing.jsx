@@ -6,7 +6,7 @@ import {v4 as uuid} from 'uuid'
 import { addDoc, collection, doc, serverTimestamp } from 'firebase/firestore';
 import { useNavigate } from 'react-router-dom';
 import {useJsApiLoader, Autocomplete} from '@react-google-maps/api'
-import { SkeletonText, Box, VStack, HStack, Heading, FormControl, FormLabel, Select, Input, Textarea, Button, Stack, Flex, Spacer } from '@chakra-ui/react' // New imports here
+import { SkeletonText, Container, Breadcrumb, BreadcrumbItem, BreadcrumbLink, Text, Box, VStack, HStack, Heading, FormControl, FormLabel, Select, Input, Textarea, Button, Stack, Flex, Spacer } from '@chakra-ui/react' // New imports here
 
 const logements = ['Villa', 'Appartement', 'Maison'];
 const rooms = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]
@@ -134,8 +134,20 @@ export default function CreateListing() {
       )
     }
     return (
+        <Container maxWidth="1200px" mt={70}>
+            <Breadcrumb>
+            <BreadcrumbItem>
+                <BreadcrumbLink href='/Settings'>Paramètres</BreadcrumbLink>
+            </BreadcrumbItem>
+            <BreadcrumbItem>
+                <BreadcrumbLink href='/MesAnnonces'>Mes annonces</BreadcrumbLink>
+            </BreadcrumbItem>
+            <BreadcrumbItem>
+                <BreadcrumbLink href='/create-listing'>Ajouter une annonce</BreadcrumbLink>
+            </BreadcrumbItem>
+            </Breadcrumb>
+    <Text fontSize="4xl" as="b">Ajouter une annonce</Text>
       <Flex direction="column" align="center" mt="20px">
-          <Heading as="h1" size="xl" mb="4">Ajouter une annonce</Heading>
           <form>
               <Stack spacing={4} width="500px">
                   <FormControl id="logement">
@@ -176,5 +188,6 @@ export default function CreateListing() {
               </Stack>
           </form>
       </Flex>
+      </Container>
   );
 }
