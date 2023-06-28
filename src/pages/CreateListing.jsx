@@ -31,6 +31,7 @@ export default function CreateListing() {
     const [meuble, setMeuble] = useState(null);
     const [equipement, setEquipement] = useState([]);
     const [dateDispo, setDateDispo] = useState(null);
+    const [surface, setSurface] = useState('')
 
     async function storeImage(image){
         return new Promise((resolve, reject)=>{
@@ -123,7 +124,8 @@ export default function CreateListing() {
                 desc: desc,
                 co : co ? co : '',
                 regles : regles ? regles : [],
-                meuble : meuble ? meuble : null
+                meuble : meuble ? meuble : null,
+                surface: surface ? surface : '',
             }
             const collectionRef = collection(db, 'Listings');
             const docRef = await addDoc(collectionRef, entry)
@@ -182,6 +184,10 @@ export default function CreateListing() {
                   <FormControl id="loyer">
                       <FormLabel>Loyer</FormLabel>
                       <Input type="number" placeholder="Loyer" onChange={(e) => {setLoyer(e.target.value)}}/>
+                  </FormControl>
+                  <FormControl id="m2">
+                      <FormLabel>Surface en m2</FormLabel>
+                      <Input type="number" placeholder="Surface" onChange={(e) => {setSurface(e.target.value)}}/>
                   </FormControl>
                   <FormControl id="description">
                       <FormLabel>Description</FormLabel>
