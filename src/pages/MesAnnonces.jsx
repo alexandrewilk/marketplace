@@ -6,7 +6,8 @@ import { HiHome } from 'react-icons/hi';
 import { Text, Container, Breadcrumb, BreadcrumbItem, BreadcrumbLink, Button, Icon, Box } from '@chakra-ui/react';
 import { query, getDocs, where, orderBy, collection } from 'firebase/firestore';
 import { auth, db } from '../firebase';
-import AnnonceCard from '../components/AnnonceCard'
+import AnnonceCard from '../components/AnnonceCardPageMesLikes'
+
 export default function MesAnnonces() {
   const [listings, setListings] = useState([]);
   const [loadingList, setLoadingList] = useState(false);

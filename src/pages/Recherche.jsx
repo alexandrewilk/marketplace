@@ -32,9 +32,6 @@ const availableFilters = ['type', 'nbPieces', 'prixMax'];
 
 export default function Recherche() {
     const [isLargerThan750] = useMediaQuery("(min-width: 750px)");
-    const [ville, setVille] = useState('');
-    const [suggestions, setSuggestions] = useState([]);
-    const [activeSuggestionIndex, setActiveSuggestionIndex] = useState(0);
     const {loggedIn, loadingAuth} = useAuthStatus();
     const [userLikes, setUserLikes] = useState([])
     const [isMapVisible, setMapVisible] = useState(true);
@@ -113,16 +110,19 @@ export default function Recherche() {
         });
     }
 
-    function renderContent() {
-      
-        if (loading) return <Dots />;
-        if (!villeInfo) return <h1>VILLE CLOCHARDE DSL PAS SUPPORTÉ</h1>;
-        if (filteredAnnonces.length === 0) return <h1>PAS DANNONCES DANS CETTE VILLE</h1>;
+ function renderContent() {
+  if (loading) return <Dots />;
+  if (!villeInfo) return <h1>VILLE CLOCHARDE DSL PAS SUPPORTÉ</h1>;
+  if (filteredAnnonces.length === 0) return <h1>PAS DANNONCES DANS CETTE VILLE</h1>;
 
-        return filteredAnnonces.map((a) => (
-                <AnnonceCard key={a.id} data={a.data} id={a.id}/>
-        ));
-    }
+  return (
+    <Grid templateColumns={isLargerThan750 && !isMapVisible ? 'repeat(2, 1fr)' : 'repeat(1, 1fr)'} gap={!isMapVisible ? '8' : '0'}>
+      {filteredAnnonces.map((a) => (
+        <AnnonceCard key={a.id} data={a.data} id={a.id} />
+      ))}
+    </Grid>
+  );
+}
 
   return (
     <Box>
@@ -246,11 +246,11 @@ export default function Recherche() {
 
       <Flex direction="column" alignItems="center">
       <Grid templateColumns={isLargerThan750 && isMapVisible ? 'repeat(2, 1fr)' : 'repeat(1, 1fr)'} w="100vw">
-          <GridItem mx={isMapVisible ? '0px' : '10%'} maxW={isMapVisible ? 'auto' : '1200px'} overflowY="scroll" h="calc(100vh - 68px)">
+          <GridItem mx={isMapVisible ? '0px' : '10%'} maxW={isMapVisible ? 'auto' : '1200px'} overflowY="scroll" >
           {isLargerThan750 && (
-            <Flex align="center" m="12px">
+            <Flex align="center" w="95%" marginX="2.5%" marginY="12px">
               <Heading as="h4" size="md">
-                193 annonces à {ville}
+                193 annonces à
               </Heading>
               <Spacer />
               <Heading as="h4" size="md" mr="12px">
@@ -267,8 +267,8 @@ export default function Recherche() {
           </GridItem>
 
           {isLargerThan750 && isMapVisible && (
-            <GridItem h="calc(100vh - 68px)">
-              <MapContainer center={center} zoom={13}  style={{height : "calc(100vh - 68px)"}}>
+            <GridItem h="calc(100vh - 134px)">
+              <MapContainer center={center} zoom={13}  style={{height : "calc(100vh - 134px)"}}>
                 <TileLayer
                   attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
                   url="https://{s}.basemaps.cartocdn.com/rastertiles/voyager/{z}/{x}/{y}{r}.png'"
