@@ -3,11 +3,9 @@ import { collection, doc, getDoc, getDocs, limit, query, where } from 'firebase/
 import { Dots } from 'react-activity';
 import { useNavigate, useParams, useSearchParams } from 'react-router-dom';
 import {
-    Box, Stack, Select, Button, Grid, Center, Flex, VStack, GridItem,
-    Spinner, Text, Switch, Spacer, Heading, Input, InputGroup,
-    InputLeftElement, List, ListItem, useColorModeValue, useMediaQuery
+    Box, Select, Grid, Flex, GridItem,
+    Switch, Spacer, Heading, useColorModeValue, useMediaQuery
 } from '@chakra-ui/react';
-import { SearchIcon } from '@chakra-ui/icons';
 import AnnonceCard from '../components/AnnonceCard';
 import { db } from '../firebase';
 import villes from '../assets/data/villes2.json';
@@ -116,6 +114,7 @@ export default function Recherche() {
       }
       getUserLikes();
     }, [loggedIn])
+    
     function filterAnnonces(annonces) {
         return annonces.filter((a) => {
             for (let key in currentFilters) {
