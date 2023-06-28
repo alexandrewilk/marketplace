@@ -2,3 +2,8 @@ body {
   margin: 0;
   padding: 0;
 }
+
+.my-div-icon {
+  background-color: transparent !important;
+  box-shadow: none;
+}
