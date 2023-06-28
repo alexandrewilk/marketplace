@@ -21,6 +21,25 @@ import { useAuthStatus } from '../hooks/useAuthStatus';
 import { auth } from '../firebase';
 import { LikesContext } from '../context/LikesContext';
 
+function createPriceMarker(price) {
+  let svgMarkup = `
+    <svg xmlns="http://www.w3.org/2000/svg" width="50" height="50" viewBox="0 0 50 50">
+      <circle cx="25" cy="25" r="20" fill="#f00"/>
+      <text x="50%" y="50%" dominant-baseline="middle" text-anchor="middle" fill="#fff">${String(price)}</text>
+    </svg>
+  `;
+
+  return L.divIcon({
+    html: svgMarkup,
+    iconSize: [50, 50],
+    iconAnchor: [25, 50],
+    popupAnchor: [0, -50]
+  });
+}
+
+
+
+
 let DefaultIcon = L.icon({
     iconUrl: icon,
     shadowUrl: iconShadow
@@ -273,8 +292,16 @@ export default function Recherche() {
                   attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
                   url="https://{s}.basemaps.cartocdn.com/rastertiles/voyager/{z}/{x}/{y}{r}.png'"
                 />
-              {filteredAnnonces.map((a)=>{return <Marker key={a.id}position={[a.data.geolocation.lat, a.data.geolocation.lng]}></Marker>})}
-
+                  {filteredAnnonces.map((a) => {
+                    let priceMarker = createPriceMarker(a.data.loyer);
+                    return (
+                      <Marker 
+                        key={a.id}
+                        position={[a.data.geolocation.lat, a.data.geolocation.lng]}
+                        icon={priceMarker}
+                      />
+                    );
+                  })}
               </MapContainer>
             </GridItem>
           )}
