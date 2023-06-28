@@ -133,11 +133,7 @@ export default function CreateListing() {
             alert(error.message)
         }finally{
             setLoading(false);
-          
         }
-        
-
-
     }
     if(!isLoaded){
       return(
