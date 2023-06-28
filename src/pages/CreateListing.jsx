@@ -7,6 +7,7 @@ import { addDoc, collection, doc, serverTimestamp } from 'firebase/firestore';
 import { useNavigate } from 'react-router-dom';
 import {useJsApiLoader, Autocomplete} from '@react-google-maps/api'
 import { SkeletonText, Container, Breadcrumb, BreadcrumbItem, BreadcrumbLink, Text, Box, VStack, HStack, Heading, FormControl, FormLabel, Select, Input, Textarea, Button, Stack, Flex, Spacer } from '@chakra-ui/react' // New imports here
+import {default as MultiSelect} from 'react-select';
 
 const logements = ['Villa', 'Appartement', 'Maison'];
 const rooms = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]
@@ -24,6 +25,12 @@ export default function CreateListing() {
     const [images, setImages] = useState(null);
     const [loading, setLoading] = useState(false);
     const [desc, setDesc] = useState('');
+    const [co, setCo] = useState(null);
+    const [source, setSource] = useState(null);
+    const [regles, setRegles] = useState([]);
+    const [meuble, setMeuble] = useState(null);
+    const [equipement, setEquipement] = useState([]);
+    const [dateDispo, setDateDispo] = useState(null);
 
     async function storeImage(image){
         return new Promise((resolve, reject)=>{
@@ -73,7 +80,7 @@ export default function CreateListing() {
             return
         }
         if(isNaN(loyer)){
-            alert('loyer')
+            alert('loyer?')
             return
         }
         if(!images){
@@ -84,18 +91,18 @@ export default function CreateListing() {
             alert('max 6 img')
             return
         }
+
         try{
-            //getting lattitude and longitude from adresseRef
+            //adresseRef est ladresse autocomplete par google, on appelle ici google pr check ladresse existe et recup la data
             setLoading(true)
             const adresse = adresseRef.current.value
             const response = await fetch(`https://maps.googleapis.com/maps/api/geocode/json?address=${adresse}&key=${process.env.REACT_APP_MAPS_API_KEY}`)
             const data = await response.json()
-
-            
             
             if(data.status !== 'OK'){
               alert(`ton adresse n'a pas été trouvée!`)
               console.log(data.status)
+              setLoading(false)
               return
             }
             const ville = data.results[0].address_components.find(elt => elt.types.includes('locality')).long_name
@@ -113,20 +120,20 @@ export default function CreateListing() {
                 userRef: auth.currentUser.uid,
                 geolocation: geolocation,
                 ville: ville,
-                desc: desc
+                desc: desc,
+                co : co ? co : '',
+                regles : regles ? regles : [],
+                meuble : meuble ? meuble : null
             }
             const collectionRef = collection(db, 'Listings');
             const docRef = await addDoc(collectionRef, entry)
+            alert('bien créé !')
             navigate(`/listings/${docRef.id}`)
         }catch(error){
             alert(error.message)
         }finally{
             setLoading(false);
-          
         }
-        
-
-
     }
     if(!isLoaded){
       return(
@@ -183,6 +190,32 @@ export default function CreateListing() {
                   <FormControl id="images">
                       <FormLabel>Image</FormLabel>
                       <Input type='file' accept='.jpg, .png, .jpeg' multiple onChange={(e) => {setImages(e.target.files)}}/>
+                  </FormControl>
+                  <p>-----------------------</p>
+                  <h1>Optionnel</h1>
+                  <p>------------------------</p>
+                  <FormControl id="co">
+                      <FormLabel>Colocation ou Coliving ?</FormLabel>
+                      <Select placeholder="Type de location" onChange={(e) => {setCo(e.target.value)}}>
+                          <option value={'colocation'}> colocation</option>
+                          <option value={'coliving'}>coliving</option>
+                      </Select>
+                  </FormControl>
+                  <FormControl id="meuble">
+                      <FormLabel>Meublé ?</FormLabel>
+                      <Select placeholder="Type de location" onChange={(e) => {setMeuble(e.target.value)}}>
+                          <option value={true}> Oui</option>
+                          <option value={false}>Non</option>
+                      </Select>
+                  </FormControl>
+                  <FormControl id="regles">
+                      <FormLabel>Règles particulières de la colocation</FormLabel>
+                      <MultiSelect
+                      isMulti
+                      isSearchable={false}
+                      placeholder='Règles'
+                      onChange={(e)=>{setRegles(e.map(elt=>elt.value))}}
+                      options={[{value: 'non-fumeur', label:'Non Fumeur'}, {value:'only-femme', label:'Femme seulement'}, {value:'only-homme', label:'Homme seulement'}, {value:'ok-animaux', label:'Animaux bienvenus'}]}/>
                   </FormControl>
                   <Button colorScheme="blue" onClick={handleAddListing} isLoading={loading}>Lister mon Annonce</Button>
               </Stack>
