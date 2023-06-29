@@ -87,7 +87,7 @@ export default function MesAlertes() {
           <Td><Input onChange={(e)=>{e.preventDefault(); setLogement(e.target.value)}} placeholder='Type de Logement'/></Td>
           <Td><Input onChange={(e)=>{e.preventDefault(); setNbPieces(e.target.value)}} placeholder='Nombre de Pièces min.'/></Td>
           <Td><Input onChange={(e)=>{e.preventDefault(); setPrixMax(e.target.value)}} placeholder='Loyer max.'/></Td>
-          <Td>{loading ? <Dots/> : <Button size='xs' colorScheme="green" onClick={(e)=>{e.preventDefault(); handleAddAlertes()}}>Creer une nouvelle alerte</Button>}</Td>
+          <Td>{loading ? <Dots/> : <Button size='sm' colorScheme="green" onClick={(e)=>{e.preventDefault(); handleAddAlertes()}}>Creer une nouvelle alerte</Button>}</Td>
         </Tr>
     </Tbody>
   </Table>
