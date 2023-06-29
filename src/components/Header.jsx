@@ -78,7 +78,7 @@ export default function Nav() {
   };
 
   return (
-    <Box bg={'white.100'} px={12} borderBottomWidth={1} borderBottomColor={'gray.100'} paddingX={isLargerThan ? "50px" : "20px"} >
+    <Box bg={'white.100'} px={12} paddingX={isLargerThan ? "50px" : "20px"} >
       <Flex h={16} alignItems={'center'} justifyContent={'space-between'} maxWidth="1400px">
         <Box>
           <Image

@@ -48,9 +48,6 @@ export default function Home() {
 
   return (
     <Box
-      bgImage="url('https://coloc.fr/wp-content/uploads/2023/04/HeroImage.webp')"
-      bgSize="cover"
-      bgPosition="center"
       display="flex"
       alignItems="center"
       justifyContent="center"
@@ -61,10 +58,10 @@ export default function Home() {
       height="86vh"
       maxWidth="1400px"
       maxHeight="676px"
-
+      background="linear-gradient(white, deepskyblue)" // Ajoutez cette ligne
     >
       <Heading as="h1" size="3xl" marginBottom="1rem" color="white" mb="24px">
-        Trouve ta colocation idéale
+        Trouve la colocation idéale
       </Heading>
       <Box position="relative" maxWidth="400px" marginBottom="2rem">
         <InputGroup>
