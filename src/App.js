@@ -16,6 +16,7 @@ import MesLikes from './pages/MesLikes';
 import MesAlertes from './pages/MesAlertes';
 import Settings from './pages/Settings';
 import Recherche from "./pages/Recherche";
+import Messagerie from './pages/Messagerie';
 
 
 export default function App() {
@@ -38,6 +39,9 @@ export default function App() {
         <Route path='/MesAlertes' element={<PrivateRoute/>}>
           <Route path='/MesAlertes' element={<MesAlertes/>}/>
           </Route>
+          <Route path='/Messagerie' element={<PrivateRoute/>}>
+          <Route path='/Messagerie' element={<Messagerie/>}/>
+        </Route>
         <Route path='/Settings' element={<PrivateRoute/>}>
           <Route path='/Settings' element={<Settings/>}/>
         </Route>

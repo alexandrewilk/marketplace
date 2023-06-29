@@ -1,7 +1,7 @@
 import React, {useState} from 'react';
 import { Text, Box, Container, Grid } from '@chakra-ui/react';
 import SettingsCard from '../components/SettingsCard';
-import { AiOutlineUser, AiOutlineHeart, AiOutlineBell, AiOutlineAppstoreAdd, AiOutlineDashboard } from 'react-icons/ai';
+import { AiOutlineMessage, AiOutlineUser, AiOutlineHeart, AiOutlineBell, AiOutlineAppstoreAdd, AiOutlineDashboard } from 'react-icons/ai';
 import { auth } from '../firebase';
 
 export default function Settings() {
@@ -28,6 +28,7 @@ export default function Settings() {
     <SettingsCard icon={AiOutlineHeart} title="Annonces sauvegardées" text="Retrouvez et gérez toutes vos annonces sauvegardées." href="/MesLikes"/>
     <SettingsCard icon={AiOutlineBell} title="Mes alertes" text="Retrouvez et gérez toutes vos alertes au même endroit." href="/MesAlertes"/>
     <SettingsCard icon={AiOutlineAppstoreAdd} title="Mes Annonces" text="Retrouvez,gérez et ajoutez de nouvelles annonces." href="/MesAnnonces"/>
+    <SettingsCard icon={AiOutlineMessage} title="Messages" text="Retrouvez ici tous vos messages échangés sur coloc.fr" href="/Messagerie"/>
     <SettingsCard icon={AiOutlineDashboard} title="Outils pour les professionnels" text="Utilisez des outils professionnels si vous gérez plusieurs annonces sur coloc.fr" href="https://coloc.fr/operateur-immobilier/"/>
       </Grid>
     </Container>
