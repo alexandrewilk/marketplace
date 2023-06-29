@@ -63,18 +63,21 @@ export default function Home() {
       maxHeight="676px"
 
     >
-      <Heading as="h1" size="2xl" marginBottom="1rem">
-        Trouve ta colocation <Box as="span" display="inline-block" borderBottom="2px solid">idéale</Box>
+      <Heading as="h1" size="3xl" marginBottom="1rem" color="white" mb="24px">
+        Trouve ta colocation idéale
       </Heading>
       <Box position="relative" maxWidth="400px" marginBottom="2rem">
         <InputGroup>
           <InputLeftElement
+            height="50"
             pointerEvents="none"
-            children={<SearchIcon color="white" />}
+            children={<SearchIcon color="gray" />}
           />
           <Input
+            height="50"
             width="500px"
             type="search"
+            backgroundColor="white"
             borderColor="white"
             placeholder="Entrez le nom de la ville..."
             onKeyDown={handleKeyDown}
