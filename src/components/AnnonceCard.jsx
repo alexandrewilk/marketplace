@@ -50,19 +50,19 @@ export default function AnnonceCard({ data, id }) {
       borderRadius="16px"
       overflow="hidden"
       boxShadow="base"
-      height="200px"
+      height={{ base: "auto", md: "200px" }}
       transition="box-shadow 0.2s"
       _hover={{ boxShadow: "md" }}
       mb={4}
     >
-      <Flex h="100%">
-        <Box w="35%" onClick={(e)=>{e.preventDefault();navigate(`/listings/${id}`)}}>
-          <Image src={imgUrls ? imgUrls[0] : "https://bit.ly/2k1H1t6"} alt="Appartement" objectFit="cover" w="100%" h="100%" />
-        </Box>
-        <Flex width="65%" flexDirection="column" justifyContent="space-between" gap={5} padding={4} h="100%">
-          <Flex justifyContent="flex-end" >
-            <IconButton icon={userLikes.includes(id) ? <AiFillHeart /> :<AiOutlineHeart /> } isRound onClick={(e)=>{e.preventDefault();handleLike();}}/>
-          </Flex>
+    <Flex direction={{ base: "column", md: "row" }} h="100%">
+      <Box w={{ base: "100%", md: "35%" }} onClick={(e)=>{e.preventDefault();navigate(`/listings/${id}`)}}>
+        <Image src={imgUrls ? imgUrls[0] : "https://bit.ly/2k1H1t6"} alt="Appartement" objectFit="cover" w="100%" h="100%" />
+      </Box>
+      <Flex width={{ base: "100%", md: "65%" }} flexDirection="column" justifyContent="space-between" gap={5} padding={4} h="100%">
+        <Flex justifyContent="flex-end" >
+          <IconButton icon={userLikes.includes(id) ? <AiFillHeart /> :<AiOutlineHeart /> } isRound onClick={(e)=>{e.preventDefault();handleLike();}}/>
+        </Flex>
           <Flex flexDirection="column" justifyContent="space-between" h="100%" onClick={(e)=>{e.preventDefault();navigate(`/listings/${id}`)}}>
             <Text fontSize="xl" fontWeight="semibold" whiteSpace="nowrap" overflow="hidden" textOverflow="ellipsis">
               {type}, loyer de {loyer}€, {nbPieces} pièces
@@ -74,7 +74,7 @@ export default function AnnonceCard({ data, id }) {
             </Flex>
             <Flex justifyContent="space-between" alignItems="flex-end">
               <CustomBadge text="SeLoger" />
-              <Text fontSize="xl" color="blue.500">
+              <Text fontSize="xl" color="#172ACE" as='b'>
                 {loyer}€/mois
               </Text>
             </Flex>
