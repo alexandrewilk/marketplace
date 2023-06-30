@@ -38,9 +38,12 @@ export default function MesLikes() {
     </Breadcrumb>
     <Text fontSize="4xl" as="b">Mes annonces sauvegardées</Text>
     {loading ? <Dots/> : 
-              likes.map((l)=>{return(
-                <AnnonceCard key={l.id} data={l.data} id = {l.id} pageLike/>
-              )})}
+              <Grid templateColumns={{ base: "1fr", md: "repeat(2, 1fr)" }} gap={4}>
+                {likes.map((l)=>{return(
+                  <AnnonceCard key={l.id} data={l.data} id = {l.id} pageLike/>
+                )})}
+              </Grid>
+              }
   </Container>
   )
 }
