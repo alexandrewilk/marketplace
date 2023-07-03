@@ -7,12 +7,15 @@ import { addDoc, collection, doc, serverTimestamp } from 'firebase/firestore';
 import { useNavigate } from 'react-router-dom';
 import {useJsApiLoader, Autocomplete} from '@react-google-maps/api'
 import { SkeletonText, Container, Breadcrumb, BreadcrumbItem, BreadcrumbLink, Text, Box, VStack, HStack, Heading, FormControl, FormLabel, Select, Input, Textarea, Button, Stack, Flex, Spacer } from '@chakra-ui/react' // New imports here
+import { useBreakpointValue } from "@chakra-ui/react"
 import {default as MultiSelect} from 'react-select';
+
 
 const logements = ['Villa', 'Appartement', 'Maison'];
 const rooms = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]
 const libraries = ['places']
 export default function CreateListing() {
+    const formColumnWidth = useBreakpointValue({ base: "100%", md: "50%" });
     const {isLoaded} = useJsApiLoader({
       googleMapsApiKey: process.env.REACT_APP_MAPS_API_KEY,
       libraries: libraries
@@ -156,10 +159,11 @@ export default function CreateListing() {
             </BreadcrumbItem>
             </Breadcrumb>
     <Text fontSize="4xl" as="b">Ajouter une annonce</Text>
-      <Flex direction="column" align="center" mt="20px">
-          <form>
-              <Stack spacing={4} width="500px">
-                  <FormControl id="logement">
+    <Flex direction={{ base: 'column', md: 'row' }} justify="center" align="center" mt="20px">
+    <Box width={formColumnWidth}>
+      <form>
+        <Stack spacing={4} width={{ base: '100%', md: '500px' }}>
+                  <FormControl id="logement" isRequired>
                       <FormLabel>Type de Logement</FormLabel>
                       <Select placeholder="Type de logement" onChange={(e) => {setLogement(e.target.value)}}>
                           {logements.map((option) => (
@@ -167,7 +171,7 @@ export default function CreateListing() {
                           ))}
                       </Select>
                   </FormControl>
-                  <FormControl id="room">
+                  <FormControl id="room" isRequired>
                       <FormLabel>Nombre de Pièces</FormLabel>
                       <Select placeholder="Nombre de pièces" onChange={(e) => {setNbRooms(e.target.value)}}>
                           {rooms.map((option, index) => (
@@ -175,31 +179,28 @@ export default function CreateListing() {
                           ))}
                       </Select>
                   </FormControl>
-                  <FormControl id="adresse">
+                  <FormControl id="adresse" isRequired>
                       <FormLabel>Adresse</FormLabel>
                       <Autocomplete>
                       <Input ref={adresseRef} placeholder="Adresse"/>
                       </Autocomplete>
                   </FormControl>
-                  <FormControl id="loyer">
+                  <FormControl id="loyer" isRequired>
                       <FormLabel>Loyer</FormLabel>
                       <Input type="number" placeholder="Loyer" onChange={(e) => {setLoyer(e.target.value)}}/>
                   </FormControl>
-                  <FormControl id="m2">
+                  <FormControl id="m2" isRequired>
                       <FormLabel>Surface en m2</FormLabel>
                       <Input type="number" placeholder="Surface" onChange={(e) => {setSurface(e.target.value)}}/>
                   </FormControl>
-                  <FormControl id="description">
+                  <FormControl id="description" isRequired>
                       <FormLabel>Description</FormLabel>
                       <Textarea placeholder="Description" onChange={(e) => {setDesc(e.target.value)}}/>
                   </FormControl>
-                  <FormControl id="images">
+                  <FormControl id="images" isRequired>
                       <FormLabel>Image</FormLabel>
                       <Input type='file' accept='.jpg, .png, .jpeg' multiple onChange={(e) => {setImages(e.target.files)}}/>
                   </FormControl>
-                  <p>-----------------------</p>
-                  <h1>Optionnel</h1>
-                  <p>------------------------</p>
                   <FormControl id="co">
                       <FormLabel>Colocation ou Coliving ?</FormLabel>
                       <Select placeholder="Type de location" onChange={(e) => {setCo(e.target.value)}}>
@@ -225,7 +226,12 @@ export default function CreateListing() {
                   </FormControl>
                   <Button colorScheme="blue" onClick={handleAddListing} isLoading={loading}>Lister mon Annonce</Button>
               </Stack>
-          </form>
+              </form>
+         </Box>
+
+         <Box width={formColumnWidth} backgroundColor='red' height='100px'>
+            {/* La jvais réfléchir a quoi foutre */}
+        </Box>
       </Flex>
       </Container>
   );
