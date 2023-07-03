@@ -39,7 +39,7 @@ export default function App() {
         <Route path='/MesAlertes' element={<PrivateRoute/>}>
           <Route path='/MesAlertes' element={<MesAlertes/>}/>
           </Route>
-          <Route path='/Messagerie' element={<PrivateRoute/>}>
+        <Route path='/Messagerie' element={<PrivateRoute/>}>
           <Route path='/Messagerie' element={<Messagerie/>}/>
         </Route>
         <Route path='/Settings' element={<PrivateRoute/>}>
