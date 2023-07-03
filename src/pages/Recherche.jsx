@@ -9,7 +9,7 @@ import {
 import AnnonceCard from '../components/AnnonceCard';
 import { db } from '../firebase';
 import villes from '../assets/data/villes2.json';
-import { MapContainer, TileLayer, Marker } from 'react-leaflet';
+import { MapContainer, TileLayer, Marker, useMap } from 'react-leaflet';
 import 'leaflet/dist/leaflet.css';
 import L from 'leaflet';
 import icon from 'leaflet/dist/images/marker-icon.png';
@@ -52,6 +52,7 @@ export default function Recherche() {
     const {loggedIn, loadingAuth} = useAuthStatus();
     const [userLikes, setUserLikes] = useState([])
     const [isMapVisible, setMapVisible] = useState(true);
+ 
     const params = useParams();
     const [searchParams, setSearchParams] = useSearchParams();
     const [currentFilters, setCurrentFilters] = useState(() => {
@@ -67,7 +68,9 @@ export default function Recherche() {
     const [annonces, setAnnonces] = useState([]);
     const [filteredAnnonces, setFilteredAnnonces] = useState([]);
     const villeInfo = villes.find((v) => v.city === params.ville);
+
     const center = villeInfo ? [villeInfo.lat, villeInfo.lng] : [0, 0];
+
 
     useEffect(() => {
         async function fetchData() {
@@ -141,6 +144,12 @@ export default function Recherche() {
     </Grid>
   );
 }
+function ChangeView({ center, zoom }) {
+  const map = useMap();
+  map.setView(center, zoom);
+  return null;
+}
+  
 
   return (
     <Box>
@@ -310,6 +319,7 @@ export default function Recherche() {
           {isLargerThan750 && isMapVisible && (
             <GridItem h="calc(100vh - 134px)">
               <MapContainer center={center} zoom={13}  style={{height : "calc(100vh - 134px)"}}>
+                <ChangeView center={center} zoom={13}/>
                 <TileLayer
                   attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
                   url="https://{s}.basemaps.cartocdn.com/rastertiles/voyager/{z}/{x}/{y}{r}.png'"
