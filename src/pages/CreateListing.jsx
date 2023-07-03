@@ -1,19 +1,20 @@
-import React, { useState, useEffect, useRef, onFocus }from 'react'
-import { Dots } from "react-activity";
-import {storage, auth, db} from '../firebase'
+import React, { useState, useRef }from 'react'
+import { storage, auth, db } from '../firebase'
 import { ref, getDownloadURL, uploadBytesResumable } from 'firebase/storage';
-import {v4 as uuid} from 'uuid'
-import { addDoc, collection, doc, serverTimestamp } from 'firebase/firestore';
+import { v4 as uuid } from 'uuid'
+import { addDoc, collection, serverTimestamp } from 'firebase/firestore';
 import { useNavigate } from 'react-router-dom';
-import {useJsApiLoader, Autocomplete} from '@react-google-maps/api'
-import { SkeletonText, Container, Breadcrumb, BreadcrumbItem, BreadcrumbLink, Text, Box, Divider, HStack, Heading, FormControl, FormLabel, Select, Input, Textarea, Button, Stack, Flex, Accordion, AccordionItem, AccordionButton, AccordionPanel } from '@chakra-ui/react' 
+import { useJsApiLoader, Autocomplete } from '@react-google-maps/api'
+import { 
+    SkeletonText, Container, Breadcrumb, BreadcrumbItem, BreadcrumbLink, Text, Box, Divider, 
+    FormControl, FormLabel, Select, Input, Textarea, Button, Stack, Flex} from '@chakra-ui/react' 
 import { useBreakpointValue } from "@chakra-ui/react"
-import {default as MultiSelect} from 'react-select';
-
+import MultiSelect from 'react-select';
 
 const logements = ['Villa', 'Appartement', 'Maison'];
 const rooms = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]
 const libraries = ['places']
+
 export default function CreateListing() {
     const [openSection, setOpenSection] = useState(null);
 
@@ -153,93 +154,131 @@ export default function CreateListing() {
     }
     return (
         <Container maxWidth="1200px" mt={70}>
-            <Breadcrumb>
+          <Breadcrumb>
             <BreadcrumbItem>
-                <BreadcrumbLink href='/Settings'>Paramètres</BreadcrumbLink>
+              <BreadcrumbLink href='/Settings'>Paramètres</BreadcrumbLink>
             </BreadcrumbItem>
             <BreadcrumbItem>
-                <BreadcrumbLink href='/MesAnnonces'>Mes annonces</BreadcrumbLink>
+              <BreadcrumbLink href='/MesAnnonces'>Mes annonces</BreadcrumbLink>
             </BreadcrumbItem>
             <BreadcrumbItem>
-                <BreadcrumbLink href='/create-listing'>Ajouter une annonce</BreadcrumbLink>
+              <BreadcrumbLink href='/create-listing'>Ajouter une annonce</BreadcrumbLink>
             </BreadcrumbItem>
-            </Breadcrumb>
-    <Text fontSize="4xl" as="b">Ajouter une annonce</Text>
-    <Flex direction={{ base: 'column', md: 'row' }} mt="20px">
-    <Box width={formColumnWidth}>
-    <Text fontSize="2xl" as="b">Remplis ce formulaire</Text>
-      <form>
-        <Stack spacing={4} width={{ base: '100%', md: '500px' }}>
-                 <FormControl id="logement" isRequired onFocus={() => handleFocus("section1")} onBlur={() => handleFocus(null)}>
-                    <FormLabel>Type de Logement</FormLabel>
-                    <Select placeholder="Type de logement" onChange={(e) => {setLogement(e.target.value)}}>
+          </Breadcrumb>
+      
+          <Text fontSize="4xl" as="b">Ajouter une annonce</Text>
+          <Flex direction={{ base: 'column', md: 'row' }} mt="20px">
+            <Box width={formColumnWidth}>
+              <Text fontSize="2xl" as="b">Remplis ce formulaire</Text>
+              <form>
+                <Stack spacing={4} width={{ base: '100%', md: '500px' }}>
+                  <Flex direction={{ base: 'column', md: 'row' }} gap='2'>
+                    <FormControl id="logement" isRequired onFocus={() => handleFocus("section1")} onBlur={() => handleFocus(null)}>
+                      <FormLabel>Type de Logement</FormLabel>
+                      <Select placeholder="Type de logement" onChange={(e) => setLogement(e.target.value)}>
                         {logements.map((option) => (
-                            <option value={option} key={option}>{option}</option>
+                          <option value={option} key={option}>{option}</option>
                         ))}
-                    </Select>
-                </FormControl>
-                <FormControl id="room" isRequired onFocus={() => handleFocus("section2")} onBlur={() => handleFocus(null)}>
-                    <FormLabel>Nombre de Pièces</FormLabel>
-                    <Select placeholder="Nombre de pièces" onChange={(e) => {setNbRooms(e.target.value)}}>
+                      </Select>
+                    </FormControl>
+      
+                    <FormControl id="room" isRequired onFocus={() => handleFocus("section2")} onBlur={() => handleFocus(null)}>
+                      <FormLabel>Nombre de Pièces</FormLabel>
+                      <Select placeholder="Nombre de pièces" onChange={(e) => setNbRooms(e.target.value)}>
                         {rooms.map((option, index) => (
-                            <option value={option} key={option}>{index === 9 ? option + '+' : option}</option>
+                          <option value={option} key={option}>{index === 9 ? option + '+' : option}</option>
                         ))}
-                    </Select>
-                </FormControl>
-
+                      </Select>
+                    </FormControl>
+                  </Flex>
+      
                   <FormControl id="adresse" isRequired onFocus={() => handleFocus("section3")} onBlur={() => handleFocus(null)}>
-                      <FormLabel>Adresse</FormLabel>
-                      <Autocomplete>
+                    <FormLabel>Adresse</FormLabel>
+                    <Autocomplete>
                       <Input ref={adresseRef} placeholder="Adresse"/>
-                      </Autocomplete>
+                    </Autocomplete>
                   </FormControl>
-                  <FormControl id="loyer" isRequired onFocus={() => handleFocus("section4")} onBlur={() => handleFocus(null)}>
+      
+                  <Flex direction={{ base: 'column', md: 'row' }} gap='2'>
+                    <FormControl id="loyer" isRequired onFocus={() => handleFocus("section4")} onBlur={() => handleFocus(null)}>
                       <FormLabel>Loyer</FormLabel>
-                      <Input type="number" placeholder="Loyer" onChange={(e) => {setLoyer(e.target.value)}}/>
-                  </FormControl>
-                  <FormControl id="m2" isRequired onFocus={() => handleFocus("section5")} onBlur={() => handleFocus(null)}>
+                      <Input type="number" placeholder="Loyer" onChange={(e) => setLoyer(e.target.value)}/>
+                    </FormControl>
+      
+                    <FormControl id="m2" isRequired onFocus={() => handleFocus("section5")} onBlur={() => handleFocus(null)}>
                       <FormLabel>Surface en m2</FormLabel>
-                      <Input type="number" placeholder="Surface" onChange={(e) => {setSurface(e.target.value)}}/>
-                  </FormControl>
+                      <Input type="number" placeholder="Surface" onChange={(e) => setSurface(e.target.value)}/>
+                    </FormControl>
+                  </Flex>
+      
                   <FormControl id="description" isRequired onFocus={() => handleFocus("section6")} onBlur={() => handleFocus(null)}>
-                      <FormLabel>Description</FormLabel>
-                      <Textarea placeholder="Description" onChange={(e) => {setDesc(e.target.value)}}/>
+                    <FormLabel>Description</FormLabel>
+                    <Textarea placeholder="Description" onChange={(e) => setDesc(e.target.value)}/>
                   </FormControl>
+      
                   <FormControl id="images" isRequired onFocus={() => handleFocus("section7")} onBlur={() => handleFocus(null)}>
-                      <FormLabel>Image</FormLabel>
-                      <Input type='file' accept='.jpg, .png, .jpeg' multiple onChange={(e) => {setImages(e.target.files)}}/>
+                    <FormLabel>Image</FormLabel>
+                    <Box position="relative" textAlign="center" width="100%" backgroundColor="gray.100" borderRadius="6px">
+                      <Button as="label" htmlFor="file">Choisir les fichiers</Button>
+                      <Input 
+                        id="file"
+                        type='file' 
+                        accept='.jpg, .png, .jpeg' 
+                        multiple 
+                        onChange={(e) => setImages(e.target.files)}
+                        position="absolute"
+                        left="0"
+                        top="0"
+                        opacity="0"
+                        zIndex="2"
+                        height="100%"
+                        width="100%"
+                        cursor="pointer"
+                      />
+                    </Box>
                   </FormControl>
-                  <FormControl id="co" onFocus={() => handleFocus("section8")} onBlur={() => handleFocus(null)}>
+      
+                  <Flex direction={{ base: 'column', md: 'row' }} gap='2'>
+                    <FormControl id="co" onFocus={() => handleFocus("section8")} onBlur={() => handleFocus(null)}>
                       <FormLabel>Colocation ou Coliving ?</FormLabel>
-                      <Select placeholder="Type de location" onChange={(e) => {setCo(e.target.value)}}>
-                          <option value={'colocation'}> colocation</option>
-                          <option value={'coliving'}>coliving</option>
+                      <Select placeholder="Type de location" onChange={(e) => setCo(e.target.value)}>
+                        <option value={'colocation'}> colocation</option>
+                        <option value={'coliving'}>coliving</option>
                       </Select>
-                  </FormControl>
-                  <FormControl id="meuble" onFocus={() => handleFocus("section9")} onBlur={() => handleFocus(null)}>
+                    </FormControl>
+      
+                    <FormControl id="meuble" onFocus={() => handleFocus("section9")} onBlur={() => handleFocus(null)}>
                       <FormLabel>Meublé ?</FormLabel>
-                      <Select placeholder="Type de location" onChange={(e) => {setMeuble(e.target.value)}}>
-                          <option value={true}> Oui</option>
-                          <option value={false}>Non</option>
+                      <Select placeholder="Type de location" onChange={(e) => setMeuble(e.target.value)}>
+                        <option value={true}> Oui</option>
+                        <option value={false}>Non</option>
                       </Select>
-                  </FormControl>
+                    </FormControl>
+                  </Flex>
+      
                   <FormControl id="regles" onFocus={() => handleFocus("section10")} onBlur={() => handleFocus(null)}>
-                      <FormLabel>Règles particulières de la colocation</FormLabel>
-                      <MultiSelect
+                    <FormLabel>Règles particulières de la colocation</FormLabel>
+                    <MultiSelect
                       isMulti
                       isSearchable={false}
                       placeholder='Règles'
-                      onChange={(e)=>{setRegles(e.map(elt=>elt.value))}}
-                      options={[{value: 'non-fumeur', label:'Non Fumeur'}, {value:'only-femme', label:'Femme seulement'}, {value:'only-homme', label:'Homme seulement'}, {value:'ok-animaux', label:'Animaux bienvenus'}]}/>
+                      onChange={(e)=>setRegles(e.map(elt=>elt.value))}
+                      options={[
+                        {value: 'non-fumeur', label:'Non Fumeur'}, 
+                        {value:'only-femme', label:'Femme seulement'}, 
+                        {value:'only-homme', label:'Homme seulement'}, 
+                        {value:'ok-animaux', label:'Animaux bienvenus'}
+                      ]}
+                    />
                   </FormControl>
+      
                   <Button colorScheme="blue" onClick={handleAddListing} isLoading={loading}>Lister mon Annonce</Button>
-              </Stack>
+                </Stack>
               </form>
-         </Box>
+            </Box>
 
          <Box width={formColumnWidth} height='100%'>
             <Text fontSize="2xl" as="b">Nos conseils</Text>
-            {/* La jvais réfléchir a quoi foutre */}
             
                 <Box borderWidth="1px" padding="12px" borderRadius="8px" marginY="8px"><Text marginBottom={openSection ? "8px" : "0px"}>🏘️ Type du logement</Text>
                 {openSection === "section1" && <Box><Divider/> <Box mt="4px">Voici l'aide pour le type de logement</Box></Box>}
