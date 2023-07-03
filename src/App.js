@@ -52,18 +52,19 @@ export default function App() {
           <Route path='/create-listing' element={<CreateListing/>}/>
         </Route>
       </Routes>
+      <Footer/>
       <ToastContainer
-position="bottom-left"
-autoClose={5000}
-hideProgressBar={false}
-newestOnTop={false}
-closeOnClick
-rtl={false}
-pauseOnFocusLoss
-draggable
-pauseOnHover
-theme="dark"
-/>
+        position="bottom-left"
+        autoClose={5000}
+        hideProgressBar={false}
+        newestOnTop={false}
+        closeOnClick
+        rtl={false}
+        pauseOnFocusLoss
+        draggable
+        pauseOnHover
+        theme="dark"
+      />
     </Router>
   )
 }
