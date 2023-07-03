@@ -13,6 +13,7 @@ export default function Settings() {
   const {name, email} = formData
 
   return (
+    <Box height="calc(100vh - 64px)">
     <Container maxWidth="1200px" mt={70}>
       <Box mb={12}>
       <Text fontSize="4xl" as="b">
@@ -32,5 +33,6 @@ export default function Settings() {
     <SettingsCard icon={AiOutlineDashboard} title="Outils pour les professionnels" text="Utilisez des outils professionnels si vous gérez plusieurs annonces sur coloc.fr" href="https://coloc.fr/operateur-immobilier/"/>
       </Grid>
     </Container>
+    </Box>
   );
 }

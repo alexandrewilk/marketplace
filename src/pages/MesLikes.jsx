@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react'
-import { Text, Container, Grid, Breadcrumb, BreadcrumbItem, BreadcrumbLink, BreadcrumbSeparator, } from '@chakra-ui/react';
+import { Text, Container, Grid, Breadcrumb, Box, BreadcrumbItem, BreadcrumbLink, BreadcrumbSeparator, } from '@chakra-ui/react';
 import { doc, getDoc } from 'firebase/firestore';
 import { db, auth } from '../firebase';
 import { Dots } from 'react-activity';
@@ -27,6 +27,7 @@ export default function MesLikes() {
     getData();
   }, [])
   return (
+    <Box height="calc(100vh - 64px)">
     <Container maxWidth="1200px" mt={70}>
     <Breadcrumb>
       <BreadcrumbItem>
@@ -45,5 +46,6 @@ export default function MesLikes() {
               </Grid>
               }
   </Container>
+  </Box>
   )
 }

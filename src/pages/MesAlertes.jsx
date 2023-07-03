@@ -50,6 +50,7 @@ export default function MesAlertes() {
     }
   }
   return (
+    <Box height="calc(100vh - 64px)">
     <Container maxWidth="1200px" mt={70}>
     <Breadcrumb>
       <BreadcrumbItem>
@@ -93,5 +94,6 @@ export default function MesAlertes() {
   </Table>
 </TableContainer>
   </Container>
+  </Box>
   )
 }

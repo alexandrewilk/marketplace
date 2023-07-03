@@ -76,7 +76,8 @@ export default function Profile() {
     }
   };
   return (
-    <Container maxWidth="1200px" mt={70}>
+    <Box height="calc(100vh - 64px)">
+    <Container maxWidth="1200px" pt={70}>
       <Breadcrumb>
         <BreadcrumbItem>
           <BreadcrumbLink href='/Settings'>Paramètres</BreadcrumbLink>
@@ -135,5 +136,6 @@ export default function Profile() {
   </AccordionItem>
 </Accordion>
     </Container>
+    </Box>
   )
 }
