@@ -153,7 +153,7 @@ export default function CreateListing() {
       )
     }
     return (
-        <Container maxWidth="1200px" mt={70}>
+        <Container maxWidth="1200px" mt={70} mb={70}>
           <Breadcrumb>
             <BreadcrumbItem>
               <BreadcrumbLink href='/Settings'>Paramètres</BreadcrumbLink>
