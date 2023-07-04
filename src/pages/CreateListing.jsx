@@ -11,7 +11,7 @@ import {
 import { useBreakpointValue } from "@chakra-ui/react"
 import MultiSelect from 'react-select';
 
-const logements = ['Villa', 'Appartement', 'Maison'];
+const logements = ['Villa', 'Appartement', 'Maison', 'Studio'];
 const rooms = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]
 const libraries = ['places']
 

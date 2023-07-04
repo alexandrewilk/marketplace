@@ -45,7 +45,7 @@ let DefaultIcon = L.icon({
 
 L.Marker.prototype.options.icon = DefaultIcon;
 
-const availableFilters = ['type', 'nbPieces', 'prixMax'];
+const availableFilters = ['type', 'nbPieces', 'prixMax', 'co', 'regles', 'meuble', 'surface'];
 
 export default function Recherche() {
     const [isLargerThan750] = useMediaQuery("(min-width: 750px)");
@@ -119,16 +119,33 @@ export default function Recherche() {
     }, [loggedIn])
     
     function filterAnnonces(annonces) {
-        return annonces.filter((a) => {
-            for (let key in currentFilters) {
-                if (currentFilters[key] !== 'null' && currentFilters[key]) {
-                    if (key === 'prixMax') return a.data.loyer <= currentFilters[key];
-                    if (key === 'type') return a.data.type === currentFilters[key];
-                    if (key === 'nbPieces') return Number(a.data.nbPieces) >= Number(currentFilters[key]);
-                }
-            }
-            return true;
-        });
+      let res = annonces
+      for (let key in currentFilters){
+        if (currentFilters[key] !== 'null' && currentFilters[key]){
+          if (key === 'prixMax') res = res.filter((a)=> a.data.loyer <= currentFilters[key])
+          if (key === 'type') res = res.filter((a)=> a.data.type === currentFilters[key])
+          if (key === 'nbPieces') res = res.filter((a)=> Number(a.data.nbPieces) >= Number(currentFilters[key]))
+          if (key == 'co') res = res.filter((a)=> a.data.co == currentFilters[key])
+          if (key == 'regles') res = res.filter((a)=> a.data.regles.includes(currentFilters[key]))
+          if (key == 'meuble') res = res.filter((a)=> a.data.meuble == currentFilters[key])
+          if (key == 'surface') res = res.filter((a) => Number(a.data.surface) >= Number(currentFilters[key]))
+        }
+      }
+      return res
+        // return annonces.filter((a) => {
+        //     for (let key in currentFilters) {
+        //         if (currentFilters[key] !== 'null' && currentFilters[key]) {
+        //             if (key === 'prixMax') return a.data.loyer <= currentFilters[key];
+        //             if (key === 'type') return a.data.type === currentFilters[key];
+        //             if (key === 'nbPieces') return Number(a.data.nbPieces) >= Number(currentFilters[key]);
+        //             if (key == 'co') return a.data.co == currentFilters[key]
+        //             if (key == 'regles') return a.data.regles.includes(currentFilters[key])
+        //             if (key == 'meuble') return a.data.meuble == currentFilters[key]
+        //             if (key == 'surface') return Number(a.data.surface) >= Number(currentFilters[key])
+        //         }
+        //     }
+        //     return true;
+        // });
     }
 
  function renderContent() {
@@ -178,14 +195,13 @@ function ChangeView({ center, zoom }) {
                 minInlineSize="200px"
                 onChange={(e) =>
                   setCurrentFilters((prev) => {
-                    let filter = { ...prev, type: e.target.value };
+                    let filter = { ...prev, co: e.target.value };
                     return filter;
                   })
                 }
               >
-                <option value="maison">Maison</option>
-                <option value="Appart">Appartement</option>
-                <option value="studio">Villa</option>
+                <option value="coliving">Coliving</option>
+                <option value="colocation">Colocation</option>
               </Select>
 
               <Select
@@ -198,9 +214,10 @@ function ChangeView({ center, zoom }) {
                   })
                 }
               >
-                <option value="maison">Maison</option>
-                <option value="Appart">Appartement</option>
-                <option value="studio">Villa</option>
+                <option value="Maison">Maison</option>
+                <option value="Appartement">Appartement</option>
+                <option value="Villa">Villa</option>
+                <option value="Studio">Studio</option>
               </Select>
 
               <Select
@@ -216,6 +233,13 @@ function ChangeView({ center, zoom }) {
                 <option value="1">1</option>
                 <option value="2">2</option>
                 <option value="3">3</option>
+                <option value= "4">4</option>
+                <option value= "5">5</option>
+                <option value= "6">6</option>
+                <option value= "7">7</option>
+                <option value= "8">8</option>
+                <option value= "9">9</option>
+                <option value= "10">10+</option>
               </Select>
 
               <Select
@@ -231,6 +255,7 @@ function ChangeView({ center, zoom }) {
                 <option value="500">500€</option>
                 <option value="1000">1000€</option>
                 <option value="1500">1500€</option>
+                <option value="2000">2000€</option>
               </Select>
 
               <Select placeholder="Source" minInlineSize="200px">
@@ -239,19 +264,26 @@ function ChangeView({ center, zoom }) {
                 <option value="1500">1500€</option>
               </Select>
 
-              <Select placeholder="Equipement" minInlineSize="200px">
-                <option value="500">500€</option>
-                <option value="1000">1000€</option>
-                <option value="1500">1500€</option>
+              <Select placeholder="Régles spèciales" minInlineSize="200px"
+              onChange={(e) =>
+                setCurrentFilters((prev) => {
+                  let filter = { ...prev, regles: e.target.value };
+                  return filter;
+                })
+              }>
+                <option value="ok-animaux">Animaux bienvenus</option>
+                <option value="only-homme">Homme seulement</option>
+                <option value="only-femme">Femme seulement</option>
+                <option value="non-fumeur">Non fumeur</option>
               </Select>
 
-              <Select placeholder="Régles spèciales" minInlineSize="200px">
-                <option value="500">500€</option>
-                <option value="1000">1000€</option>
-                <option value="1500">1500€</option>
-              </Select>
-
-              <Select placeholder="Surface" minInlineSize="200px">
+              <Select placeholder="Surface minimale" minInlineSize="200px"
+              onChange={(e) =>
+                setCurrentFilters((prev) => {
+                  let filter = { ...prev, surface: e.target.value };
+                  return filter;
+                })
+              }>
                 <option value="500">500€</option>
                 <option value="1000">1000€</option>
                 <option value="1500">1500€</option>
