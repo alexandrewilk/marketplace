@@ -132,20 +132,6 @@ export default function Recherche() {
         }
       }
       return res
-        // return annonces.filter((a) => {
-        //     for (let key in currentFilters) {
-        //         if (currentFilters[key] !== 'null' && currentFilters[key]) {
-        //             if (key === 'prixMax') return a.data.loyer <= currentFilters[key];
-        //             if (key === 'type') return a.data.type === currentFilters[key];
-        //             if (key === 'nbPieces') return Number(a.data.nbPieces) >= Number(currentFilters[key]);
-        //             if (key == 'co') return a.data.co == currentFilters[key]
-        //             if (key == 'regles') return a.data.regles.includes(currentFilters[key])
-        //             if (key == 'meuble') return a.data.meuble == currentFilters[key]
-        //             if (key == 'surface') return Number(a.data.surface) >= Number(currentFilters[key])
-        //         }
-        //     }
-        //     return true;
-        // });
     }
 
  function renderContent() {
@@ -199,7 +185,7 @@ function ChangeView({ center, zoom }) {
                     return filter;
                   })
                 }
-              >
+                value={(currentFilters['co']=='null' || !currentFilters['co']) ? '' : currentFilters['co']}>
                 <option value="coliving">Coliving</option>
                 <option value="colocation">Colocation</option>
               </Select>
@@ -213,7 +199,7 @@ function ChangeView({ center, zoom }) {
                     return filter;
                   })
                 }
-              >
+                value={(currentFilters['type']=='null' || !currentFilters['type']) ? '' : currentFilters['type']}>
                 <option value="Maison">Maison</option>
                 <option value="Appartement">Appartement</option>
                 <option value="Villa">Villa</option>
@@ -229,7 +215,7 @@ function ChangeView({ center, zoom }) {
                     return filter;
                   })
                 }
-              >
+                value={(currentFilters['nbPieces']=='null' || !currentFilters['nbPieces']) ? '' : currentFilters['nbPieces']}>
                 <option value="1">1</option>
                 <option value="2">2</option>
                 <option value="3">3</option>
@@ -251,17 +237,22 @@ function ChangeView({ center, zoom }) {
                     return filter;
                   })
                 }
-              >
+                value={(currentFilters['prixMax']=='null' || !currentFilters['prixMax']) ? '' : currentFilters['prixMax']}>
                 <option value="500">500€</option>
                 <option value="1000">1000€</option>
                 <option value="1500">1500€</option>
                 <option value="2000">2000€</option>
               </Select>
 
-              <Select placeholder="Source" minInlineSize="200px">
-                <option value="500">500€</option>
-                <option value="1000">1000€</option>
-                <option value="1500">1500€</option>
+              <Select placeholder="Meublé ?" minInlineSize="200px"
+              onChange={(e) =>
+                setCurrentFilters((prev) => {
+                  let filter = { ...prev, meuble: e.target.value };
+                  return filter;
+                })}
+                value={currentFilters['meuble']=='null' || !currentFilters['meuble'] ? '' : currentFilters['meuble']}>
+                <option value="true">Oui</option>
+                <option value="false">Non</option>
               </Select>
 
               <Select placeholder="Régles spèciales" minInlineSize="200px"
@@ -270,7 +261,8 @@ function ChangeView({ center, zoom }) {
                   let filter = { ...prev, regles: e.target.value };
                   return filter;
                 })
-              }>
+              }
+              value={(currentFilters['regles']=='null' || !currentFilters['regles']) ? '' : currentFilters['regles']}>
                 <option value="ok-animaux">Animaux bienvenus</option>
                 <option value="only-homme">Homme seulement</option>
                 <option value="only-femme">Femme seulement</option>
@@ -283,10 +275,16 @@ function ChangeView({ center, zoom }) {
                   let filter = { ...prev, surface: e.target.value };
                   return filter;
                 })
-              }>
-                <option value="500">500€</option>
-                <option value="1000">1000€</option>
-                <option value="1500">1500€</option>
+              }
+              value={(currentFilters['surface']=='null' || !currentFilters['surface']) ? '' : currentFilters['surface']}>
+                <option value="20">20m2</option>
+                <option value="30">30m2</option>
+                <option value="40">40m2</option>
+                <option value="50">50m2</option>
+                <option value="60">60m2</option>
+                <option value="70">70m2</option>
+                <option value="80">80m2</option>
+                <option value="90">90m2+</option>
               </Select>
             </Flex>
             <Box
@@ -331,7 +329,7 @@ function ChangeView({ center, zoom }) {
             {isLargerThan750 && (
               <Flex align="center" w="95%" marginX="2.5%" marginY="12px">
                 <Heading as="h4" size="md">
-                  193 annonces à
+                  {filteredAnnonces.length} {`annonce${filteredAnnonces.length ==1 ? '' : 's'}`} à
                 </Heading>
                 <Spacer />
                 <Heading as="h4" size="md" mr="12px">
