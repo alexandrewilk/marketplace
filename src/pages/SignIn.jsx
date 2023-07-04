@@ -1,11 +1,12 @@
 import React, { useState } from 'react';
 import { Link as RouterLink, useNavigate } from 'react-router-dom';
-import { auth } from '../firebase';
+import { auth, provider, db } from '../firebase';
 import { toast } from 'react-toastify';
-import { signInWithEmailAndPassword } from 'firebase/auth';
+import { signInWithEmailAndPassword, signInWithPopup } from 'firebase/auth';
 import { Box, Button, FormControl, FormLabel, Input, Link, Stack, Text, useColorModeValue, Flex, Image, Center } from '@chakra-ui/react';
 import { useBreakpointValue } from '@chakra-ui/react'
 import { FcGoogle } from 'react-icons/fc';
+import { serverTimestamp, doc, setDoc,  } from 'firebase/firestore';
 
 export default function SignIn() {
   const [formData, setFormData] = useState({
@@ -36,7 +37,25 @@ export default function SignIn() {
 
   const flexDirection = useBreakpointValue({ base: "column-reverse", md: "row-reverse" })
   const displayValue = useBreakpointValue({ base: "none", md: "flex" })
-
+  function signInWithGoogle(){
+    signInWithPopup(auth, provider).then(async (res)=>{
+      if(res._tokenResponse.isNewUser){
+        const entry = {
+          email : res.user.email,
+          name : res.user.displayName,
+          timestamp : serverTimestamp()
+        }
+        try {
+          await setDoc(doc(db, 'Users', res.user.uid), entry)
+          navigate('/')
+        } catch (error) {
+          alert(error.message)
+        }
+      }else{
+        navigate('/')
+      }
+    })
+  }
   return (
     <Flex direction={flexDirection} w="100vw" h="91vh">
       <Box flex={{ base: "1", md: "2"}} display={displayValue} alignItems="center" justifyContent="center" p="20px">
@@ -101,7 +120,8 @@ export default function SignIn() {
               width={{ base: '100%', md: '400px' }}
               maxW={'md'}
               variant={'outline'}
-              leftIcon={<FcGoogle />}>
+              leftIcon={<FcGoogle />}
+              onClick={(e)=>{e.preventDefault(); signInWithGoogle()}}>
               <Center>
                 <Text>Se connecter avec Google</Text>
               </Center>

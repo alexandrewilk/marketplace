@@ -1,13 +1,13 @@
 import React, { useState } from 'react';
 import { Link as RouterLink, useNavigate } from 'react-router-dom';
-import { auth, db } from '../firebase';
+import { auth, db, provider } from '../firebase';
 import { createUserWithEmailAndPassword, updateProfile } from 'firebase/auth';
 import { serverTimestamp, setDoc, doc } from 'firebase/firestore';
 import { toast } from 'react-toastify';
 import { Box, Text, Stack, Input, Button, FormControl, FormLabel, Link, useColorModeValue, Flex, Image, Spinner, Center } from '@chakra-ui/react';
 import { useBreakpointValue } from '@chakra-ui/react'
 import { FcGoogle } from 'react-icons/fc';
-
+import { signInWithPopup } from 'firebase/auth';
 export default function SignUp() {
   const navigate = useNavigate();
   const [loading, setLoading] = useState(false);
@@ -45,6 +45,23 @@ export default function SignUp() {
     }
   }
 
+  function signInWithGoogle(){
+    signInWithPopup(auth, provider).then(async (res)=>{
+      if(res._tokenResponse.isNewUser){
+        const entry = {
+          email : res.user.email,
+          name : res.user.displayName,
+          timestamp : serverTimestamp()
+        }
+        try {
+          await setDoc(doc(db, 'Users', res.user.uid), entry)
+          navigate('/')
+        } catch (error) {
+          alert(error.message)
+        }
+      }
+    })
+  }
   const flexDirection = useBreakpointValue({ base: "column-reverse", md: "row-reverse" })
   const displayValue = useBreakpointValue({ base: "none", md: "flex" })
 
@@ -128,7 +145,8 @@ export default function SignUp() {
          width={{ base: '100%', md: '400px' }}
         maxW={'md'}
         variant={'outline'}
-        leftIcon={<FcGoogle />}>
+        leftIcon={<FcGoogle />}
+        onClick={(e)=>{e.preventDefault(); signInWithGoogle()}}>
         <Center>
             <Text>S'inscrire avec Google</Text>
         </Center>
