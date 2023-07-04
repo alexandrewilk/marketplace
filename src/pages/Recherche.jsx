@@ -45,7 +45,7 @@ let DefaultIcon = L.icon({
 
 L.Marker.prototype.options.icon = DefaultIcon;
 
-const availableFilters = ['type', 'nbPieces', 'prixMax'];
+const availableFilters = ['type', 'nbPieces', 'prixMax', 'co', 'regles', 'meuble', 'surface'];
 
 export default function Recherche() {
     const [isLargerThan750] = useMediaQuery("(min-width: 750px)");
@@ -119,16 +119,19 @@ export default function Recherche() {
     }, [loggedIn])
     
     function filterAnnonces(annonces) {
-        return annonces.filter((a) => {
-            for (let key in currentFilters) {
-                if (currentFilters[key] !== 'null' && currentFilters[key]) {
-                    if (key === 'prixMax') return a.data.loyer <= currentFilters[key];
-                    if (key === 'type') return a.data.type === currentFilters[key];
-                    if (key === 'nbPieces') return Number(a.data.nbPieces) >= Number(currentFilters[key]);
-                }
-            }
-            return true;
-        });
+      let res = annonces
+      for (let key in currentFilters){
+        if (currentFilters[key] !== 'null' && currentFilters[key]){
+          if (key === 'prixMax') res = res.filter((a)=> a.data.loyer <= currentFilters[key])
+          if (key === 'type') res = res.filter((a)=> a.data.type === currentFilters[key])
+          if (key === 'nbPieces') res = res.filter((a)=> Number(a.data.nbPieces) >= Number(currentFilters[key]))
+          if (key == 'co') res = res.filter((a)=> a.data.co == currentFilters[key])
+          if (key == 'regles') res = res.filter((a)=> a.data.regles.includes(currentFilters[key]))
+          if (key == 'meuble') res = res.filter((a)=> a.data.meuble == currentFilters[key])
+          if (key == 'surface') res = res.filter((a) => Number(a.data.surface) >= Number(currentFilters[key]))
+        }
+      }
+      return res
     }
 
  function renderContent() {
@@ -178,14 +181,13 @@ function ChangeView({ center, zoom }) {
                 minInlineSize="200px"
                 onChange={(e) =>
                   setCurrentFilters((prev) => {
-                    let filter = { ...prev, type: e.target.value };
+                    let filter = { ...prev, co: e.target.value };
                     return filter;
                   })
                 }
-              >
-                <option value="maison">Maison</option>
-                <option value="Appart">Appartement</option>
-                <option value="studio">Villa</option>
+                value={(currentFilters['co']=='null' || !currentFilters['co']) ? '' : currentFilters['co']}>
+                <option value="coliving">Coliving</option>
+                <option value="colocation">Colocation</option>
               </Select>
 
               <Select
@@ -197,10 +199,11 @@ function ChangeView({ center, zoom }) {
                     return filter;
                   })
                 }
-              >
-                <option value="maison">Maison</option>
-                <option value="Appart">Appartement</option>
-                <option value="studio">Villa</option>
+                value={(currentFilters['type']=='null' || !currentFilters['type']) ? '' : currentFilters['type']}>
+                <option value="Maison">Maison</option>
+                <option value="Appartement">Appartement</option>
+                <option value="Villa">Villa</option>
+                <option value="Studio">Studio</option>
               </Select>
 
               <Select
@@ -212,10 +215,17 @@ function ChangeView({ center, zoom }) {
                     return filter;
                   })
                 }
-              >
+                value={(currentFilters['nbPieces']=='null' || !currentFilters['nbPieces']) ? '' : currentFilters['nbPieces']}>
                 <option value="1">1</option>
                 <option value="2">2</option>
                 <option value="3">3</option>
+                <option value= "4">4</option>
+                <option value= "5">5</option>
+                <option value= "6">6</option>
+                <option value= "7">7</option>
+                <option value= "8">8</option>
+                <option value= "9">9</option>
+                <option value= "10">10+</option>
               </Select>
 
               <Select
@@ -227,34 +237,54 @@ function ChangeView({ center, zoom }) {
                     return filter;
                   })
                 }
-              >
+                value={(currentFilters['prixMax']=='null' || !currentFilters['prixMax']) ? '' : currentFilters['prixMax']}>
                 <option value="500">500€</option>
                 <option value="1000">1000€</option>
                 <option value="1500">1500€</option>
+                <option value="2000">2000€</option>
               </Select>
 
-              <Select placeholder="Source" minInlineSize="200px">
-                <option value="500">500€</option>
-                <option value="1000">1000€</option>
-                <option value="1500">1500€</option>
+              <Select placeholder="Meublé ?" minInlineSize="200px"
+              onChange={(e) =>
+                setCurrentFilters((prev) => {
+                  let filter = { ...prev, meuble: e.target.value };
+                  return filter;
+                })}
+                value={currentFilters['meuble']=='null' || !currentFilters['meuble'] ? '' : currentFilters['meuble']}>
+                <option value="true">Oui</option>
+                <option value="false">Non</option>
               </Select>
 
-              <Select placeholder="Equipement" minInlineSize="200px">
-                <option value="500">500€</option>
-                <option value="1000">1000€</option>
-                <option value="1500">1500€</option>
+              <Select placeholder="Régles spèciales" minInlineSize="200px"
+              onChange={(e) =>
+                setCurrentFilters((prev) => {
+                  let filter = { ...prev, regles: e.target.value };
+                  return filter;
+                })
+              }
+              value={(currentFilters['regles']=='null' || !currentFilters['regles']) ? '' : currentFilters['regles']}>
+                <option value="ok-animaux">Animaux bienvenus</option>
+                <option value="only-homme">Homme seulement</option>
+                <option value="only-femme">Femme seulement</option>
+                <option value="non-fumeur">Non fumeur</option>
               </Select>
 
-              <Select placeholder="Régles spèciales" minInlineSize="200px">
-                <option value="500">500€</option>
-                <option value="1000">1000€</option>
-                <option value="1500">1500€</option>
-              </Select>
-
-              <Select placeholder="Surface" minInlineSize="200px">
-                <option value="500">500€</option>
-                <option value="1000">1000€</option>
-                <option value="1500">1500€</option>
+              <Select placeholder="Surface minimale" minInlineSize="200px"
+              onChange={(e) =>
+                setCurrentFilters((prev) => {
+                  let filter = { ...prev, surface: e.target.value };
+                  return filter;
+                })
+              }
+              value={(currentFilters['surface']=='null' || !currentFilters['surface']) ? '' : currentFilters['surface']}>
+                <option value="20">20m2</option>
+                <option value="30">30m2</option>
+                <option value="40">40m2</option>
+                <option value="50">50m2</option>
+                <option value="60">60m2</option>
+                <option value="70">70m2</option>
+                <option value="80">80m2</option>
+                <option value="90">90m2+</option>
               </Select>
             </Flex>
             <Box
@@ -299,7 +329,7 @@ function ChangeView({ center, zoom }) {
             {isLargerThan750 && (
               <Flex align="center" w="95%" marginX="2.5%" marginY="12px">
                 <Heading as="h4" size="md">
-                  193 annonces à
+                  {filteredAnnonces.length} {`annonce${filteredAnnonces.length ==1 ? '' : 's'}`} à
                 </Heading>
                 <Spacer />
                 <Heading as="h4" size="md" mr="12px">

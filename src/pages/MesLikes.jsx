@@ -17,9 +17,11 @@ export default function MesLikes() {
         let likesData = []
         for (let listingID of likes){
           const likeData = await getDoc(doc(db, 'Listings', listingID))
-          likesData.push({id: likeData.id, data: likeData.data()})
+          if(likeData.exists()){
+          likesData.push({id: likeData.id, data: likeData.data()})}
         }
         setLikes(likesData)
+        console.log(likesData)
       } catch (error) {
         alert(error.message)
       }finally{setLoading(false)}
@@ -41,7 +43,7 @@ export default function MesLikes() {
     {loading ? <Dots/> : 
               <Grid templateColumns={{ base: "1fr", md: "repeat(2, 1fr)" }} gap={4}>
                 {likes.map((l)=>{return(
-                  <AnnonceCard key={l.id} data={l.data} id = {l.id} pageLike/>
+                  <AnnonceCard key={l.id} data={l.data} id = {l.id}/>
                 )})}
               </Grid>
               }
