@@ -96,16 +96,17 @@ export default function Listing() {
             </Text>
           </Box>
           <Box w="100%" h="auto" borderWidth="1px" boxShadow='base' borderColor="gray.200" borderRadius="12px" padding={4}>
-            <Heading as="h2" size="md" marginY={3}>Visites 3D</Heading>
-            <Divider/>
+            <Heading as="h2" size="md" marginTop={3}>Visites 3D</Heading>
+            <Divider marginY={3}/>
+            <iframe width='100%' height='480' src='https://my.matterport.com/show/?m=MovEKusCHsf' frameborder='0' allowfullscreen allow='xr-spatial-tracking' borderRadius='6px'></iframe>
           </Box>
           <Box w="100%" h="auto" borderWidth="1px" boxShadow='base' borderColor="gray.200" borderRadius="12px" padding={4}>
-            <Heading as="h2" size="md" marginY={3}>Equipement de la colocation</Heading>
-            <Divider/>
+            <Heading as="h2" size="md" marginTop={3}>Equipement de la colocation</Heading>
+            <Divider marginY={3}/>
           </Box>
           <Box w="100%" h="auto" borderWidth="1px" boxShadow='base' borderColor="gray.200" borderRadius="12px" padding={4}>
-            <Heading as="h2" size="md" marginY={3}>Règles spéciales</Heading>
-            <Divider/>
+            <Heading as="h2" size="md" marginTop={3}>Règles spéciales</Heading>
+            <Divider marginY={3}/>
           </Box>
           </VStack>
 
