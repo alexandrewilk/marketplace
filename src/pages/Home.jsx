@@ -3,6 +3,7 @@ import '../styles/home.css'
 import { Box, Heading, Input, InputGroup, InputLeftElement, VStack, ListItem, Container, List, ListProps } from '@chakra-ui/react';
 import { SearchIcon } from '@chakra-ui/icons';
 import { useNavigate, useLocation } from 'react-router-dom';
+import SendMessagePopup from '../components/SendMessagePopup';
 
 const villes = require('../assets/data/villes2.json').map((v)=>{return v.city})
 
@@ -63,6 +64,7 @@ export default function Home() {
       <Heading as="h1" size="3xl" marginBottom="1rem" color="white" mb="24px">
         Trouve la colocation idéale
       </Heading>
+      <SendMessagePopup receveurUid={'zDOiQQDlAVWuzj2C7JuR9plTH5t2'}/>
       <Box position="relative" maxWidth="400px" marginBottom="2rem">
         <InputGroup>
           <InputLeftElement
