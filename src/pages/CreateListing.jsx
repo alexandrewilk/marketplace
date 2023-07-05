@@ -4,18 +4,33 @@ import { ref, getDownloadURL, uploadBytesResumable } from 'firebase/storage';
 import { v4 as uuid } from 'uuid'
 import { addDoc, collection, serverTimestamp } from 'firebase/firestore';
 import { useNavigate } from 'react-router-dom';
-import { useJsApiLoader, Autocomplete } from '@react-google-maps/api'
+import { useJsApiLoader } from '@react-google-maps/api'
 import { 
-    SkeletonText, Container, Breadcrumb, BreadcrumbItem, BreadcrumbLink, Text, Box, Divider, 
-    FormControl, FormLabel, Select, Input, Textarea, Button, Stack, Flex} from '@chakra-ui/react' 
-import { useBreakpointValue } from "@chakra-ui/react"
-import MultiSelect from 'react-select';
+    SkeletonText, Container, Breadcrumb, BreadcrumbItem, BreadcrumbLink, Text, Box, Button, Flex, Heading,
+    Input
+  } from '@chakra-ui/react' 
+import { Step, Steps, useSteps } from "chakra-ui-steps";
+import { useBreakpointValue, useColorModeValue } from "@chakra-ui/react"
 
 const logements = ['Villa', 'Appartement', 'Maison', 'Studio'];
 const rooms = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]
 const libraries = ['places']
 
-export default function CreateListing() {
+const steps = [
+  { label: "Step 1", description: "This is the first step" },
+  { label: "Step 2", description: "This is the second step" },
+  { label: "Step 3", description: "This is the third step" },
+];
+
+export default function CreateListing(props) {
+  const variant = props.variant || "simple";
+  const { nextStep, prevStep, reset, activeStep, setStep } = useSteps({
+    initialStep: 0,
+  });
+  const isLastStep = activeStep === steps.length - 1;
+  const hasCompletedAllSteps = activeStep === steps.length;
+  const bg = useColorModeValue("gray.200", "gray.700");
+
     const [openSection, setOpenSection] = useState(null);
 
     const handleFocus = (section) => {
@@ -167,7 +182,72 @@ export default function CreateListing() {
           </Breadcrumb>
       
           <Text fontSize="4xl" as="b">Ajouter une annonce</Text>
-          <Flex direction={{ base: 'column', md: 'row' }} mt="20px">
+          <Flex flexDir="column" width="100%">
+            <Flex alignItems="center" justifyContent="center" mb={8}>
+              {steps.map((step, index) => {
+                return (
+                  <Box 
+                    key={index} 
+                    height="4px" 
+                    width="33%" 
+                    bg={index <= activeStep ? "blue" : "gray.300"} 
+                    mx={2} 
+                    my={4}
+                    rounded="md" 
+                    display="flex" 
+                    alignItems="center" 
+                    justifyContent="center"
+                  />
+                )
+              })}
+            </Flex>
+
+            {steps.map(({ label }, index) => (
+              <Box key={label} sx={{ p: 8, my: 8, rounded: "md", display: activeStep === index ? 'block' : 'none' }}>
+                <Heading fontSize="xl" textAlign="center">
+                  {label}
+                </Heading>
+
+                {index === 0 && <Text>Text for step 1</Text>}
+                {index === 1 && <Input placeholder="Test d'input..." my={4} />}
+                {index === 2 && <Button onClick={() => alert('Step 3 action triggered!')}>Trigger Action</Button>}
+              </Box>
+            ))}
+
+            {hasCompletedAllSteps && (
+              <Box sx={{ my: 8, p: 8, rounded: "md" }}>
+                <Heading fontSize="xl" textAlign={"center"}>
+                  Woohoo! All steps completed! 🎉
+                </Heading>
+              </Box>
+            )}
+
+            <Flex width="100%" justify="flex-end" gap={4}>
+              {hasCompletedAllSteps ? (
+                <Button size="sm" onClick={reset}>
+                  Reset
+                </Button>
+              ) : (
+                <>
+                  <Button
+                    isDisabled={activeStep === 0}
+                    onClick={prevStep}
+                    size="sm"
+                    variant="ghost"
+                  >
+                    Précédent
+                  </Button>
+                  <Button size="sm" onClick={nextStep}>
+                    {isLastStep ? "Finis" : "Suivant"}
+                  </Button>
+                </>
+              )}
+            </Flex>
+          </Flex>
+
+
+
+         {/* <Flex direction={{ base: 'column', md: 'row' }} mt="20px">
             <Box width={formColumnWidth}>
               <Text fontSize="2xl" as="b">Remplis ce formulaire</Text>
               <form>
@@ -321,7 +401,7 @@ export default function CreateListing() {
                 </Box>
   
         </Box>
-      </Flex>
+                    </Flex> */}
       </Container>
   );
 }
