@@ -64,7 +64,6 @@ export default function Home() {
       <Heading as="h1" size="3xl" marginBottom="1rem" color="white" mb="24px">
         Trouve la colocation idéale
       </Heading>
-      <SendMessagePopup receveurUid={'zDOiQQDlAVWuzj2C7JuR9plTH5t2'}/>
       <Box position="relative" maxWidth="400px" marginBottom="2rem">
         <InputGroup>
           <InputLeftElement

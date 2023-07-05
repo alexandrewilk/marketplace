@@ -4,9 +4,17 @@ import { doc, getDoc, onSnapshot, serverTimestamp, updateDoc } from 'firebase/fi
 import { auth, db } from '../firebase';
 import { Dots } from 'react-activity';
 
+//j'ai caché de la data dans l'id du doc ahah ! maintenant il faut parser tout ça lol
+function parseDocId(id){
+  const uuid1 = id.split('AND=')[0]
+  const uuid2 = id.split('AND=')[1].split('REF=')[0]
+  const listingId = id.split('AND=')[1].split('REF=')[1]
+  return {uuid1, uuid2, listingId}
+}
+
 export default function Messaging() {
   const [chatsWithData, setChatsWithData] = useState([]) //data de tout ceux av qui il chat
-  const [selectedChat, setSelectedChat] = useState('') //uuid du mec avec qui chat selectionné
+  const [selectedChat, setSelectedChat] = useState(null) //{userid: uuiddugarsavecquiilchat, chatid: iddudocdechat}
   const [chatData, setChatData] = useState(null) //donnée du chat av le mec selectionné
   const [loading, setLoading] = useState(false)
   const [snap, setSnap] = useState(null)
@@ -18,10 +26,12 @@ export default function Messaging() {
       setLoading(true)
       const userData = await getDoc(doc(db, 'Users', auth.currentUser.uid))
       if('chatsWith' in userData.data()){ //ici on recupère la data des users avec qui on chat
-          userData.data().chatsWith.forEach(async (uid)=>{
-            let chatterData = await getDoc(doc(db, 'Users', uid))
+          userData.data().chatsWith.forEach(async (id)=>{
+            const {uuid1, uuid2, listingId} = parseDocId(id)
+            let uidEtranger = uuid1 == auth.currentUser.uid ? uuid2 : uuid1
+            let chatterData = await getDoc(doc(db, 'Users', uidEtranger))
             if(!(chatsWithData.includes({id: chatterData.id, data: chatterData.data()}))){
-            setChatsWithData([... chatsWithData, {id: chatterData.id, data: chatterData.data()}])}
+            setChatsWithData([... chatsWithData, {id: chatterData.id, data: chatterData.data(), chatId: id}])}
           })
       }
 
@@ -33,9 +43,10 @@ export default function Messaging() {
   }, [])
 
   useEffect(()=>{
-    let docId = selectedChat < auth.currentUser.uid ? selectedChat+'&'+auth.currentUser.uid : auth.currentUser.uid+'&'+selectedChat;
-    const subscriber = onSnapshot(doc(db, 'Chats', docId), snap=>{setSnap(snap)})
-    return () => {subscriber()}
+    if(selectedChat){
+      let docId = selectedChat.chatId
+      const subscriber = onSnapshot(doc(db, 'Chats', docId), snap=>{setSnap(snap)})
+      return () => {subscriber()}}
   }, [selectedChat])
 
   useEffect(()=>{
@@ -51,7 +62,7 @@ export default function Messaging() {
     
     return(
       chatsWithData.map((user)=>{return(
-        <Box key = {user.id} bg="gray.100" p={2} borderRadius="md" _hover={{ bg: "blue.500", color: "white" }} onClick={(e)=>{e.preventDefault();setSelectedChat(user.id)}}>
+        <Box key = {user.id} bg="gray.100" p={2} borderRadius="md" _hover={{ bg: "blue.500", color: "white" }} onClick={(e)=>{e.preventDefault();setSelectedChat({userId: user.id, chatId:user.chatId })}}>
         Conversation avec {user.data.name}
         </Box>
       )})

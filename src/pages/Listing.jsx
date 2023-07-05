@@ -8,6 +8,8 @@ import SignInImage from '../assets/images/SignIn.jpg';
 import {AiOutlineShareAlt, AiOutlineHeart, AiFillHeart} from 'react-icons/ai';
 import {HiOutlineMapPin} from 'react-icons/hi2';
 import CustomBadge from '../components/CustomBadge';
+import SendMessagePopup from '../components/SendMessagePopup';
+import {useAuthStatus} from '../hooks/useAuthStatus'
 
 export default function Listing() {
   const gridTemplateColumnsThree = useBreakpointValue({ base: "repeat(1, 1fr)", md: "repeat(2, 1fr)" });
@@ -16,22 +18,22 @@ export default function Listing() {
   const gridTemplateColumns = useBreakpointValue({ base: "2fr 1fr", md: "repeat(2, 1fr)" });
   const imageMaxHeight = useBreakpointValue({ base: "300px", md: "auto" });
   const displayImageFour = useBreakpointValue({ base: "none", md: "block" });
-
     const params = useParams();
     const [listing, setListing] = useState(null);
-    const [loading, setLoading] = useState(true);
+    const [loadingData, setLoadingData] = useState(true);
     useEffect(()=>{
         async function fetchListing(){
             try{
             const docRef=doc(db, 'Listings', params.listingID)
             const docSnap = await getDoc(docRef)
-            if(docSnap.exists){
-                setListing(docSnap.data())
+            if(docSnap.exists()){
+        
+                setListing({id: docSnap.id, data: docSnap.data()})
             }
             }catch(error){
                 alert(error.message)
             }finally{
-                setLoading(false)
+                setLoadingData(false)
             }
         }
         fetchListing();
@@ -40,16 +42,7 @@ export default function Listing() {
         width: '400px',
         height: '400px'
       };
-    function renderContent(){
-        if(loading){return <Dots/>}
-        if(!listing){return <h1>CETTE ANNONCE NEXISTE PLUS</h1>}
-        const center = listing.geolocation
-        return(
-            <div className='h-1/2 w-1/2'>
-            <h1>{listing.adresse}</h1>
-            </div>
-        )
-    }
+   
     return (
       <Box maxW="1200px" marginX="auto" mt={6} paddingX="2.5%">
         <Grid templateColumns={gridTemplateColumns} gap={3} >
@@ -134,7 +127,7 @@ export default function Listing() {
                   <Text>Charge</Text>
                 </Flex>
               </Box>
-              <Button width="100%">Contacter</Button>
+              <SendMessagePopup listing={listing}/>
             </Flex>
           </Box>
 
