@@ -26,12 +26,17 @@ export default function Messaging() {
       setLoading(true)
       const userData = await getDoc(doc(db, 'Users', auth.currentUser.uid))
       if('chatsWith' in userData.data()){ //ici on recupère la data des users avec qui on chat
-          userData.data().chatsWith.forEach(async (id)=>{
+          userData.data().chatsWith.forEach(async (id, index)=>{
             const {uuid1, uuid2, listingId} = parseDocId(id)
             let uidEtranger = uuid1 == auth.currentUser.uid ? uuid2 : uuid1
             let chatterData = await getDoc(doc(db, 'Users', uidEtranger))
             if(!(chatsWithData.includes({id: chatterData.id, data: chatterData.data()}))){
             setChatsWithData([... chatsWithData, {id: chatterData.id, data: chatterData.data(), chatId: id}])}
+
+            //Ca permet d'ouvrir la page messagerie avec la denier conv active 
+            if(index === 0) {
+              setSelectedChat({userId: chatterData.id, chatId:id})
+            }
           })
       }
 
@@ -68,22 +73,47 @@ export default function Messaging() {
       )})
     )
   }
+  function renderMessageInput() {
+    return (
+      <Box position="sticky" bottom="0" p={4} bgColor={"gray.100"}>
+        <Flex align="center">
+          <Input placeholder="Écrivez votre message..." onChange={(e)=>setNewMessage(e.target.value)} value={newMessage} borderColor={"blue"}/>
+          {loadingSend ? <Dots/> : <Button ml={2} colorScheme="blue" onClick={(e)=>{e.preventDefault();handleSendNewMessage()}}>Envoyer</Button>}
+        </Flex>
+      </Box>
+    )
+  }
 
   function renderMessages(){
     if(selectedChat == ''){return (<div>Clique sur ta gauche pour selectionner un chat</div>)}
-    
-    const messages = chatData ? chatData.data.texts.map((t)=> t.message) : []
- 
+      
+    const messages = chatData ? chatData.data.texts : []
+   
     return(
-      <>
-      {messages.map((t)=>{return( <Text bg="gray.100" p={2} borderRadius="md" key = {t}>{t}</Text>)})}
-      <Flex mt={4} align="center">
-          <Input placeholder="Écrivez votre message..." onChange={(e)=>setNewMessage(e.target.value)} value={newMessage}/>
-          {loadingSend ? <Dots/> : <Button ml={2} colorScheme="blue" onClick={(e)=>{e.preventDefault();handleSendNewMessage()}}>Envoyer</Button>}
-        </Flex>
-      </>
+      <VStack spacing={1} align="stretch">
+        {messages.map((t, index) => {
+          const alignSelf = t.from === auth.currentUser.uid ? 'flex-end' : 'flex-start';
+          const bgColor = t.from === auth.currentUser.uid ? 'blue' : 'gray.200';
+          const textColor = t.from === auth.currentUser.uid ? 'white' : 'black';
+          return (
+            <Flex justify={alignSelf} key={index} paddingX={4}>
+              <Text 
+                bg={bgColor} 
+                p={2} 
+                borderRadius="md" 
+                minW="min-content"
+                maxW="400px"
+                display="inline-block"
+                color={textColor}
+              >
+                {t.message}
+              </Text>
+            </Flex>
+          )
+        })}      
+      </VStack>
     )
-  }
+  }  
   
   async function handleSendNewMessage(){
     let texts = chatData.data.texts
@@ -100,7 +130,6 @@ export default function Messaging() {
   }
   return (
     <Flex h="calc(100vh - 64px)" overflow="hidden">
-      
       <Box
         w="20%"
         borderRightWidth={1}
@@ -110,23 +139,15 @@ export default function Messaging() {
         <VStack align="stretch" spacing={4} p={4}>
             {renderConversationBox()}
         </VStack>
-
       </Box>
 
-
-      <Flex direction="column" justifyContent="space-between" w="80%" p={4} overflowY="auto">
-        <VStack align="stretch" spacing={4} flex="1" overflowY="auto">
-          {/* <Text bg="gray.100" p={2} borderRadius="md">Message 1</Text>
-          <Text bg="gray.100" p={2} borderRadius="md">Message 2</Text>
-          <Text bg="gray.100" p={2} borderRadius="md">Message 3</Text> */}
-          {renderMessages()}
-        </VStack>
-
-        {/* Zone de saisie de message */}
-        {/* <Flex mt={4} align="center">
-          <Input placeholder="Écrivez votre message..." />
-          <Button ml={2} colorScheme="blue">Envoyer</Button>
-        </Flex> */}
+      <Flex direction="column" justifyContent="flex-start" w="80%" overflowY="auto">
+        <Flex direction="column" h="100%">
+          <VStack align="stretch" spacing={4} flex="1" overflowY="auto">
+            {renderMessages()}
+          </VStack>
+          {renderMessageInput()}
+        </Flex>
       </Flex>
     </Flex>
   );
