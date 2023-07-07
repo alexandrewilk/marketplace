@@ -26,18 +26,22 @@ export default function Messaging() {
       setLoading(true)
       const userData = await getDoc(doc(db, 'Users', auth.currentUser.uid))
       if('chatsWith' in userData.data()){ //ici on recupère la data des users avec qui on chat
-          userData.data().chatsWith.forEach(async (id, index)=>{
-            const {uuid1, uuid2, listingId} = parseDocId(id)
+          let chatsWith = userData.data().chatsWith
+          var chatsWithDataSetter = []
+          for(var i=0;i<chatsWith.length;i++){
+            const {uuid1, uuid2, listingId} = parseDocId(chatsWith[i])
             let uidEtranger = uuid1 == auth.currentUser.uid ? uuid2 : uuid1
             let chatterData = await getDoc(doc(db, 'Users', uidEtranger))
-            if(!(chatsWithData.includes({id: chatterData.id, data: chatterData.data()}))){
-            setChatsWithData([... chatsWithData, {id: chatterData.id, data: chatterData.data(), chatId: id}])}
-
+            if(!(chatsWithDataSetter.includes({id: chatterData.id, data: chatterData.data()}))){
+            chatsWithDataSetter.push({id: chatterData.id, data: chatterData.data(), chatId: chatsWith[i]})}
+          
             //Ca permet d'ouvrir la page messagerie avec la denier conv active 
-            if(index === 0) {
-              setSelectedChat({userId: chatterData.id, chatId:id})
-            }
-          })
+            if(i === 0) {
+              setSelectedChat({userId: chatterData.id, chatId:chatsWith[i]})
+            }}
+            console.log(chatsWithDataSetter)
+            setChatsWithData(chatsWithDataSetter)
+          
       }
 
     }catch(err){
@@ -64,7 +68,7 @@ export default function Messaging() {
   function renderConversationBox(){
     if(loading){return <Dots/>}
     if(chatsWithData.length == 0){return <div>PAS DE CONV</div>}
-    
+   
     return(
       chatsWithData.map((user)=>{return(
         <Box key = {user.id} bg="gray.100" p={2} borderRadius="md" _hover={{ bg: "blue.500", color: "white" }} onClick={(e)=>{e.preventDefault();setSelectedChat({userId: user.id, chatId:user.chatId })}}>

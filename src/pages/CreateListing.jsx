@@ -41,7 +41,7 @@ export default function CreateListing() {
     const [equipement, setEquipement] = useState([]);
     const [dateDispo, setDateDispo] = useState(null);
     const [surface, setSurface] = useState('');
-
+    
     // Constante pour faire fonctionner les steps
     const { nextStep, prevStep, reset, activeStep, setStep } = useSteps({
       initialStep: 0,
@@ -107,6 +107,7 @@ export default function CreateListing() {
     // Fonction pour upload l'annonce
     async function handleAddListing(e) {
       e.preventDefault();
+      if(!isLastStep){return}
       if(logement == ''){
         alert('type de log');
         return;
@@ -169,6 +170,7 @@ export default function CreateListing() {
         const collectionRef = collection(db, 'Listings');
         const docRef = await addDoc(collectionRef, entry);
         alert('bien créé !');
+
         navigate(`/listings/${docRef.id}`);
       }catch(error){
         alert(error.message);
@@ -399,7 +401,7 @@ export default function CreateListing() {
                           >
                             Précédent
                           </Button>
-                          <Button size="sm" colorScheme="blue" onClick={() => {nextStep()}} isLoading={loading}>
+                          <Button size="sm" colorScheme="blue" onClick={(e) => {handleAddListing(e);nextStep()}} isLoading={loading}>
                             {isLastStep ? "Lister mon Annonce" : "Suivant"}
                           </Button>
                         </>
