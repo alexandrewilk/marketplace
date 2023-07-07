@@ -39,7 +39,6 @@ export default function Messaging() {
             if(i === 0) {
               setSelectedChat({userId: chatterData.id, chatId:chatsWith[i]})
             }}
-            console.log(chatsWithDataSetter)
             setChatsWithData(chatsWithDataSetter)
           
       }
@@ -71,7 +70,7 @@ export default function Messaging() {
    
     return(
       chatsWithData.map((user)=>{return(
-        <Box key = {user.id} bg="gray.100" p={2} borderRadius="md" _hover={{ bg: "blue.500", color: "white" }} onClick={(e)=>{e.preventDefault();setSelectedChat({userId: user.id, chatId:user.chatId })}}>
+        <Box key = {user.id} bg={selectedChat.userId == user.id ? "blue.500" :"gray.100"} p={2} borderRadius="md" _hover={{ bg: "blue.500", color: "white" }} onClick={(e)=>{e.preventDefault();setSelectedChat({userId: user.id, chatId:user.chatId })}}>
         Conversation avec {user.data.name}
         </Box>
       )})
