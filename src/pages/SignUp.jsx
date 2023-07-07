@@ -4,12 +4,15 @@ import { auth, db, provider } from '../firebase';
 import { createUserWithEmailAndPassword, updateProfile } from 'firebase/auth';
 import { serverTimestamp, setDoc, doc } from 'firebase/firestore';
 import { toast } from 'react-toastify';
-import { Box, Text, Stack, Input, Button, FormControl, FormLabel, Link, useColorModeValue, Flex, Image, Spinner, Center } from '@chakra-ui/react';
+import { Box, Text, Stack, Input, Button, FormControl, FormLabel, Link, useColorModeValue, Flex, Image, Spinner, Center, InputGroup, InputRightElement } from '@chakra-ui/react';
 import { useBreakpointValue } from '@chakra-ui/react'
 import { FcGoogle } from 'react-icons/fc';
 import { signInWithPopup } from 'firebase/auth';
+
 export default function SignUp() {
   const navigate = useNavigate();
+  const [show, setShow] = React.useState(false)
+  const handleClick = () => setShow(!show)
   const [loading, setLoading] = useState(false);
   const [formData, setFormData] = useState({
     name: '',
@@ -71,13 +74,13 @@ export default function SignUp() {
         <Image src={require('../assets/images/SignIn.jpg')} alt="Image description" objectFit="cover" borderRadius="10px" h="100%" />
       </Box>
       <Box
-  flex="1"
-  display="flex"
-  flexDirection="column"
-  alignItems="center"
-  justifyContent="center"
-  p="1rem"
->
+        flex="1"
+        display="flex"
+        flexDirection="column"
+        alignItems="center"
+        justifyContent="center"
+        p="1rem"
+      >
   <Text
     fontSize="2xl"
     fontWeight="bold"
@@ -117,16 +120,23 @@ export default function SignUp() {
       </FormControl>
       <FormControl id="password">
         <FormLabel>Mot de passe</FormLabel>
-        <Input
-           width={{ base: '100%', md: '400px' }}
-          type="password"
-          value={password}
-          onChange={onChange}
-          placeholder="Entrez votre mot de passe"
-          bg="white"
-          borderColor={useColorModeValue('gray.300', 'gray.700')}
-          borderRadius="lg"
-        />
+        <InputGroup size='md'>
+          <Input
+            width={{ base: '100%', md: '400px' }}
+            value={password}
+            onChange={onChange}
+            type={show ? 'text' : 'password'}
+            placeholder="Entrez votre mot de passe"
+            bg="white"
+            borderColor={useColorModeValue('gray.300', 'gray.700')}
+            borderRadius="lg"
+          />
+          <InputRightElement width='4.5rem'>
+            <Button h='1.75rem' size='sm' onClick={handleClick}>
+              {show ? 'Hide' : 'Show'}
+            </Button>
+          </InputRightElement>
+    </InputGroup>
       </FormControl>
       {loading ? (
         <Spinner />
