@@ -140,7 +140,7 @@ export default function Recherche() {
   if (filteredAnnonces.length === 0) return <h1>PAS DANNONCES DANS CETTE VILLE</h1>;
 
   return (
-    <Grid templateColumns={isLargerThan750 && !isMapVisible ? 'repeat(2, 1fr)' : 'repeat(1, 1fr)'} gap={!isMapVisible ? '8' : '0'}>
+    <Grid templateColumns={isLargerThan750 && !isMapVisible ? 'repeat(2, 1fr)' : 'repeat(2, 1fr)'} gap={!isMapVisible ? '8' : '0'}>
       {filteredAnnonces.map((a) => (
         <AnnonceCard key={a.id} data={a.data} id={a.id} />
       ))}
@@ -244,7 +244,7 @@ function ChangeView({ center, zoom }) {
                 <option value="2000">2000€</option>
               </Select>
 
-              <Select placeholder="Meublé ?" minInlineSize="200px"
+              <Select placeholder="Meublé" minInlineSize="200px"
               onChange={(e) =>
                 setCurrentFilters((prev) => {
                   let filter = { ...prev, meuble: e.target.value };

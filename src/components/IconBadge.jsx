@@ -1,13 +1,14 @@
 import React from "react";
-import { Badge, Flex, Icon } from "@chakra-ui/react";
+import { Circle, Flex, Text } from "@chakra-ui/react";
+import { Icon } from "@chakra-ui/icons";
 
 export default function IconBadge({icon, text, marginRight}) {
   return (
-    <Badge p={1} mr={marginRight}>
-      <Flex align="center" justify="center">
-        <Icon as={icon} mr={1} boxSize={4} />
-        {text}
-      </Flex>
-    </Badge>
+    <Flex align="center" justify="center" mr={marginRight}>
+      <Circle p={1} bg="blue.100">
+        <Icon as={icon} color="blue.600" boxSize={4} />
+      </Circle>
+      <Text ml={2} fontSize='12px'>{text}</Text>
+    </Flex>
   );
 }

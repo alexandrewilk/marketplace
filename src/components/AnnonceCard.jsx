@@ -17,12 +17,11 @@ export default function AnnonceCard({ data, id }) {
   const badgeProperties = [
     { icon: FaBed, text: "5 chambres" },
     { icon: FaHouseUser, text: "300m²" },
-    { icon: FaBath, text: "2 salle de bain" }
   ];
 
   const [userLikes, setUserLikes] = useContext(LikesContext)
 
-  async function handleLike(){
+  async function handleLike(){  
     try {
       if(Array.isArray(userLikes)){
       if(userLikes.includes(id)){
@@ -50,21 +49,34 @@ export default function AnnonceCard({ data, id }) {
       borderRadius="16px"
       overflow="hidden"
       boxShadow="base"
-      height={{ base: "auto", md: "200px" }}
       transition="box-shadow 0.2s"
       _hover={{ boxShadow: "md" }}
       mb={4}
+      maxW="300px"
+      minH="340px"
     >
-    <Flex direction={{ base: "column", md: "row" }} h="100%">
-      <Box w={{ base: "100%", md: "35%" }} onClick={(e)=>{e.preventDefault();navigate(`/listings/${id}`)}}>
-        <Image src={imgUrls ? imgUrls[0] : "https://bit.ly/2k1H1t6"} alt="Appartement" objectFit="cover" w="100%" h="100%" />
-      </Box>
-      <Flex width={{ base: "100%", md: "65%" }} flexDirection="column" justifyContent="space-between" gap={5} padding={4} h="100%">
-        <Flex justifyContent="flex-end" >
-          <IconButton icon={userLikes.includes(id) ? <AiFillHeart /> :<AiOutlineHeart /> } isRound onClick={(e)=>{e.preventDefault();handleLike();}}/>
-        </Flex>
-          <Flex flexDirection="column" justifyContent="space-between" h="100%" onClick={(e)=>{e.preventDefault();navigate(`/listings/${id}`)}}>
-            <Text fontSize="xl" fontWeight="semibold" whiteSpace="nowrap" overflow="hidden" textOverflow="ellipsis">
+      <Flex direction={{ base: "column", md: "column" }} h="100%">
+        <Box position="relative" w="100%" onClick={(e)=>{e.preventDefault();navigate(`/listings/${id}`)}}>
+          <Image src={imgUrls ? imgUrls[0] : "https://bit.ly/2k1t6"} alt="Appartement" objectFit="cover" w="95%" h="95%" m="2.5%" borderRadius="8px"/>
+          <Box onClick={(e)=>{e.stopPropagation();}}>
+            <IconButton 
+              position="absolute" 
+              top={3} 
+              right={3}
+              icon={userLikes.includes(id) ? <AiFillHeart /> :<AiOutlineHeart /> } 
+              isRound 
+              onClick={(e)=>{e.preventDefault();handleLike();}}
+            />
+          </Box>
+        </Box>
+
+        <Flex direction="column" padding={2} h="100%">
+          <Flex flexDirection="column" justifyContent="space-around" h="100%" onClick={(e)=>{e.preventDefault();navigate(`/listings/${id}`)}}>
+            <CustomBadge text="SeLoger"/>
+            <Text fontSize="lg" color="#172ACE" as='b'>
+              {loyer}€
+            </Text>
+            <Text fontSize="md" fontWeight="semibold" whiteSpace="nowrap" overflow="hidden" textOverflow="ellipsis">
               {type}, loyer de {loyer}€, {nbPieces} pièces
             </Text>
             <Flex>
@@ -72,15 +84,10 @@ export default function AnnonceCard({ data, id }) {
                 <IconBadge key={index} icon={badge.icon} text={badge.text} marginRight="4px" />
               ))}
             </Flex>
-            <Flex justifyContent="space-between" alignItems="flex-end">
-              <CustomBadge text="SeLoger" />
-              <Text fontSize="xl" color="#172ACE" as='b'>
-                {loyer}€/mois
-              </Text>
-            </Flex>
           </Flex>
         </Flex>
       </Flex>
     </Box>
   );
+  
 }

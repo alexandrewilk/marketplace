@@ -3,6 +3,6 @@ import { Badge } from "@chakra-ui/react";
 
 export default function CustomBadge(props) {
   return (
-        <Badge colorScheme="blue">{props.text}</Badge>
+        <Badge colorScheme="blue" width="64px">{props.text}</Badge>
   );
 }
