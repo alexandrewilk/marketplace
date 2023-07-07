@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { Link as RouterLink } from 'react-router-dom';
 import { Dots } from 'react-activity';
 import 'react-activity/dist/library.css';
-import { HiHome } from 'react-icons/hi';
+import { MdAdd } from 'react-icons/md';
 import { Text, Container, Breadcrumb, BreadcrumbItem, BreadcrumbLink, Button, Icon, Box, Flex } from '@chakra-ui/react';
 import { query, getDocs, where, orderBy, collection } from 'firebase/firestore';
 import { auth, db } from '../firebase';
@@ -43,10 +43,10 @@ export default function MesAnnonces() {
           <BreadcrumbLink href='/MesAnnonces'>Mes annonces</BreadcrumbLink>
         </BreadcrumbItem>
       </Breadcrumb>
-      <Flex flexDirection="row" justifyContent="space-between">
+      <Flex flexDirection="row" justifyContent="space-between" alignItems="flex-end">
         <Text fontSize="4xl" as="b">Mes annonces</Text>
-        <Button colorScheme='red' maxW='xs' leftIcon={<Icon as={HiHome} />}>
-          <RouterLink to='/create-listing'>Mettre une annonce de colocation</RouterLink>
+        <Button colorScheme='blue' size='sm' leftIcon={<Icon as={MdAdd} />}>
+          <RouterLink to='/create-listing'>Ajouter une annonce</RouterLink>
         </Button>
       </Flex>
       
