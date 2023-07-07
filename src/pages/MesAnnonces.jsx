@@ -3,7 +3,7 @@ import { Link as RouterLink } from 'react-router-dom';
 import { Dots } from 'react-activity';
 import 'react-activity/dist/library.css';
 import { HiHome } from 'react-icons/hi';
-import { Text, Container, Breadcrumb, BreadcrumbItem, BreadcrumbLink, Button, Icon, Box } from '@chakra-ui/react';
+import { Text, Container, Breadcrumb, BreadcrumbItem, BreadcrumbLink, Button, Icon, Box, Flex } from '@chakra-ui/react';
 import { query, getDocs, where, orderBy, collection } from 'firebase/firestore';
 import { auth, db } from '../firebase';
 import AnnonceCard from '../components/AnnonceCardPageMesLikes'
@@ -34,7 +34,7 @@ export default function MesAnnonces() {
 
   return (
     
-    <Container maxWidth="1200px" mt={70} mb={70}>
+    <Container maxWidth="1200px" mt={70} mb={70} h="calc(100vh - 64px)">
       <Breadcrumb>
         <BreadcrumbItem>
           <BreadcrumbLink href='/Settings'>Paramètres</BreadcrumbLink>
@@ -43,15 +43,16 @@ export default function MesAnnonces() {
           <BreadcrumbLink href='/MesAnnonces'>Mes annonces</BreadcrumbLink>
         </BreadcrumbItem>
       </Breadcrumb>
-      <Text fontSize="4xl" as="b">Mes annonces</Text>
-      {listings.map((l)=>{return(
-        <AnnonceCard key = {l.id} data={l.data}/>
-      )})}
-      <Box>
+      <Flex flexDirection="row" justifyContent="space-between">
+        <Text fontSize="4xl" as="b">Mes annonces</Text>
         <Button colorScheme='red' maxW='xs' leftIcon={<Icon as={HiHome} />}>
           <RouterLink to='/create-listing'>Mettre une annonce de colocation</RouterLink>
         </Button>
-      </Box>
+      </Flex>
+      
+      {listings.map((l)=>{return(
+        <AnnonceCard key = {l.id} data={l.data}/>
+      )})}
     </Container>
     
   );
