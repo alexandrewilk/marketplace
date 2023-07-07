@@ -47,6 +47,26 @@ exports.updateUserProfileOnNewChat = functions.firestore.document("Chats/{chatID
     return batch.commit()
 })
 
+exports.sendEmailOnNewChatCreated = functions.firestore.document("Chats/{chatID}").onWrite(async (snapshot, context)=>{
+    const chatters = snapshot.after.data().chatters
+    const from = snapshot.after.data().texts[snapshot.after.data().texts.length-1].from
+    const to = chatters.filter(uid=>uid!=from)[0]
+    const fromDoc = await db.collection('Users').doc(from).get()
+    const toDoc = await db.collection('Users').doc(to).get()
+    const listingDoc = await db.collection('Listings').doc(snapshot.after.data().listingId).get()
+    const email = toDoc.data().email
+    
+    const msg = {
+        to: email,
+        from: 'testeurtesteur54@gmail.com',
+        template_id: tempKey,
+        dynamic_template_data: {
+            name: 'message envoyé car tu as recu un message',
+            text: 'message envoyé car tu as recu un message'
+        }
+    }
+    return sgMail.send(msg)
+})
 // exports.weeklySummary = functions.pubsub.schedule('').onRun(async context => {
 //     const userSnapshots = await admin.firestore().collection('Users').get();
 //     const qualifiedUser = userSnapshots.filter(u=> u.alertes)
