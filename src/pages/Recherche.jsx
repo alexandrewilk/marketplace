@@ -3,8 +3,9 @@ import { collection, doc, getDoc, getDocs, limit, query, where } from 'firebase/
 import { Dots } from 'react-activity';
 import { useNavigate, useParams, useSearchParams } from 'react-router-dom';
 import {
-    Box, Select, Grid, Flex, GridItem,
-    Switch, Spacer, Heading, useColorModeValue, useMediaQuery
+    Box, Select, Grid, Flex, GridItem, Button, useDisclosure, 
+    Switch, Spacer, Heading, useColorModeValue, useMediaQuery, Modal, 
+    ModalOverlay, ModalContent, ModalHeader, ModalFooter, ModalBody, ModalCloseButton,
 } from '@chakra-ui/react';
 import AnnonceCard from '../components/AnnonceCard';
 import { db } from '../firebase';
@@ -52,7 +53,8 @@ export default function Recherche() {
     const {loggedIn, loadingAuth} = useAuthStatus();
     const [userLikes, setUserLikes] = useState([])
     const [isMapVisible, setMapVisible] = useState(true);
- 
+    const { isOpen, onOpen, onClose } = useDisclosure();
+
     const params = useParams();
     const [searchParams, setSearchParams] = useSearchParams();
     const [currentFilters, setCurrentFilters] = useState(() => {
@@ -168,7 +170,7 @@ function ChangeView({ center, zoom }) {
         <Flex 
             direction="row"
             overflowX="auto"
-            gap={6}
+            gap={3}
             css={{
               scrollbarWidth: 'none',
               '&::-webkit-scrollbar': {
@@ -176,6 +178,24 @@ function ChangeView({ center, zoom }) {
               }
             }}
           >
+            <Button onClick={onOpen}  minInlineSize="100px" bgColor="blue" textColor="white">Alerte</Button>
+            <Modal isOpen={isOpen} onClose={onClose}>
+              <ModalOverlay />
+              <ModalContent>
+                <ModalHeader>Alerte</ModalHeader>
+                <ModalCloseButton />
+                <ModalBody>
+                  AHHHHHHHHHHHHHHH
+                </ModalBody>
+
+                <ModalFooter>
+                  <Button colorScheme='blue' mr={3} onClick={onClose}>
+                    Enregistrer
+                  </Button>
+                </ModalFooter>
+              </ModalContent>
+            </Modal>
+
             <Select
                 placeholder="Coloc et coliving"
                 minInlineSize="200px"
@@ -332,6 +352,11 @@ function ChangeView({ center, zoom }) {
                   {filteredAnnonces.length} {`annonce${filteredAnnonces.length ==1 ? '' : 's'}`} à
                 </Heading>
                 <Spacer />
+                <Select placeholder='Trier par' maxW="150px" size='sm' mr={4}>
+                  <option value='option1'>Option 1</option>
+                  <option value='option2'>Option 2</option>
+                  <option value='option3'>Option 3</option>
+                </Select>
                 <Heading as="h4" size="md" mr="12px">
                   Carte
                 </Heading>
