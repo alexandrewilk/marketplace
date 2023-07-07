@@ -10,7 +10,6 @@ import { db, auth } from "../firebase";
 import { useNavigate } from "react-router-dom";
 
 
-
 export default function AnnonceCard({ data, id }) {
   const { imgUrls, type, loyer, nbPieces } = data;
   const navigate = useNavigate();
@@ -52,8 +51,8 @@ export default function AnnonceCard({ data, id }) {
       transition="box-shadow 0.2s"
       _hover={{ boxShadow: "md" }}
       mb={4}
-      maxW="300px"
-      minH="340px"
+      maxW="240px"
+      minH="280px"
     >
       <Flex direction={{ base: "column", md: "column" }} h="100%">
         <Box position="relative" w="100%" onClick={(e)=>{e.preventDefault();navigate(`/listings/${id}`)}}>

@@ -140,7 +140,7 @@ export default function Recherche() {
   if (filteredAnnonces.length === 0) return <h1>PAS DANNONCES DANS CETTE VILLE</h1>;
 
   return (
-    <Grid templateColumns={isLargerThan750 && !isMapVisible ? 'repeat(2, 1fr)' : 'repeat(2, 1fr)'} gap={!isMapVisible ? '8' : '0'}>
+    <Grid templateColumns={isLargerThan750 && !isMapVisible ? 'repeat(4, 1fr)' : 'repeat(3, 1fr)'} gap={3}>
       {filteredAnnonces.map((a) => (
         <AnnonceCard key={a.id} data={a.data} id={a.id} />
       ))}
@@ -318,7 +318,7 @@ function ChangeView({ center, zoom }) {
               '&::-webkit-scrollbar-thumb': {
                 background: '#888',
                 borderRadius: '10px',
-                height: '8', // Changer la hauteur ici
+                height: '8',
               },
               '&::-webkit-scrollbar-thumb:hover': {
                 background: '#555',
@@ -345,7 +345,7 @@ function ChangeView({ center, zoom }) {
             </Box>
           </GridItem>
 
-
+            {/* Partie pour gérer la map */}
           {isLargerThan750 && isMapVisible && (
             <GridItem h="calc(100vh - 134px)">
               <MapContainer center={center} zoom={13}  style={{height : "calc(100vh - 134px)"}}>
