@@ -54,14 +54,17 @@ export default function Nav() {
 
   function handleInput(e){
     e.preventDefault();
+    setVille(e.target.value);
+    
     if(e.target.value==''){
       setSuggestions([]);
       setActiveSuggestionIndex(0);
       return;
     }
-    setVille(e.target.value);
+    
     setSuggestions([...search(e.target.value)])
   }
+  
 
   const routeMatchPath = (route) => {
     return route === location.pathname;
