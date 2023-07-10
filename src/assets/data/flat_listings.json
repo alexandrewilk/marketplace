@@ -1,0 +1,1902 @@
+[
+    {
+        "adresse": "fNR3tLHclN Street, Paris",
+        "co": "colocation",
+        "desc": "A beautiful flat in Paris",
+        "geolocation": {
+            "lat": 48.853896,
+            "lng": 2.298108
+        },
+        "imgUrls": [
+            "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSCdy0uyCcFOj92VAyGqpfshzAIJY5csxzHFA&usqp=CAU"
+        ],
+        "type": "Maison",
+        "meuble": "false",
+        "regles": "non-fumeur",
+        "loyer": 1380.24,
+        "userRef": "zDOiQQDlAVWuzj2C7JuR9plTH5t2",
+        "ville": "Paris",
+        "surface": 76.55
+    },
+    {
+        "adresse": "5ZFBzOpRTs Street, Paris",
+        "co": "colocation",
+        "desc": "A beautiful flat in Paris",
+        "geolocation": {
+            "lat": 48.81094,
+            "lng": 2.286618
+        },
+        "imgUrls": [
+            "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQMwTjaPm6-UmltxbXmUUWZ7_MIkcCf8iriSw&usqp=CAU"
+        ],
+        "type": "Maison",
+        "meuble": "false",
+        "regles": "non-fumeur",
+        "loyer": 2144.88,
+        "userRef": "zDOiQQDlAVWuzj2C7JuR9plTH5t2",
+        "ville": "Paris",
+        "surface": 67.6
+    },
+    {
+        "adresse": "n2UueagJW9 Street, Paris",
+        "co": "colocation",
+        "desc": "A beautiful flat in Paris",
+        "geolocation": {
+            "lat": 48.887513,
+            "lng": 2.327946
+        },
+        "imgUrls": [
+            "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSCdy0uyCcFOj92VAyGqpfshzAIJY5csxzHFA&usqp=CAU"
+        ],
+        "type": "Villa",
+        "meuble": "true",
+        "regles": "ok-animaux",
+        "loyer": 3354.46,
+        "userRef": "zDOiQQDlAVWuzj2C7JuR9plTH5t2",
+        "ville": "Paris",
+        "surface": 90.17
+    },
+    {
+        "adresse": "RKPvWnGske Street, Paris",
+        "co": "colocation",
+        "desc": "A beautiful flat in Paris",
+        "geolocation": {
+            "lat": 48.83527,
+            "lng": 2.252194
+        },
+        "imgUrls": [
+            "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSCdy0uyCcFOj92VAyGqpfshzAIJY5csxzHFA&usqp=CAU"
+        ],
+        "type": "Studio",
+        "meuble": "true",
+        "regles": "ok-animaux",
+        "loyer": 2824.92,
+        "userRef": "zDOiQQDlAVWuzj2C7JuR9plTH5t2",
+        "ville": "Paris",
+        "surface": 72.4
+    },
+    {
+        "adresse": "i5hwGYQHX8 Street, Paris",
+        "co": "",
+        "desc": "A beautiful flat in Paris",
+        "geolocation": {
+            "lat": 48.886777,
+            "lng": 2.256492
+        },
+        "imgUrls": [
+            "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQMwTjaPm6-UmltxbXmUUWZ7_MIkcCf8iriSw&usqp=CAU"
+        ],
+        "type": "Maison",
+        "meuble": "true",
+        "regles": "only-femme",
+        "loyer": 3050.51,
+        "userRef": "zDOiQQDlAVWuzj2C7JuR9plTH5t2",
+        "ville": "Paris",
+        "surface": 66.88
+    },
+    {
+        "adresse": "6vCFD9Tsb5 Street, Paris",
+        "co": "coliving",
+        "desc": "A beautiful flat in Paris",
+        "geolocation": {
+            "lat": 48.875888,
+            "lng": 2.399632
+        },
+        "imgUrls": [
+            "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcS1AxuZtJi1RdsD_2lesacxuq6WjTbTACCnTg&usqp=CAU"
+        ],
+        "type": "Studio",
+        "meuble": "false",
+        "regles": "ok-animaux",
+        "loyer": 3063.26,
+        "userRef": "zDOiQQDlAVWuzj2C7JuR9plTH5t2",
+        "ville": "Paris",
+        "surface": 82.06
+    },
+    {
+        "adresse": "cUCulNRhfh Street, Paris",
+        "co": "coliving",
+        "desc": "A beautiful flat in Paris",
+        "geolocation": {
+            "lat": 48.816212,
+            "lng": 2.348845
+        },
+        "imgUrls": [
+            "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSCdy0uyCcFOj92VAyGqpfshzAIJY5csxzHFA&usqp=CAU"
+        ],
+        "type": "Maison",
+        "meuble": "true",
+        "regles": "only-homme",
+        "loyer": 1423.42,
+        "userRef": "zDOiQQDlAVWuzj2C7JuR9plTH5t2",
+        "ville": "Paris",
+        "surface": 63.91
+    },
+    {
+        "adresse": "ijAHfGzj75 Street, Paris",
+        "co": "colocation",
+        "desc": "A beautiful flat in Paris",
+        "geolocation": {
+            "lat": 48.829303,
+            "lng": 2.317364
+        },
+        "imgUrls": [
+            "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcS1AxuZtJi1RdsD_2lesacxuq6WjTbTACCnTg&usqp=CAU"
+        ],
+        "type": "Studio",
+        "meuble": "true",
+        "regles": "only-femme",
+        "loyer": 1383.46,
+        "userRef": "zDOiQQDlAVWuzj2C7JuR9plTH5t2",
+        "ville": "Paris",
+        "surface": 75.57
+    },
+    {
+        "adresse": "Th0LYqCwrj Street, Paris",
+        "co": "colocation",
+        "desc": "A beautiful flat in Paris",
+        "geolocation": {
+            "lat": 48.88173,
+            "lng": 2.323778
+        },
+        "imgUrls": [
+            "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSCdy0uyCcFOj92VAyGqpfshzAIJY5csxzHFA&usqp=CAU"
+        ],
+        "type": "Maison",
+        "meuble": "true",
+        "regles": "only-femme",
+        "loyer": 1491.17,
+        "userRef": "zDOiQQDlAVWuzj2C7JuR9plTH5t2",
+        "ville": "Paris",
+        "surface": 39.42
+    },
+    {
+        "adresse": "YGSwFpUjOR Street, Paris",
+        "co": "colocation",
+        "desc": "A beautiful flat in Paris",
+        "geolocation": {
+            "lat": 48.848287,
+            "lng": 2.281877
+        },
+        "imgUrls": [
+            "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSCdy0uyCcFOj92VAyGqpfshzAIJY5csxzHFA&usqp=CAU"
+        ],
+        "type": "Appartement",
+        "meuble": "false",
+        "regles": "ok-animaux",
+        "loyer": 3357.39,
+        "userRef": "zDOiQQDlAVWuzj2C7JuR9plTH5t2",
+        "ville": "Paris",
+        "surface": 36.59
+    },
+    {
+        "adresse": "wQWfThsniZ Street, Paris",
+        "co": "",
+        "desc": "A beautiful flat in Paris",
+        "geolocation": {
+            "lat": 48.89623,
+            "lng": 2.297731
+        },
+        "imgUrls": [
+            "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQMwTjaPm6-UmltxbXmUUWZ7_MIkcCf8iriSw&usqp=CAU"
+        ],
+        "type": "Villa",
+        "meuble": "true",
+        "regles": "only-femme",
+        "loyer": 4025.49,
+        "userRef": "zDOiQQDlAVWuzj2C7JuR9plTH5t2",
+        "ville": "Paris",
+        "surface": 50.15
+    },
+    {
+        "adresse": "v2cUrzXO1E Street, Paris",
+        "co": "colocation",
+        "desc": "A beautiful flat in Paris",
+        "geolocation": {
+            "lat": 48.813675,
+            "lng": 2.284278
+        },
+        "imgUrls": [
+            "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQMwTjaPm6-UmltxbXmUUWZ7_MIkcCf8iriSw&usqp=CAU"
+        ],
+        "type": "Maison",
+        "meuble": "true",
+        "regles": "only-femme",
+        "loyer": 1241.01,
+        "userRef": "zDOiQQDlAVWuzj2C7JuR9plTH5t2",
+        "ville": "Paris",
+        "surface": 61.8
+    },
+    {
+        "adresse": "74qFn85Lnl Street, Paris",
+        "co": "",
+        "desc": "A beautiful flat in Paris",
+        "geolocation": {
+            "lat": 48.815108,
+            "lng": 2.310052
+        },
+        "imgUrls": [
+            "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQMwTjaPm6-UmltxbXmUUWZ7_MIkcCf8iriSw&usqp=CAU"
+        ],
+        "type": "Studio",
+        "meuble": "false",
+        "regles": "ok-animaux",
+        "loyer": 1486.36,
+        "userRef": "zDOiQQDlAVWuzj2C7JuR9plTH5t2",
+        "ville": "Paris",
+        "surface": 97.18
+    },
+    {
+        "adresse": "9DcJlynZN6 Street, Paris",
+        "co": "coliving",
+        "desc": "A beautiful flat in Paris",
+        "geolocation": {
+            "lat": 48.847732,
+            "lng": 2.342974
+        },
+        "imgUrls": [
+            "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQMwTjaPm6-UmltxbXmUUWZ7_MIkcCf8iriSw&usqp=CAU"
+        ],
+        "type": "Appartement",
+        "meuble": "false",
+        "regles": "only-homme",
+        "loyer": 1088.19,
+        "userRef": "zDOiQQDlAVWuzj2C7JuR9plTH5t2",
+        "ville": "Paris",
+        "surface": 96.08
+    },
+    {
+        "adresse": "EqI4SPCDDl Street, Paris",
+        "co": "coliving",
+        "desc": "A beautiful flat in Paris",
+        "geolocation": {
+            "lat": 48.875362,
+            "lng": 2.323395
+        },
+        "imgUrls": [
+            "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSCdy0uyCcFOj92VAyGqpfshzAIJY5csxzHFA&usqp=CAU"
+        ],
+        "type": "Villa",
+        "meuble": "true",
+        "regles": "ok-animaux",
+        "loyer": 1169.96,
+        "userRef": "zDOiQQDlAVWuzj2C7JuR9plTH5t2",
+        "ville": "Paris",
+        "surface": 73.15
+    },
+    {
+        "adresse": "sX6JZzGYqS Street, Paris",
+        "co": "colocation",
+        "desc": "A beautiful flat in Paris",
+        "geolocation": {
+            "lat": 48.813982,
+            "lng": 2.332706
+        },
+        "imgUrls": [
+            "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSCdy0uyCcFOj92VAyGqpfshzAIJY5csxzHFA&usqp=CAU"
+        ],
+        "type": "Villa",
+        "meuble": "true",
+        "regles": "ok-animaux",
+        "loyer": 4233.44,
+        "userRef": "zDOiQQDlAVWuzj2C7JuR9plTH5t2",
+        "ville": "Paris",
+        "surface": 86.71
+    },
+    {
+        "adresse": "zac2qVNuJf Street, Paris",
+        "co": "coliving",
+        "desc": "A beautiful flat in Paris",
+        "geolocation": {
+            "lat": 48.875307,
+            "lng": 2.399023
+        },
+        "imgUrls": [
+            "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcS1AxuZtJi1RdsD_2lesacxuq6WjTbTACCnTg&usqp=CAU"
+        ],
+        "type": "Studio",
+        "meuble": "false",
+        "regles": "only-femme",
+        "loyer": 1402.92,
+        "userRef": "zDOiQQDlAVWuzj2C7JuR9plTH5t2",
+        "ville": "Paris",
+        "surface": 59.35
+    },
+    {
+        "adresse": "uVNEwFzrQb Street, Paris",
+        "co": "coliving",
+        "desc": "A beautiful flat in Paris",
+        "geolocation": {
+            "lat": 48.888842,
+            "lng": 2.380667
+        },
+        "imgUrls": [
+            "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSCdy0uyCcFOj92VAyGqpfshzAIJY5csxzHFA&usqp=CAU"
+        ],
+        "type": "Studio",
+        "meuble": "false",
+        "regles": "non-fumeur",
+        "loyer": 1975.44,
+        "userRef": "zDOiQQDlAVWuzj2C7JuR9plTH5t2",
+        "ville": "Paris",
+        "surface": 79.63
+    },
+    {
+        "adresse": "jzlSatU4Xl Street, Paris",
+        "co": "coliving",
+        "desc": "A beautiful flat in Paris",
+        "geolocation": {
+            "lat": 48.856871,
+            "lng": 2.315119
+        },
+        "imgUrls": [
+            "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSCdy0uyCcFOj92VAyGqpfshzAIJY5csxzHFA&usqp=CAU"
+        ],
+        "type": "Maison",
+        "meuble": "false",
+        "regles": "only-femme",
+        "loyer": 2133.16,
+        "userRef": "zDOiQQDlAVWuzj2C7JuR9plTH5t2",
+        "ville": "Paris",
+        "surface": 57.4
+    },
+    {
+        "adresse": "NnTzkETNa6 Street, Paris",
+        "co": "",
+        "desc": "A beautiful flat in Paris",
+        "geolocation": {
+            "lat": 48.832719,
+            "lng": 2.271539
+        },
+        "imgUrls": [
+            "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSCdy0uyCcFOj92VAyGqpfshzAIJY5csxzHFA&usqp=CAU"
+        ],
+        "type": "Appartement",
+        "meuble": "true",
+        "regles": "non-fumeur",
+        "loyer": 2468.99,
+        "userRef": "zDOiQQDlAVWuzj2C7JuR9plTH5t2",
+        "ville": "Paris",
+        "surface": 96.59
+    },
+    {
+        "adresse": "AkhWMT2efE Street, Paris",
+        "co": "colocation",
+        "desc": "A beautiful flat in Paris",
+        "geolocation": {
+            "lat": 48.851849,
+            "lng": 2.279526
+        },
+        "imgUrls": [
+            "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSCdy0uyCcFOj92VAyGqpfshzAIJY5csxzHFA&usqp=CAU"
+        ],
+        "type": "Appartement",
+        "meuble": "true",
+        "regles": "only-homme",
+        "loyer": 2265.36,
+        "userRef": "zDOiQQDlAVWuzj2C7JuR9plTH5t2",
+        "ville": "Paris",
+        "surface": 61.49
+    },
+    {
+        "adresse": "eD3GluSP3z Street, Paris",
+        "co": "colocation",
+        "desc": "A beautiful flat in Paris",
+        "geolocation": {
+            "lat": 48.872537,
+            "lng": 2.337645
+        },
+        "imgUrls": [
+            "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQMwTjaPm6-UmltxbXmUUWZ7_MIkcCf8iriSw&usqp=CAU"
+        ],
+        "type": "Studio",
+        "meuble": "false",
+        "regles": "only-homme",
+        "loyer": 1579.15,
+        "userRef": "zDOiQQDlAVWuzj2C7JuR9plTH5t2",
+        "ville": "Paris",
+        "surface": 49.47
+    },
+    {
+        "adresse": "vj9fS1pYPe Street, Paris",
+        "co": "coliving",
+        "desc": "A beautiful flat in Paris",
+        "geolocation": {
+            "lat": 48.876251,
+            "lng": 2.28823
+        },
+        "imgUrls": [
+            "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQMwTjaPm6-UmltxbXmUUWZ7_MIkcCf8iriSw&usqp=CAU"
+        ],
+        "type": "Studio",
+        "meuble": "true",
+        "regles": "ok-animaux",
+        "loyer": 1612.85,
+        "userRef": "zDOiQQDlAVWuzj2C7JuR9plTH5t2",
+        "ville": "Paris",
+        "surface": 61.72
+    },
+    {
+        "adresse": "2LywhyzGwO Street, Paris",
+        "co": "",
+        "desc": "A beautiful flat in Paris",
+        "geolocation": {
+            "lat": 48.895068,
+            "lng": 2.367883
+        },
+        "imgUrls": [
+            "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSCdy0uyCcFOj92VAyGqpfshzAIJY5csxzHFA&usqp=CAU"
+        ],
+        "type": "Villa",
+        "meuble": "false",
+        "regles": "non-fumeur",
+        "loyer": 4075.35,
+        "userRef": "zDOiQQDlAVWuzj2C7JuR9plTH5t2",
+        "ville": "Paris",
+        "surface": 80.65
+    },
+    {
+        "adresse": "E2rOhywPlC Street, Paris",
+        "co": "",
+        "desc": "A beautiful flat in Paris",
+        "geolocation": {
+            "lat": 48.851577,
+            "lng": 2.343729
+        },
+        "imgUrls": [
+            "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcS1AxuZtJi1RdsD_2lesacxuq6WjTbTACCnTg&usqp=CAU"
+        ],
+        "type": "Villa",
+        "meuble": "false",
+        "regles": "non-fumeur",
+        "loyer": 2315.25,
+        "userRef": "zDOiQQDlAVWuzj2C7JuR9plTH5t2",
+        "ville": "Paris",
+        "surface": 83.48
+    },
+    {
+        "adresse": "nqDPsV6WGV Street, Paris",
+        "co": "coliving",
+        "desc": "A beautiful flat in Paris",
+        "geolocation": {
+            "lat": 48.861182,
+            "lng": 2.333129
+        },
+        "imgUrls": [
+            "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcS1AxuZtJi1RdsD_2lesacxuq6WjTbTACCnTg&usqp=CAU"
+        ],
+        "type": "Appartement",
+        "meuble": "true",
+        "regles": "only-homme",
+        "loyer": 2962.4,
+        "userRef": "zDOiQQDlAVWuzj2C7JuR9plTH5t2",
+        "ville": "Paris",
+        "surface": 47.97
+    },
+    {
+        "adresse": "t4a2rPl5VZ Street, Paris",
+        "co": "",
+        "desc": "A beautiful flat in Paris",
+        "geolocation": {
+            "lat": 48.809718,
+            "lng": 2.346773
+        },
+        "imgUrls": [
+            "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSCdy0uyCcFOj92VAyGqpfshzAIJY5csxzHFA&usqp=CAU"
+        ],
+        "type": "Maison",
+        "meuble": "true",
+        "regles": "only-homme",
+        "loyer": 2660.29,
+        "userRef": "zDOiQQDlAVWuzj2C7JuR9plTH5t2",
+        "ville": "Paris",
+        "surface": 70.37
+    },
+    {
+        "adresse": "NQu1YOoegN Street, Paris",
+        "co": "colocation",
+        "desc": "A beautiful flat in Paris",
+        "geolocation": {
+            "lat": 48.827961,
+            "lng": 2.319798
+        },
+        "imgUrls": [
+            "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQMwTjaPm6-UmltxbXmUUWZ7_MIkcCf8iriSw&usqp=CAU"
+        ],
+        "type": "Villa",
+        "meuble": "true",
+        "regles": "non-fumeur",
+        "loyer": 4174.15,
+        "userRef": "zDOiQQDlAVWuzj2C7JuR9plTH5t2",
+        "ville": "Paris",
+        "surface": 49.23
+    },
+    {
+        "adresse": "nWzOFCc5cc Street, Paris",
+        "co": "coliving",
+        "desc": "A beautiful flat in Paris",
+        "geolocation": {
+            "lat": 48.845968,
+            "lng": 2.259401
+        },
+        "imgUrls": [
+            "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSCdy0uyCcFOj92VAyGqpfshzAIJY5csxzHFA&usqp=CAU"
+        ],
+        "type": "Appartement",
+        "meuble": "false",
+        "regles": "ok-animaux",
+        "loyer": 1400.1,
+        "userRef": "zDOiQQDlAVWuzj2C7JuR9plTH5t2",
+        "ville": "Paris",
+        "surface": 82.79
+    },
+    {
+        "adresse": "lqcPMwWzVR Street, Paris",
+        "co": "",
+        "desc": "A beautiful flat in Paris",
+        "geolocation": {
+            "lat": 48.817744,
+            "lng": 2.386598
+        },
+        "imgUrls": [
+            "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQMwTjaPm6-UmltxbXmUUWZ7_MIkcCf8iriSw&usqp=CAU"
+        ],
+        "type": "Maison",
+        "meuble": "false",
+        "regles": "non-fumeur",
+        "loyer": 4152.96,
+        "userRef": "zDOiQQDlAVWuzj2C7JuR9plTH5t2",
+        "ville": "Paris",
+        "surface": 84.72
+    },
+    {
+        "adresse": "K6vfajc3pL Street, Paris",
+        "co": "",
+        "desc": "A beautiful flat in Paris",
+        "geolocation": {
+            "lat": 48.843305,
+            "lng": 2.312502
+        },
+        "imgUrls": [
+            "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSCdy0uyCcFOj92VAyGqpfshzAIJY5csxzHFA&usqp=CAU"
+        ],
+        "type": "Villa",
+        "meuble": "true",
+        "regles": "non-fumeur",
+        "loyer": 1119.18,
+        "userRef": "zDOiQQDlAVWuzj2C7JuR9plTH5t2",
+        "ville": "Paris",
+        "surface": 63.32
+    },
+    {
+        "adresse": "KAxdSS8q9V Street, Paris",
+        "co": "colocation",
+        "desc": "A beautiful flat in Paris",
+        "geolocation": {
+            "lat": 48.803793,
+            "lng": 2.2718
+        },
+        "imgUrls": [
+            "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcS1AxuZtJi1RdsD_2lesacxuq6WjTbTACCnTg&usqp=CAU"
+        ],
+        "type": "Maison",
+        "meuble": "true",
+        "regles": "non-fumeur",
+        "loyer": 3572.15,
+        "userRef": "zDOiQQDlAVWuzj2C7JuR9plTH5t2",
+        "ville": "Paris",
+        "surface": 75.84
+    },
+    {
+        "adresse": "hQct28Hqjj Street, Paris",
+        "co": "colocation",
+        "desc": "A beautiful flat in Paris",
+        "geolocation": {
+            "lat": 48.894627,
+            "lng": 2.280752
+        },
+        "imgUrls": [
+            "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSCdy0uyCcFOj92VAyGqpfshzAIJY5csxzHFA&usqp=CAU"
+        ],
+        "type": "Maison",
+        "meuble": "true",
+        "regles": "only-homme",
+        "loyer": 2409.0,
+        "userRef": "zDOiQQDlAVWuzj2C7JuR9plTH5t2",
+        "ville": "Paris",
+        "surface": 62.96
+    },
+    {
+        "adresse": "9hxZiJTJyn Street, Paris",
+        "co": "",
+        "desc": "A beautiful flat in Paris",
+        "geolocation": {
+            "lat": 48.897638,
+            "lng": 2.393774
+        },
+        "imgUrls": [
+            "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcS1AxuZtJi1RdsD_2lesacxuq6WjTbTACCnTg&usqp=CAU"
+        ],
+        "type": "Maison",
+        "meuble": "false",
+        "regles": "non-fumeur",
+        "loyer": 3931.54,
+        "userRef": "zDOiQQDlAVWuzj2C7JuR9plTH5t2",
+        "ville": "Paris",
+        "surface": 66.28
+    },
+    {
+        "adresse": "vmQ7gey6Y7 Street, Paris",
+        "co": "",
+        "desc": "A beautiful flat in Paris",
+        "geolocation": {
+            "lat": 48.827749,
+            "lng": 2.281516
+        },
+        "imgUrls": [
+            "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSCdy0uyCcFOj92VAyGqpfshzAIJY5csxzHFA&usqp=CAU"
+        ],
+        "type": "Appartement",
+        "meuble": "true",
+        "regles": "only-homme",
+        "loyer": 1161.53,
+        "userRef": "zDOiQQDlAVWuzj2C7JuR9plTH5t2",
+        "ville": "Paris",
+        "surface": 78.43
+    },
+    {
+        "adresse": "kI4ZfpO07P Street, Paris",
+        "co": "",
+        "desc": "A beautiful flat in Paris",
+        "geolocation": {
+            "lat": 48.81279,
+            "lng": 2.358253
+        },
+        "imgUrls": [
+            "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQMwTjaPm6-UmltxbXmUUWZ7_MIkcCf8iriSw&usqp=CAU"
+        ],
+        "type": "Studio",
+        "meuble": "true",
+        "regles": "non-fumeur",
+        "loyer": 1488.36,
+        "userRef": "zDOiQQDlAVWuzj2C7JuR9plTH5t2",
+        "ville": "Paris",
+        "surface": 59.97
+    },
+    {
+        "adresse": "2PGf3AFkNQ Street, Paris",
+        "co": "",
+        "desc": "A beautiful flat in Paris",
+        "geolocation": {
+            "lat": 48.846692,
+            "lng": 2.354816
+        },
+        "imgUrls": [
+            "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSCdy0uyCcFOj92VAyGqpfshzAIJY5csxzHFA&usqp=CAU"
+        ],
+        "type": "Studio",
+        "meuble": "true",
+        "regles": "non-fumeur",
+        "loyer": 3646.79,
+        "userRef": "zDOiQQDlAVWuzj2C7JuR9plTH5t2",
+        "ville": "Paris",
+        "surface": 93.52
+    },
+    {
+        "adresse": "MfkBpRXPrt Street, Paris",
+        "co": "coliving",
+        "desc": "A beautiful flat in Paris",
+        "geolocation": {
+            "lat": 48.840207,
+            "lng": 2.357336
+        },
+        "imgUrls": [
+            "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQMwTjaPm6-UmltxbXmUUWZ7_MIkcCf8iriSw&usqp=CAU"
+        ],
+        "type": "Appartement",
+        "meuble": "false",
+        "regles": "ok-animaux",
+        "loyer": 2468.33,
+        "userRef": "zDOiQQDlAVWuzj2C7JuR9plTH5t2",
+        "ville": "Paris",
+        "surface": 49.6
+    },
+    {
+        "adresse": "f0tPZkqxhM Street, Paris",
+        "co": "coliving",
+        "desc": "A beautiful flat in Paris",
+        "geolocation": {
+            "lat": 48.863739,
+            "lng": 2.375986
+        },
+        "imgUrls": [
+            "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQMwTjaPm6-UmltxbXmUUWZ7_MIkcCf8iriSw&usqp=CAU"
+        ],
+        "type": "Villa",
+        "meuble": "true",
+        "regles": "only-homme",
+        "loyer": 4112.44,
+        "userRef": "zDOiQQDlAVWuzj2C7JuR9plTH5t2",
+        "ville": "Paris",
+        "surface": 57.81
+    },
+    {
+        "adresse": "jkiuO6PA6A Street, Paris",
+        "co": "",
+        "desc": "A beautiful flat in Paris",
+        "geolocation": {
+            "lat": 48.892007,
+            "lng": 2.343062
+        },
+        "imgUrls": [
+            "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSCdy0uyCcFOj92VAyGqpfshzAIJY5csxzHFA&usqp=CAU"
+        ],
+        "type": "Appartement",
+        "meuble": "false",
+        "regles": "only-homme",
+        "loyer": 4857.73,
+        "userRef": "zDOiQQDlAVWuzj2C7JuR9plTH5t2",
+        "ville": "Paris",
+        "surface": 30.17
+    },
+    {
+        "adresse": "SDZ2hBFBU7 Street, Paris",
+        "co": "coliving",
+        "desc": "A beautiful flat in Paris",
+        "geolocation": {
+            "lat": 48.893425,
+            "lng": 2.335725
+        },
+        "imgUrls": [
+            "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSCdy0uyCcFOj92VAyGqpfshzAIJY5csxzHFA&usqp=CAU"
+        ],
+        "type": "Studio",
+        "meuble": "true",
+        "regles": "non-fumeur",
+        "loyer": 2366.17,
+        "userRef": "zDOiQQDlAVWuzj2C7JuR9plTH5t2",
+        "ville": "Paris",
+        "surface": 84.91
+    },
+    {
+        "adresse": "HnjCg0kw9t Street, Paris",
+        "co": "colocation",
+        "desc": "A beautiful flat in Paris",
+        "geolocation": {
+            "lat": 48.890737,
+            "lng": 2.261034
+        },
+        "imgUrls": [
+            "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQMwTjaPm6-UmltxbXmUUWZ7_MIkcCf8iriSw&usqp=CAU"
+        ],
+        "type": "Maison",
+        "meuble": "false",
+        "regles": "non-fumeur",
+        "loyer": 1589.74,
+        "userRef": "zDOiQQDlAVWuzj2C7JuR9plTH5t2",
+        "ville": "Paris",
+        "surface": 41.59
+    },
+    {
+        "adresse": "V0MbtZ1Qmn Street, Paris",
+        "co": "",
+        "desc": "A beautiful flat in Paris",
+        "geolocation": {
+            "lat": 48.821591,
+            "lng": 2.318858
+        },
+        "imgUrls": [
+            "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQMwTjaPm6-UmltxbXmUUWZ7_MIkcCf8iriSw&usqp=CAU"
+        ],
+        "type": "Appartement",
+        "meuble": "true",
+        "regles": "non-fumeur",
+        "loyer": 2730.42,
+        "userRef": "zDOiQQDlAVWuzj2C7JuR9plTH5t2",
+        "ville": "Paris",
+        "surface": 89.11
+    },
+    {
+        "adresse": "woGyBku7ZG Street, Paris",
+        "co": "coliving",
+        "desc": "A beautiful flat in Paris",
+        "geolocation": {
+            "lat": 48.825411,
+            "lng": 2.263338
+        },
+        "imgUrls": [
+            "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSCdy0uyCcFOj92VAyGqpfshzAIJY5csxzHFA&usqp=CAU"
+        ],
+        "type": "Appartement",
+        "meuble": "true",
+        "regles": "only-homme",
+        "loyer": 2551.44,
+        "userRef": "zDOiQQDlAVWuzj2C7JuR9plTH5t2",
+        "ville": "Paris",
+        "surface": 90.7
+    },
+    {
+        "adresse": "axHSP5VV0d Street, Paris",
+        "co": "colocation",
+        "desc": "A beautiful flat in Paris",
+        "geolocation": {
+            "lat": 48.816502,
+            "lng": 2.398216
+        },
+        "imgUrls": [
+            "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSCdy0uyCcFOj92VAyGqpfshzAIJY5csxzHFA&usqp=CAU"
+        ],
+        "type": "Villa",
+        "meuble": "true",
+        "regles": "only-homme",
+        "loyer": 3646.43,
+        "userRef": "zDOiQQDlAVWuzj2C7JuR9plTH5t2",
+        "ville": "Paris",
+        "surface": 86.13
+    },
+    {
+        "adresse": "xDX4QFlT6L Street, Paris",
+        "co": "colocation",
+        "desc": "A beautiful flat in Paris",
+        "geolocation": {
+            "lat": 48.874183,
+            "lng": 2.303393
+        },
+        "imgUrls": [
+            "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcS1AxuZtJi1RdsD_2lesacxuq6WjTbTACCnTg&usqp=CAU"
+        ],
+        "type": "Villa",
+        "meuble": "true",
+        "regles": "only-femme",
+        "loyer": 1560.47,
+        "userRef": "zDOiQQDlAVWuzj2C7JuR9plTH5t2",
+        "ville": "Paris",
+        "surface": 59.74
+    },
+    {
+        "adresse": "ASeZPuyqve Street, Paris",
+        "co": "",
+        "desc": "A beautiful flat in Paris",
+        "geolocation": {
+            "lat": 48.821865,
+            "lng": 2.267972
+        },
+        "imgUrls": [
+            "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQMwTjaPm6-UmltxbXmUUWZ7_MIkcCf8iriSw&usqp=CAU"
+        ],
+        "type": "Villa",
+        "meuble": "true",
+        "regles": "only-femme",
+        "loyer": 4872.4,
+        "userRef": "zDOiQQDlAVWuzj2C7JuR9plTH5t2",
+        "ville": "Paris",
+        "surface": 43.24
+    },
+    {
+        "adresse": "6GSYK7YbAw Street, Paris",
+        "co": "coliving",
+        "desc": "A beautiful flat in Paris",
+        "geolocation": {
+            "lat": 48.846898,
+            "lng": 2.27553
+        },
+        "imgUrls": [
+            "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSCdy0uyCcFOj92VAyGqpfshzAIJY5csxzHFA&usqp=CAU"
+        ],
+        "type": "Maison",
+        "meuble": "false",
+        "regles": "only-homme",
+        "loyer": 3716.21,
+        "userRef": "zDOiQQDlAVWuzj2C7JuR9plTH5t2",
+        "ville": "Paris",
+        "surface": 35.56
+    },
+    {
+        "adresse": "s2384zifd6 Street, Paris",
+        "co": "",
+        "desc": "A beautiful flat in Paris",
+        "geolocation": {
+            "lat": 48.837912,
+            "lng": 2.266943
+        },
+        "imgUrls": [
+            "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSCdy0uyCcFOj92VAyGqpfshzAIJY5csxzHFA&usqp=CAU"
+        ],
+        "type": "Villa",
+        "meuble": "false",
+        "regles": "non-fumeur",
+        "loyer": 4475.79,
+        "userRef": "zDOiQQDlAVWuzj2C7JuR9plTH5t2",
+        "ville": "Paris",
+        "surface": 82.62
+    },
+    {
+        "adresse": "UiAgkoBQRg Street, Paris",
+        "co": "colocation",
+        "desc": "A beautiful flat in Paris",
+        "geolocation": {
+            "lat": 48.869703,
+            "lng": 2.367582
+        },
+        "imgUrls": [
+            "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQMwTjaPm6-UmltxbXmUUWZ7_MIkcCf8iriSw&usqp=CAU"
+        ],
+        "type": "Appartement",
+        "meuble": "true",
+        "regles": "non-fumeur",
+        "loyer": 2813.27,
+        "userRef": "zDOiQQDlAVWuzj2C7JuR9plTH5t2",
+        "ville": "Paris",
+        "surface": 43.47
+    },
+    {
+        "adresse": "416KRAb5Nu Street, Paris",
+        "co": "coliving",
+        "desc": "A beautiful flat in Paris",
+        "geolocation": {
+            "lat": 48.838923,
+            "lng": 2.355025
+        },
+        "imgUrls": [
+            "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcS1AxuZtJi1RdsD_2lesacxuq6WjTbTACCnTg&usqp=CAU"
+        ],
+        "type": "Maison",
+        "meuble": "false",
+        "regles": "non-fumeur",
+        "loyer": 3332.83,
+        "userRef": "zDOiQQDlAVWuzj2C7JuR9plTH5t2",
+        "ville": "Paris",
+        "surface": 66.28
+    },
+    {
+        "adresse": "3pKcatsPP7 Street, Paris",
+        "co": "",
+        "desc": "A beautiful flat in Paris",
+        "geolocation": {
+            "lat": 48.843798,
+            "lng": 2.278779
+        },
+        "imgUrls": [
+            "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQMwTjaPm6-UmltxbXmUUWZ7_MIkcCf8iriSw&usqp=CAU"
+        ],
+        "type": "Maison",
+        "meuble": "true",
+        "regles": "non-fumeur",
+        "loyer": 3479.08,
+        "userRef": "zDOiQQDlAVWuzj2C7JuR9plTH5t2",
+        "ville": "Paris",
+        "surface": 49.02
+    },
+    {
+        "adresse": "5bbLpwx3lG Street, Paris",
+        "co": "colocation",
+        "desc": "A beautiful flat in Paris",
+        "geolocation": {
+            "lat": 48.869086,
+            "lng": 2.351076
+        },
+        "imgUrls": [
+            "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcS1AxuZtJi1RdsD_2lesacxuq6WjTbTACCnTg&usqp=CAU"
+        ],
+        "type": "Studio",
+        "meuble": "false",
+        "regles": "ok-animaux",
+        "loyer": 4161.35,
+        "userRef": "zDOiQQDlAVWuzj2C7JuR9plTH5t2",
+        "ville": "Paris",
+        "surface": 83.97
+    },
+    {
+        "adresse": "b78CQHKBlO Street, Paris",
+        "co": "",
+        "desc": "A beautiful flat in Paris",
+        "geolocation": {
+            "lat": 48.891561,
+            "lng": 2.261855
+        },
+        "imgUrls": [
+            "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcS1AxuZtJi1RdsD_2lesacxuq6WjTbTACCnTg&usqp=CAU"
+        ],
+        "type": "Maison",
+        "meuble": "false",
+        "regles": "non-fumeur",
+        "loyer": 1732.41,
+        "userRef": "zDOiQQDlAVWuzj2C7JuR9plTH5t2",
+        "ville": "Paris",
+        "surface": 92.14
+    },
+    {
+        "adresse": "2tEyqcxERb Street, Paris",
+        "co": "coliving",
+        "desc": "A beautiful flat in Paris",
+        "geolocation": {
+            "lat": 48.811534,
+            "lng": 2.257752
+        },
+        "imgUrls": [
+            "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSCdy0uyCcFOj92VAyGqpfshzAIJY5csxzHFA&usqp=CAU"
+        ],
+        "type": "Studio",
+        "meuble": "false",
+        "regles": "only-femme",
+        "loyer": 2729.74,
+        "userRef": "zDOiQQDlAVWuzj2C7JuR9plTH5t2",
+        "ville": "Paris",
+        "surface": 48.51
+    },
+    {
+        "adresse": "C5JEWjRRyS Street, Paris",
+        "co": "",
+        "desc": "A beautiful flat in Paris",
+        "geolocation": {
+            "lat": 48.865749,
+            "lng": 2.305155
+        },
+        "imgUrls": [
+            "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcS1AxuZtJi1RdsD_2lesacxuq6WjTbTACCnTg&usqp=CAU"
+        ],
+        "type": "Maison",
+        "meuble": "true",
+        "regles": "only-femme",
+        "loyer": 4391.19,
+        "userRef": "zDOiQQDlAVWuzj2C7JuR9plTH5t2",
+        "ville": "Paris",
+        "surface": 82.12
+    },
+    {
+        "adresse": "hjqiIdtRa4 Street, Paris",
+        "co": "colocation",
+        "desc": "A beautiful flat in Paris",
+        "geolocation": {
+            "lat": 48.820393,
+            "lng": 2.277513
+        },
+        "imgUrls": [
+            "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSCdy0uyCcFOj92VAyGqpfshzAIJY5csxzHFA&usqp=CAU"
+        ],
+        "type": "Villa",
+        "meuble": "true",
+        "regles": "ok-animaux",
+        "loyer": 3214.42,
+        "userRef": "zDOiQQDlAVWuzj2C7JuR9plTH5t2",
+        "ville": "Paris",
+        "surface": 48.67
+    },
+    {
+        "adresse": "ZBbfoa07LK Street, Paris",
+        "co": "colocation",
+        "desc": "A beautiful flat in Paris",
+        "geolocation": {
+            "lat": 48.849153,
+            "lng": 2.315993
+        },
+        "imgUrls": [
+            "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQMwTjaPm6-UmltxbXmUUWZ7_MIkcCf8iriSw&usqp=CAU"
+        ],
+        "type": "Maison",
+        "meuble": "false",
+        "regles": "non-fumeur",
+        "loyer": 2662.93,
+        "userRef": "zDOiQQDlAVWuzj2C7JuR9plTH5t2",
+        "ville": "Paris",
+        "surface": 80.7
+    },
+    {
+        "adresse": "l9GJZiJBOS Street, Paris",
+        "co": "",
+        "desc": "A beautiful flat in Paris",
+        "geolocation": {
+            "lat": 48.857236,
+            "lng": 2.330558
+        },
+        "imgUrls": [
+            "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSCdy0uyCcFOj92VAyGqpfshzAIJY5csxzHFA&usqp=CAU"
+        ],
+        "type": "Villa",
+        "meuble": "true",
+        "regles": "only-homme",
+        "loyer": 2145.39,
+        "userRef": "zDOiQQDlAVWuzj2C7JuR9plTH5t2",
+        "ville": "Paris",
+        "surface": 44.38
+    },
+    {
+        "adresse": "e5DF8crflL Street, Paris",
+        "co": "",
+        "desc": "A beautiful flat in Paris",
+        "geolocation": {
+            "lat": 48.810098,
+            "lng": 2.304424
+        },
+        "imgUrls": [
+            "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQMwTjaPm6-UmltxbXmUUWZ7_MIkcCf8iriSw&usqp=CAU"
+        ],
+        "type": "Villa",
+        "meuble": "true",
+        "regles": "ok-animaux",
+        "loyer": 4164.53,
+        "userRef": "zDOiQQDlAVWuzj2C7JuR9plTH5t2",
+        "ville": "Paris",
+        "surface": 78.65
+    },
+    {
+        "adresse": "nF8JcCK7p3 Street, Paris",
+        "co": "colocation",
+        "desc": "A beautiful flat in Paris",
+        "geolocation": {
+            "lat": 48.842852,
+            "lng": 2.283516
+        },
+        "imgUrls": [
+            "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcS1AxuZtJi1RdsD_2lesacxuq6WjTbTACCnTg&usqp=CAU"
+        ],
+        "type": "Villa",
+        "meuble": "false",
+        "regles": "non-fumeur",
+        "loyer": 3014.94,
+        "userRef": "zDOiQQDlAVWuzj2C7JuR9plTH5t2",
+        "ville": "Paris",
+        "surface": 81.33
+    },
+    {
+        "adresse": "hay2iT7aJX Street, Paris",
+        "co": "colocation",
+        "desc": "A beautiful flat in Paris",
+        "geolocation": {
+            "lat": 48.822785,
+            "lng": 2.301876
+        },
+        "imgUrls": [
+            "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQMwTjaPm6-UmltxbXmUUWZ7_MIkcCf8iriSw&usqp=CAU"
+        ],
+        "type": "Maison",
+        "meuble": "true",
+        "regles": "non-fumeur",
+        "loyer": 1609.07,
+        "userRef": "zDOiQQDlAVWuzj2C7JuR9plTH5t2",
+        "ville": "Paris",
+        "surface": 73.59
+    },
+    {
+        "adresse": "5zP2PYmwDo Street, Paris",
+        "co": "",
+        "desc": "A beautiful flat in Paris",
+        "geolocation": {
+            "lat": 48.825215,
+            "lng": 2.361937
+        },
+        "imgUrls": [
+            "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQMwTjaPm6-UmltxbXmUUWZ7_MIkcCf8iriSw&usqp=CAU"
+        ],
+        "type": "Appartement",
+        "meuble": "true",
+        "regles": "only-homme",
+        "loyer": 4994.83,
+        "userRef": "zDOiQQDlAVWuzj2C7JuR9plTH5t2",
+        "ville": "Paris",
+        "surface": 74.45
+    },
+    {
+        "adresse": "h1DvrnCY4y Street, Paris",
+        "co": "coliving",
+        "desc": "A beautiful flat in Paris",
+        "geolocation": {
+            "lat": 48.855327,
+            "lng": 2.375869
+        },
+        "imgUrls": [
+            "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcS1AxuZtJi1RdsD_2lesacxuq6WjTbTACCnTg&usqp=CAU"
+        ],
+        "type": "Studio",
+        "meuble": "true",
+        "regles": "only-homme",
+        "loyer": 4572.67,
+        "userRef": "zDOiQQDlAVWuzj2C7JuR9plTH5t2",
+        "ville": "Paris",
+        "surface": 39.48
+    },
+    {
+        "adresse": "mJZZf87VCr Street, Paris",
+        "co": "colocation",
+        "desc": "A beautiful flat in Paris",
+        "geolocation": {
+            "lat": 48.814009,
+            "lng": 2.374342
+        },
+        "imgUrls": [
+            "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcS1AxuZtJi1RdsD_2lesacxuq6WjTbTACCnTg&usqp=CAU"
+        ],
+        "type": "Studio",
+        "meuble": "false",
+        "regles": "only-femme",
+        "loyer": 4235.98,
+        "userRef": "zDOiQQDlAVWuzj2C7JuR9plTH5t2",
+        "ville": "Paris",
+        "surface": 82.53
+    },
+    {
+        "adresse": "WRAZfRUK3K Street, Paris",
+        "co": "colocation",
+        "desc": "A beautiful flat in Paris",
+        "geolocation": {
+            "lat": 48.851513,
+            "lng": 2.349697
+        },
+        "imgUrls": [
+            "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSCdy0uyCcFOj92VAyGqpfshzAIJY5csxzHFA&usqp=CAU"
+        ],
+        "type": "Appartement",
+        "meuble": "true",
+        "regles": "ok-animaux",
+        "loyer": 2199.39,
+        "userRef": "zDOiQQDlAVWuzj2C7JuR9plTH5t2",
+        "ville": "Paris",
+        "surface": 35.47
+    },
+    {
+        "adresse": "noqBQUpILF Street, Paris",
+        "co": "colocation",
+        "desc": "A beautiful flat in Paris",
+        "geolocation": {
+            "lat": 48.844634,
+            "lng": 2.35086
+        },
+        "imgUrls": [
+            "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQMwTjaPm6-UmltxbXmUUWZ7_MIkcCf8iriSw&usqp=CAU"
+        ],
+        "type": "Villa",
+        "meuble": "false",
+        "regles": "ok-animaux",
+        "loyer": 2643.17,
+        "userRef": "zDOiQQDlAVWuzj2C7JuR9plTH5t2",
+        "ville": "Paris",
+        "surface": 31.83
+    },
+    {
+        "adresse": "xPStcpoc06 Street, Paris",
+        "co": "colocation",
+        "desc": "A beautiful flat in Paris",
+        "geolocation": {
+            "lat": 48.810874,
+            "lng": 2.38274
+        },
+        "imgUrls": [
+            "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcS1AxuZtJi1RdsD_2lesacxuq6WjTbTACCnTg&usqp=CAU"
+        ],
+        "type": "Maison",
+        "meuble": "true",
+        "regles": "only-femme",
+        "loyer": 3938.99,
+        "userRef": "zDOiQQDlAVWuzj2C7JuR9plTH5t2",
+        "ville": "Paris",
+        "surface": 49.33
+    },
+    {
+        "adresse": "oeekz9kS1C Street, Paris",
+        "co": "",
+        "desc": "A beautiful flat in Paris",
+        "geolocation": {
+            "lat": 48.819641,
+            "lng": 2.264743
+        },
+        "imgUrls": [
+            "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQMwTjaPm6-UmltxbXmUUWZ7_MIkcCf8iriSw&usqp=CAU"
+        ],
+        "type": "Maison",
+        "meuble": "false",
+        "regles": "only-femme",
+        "loyer": 2657.32,
+        "userRef": "zDOiQQDlAVWuzj2C7JuR9plTH5t2",
+        "ville": "Paris",
+        "surface": 40.16
+    },
+    {
+        "adresse": "rTXmfv3mJ1 Street, Paris",
+        "co": "",
+        "desc": "A beautiful flat in Paris",
+        "geolocation": {
+            "lat": 48.87687,
+            "lng": 2.350701
+        },
+        "imgUrls": [
+            "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSCdy0uyCcFOj92VAyGqpfshzAIJY5csxzHFA&usqp=CAU"
+        ],
+        "type": "Appartement",
+        "meuble": "false",
+        "regles": "only-femme",
+        "loyer": 4299.29,
+        "userRef": "zDOiQQDlAVWuzj2C7JuR9plTH5t2",
+        "ville": "Paris",
+        "surface": 39.03
+    },
+    {
+        "adresse": "C0ZGYRSxX5 Street, Paris",
+        "co": "",
+        "desc": "A beautiful flat in Paris",
+        "geolocation": {
+            "lat": 48.837368,
+            "lng": 2.333346
+        },
+        "imgUrls": [
+            "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcS1AxuZtJi1RdsD_2lesacxuq6WjTbTACCnTg&usqp=CAU"
+        ],
+        "type": "Studio",
+        "meuble": "true",
+        "regles": "only-femme",
+        "loyer": 3331.52,
+        "userRef": "zDOiQQDlAVWuzj2C7JuR9plTH5t2",
+        "ville": "Paris",
+        "surface": 57.55
+    },
+    {
+        "adresse": "vEn9ujn002 Street, Paris",
+        "co": "colocation",
+        "desc": "A beautiful flat in Paris",
+        "geolocation": {
+            "lat": 48.813549,
+            "lng": 2.346255
+        },
+        "imgUrls": [
+            "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQMwTjaPm6-UmltxbXmUUWZ7_MIkcCf8iriSw&usqp=CAU"
+        ],
+        "type": "Studio",
+        "meuble": "false",
+        "regles": "ok-animaux",
+        "loyer": 3164.02,
+        "userRef": "zDOiQQDlAVWuzj2C7JuR9plTH5t2",
+        "ville": "Paris",
+        "surface": 95.99
+    },
+    {
+        "adresse": "jLPP73NjEE Street, Paris",
+        "co": "",
+        "desc": "A beautiful flat in Paris",
+        "geolocation": {
+            "lat": 48.852412,
+            "lng": 2.387053
+        },
+        "imgUrls": [
+            "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSCdy0uyCcFOj92VAyGqpfshzAIJY5csxzHFA&usqp=CAU"
+        ],
+        "type": "Studio",
+        "meuble": "false",
+        "regles": "only-homme",
+        "loyer": 3733.83,
+        "userRef": "zDOiQQDlAVWuzj2C7JuR9plTH5t2",
+        "ville": "Paris",
+        "surface": 99.15
+    },
+    {
+        "adresse": "iPaU6MFmhz Street, Paris",
+        "co": "colocation",
+        "desc": "A beautiful flat in Paris",
+        "geolocation": {
+            "lat": 48.839227,
+            "lng": 2.304649
+        },
+        "imgUrls": [
+            "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQMwTjaPm6-UmltxbXmUUWZ7_MIkcCf8iriSw&usqp=CAU"
+        ],
+        "type": "Villa",
+        "meuble": "true",
+        "regles": "ok-animaux",
+        "loyer": 2489.37,
+        "userRef": "zDOiQQDlAVWuzj2C7JuR9plTH5t2",
+        "ville": "Paris",
+        "surface": 66.48
+    },
+    {
+        "adresse": "5oZbJEauMz Street, Paris",
+        "co": "",
+        "desc": "A beautiful flat in Paris",
+        "geolocation": {
+            "lat": 48.874751,
+            "lng": 2.26528
+        },
+        "imgUrls": [
+            "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcS1AxuZtJi1RdsD_2lesacxuq6WjTbTACCnTg&usqp=CAU"
+        ],
+        "type": "Studio",
+        "meuble": "true",
+        "regles": "non-fumeur",
+        "loyer": 3825.59,
+        "userRef": "zDOiQQDlAVWuzj2C7JuR9plTH5t2",
+        "ville": "Paris",
+        "surface": 69.88
+    },
+    {
+        "adresse": "OvYUjBmokF Street, Paris",
+        "co": "colocation",
+        "desc": "A beautiful flat in Paris",
+        "geolocation": {
+            "lat": 48.891472,
+            "lng": 2.326933
+        },
+        "imgUrls": [
+            "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcS1AxuZtJi1RdsD_2lesacxuq6WjTbTACCnTg&usqp=CAU"
+        ],
+        "type": "Studio",
+        "meuble": "true",
+        "regles": "non-fumeur",
+        "loyer": 1748.02,
+        "userRef": "zDOiQQDlAVWuzj2C7JuR9plTH5t2",
+        "ville": "Paris",
+        "surface": 51.79
+    },
+    {
+        "adresse": "wzgJih2h13 Street, Paris",
+        "co": "coliving",
+        "desc": "A beautiful flat in Paris",
+        "geolocation": {
+            "lat": 48.807294,
+            "lng": 2.348038
+        },
+        "imgUrls": [
+            "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSCdy0uyCcFOj92VAyGqpfshzAIJY5csxzHFA&usqp=CAU"
+        ],
+        "type": "Villa",
+        "meuble": "true",
+        "regles": "only-femme",
+        "loyer": 2903.25,
+        "userRef": "zDOiQQDlAVWuzj2C7JuR9plTH5t2",
+        "ville": "Paris",
+        "surface": 98.66
+    },
+    {
+        "adresse": "PVxuoaBQWs Street, Paris",
+        "co": "coliving",
+        "desc": "A beautiful flat in Paris",
+        "geolocation": {
+            "lat": 48.888101,
+            "lng": 2.258225
+        },
+        "imgUrls": [
+            "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcS1AxuZtJi1RdsD_2lesacxuq6WjTbTACCnTg&usqp=CAU"
+        ],
+        "type": "Maison",
+        "meuble": "false",
+        "regles": "non-fumeur",
+        "loyer": 3211.36,
+        "userRef": "zDOiQQDlAVWuzj2C7JuR9plTH5t2",
+        "ville": "Paris",
+        "surface": 33.89
+    },
+    {
+        "adresse": "sQRWEqrBmK Street, Paris",
+        "co": "",
+        "desc": "A beautiful flat in Paris",
+        "geolocation": {
+            "lat": 48.878103,
+            "lng": 2.260002
+        },
+        "imgUrls": [
+            "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSCdy0uyCcFOj92VAyGqpfshzAIJY5csxzHFA&usqp=CAU"
+        ],
+        "type": "Villa",
+        "meuble": "true",
+        "regles": "ok-animaux",
+        "loyer": 1021.66,
+        "userRef": "zDOiQQDlAVWuzj2C7JuR9plTH5t2",
+        "ville": "Paris",
+        "surface": 88.73
+    },
+    {
+        "adresse": "oDYy2mN8Wf Street, Paris",
+        "co": "colocation",
+        "desc": "A beautiful flat in Paris",
+        "geolocation": {
+            "lat": 48.884575,
+            "lng": 2.310966
+        },
+        "imgUrls": [
+            "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcS1AxuZtJi1RdsD_2lesacxuq6WjTbTACCnTg&usqp=CAU"
+        ],
+        "type": "Villa",
+        "meuble": "false",
+        "regles": "non-fumeur",
+        "loyer": 4075.01,
+        "userRef": "zDOiQQDlAVWuzj2C7JuR9plTH5t2",
+        "ville": "Paris",
+        "surface": 92.1
+    },
+    {
+        "adresse": "DRHny63gzc Street, Paris",
+        "co": "coliving",
+        "desc": "A beautiful flat in Paris",
+        "geolocation": {
+            "lat": 48.896499,
+            "lng": 2.314101
+        },
+        "imgUrls": [
+            "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQMwTjaPm6-UmltxbXmUUWZ7_MIkcCf8iriSw&usqp=CAU"
+        ],
+        "type": "Villa",
+        "meuble": "true",
+        "regles": "non-fumeur",
+        "loyer": 2376.92,
+        "userRef": "zDOiQQDlAVWuzj2C7JuR9plTH5t2",
+        "ville": "Paris",
+        "surface": 74.99
+    },
+    {
+        "adresse": "HuxICsRReb Street, Paris",
+        "co": "",
+        "desc": "A beautiful flat in Paris",
+        "geolocation": {
+            "lat": 48.813173,
+            "lng": 2.332033
+        },
+        "imgUrls": [
+            "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQMwTjaPm6-UmltxbXmUUWZ7_MIkcCf8iriSw&usqp=CAU"
+        ],
+        "type": "Villa",
+        "meuble": "false",
+        "regles": "only-femme",
+        "loyer": 1330.76,
+        "userRef": "zDOiQQDlAVWuzj2C7JuR9plTH5t2",
+        "ville": "Paris",
+        "surface": 60.81
+    },
+    {
+        "adresse": "6sGNyzkCNo Street, Paris",
+        "co": "",
+        "desc": "A beautiful flat in Paris",
+        "geolocation": {
+            "lat": 48.882392,
+            "lng": 2.381987
+        },
+        "imgUrls": [
+            "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSCdy0uyCcFOj92VAyGqpfshzAIJY5csxzHFA&usqp=CAU"
+        ],
+        "type": "Studio",
+        "meuble": "false",
+        "regles": "only-femme",
+        "loyer": 4983.44,
+        "userRef": "zDOiQQDlAVWuzj2C7JuR9plTH5t2",
+        "ville": "Paris",
+        "surface": 92.11
+    },
+    {
+        "adresse": "80xiOHPKhY Street, Paris",
+        "co": "coliving",
+        "desc": "A beautiful flat in Paris",
+        "geolocation": {
+            "lat": 48.81001,
+            "lng": 2.305808
+        },
+        "imgUrls": [
+            "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSCdy0uyCcFOj92VAyGqpfshzAIJY5csxzHFA&usqp=CAU"
+        ],
+        "type": "Studio",
+        "meuble": "true",
+        "regles": "non-fumeur",
+        "loyer": 3144.98,
+        "userRef": "zDOiQQDlAVWuzj2C7JuR9plTH5t2",
+        "ville": "Paris",
+        "surface": 43.86
+    },
+    {
+        "adresse": "Wj92PQCfIm Street, Paris",
+        "co": "colocation",
+        "desc": "A beautiful flat in Paris",
+        "geolocation": {
+            "lat": 48.856342,
+            "lng": 2.346685
+        },
+        "imgUrls": [
+            "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQMwTjaPm6-UmltxbXmUUWZ7_MIkcCf8iriSw&usqp=CAU"
+        ],
+        "type": "Maison",
+        "meuble": "true",
+        "regles": "only-femme",
+        "loyer": 1196.89,
+        "userRef": "zDOiQQDlAVWuzj2C7JuR9plTH5t2",
+        "ville": "Paris",
+        "surface": 42.36
+    },
+    {
+        "adresse": "uqHYIEaxZr Street, Paris",
+        "co": "",
+        "desc": "A beautiful flat in Paris",
+        "geolocation": {
+            "lat": 48.899117,
+            "lng": 2.345984
+        },
+        "imgUrls": [
+            "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSCdy0uyCcFOj92VAyGqpfshzAIJY5csxzHFA&usqp=CAU"
+        ],
+        "type": "Maison",
+        "meuble": "true",
+        "regles": "ok-animaux",
+        "loyer": 2415.87,
+        "userRef": "zDOiQQDlAVWuzj2C7JuR9plTH5t2",
+        "ville": "Paris",
+        "surface": 52.55
+    },
+    {
+        "adresse": "V3Mb8zMGOO Street, Paris",
+        "co": "",
+        "desc": "A beautiful flat in Paris",
+        "geolocation": {
+            "lat": 48.820742,
+            "lng": 2.321529
+        },
+        "imgUrls": [
+            "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSCdy0uyCcFOj92VAyGqpfshzAIJY5csxzHFA&usqp=CAU"
+        ],
+        "type": "Villa",
+        "meuble": "false",
+        "regles": "only-femme",
+        "loyer": 2249.69,
+        "userRef": "zDOiQQDlAVWuzj2C7JuR9plTH5t2",
+        "ville": "Paris",
+        "surface": 58.65
+    },
+    {
+        "adresse": "kO9sQXOopf Street, Paris",
+        "co": "",
+        "desc": "A beautiful flat in Paris",
+        "geolocation": {
+            "lat": 48.899567,
+            "lng": 2.275359
+        },
+        "imgUrls": [
+            "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQMwTjaPm6-UmltxbXmUUWZ7_MIkcCf8iriSw&usqp=CAU"
+        ],
+        "type": "Appartement",
+        "meuble": "false",
+        "regles": "non-fumeur",
+        "loyer": 1915.85,
+        "userRef": "zDOiQQDlAVWuzj2C7JuR9plTH5t2",
+        "ville": "Paris",
+        "surface": 55.17
+    },
+    {
+        "adresse": "YukKQxD9XR Street, Paris",
+        "co": "coliving",
+        "desc": "A beautiful flat in Paris",
+        "geolocation": {
+            "lat": 48.812362,
+            "lng": 2.373846
+        },
+        "imgUrls": [
+            "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQMwTjaPm6-UmltxbXmUUWZ7_MIkcCf8iriSw&usqp=CAU"
+        ],
+        "type": "Studio",
+        "meuble": "false",
+        "regles": "non-fumeur",
+        "loyer": 1010.19,
+        "userRef": "zDOiQQDlAVWuzj2C7JuR9plTH5t2",
+        "ville": "Paris",
+        "surface": 78.93
+    },
+    {
+        "adresse": "x6hFfQ1hJI Street, Paris",
+        "co": "",
+        "desc": "A beautiful flat in Paris",
+        "geolocation": {
+            "lat": 48.892997,
+            "lng": 2.271352
+        },
+        "imgUrls": [
+            "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQMwTjaPm6-UmltxbXmUUWZ7_MIkcCf8iriSw&usqp=CAU"
+        ],
+        "type": "Studio",
+        "meuble": "false",
+        "regles": "ok-animaux",
+        "loyer": 4188.17,
+        "userRef": "zDOiQQDlAVWuzj2C7JuR9plTH5t2",
+        "ville": "Paris",
+        "surface": 42.76
+    },
+    {
+        "adresse": "4eHMAKoiiw Street, Paris",
+        "co": "coliving",
+        "desc": "A beautiful flat in Paris",
+        "geolocation": {
+            "lat": 48.820684,
+            "lng": 2.28073
+        },
+        "imgUrls": [
+            "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQMwTjaPm6-UmltxbXmUUWZ7_MIkcCf8iriSw&usqp=CAU"
+        ],
+        "type": "Appartement",
+        "meuble": "true",
+        "regles": "only-femme",
+        "loyer": 3672.17,
+        "userRef": "zDOiQQDlAVWuzj2C7JuR9plTH5t2",
+        "ville": "Paris",
+        "surface": 33.62
+    },
+    {
+        "adresse": "sl6B9GXN1P Street, Paris",
+        "co": "",
+        "desc": "A beautiful flat in Paris",
+        "geolocation": {
+            "lat": 48.856223,
+            "lng": 2.268723
+        },
+        "imgUrls": [
+            "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQMwTjaPm6-UmltxbXmUUWZ7_MIkcCf8iriSw&usqp=CAU"
+        ],
+        "type": "Maison",
+        "meuble": "false",
+        "regles": "non-fumeur",
+        "loyer": 1259.43,
+        "userRef": "zDOiQQDlAVWuzj2C7JuR9plTH5t2",
+        "ville": "Paris",
+        "surface": 85.38
+    },
+    {
+        "adresse": "PESvxCla8W Street, Paris",
+        "co": "colocation",
+        "desc": "A beautiful flat in Paris",
+        "geolocation": {
+            "lat": 48.870045,
+            "lng": 2.31106
+        },
+        "imgUrls": [
+            "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcS1AxuZtJi1RdsD_2lesacxuq6WjTbTACCnTg&usqp=CAU"
+        ],
+        "type": "Studio",
+        "meuble": "true",
+        "regles": "ok-animaux",
+        "loyer": 4380.89,
+        "userRef": "zDOiQQDlAVWuzj2C7JuR9plTH5t2",
+        "ville": "Paris",
+        "surface": 47.39
+    },
+    {
+        "adresse": "dXmQwLXtOU Street, Paris",
+        "co": "colocation",
+        "desc": "A beautiful flat in Paris",
+        "geolocation": {
+            "lat": 48.830296,
+            "lng": 2.342552
+        },
+        "imgUrls": [
+            "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQMwTjaPm6-UmltxbXmUUWZ7_MIkcCf8iriSw&usqp=CAU"
+        ],
+        "type": "Maison",
+        "meuble": "true",
+        "regles": "non-fumeur",
+        "loyer": 4210.87,
+        "userRef": "zDOiQQDlAVWuzj2C7JuR9plTH5t2",
+        "ville": "Paris",
+        "surface": 45.98
+    },
+    {
+        "adresse": "xVIJX5Z5TR Street, Paris",
+        "co": "colocation",
+        "desc": "A beautiful flat in Paris",
+        "geolocation": {
+            "lat": 48.846113,
+            "lng": 2.349859
+        },
+        "imgUrls": [
+            "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcS1AxuZtJi1RdsD_2lesacxuq6WjTbTACCnTg&usqp=CAU"
+        ],
+        "type": "Maison",
+        "meuble": "true",
+        "regles": "non-fumeur",
+        "loyer": 3008.34,
+        "userRef": "zDOiQQDlAVWuzj2C7JuR9plTH5t2",
+        "ville": "Paris",
+        "surface": 33.8
+    },
+    {
+        "adresse": "Ly2rk933PT Street, Paris",
+        "co": "colocation",
+        "desc": "A beautiful flat in Paris",
+        "geolocation": {
+            "lat": 48.810842,
+            "lng": 2.333907
+        },
+        "imgUrls": [
+            "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQMwTjaPm6-UmltxbXmUUWZ7_MIkcCf8iriSw&usqp=CAU"
+        ],
+        "type": "Villa",
+        "meuble": "false",
+        "regles": "ok-animaux",
+        "loyer": 3667.3,
+        "userRef": "zDOiQQDlAVWuzj2C7JuR9plTH5t2",
+        "ville": "Paris",
+        "surface": 99.27
+    },
+    {
+        "adresse": "ByYLhG4oek Street, Paris",
+        "co": "",
+        "desc": "A beautiful flat in Paris",
+        "geolocation": {
+            "lat": 48.856968,
+            "lng": 2.335243
+        },
+        "imgUrls": [
+            "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQMwTjaPm6-UmltxbXmUUWZ7_MIkcCf8iriSw&usqp=CAU"
+        ],
+        "type": "Appartement",
+        "meuble": "false",
+        "regles": "ok-animaux",
+        "loyer": 3775.77,
+        "userRef": "zDOiQQDlAVWuzj2C7JuR9plTH5t2",
+        "ville": "Paris",
+        "surface": 66.11
+    },
+    {
+        "adresse": "TS4XZqcHMz Street, Paris",
+        "co": "",
+        "desc": "A beautiful flat in Paris",
+        "geolocation": {
+            "lat": 48.866127,
+            "lng": 2.278236
+        },
+        "imgUrls": [
+            "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQMwTjaPm6-UmltxbXmUUWZ7_MIkcCf8iriSw&usqp=CAU"
+        ],
+        "type": "Appartement",
+        "meuble": "false",
+        "regles": "ok-animaux",
+        "loyer": 2438.47,
+        "userRef": "zDOiQQDlAVWuzj2C7JuR9plTH5t2",
+        "ville": "Paris",
+        "surface": 95.34
+    },
+    {
+        "adresse": "S6fdeXnMU7 Street, Paris",
+        "co": "colocation",
+        "desc": "A beautiful flat in Paris",
+        "geolocation": {
+            "lat": 48.834176,
+            "lng": 2.292135
+        },
+        "imgUrls": [
+            "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSCdy0uyCcFOj92VAyGqpfshzAIJY5csxzHFA&usqp=CAU"
+        ],
+        "type": "Maison",
+        "meuble": "true",
+        "regles": "non-fumeur",
+        "loyer": 1765.56,
+        "userRef": "zDOiQQDlAVWuzj2C7JuR9plTH5t2",
+        "ville": "Paris",
+        "surface": 72.85
+    },
+    {
+        "adresse": "s4E0nY1TrQ Street, Paris",
+        "co": "colocation",
+        "desc": "A beautiful flat in Paris",
+        "geolocation": {
+            "lat": 48.857666,
+            "lng": 2.382914
+        },
+        "imgUrls": [
+            "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSCdy0uyCcFOj92VAyGqpfshzAIJY5csxzHFA&usqp=CAU"
+        ],
+        "type": "Studio",
+        "meuble": "false",
+        "regles": "non-fumeur",
+        "loyer": 2925.73,
+        "userRef": "zDOiQQDlAVWuzj2C7JuR9plTH5t2",
+        "ville": "Paris",
+        "surface": 53.39
+    }
+]

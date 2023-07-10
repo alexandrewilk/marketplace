@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { collection, doc, getDoc, getDocs, limit, query, where } from 'firebase/firestore';
+import { collection, doc, getDoc, getDocs, limit, orderBy, query, startAfter, where } from 'firebase/firestore';
 import { Dots } from 'react-activity';
 import { useNavigate, useParams, useSearchParams } from 'react-router-dom';
 import {
@@ -54,7 +54,8 @@ export default function Recherche() {
     const [userLikes, setUserLikes] = useState([])
     const [isMapVisible, setMapVisible] = useState(true);
     const { isOpen, onOpen, onClose } = useDisclosure();
-
+    const [nextPostsLoading, setNextPostsLoading] = useState(false);
+    const [lastKey, setLastKey] = useState("")
     const params = useParams();
     const [searchParams, setSearchParams] = useSearchParams();
     const [currentFilters, setCurrentFilters] = useState(() => {
@@ -70,7 +71,7 @@ export default function Recherche() {
     const [annonces, setAnnonces] = useState([]);
     const [filteredAnnonces, setFilteredAnnonces] = useState([]);
     const villeInfo = villes.find((v) => v.city === params.ville);
-
+    const [sorter, setSorter] = useState('timestamp')
     const center = villeInfo ? [villeInfo.lat, villeInfo.lng] : [0, 0];
 
 
@@ -81,19 +82,21 @@ export default function Recherche() {
                 return;
             }
             try {
-                const q = query(collection(db, 'Listings'), where('ville', '==', villeInfo.city), limit(100));
+                setLoading(true)
+                const q = query(collection(db, 'Listings'), where('ville', '==', villeInfo.city), limit(100), orderBy(sorter));
                 const querySnap = await getDocs(q);
                 const annonces = querySnap.docs.map((doc) => ({ id: doc.id, data: doc.data() }));
                 setAnnonces(annonces);
                 setFilteredAnnonces(filterAnnonces(annonces));
+                setLastKey(annonces[annonces.length-1].data[sorter])
             } catch (error) {
-                alert(error.message);
+                console.log(error.message);
             } finally {
                 setLoading(false);
             }
         }
         fetchData();
-    }, [params.ville]);
+    }, [params.ville, sorter]);
 
     useEffect(() => {
         const searchParamObj = {};
@@ -120,6 +123,20 @@ export default function Recherche() {
       getUserLikes();
     }, [loggedIn])
     
+    async function getMorePosts(){
+      try {
+        setNextPostsLoading(true)
+        const q = query(collection(db, 'Listings'), where('ville', '==', villeInfo.city), limit(100), orderBy(sorter), startAfter(lastKey));
+        const querySnap = await getDocs(q);
+        const res = querySnap.docs.map((doc) => ({ id: doc.id, data: doc.data() }));
+        setLastKey(res[res.length -1].data[sorter]);
+        let annoncesSetter = annonces.concat(res)
+        setAnnonces(annoncesSetter)
+        setFilteredAnnonces(filterAnnonces(annoncesSetter))
+      } catch (error) {
+        alert('Toutes les annonces ont été chargées !')
+      }finally{setNextPostsLoading(false)}
+    }
     function filterAnnonces(annonces) {
       let res = annonces
       for (let key in currentFilters){
@@ -349,13 +366,12 @@ function ChangeView({ center, zoom }) {
             {isLargerThan750 && (
               <Flex align="center" w="95%" marginX="2.5%" marginY="12px">
                 <Heading as="h4" size="md">
-                  {filteredAnnonces.length} {`annonce${filteredAnnonces.length ==1 ? '' : 's'}`} à
+                  {filteredAnnonces.length} {`annonce${filteredAnnonces.length ==1 ? '' : 's'}`} à {params.ville}
                 </Heading>
                 <Spacer />
-                <Select placeholder='Trier par' maxW="150px" size='sm' mr={4}>
-                  <option value='option1'>Option 1</option>
-                  <option value='option2'>Option 2</option>
-                  <option value='option3'>Option 3</option>
+                <Select placeholder='Trier par' maxW="150px" size='sm' mr={4} onChange={(e)=>{setSorter(e.target.value)}} value={sorter}>
+                  <option value='timestamp'>Trier par Date (par défaut)</option>
+                  <option value='loyer'>Trier par Loyer</option>
                 </Select>
                 <Heading as="h4" size="md" mr="12px">
                   Carte
@@ -367,6 +383,7 @@ function ChangeView({ center, zoom }) {
               <LikesContext.Provider value={[userLikes, setUserLikes]}>
                 {renderContent()}
               </LikesContext.Provider>
+              {nextPostsLoading ? <Dots/> : <Button onClick={(e)=>{e.preventDefault(); getMorePosts()}}>Voir Plus...</Button>}
             </Box>
           </GridItem>
 
