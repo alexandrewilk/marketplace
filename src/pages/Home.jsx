@@ -11,13 +11,13 @@ function search(input){
   return villes.filter((v)=>{return(v.slice(0, input.length) == input)})
 }
 
+
 export default function Home() {
   const [ville, setVille] = useState('');
   const [suggestions, setSuggestions] = useState([])
   const [activeSuggestionIndex, setActiveSuggestionIndex] = useState(0);
   const navigate = useNavigate();
   const location = useLocation();
-  
   function handleKeyDown(e){ 
     switch(e.key) {
       case 'Enter': // naviguer quand l'utilisateur presse entré

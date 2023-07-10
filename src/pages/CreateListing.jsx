@@ -24,8 +24,10 @@ const steps = [
   { label: "Etape 3"},
 ];
 
-export default function CreateListing() {
 
+
+export default function CreateListing() {
+    
     // tout les hooks
     const [openSection, setOpenSection] = useState(null);
     const [logement, setLogement] = useState('');
