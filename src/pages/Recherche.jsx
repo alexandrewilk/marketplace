@@ -369,9 +369,9 @@ function ChangeView({ center, zoom }) {
                   {filteredAnnonces.length} {`annonce${filteredAnnonces.length ==1 ? '' : 's'}`} à {params.ville}
                 </Heading>
                 <Spacer />
-                <Select placeholder='Trier par' maxW="150px" size='sm' mr={4} onChange={(e)=>{setSorter(e.target.value);console.log(e.target.value)}}>
-                  <option value='timestamp'>Date (par défaut)</option>
-                  <option value='loyer'>Loyer</option>
+                <Select placeholder='Trier par' maxW="150px" size='sm' mr={4} onChange={(e)=>{setSorter(e.target.value)}} value={sorter}>
+                  <option value='timestamp'>Trier par Date (par défaut)</option>
+                  <option value='loyer'>Trier par Loyer</option>
                 </Select>
                 <Heading as="h4" size="md" mr="12px">
                   Carte
