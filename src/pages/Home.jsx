@@ -5,6 +5,8 @@ import { SearchIcon } from '@chakra-ui/icons';
 import { useNavigate, useLocation } from 'react-router-dom';
 import SendMessagePopup from '../components/SendMessagePopup';
 import RechercheCard from '../components/RechercheCard';
+import PartenaireBandeau from '../components/PartenaireBandeau';
+import HowItWorks from '../components/HowItWorks';
 
 const villes = require('../assets/data/villes2.json').map((v)=>{return v.city})
 
@@ -151,6 +153,8 @@ export default function Home() {
         <RechercheCard city={city} key={index} />
       ))}
     </Flex>
+    <PartenaireBandeau/>
+    <HowItWorks/>
   </Box>
   )
 }
