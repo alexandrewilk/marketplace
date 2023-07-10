@@ -12,6 +12,33 @@ function search(input){
   return villes.filter((v)=>{return(v.slice(0, input.length) == input)})
 }
 
+const cities = [
+  {
+    name: 'Paris',
+    imageUrl: 'https://coloc.fr/wp-content/uploads/2023/04/Lyon.webp',
+    link: '/recherche/Paris'
+  },
+  {
+    name: 'Lyon',
+    imageUrl: 'https://coloc.fr/wp-content/uploads/2023/04/Lyon.webp',
+    link: '/recherche/Lyon'
+  },
+  {
+    name: 'Toulouse',
+    imageUrl: 'https://coloc.fr/wp-content/uploads/2023/04/Lyon.webp',
+    link: '/recherche/Lyon'
+  },
+  {
+    name: 'Marseille',
+    imageUrl: 'https://coloc.fr/wp-content/uploads/2023/04/Lyon.webp',
+    link: '/recherche/Marseille'
+  },
+  {
+    name: 'Bordeaux',
+    imageUrl: 'https://coloc.fr/wp-content/uploads/2023/04/Lyon.webp',
+    link: '/recherche/Bordeaux'
+  },
+];
 
 export default function Home() {
   const [ville, setVille] = useState('');
