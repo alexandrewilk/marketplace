@@ -2,10 +2,11 @@ import { useState, useEffect } from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
 import { auth } from '../firebase';
 import { onAuthStateChanged } from 'firebase/auth';
-import { Text, Box, Flex, Avatar, Button, Menu, MenuButton, MenuList, VStack, List, ListItem, MenuItem, MenuDivider, Stack, useColorMode, Center, Image, Input, InputLeftElement, InputGroup } from '@chakra-ui/react';
+import { Text, Box, Icon, Flex, Avatar, Button, Menu, MenuButton, MenuList, VStack, List, ListItem, MenuItem, MenuDivider, Stack, useColorMode, Center, Image, Input, InputLeftElement, InputGroup } from '@chakra-ui/react';
 import { useMediaQuery } from "@chakra-ui/react";
 import { useAuthStatus } from '../hooks/useAuthStatus';
 import { SearchIcon } from '@chakra-ui/icons';
+import { RxHamburgerMenu } from "react-icons/rx";
 
 const villes = require('../assets/data/villes2.json').map((v)=>{return v.city})
 
@@ -145,54 +146,49 @@ export default function Nav() {
           </Box>
           )}
 
-        <Flex alignItems={'center'}>
-          <Stack direction={'row'} spacing={7}>
-            <Menu>
-              <MenuButton
-                as={Button}
-                rounded={'full'}
-                variant={'link'}
-                cursor={'pointer'}
-                minW={0}>
-                <Avatar
-                  size={'sm'}
-                  src={pageState === 'Profile' ? 'https://avatars.dicebear.com/api/male/username.svg' : 'https://avatars.dicebear.com/api/female/username.svg'}
-                />
-              </MenuButton>
-              <MenuList zIndex={1000} alignItems={'center'}>
+        <Flex borderWidth="1px" borderColor="gray.3OO" borderRadius={100} alignItems="center" p={2} boxShadow="md" _hover={{ boxShadow: 'lg' }}>
+          <Menu>
+            <MenuButton as={Button} rounded={'full'} variant={'link'} cursor={'pointer'} minW={0}>
+              <Flex alignItems={'center'}>
+                <Icon as={RxHamburgerMenu} w={4} h={4} mr={2} />
+                <Avatar size={'xs'} src={pageState === 'Profile' ? 'https://avatars.dicebear.com/api/male/username.svg' : 'https://avatars.dicebear.com/api/female/username.svg'} />
+              </Flex>
+            </MenuButton>
+
+            <MenuList zIndex={1000} alignItems={'center'} mt={2}>
               <Center mt={2} mb={2}>
-                  <Avatar 
+                <Avatar 
                   size={'lg'}                   
                   src={pageState === 'Profile' ? 'https://avatars.dicebear.com/api/male/username.svg' : 'https://avatars.dicebear.com/api/female/username.svg'}
- />
+                />
               </Center>
               {pageState === 'Profile' && (
                 <Center mt={2} mb={2}>
                   <Text>{auth.currentUser ? auth.currentUser.displayName : ''}</Text>
                 </Center>
               )}
-                <MenuDivider />
-                {pageState === 'Profile' ? (
-                  <>
-                    <MenuItem onClick={() => navigate('/create-listing')}>Déposer une annonce</MenuItem>
-                    <MenuItem 
-                      className={`cursor-pointer ${routeMatchPath('/Settings') ? 'active' : ''}`} 
-                      onClick={() => navigate("/Settings")}
-                    >
-                      Paramètres
-                    </MenuItem>
-                    <MenuItem onClick={handleLogout}>Se déconnecter</MenuItem>
-                  </>
-                ) : (
-                  <>
-                    <MenuItem onClick={() => navigate('/sign-in')}>Se connecter</MenuItem>
-                    <MenuItem onClick={() => navigate('/sign-up')}>S'inscrire</MenuItem>
-                  </>
-                )}
-              </MenuList>
-            </Menu>
-          </Stack>
+              <MenuDivider />
+              {pageState === 'Profile' ? (
+                <>
+                  <MenuItem onClick={() => navigate('/create-listing')}>Déposer une annonce</MenuItem>
+                  <MenuItem 
+                    className={`cursor-pointer ${routeMatchPath('/Settings') ? 'active' : ''}`} 
+                    onClick={() => navigate("/Settings")}
+                  >
+                    Paramètres
+                  </MenuItem>
+                  <MenuItem onClick={handleLogout}>Se déconnecter</MenuItem>
+                </>
+              ) : (
+                <>
+                  <MenuItem onClick={() => navigate('/sign-in')}>Se connecter</MenuItem>
+                  <MenuItem onClick={() => navigate('/sign-up')}>S'inscrire</MenuItem>
+                </>
+              )}
+            </MenuList>
+          </Menu>
         </Flex>
+
       </Flex>
     </Box>
   );
