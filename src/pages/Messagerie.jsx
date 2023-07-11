@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { Box, Flex, VStack, Text, Input, Button } from '@chakra-ui/react';
+import { Box, Flex, VStack, Text, Input, Button, Image } from '@chakra-ui/react';
 import { doc, getDoc, onSnapshot, serverTimestamp, updateDoc } from 'firebase/firestore';
 import { auth, db } from '../firebase';
 import { Dots } from 'react-activity';
@@ -11,6 +11,8 @@ function parseDocId(id){
   const listingId = id.split('AND=')[1].split('REF=')[1]
   return {uuid1, uuid2, listingId}
 }
+
+
 
 export default function Messaging() {
   const [chatsWithData, setChatsWithData] = useState([]) //data de tout ceux av qui il chat
@@ -131,6 +133,27 @@ export default function Messaging() {
       setLoadingSend(false)
     }
   }
+
+  function renderAnnonce() {
+    return (
+      <Box position="sticky" top="0" display="flex" alignItems="center" borderWidth={1} borderColor="gray.200" borderRadius={6} boxShadow='base' marginX={4} marginBottom={2} p={4}>
+        <Box width="250px" height="150px">
+          <Image
+            borderRadius="12px"
+            boxSize="100%"
+            src="https://images.unsplash.com/photo-1555041469-a586c61ea9bc?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1770&q=80"
+            alt="Image de l'annonce"
+          />
+        </Box>
+        <VStack align="start" spacing={1} ml={4}>
+          <Text color="black" fontWeight="bold">Nom de l'annonce</Text> 
+          <Text color="black">Prix: 100€</Text>
+          <Text color="black">#tag1 #tag2</Text>
+        </VStack>
+    </Box>
+    )
+}
+
   return (
     <Flex h="calc(100vh - 64px)" overflow="hidden">
       <Box
@@ -146,6 +169,7 @@ export default function Messaging() {
 
       <Flex direction="column" justifyContent="flex-start" w="80%" overflowY="auto">
         <Flex direction="column" h="100%">
+          {renderAnnonce()}
           <VStack align="stretch" spacing={4} flex="1" overflowY="auto">
             {renderMessages()}
           </VStack>

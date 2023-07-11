@@ -1,4 +1,4 @@
-import { BrowserRouter as Router, Routes, Route} from "react-router-dom";
+import { BrowserRouter as Router, Routes, Route, useLocation} from "react-router-dom";
 import Home from "./pages/Home";
 import ForgotPassword from "./pages/ForgotPassword";
 import SignIn from "./pages/SignIn"
@@ -18,10 +18,12 @@ import Settings from './pages/Settings';
 import Recherche from "./pages/Recherche";
 import Messagerie from './pages/Messagerie';
 
+function Layout() {
+  const location = useLocation();
+  const hideFooterFor = ["/sign-in", "/sign-up", "/forgot-password", "/Messagerie"];  // Ajoutez toutes les routes pour lesquelles vous ne voulez pas afficher le Footer
 
-export default function App() {
   return (
-    <Router>
+    <>
       <Header/>
       <Routes>
         <Route path='/' element={<Home/>}/>
@@ -52,7 +54,7 @@ export default function App() {
           <Route path='/create-listing' element={<CreateListing/>}/>
         </Route>
       </Routes>
-      <Footer/>
+      {!hideFooterFor.includes(location.pathname) && <Footer/>}
       <ToastContainer
         position="bottom-left"
         autoClose={5000}
@@ -65,6 +67,15 @@ export default function App() {
         pauseOnHover
         theme="dark"
       />
-    </Router>
+    </>
+  )
+}
+
+export default function App() {
+
+  return (
+  <Router>
+    <Layout/>
+  </Router>
   )
 }
