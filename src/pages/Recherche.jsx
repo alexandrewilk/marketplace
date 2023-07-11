@@ -19,6 +19,7 @@ import '../styles/home.css'
 import { useAuthStatus } from '../hooks/useAuthStatus';
 import { auth } from '../firebase';
 import { LikesContext } from '../context/LikesContext';
+import SaveAlerteButton from '../components/SaveAlerteButton';
 
 
 function createPriceMarker(price) {
@@ -51,6 +52,7 @@ const availableFilters = ['type', 'nbPieces', 'prixMax', 'co', 'regles', 'meuble
 export default function Recherche() {
     const [isLargerThan750] = useMediaQuery("(min-width: 750px)");
     const {loggedIn, loadingAuth} = useAuthStatus();
+    const [loadingAlerte, setLoadingAlerte] = useState(false)
     const [userLikes, setUserLikes] = useState([])
     const [isMapVisible, setMapVisible] = useState(true);
     const { isOpen, onOpen, onClose } = useDisclosure();
@@ -195,23 +197,7 @@ function ChangeView({ center, zoom }) {
               }
             }}
           >
-            <Button onClick={onOpen}  minInlineSize="100px" bgColor="blue" textColor="white">Alerte</Button>
-            <Modal isOpen={isOpen} onClose={onClose}>
-              <ModalOverlay />
-              <ModalContent>
-                <ModalHeader>Alerte</ModalHeader>
-                <ModalCloseButton />
-                <ModalBody>
-                  AHHHHHHHHHHHHHHH
-                </ModalBody>
-
-                <ModalFooter>
-                  <Button colorScheme='blue' mr={3} onClick={onClose}>
-                    Enregistrer
-                  </Button>
-                </ModalFooter>
-              </ModalContent>
-            </Modal>
+          <SaveAlerteButton ville={params.ville} currentFilters={currentFilters}/>
 
             <Select
                 placeholder="Coloc et coliving"
