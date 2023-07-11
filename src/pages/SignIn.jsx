@@ -31,7 +31,7 @@ export default function SignIn() {
         navigate('/');
       }
     } catch (error) {
-      toast.error('Mauvaise combinaison user.pwd');
+      toast.error('Mauvaise combinaison Email/mot de passe');
     }
   }
 
