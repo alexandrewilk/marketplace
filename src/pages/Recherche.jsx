@@ -4,12 +4,12 @@ import { Dots } from 'react-activity';
 import { useNavigate, useParams, useSearchParams } from 'react-router-dom';
 import {
     Box, Select, Grid, Flex, GridItem, Button, useDisclosure, 
-    Switch, Spacer, Heading, useColorModeValue, useMediaQuery,
+    Switch, Spacer, Heading, useColorModeValue, useMediaQuery, Text
 } from '@chakra-ui/react';
 import AnnonceCard from '../components/AnnonceCard';
 import { db } from '../firebase';
 import villes from '../assets/data/villes2.json';
-import { MapContainer, TileLayer, Marker, useMap } from 'react-leaflet';
+import { MapContainer, TileLayer, Marker, useMap, Popup } from 'react-leaflet';
 import 'leaflet/dist/leaflet.css';
 import L from 'leaflet';
 import icon from 'leaflet/dist/images/marker-icon.png';
@@ -19,7 +19,7 @@ import { useAuthStatus } from '../hooks/useAuthStatus';
 import { auth } from '../firebase';
 import { LikesContext } from '../context/LikesContext';
 import SaveAlerteButton from '../components/SaveAlerteButton';
-
+import AnnonceCardMap from '../components/AnnnonceCardMap';
 
 function createPriceMarker(price) {
   let svgMarkup = `
@@ -437,7 +437,7 @@ function ChangeView({ center, zoom }) {
                   {filteredAnnonces.map((a) => {
                     let priceMarker = hoveredAnnonce === a.id ? createHoveredPriceMarker(a.data.loyer) : createPriceMarker(a.data.loyer);
                     return (
-                      <Marker 
+                      <Marker
                         key={a.id}
                         position={[a.data.geolocation.lat, a.data.geolocation.lng]}
                         icon={priceMarker}
@@ -445,7 +445,15 @@ function ChangeView({ center, zoom }) {
                           mouseover: () => handleMarkerHover(a.id),
                           mouseout: () => handleMarkerHover(null)
                         }}
-                      />
+                      >
+                        <Popup>
+                          <AnnonceCardMap
+                           key={a.id} 
+                           data={a.data} 
+                           id={a.id} 
+                          />
+                        </Popup>
+                      </Marker>
                     );
                   })}
               </MapContainer>
