@@ -20,7 +20,8 @@ import Messagerie from './pages/Messagerie';
 
 function Layout() {
   const location = useLocation();
-  const hideFooterFor = ["/sign-in", "/sign-up", "/forgot-password", "/Messagerie"];  // Ajoutez toutes les routes pour lesquelles vous ne voulez pas afficher le Footer
+  const hideFooterFor = ["/sign-in", "/sign-up", "/forgot-password", "/Messagerie"];
+  const isRecherchePage = location.pathname.startsWith("/recherche");
 
   return (
     <>
@@ -54,7 +55,7 @@ function Layout() {
           <Route path='/create-listing' element={<CreateListing/>}/>
         </Route>
       </Routes>
-      {!hideFooterFor.includes(location.pathname) && <Footer/>}
+      {!hideFooterFor.includes(location.pathname) && !isRecherchePage && <Footer/>}
       <ToastContainer
         position="bottom-left"
         autoClose={5000}

@@ -4,13 +4,13 @@ import IconBadge from './IconBadge';
 import { FaHouseUser, FaRegHeart, FaBed, FaBath } from "react-icons/fa";
 import { AiOutlineHeart, AiFillHeart } from 'react-icons/ai'
 import { LikesContext } from "../context/LikesContext";
-import { useContext } from "react";
+import { useContext, forwardRef } from "react";
 import { arrayRemove, arrayUnion, doc, updateDoc } from "firebase/firestore";
 import { db, auth } from "../firebase";
 import { useNavigate } from "react-router-dom";
 
 
-export default function AnnonceCard({ data, id }) {
+const AnnonceCard = forwardRef(({ data, id, hovered, handleAnnonceHover }, ref) => {
   const { imgUrls, type, loyer, nbPieces } = data;
   const navigate = useNavigate();
   const badgeProperties = [
@@ -43,13 +43,17 @@ export default function AnnonceCard({ data, id }) {
 
   return (
     <Box
+      ref={ref}
       borderWidth="1px"
       bg="white"
       borderRadius="16px"
       overflow="hidden"
-      boxShadow="base"
+      boxShadow="md"
+      borderWidth={hovered ? '1px' : '0px'}
+      borderColor={hovered ? '#172ACE' : 'gray.100'}
+      onMouseEnter={() => handleAnnonceHover(id)} 
+      onMouseLeave={() => handleAnnonceHover(null)}
       transition="box-shadow 0.2s"
-      _hover={{ boxShadow: "md" }}
       mb={4}
       maxW="240px"
       minH="280px"
@@ -89,4 +93,6 @@ export default function AnnonceCard({ data, id }) {
     </Box>
   );
   
-}
+});
+
+export default AnnonceCard;
