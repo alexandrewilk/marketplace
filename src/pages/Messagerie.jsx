@@ -3,6 +3,7 @@ import { Box, Flex, VStack, Text, Input, Button, Image } from '@chakra-ui/react'
 import { doc, getDoc, onSnapshot, serverTimestamp, updateDoc } from 'firebase/firestore';
 import { auth, db } from '../firebase';
 import { Dots } from 'react-activity';
+import { useNavigate } from 'react-router-dom';
 
 //j'ai caché de la data dans l'id du doc ahah ! maintenant il faut parser tout ça lol
 function parseDocId(id){
@@ -22,6 +23,8 @@ export default function Messaging() {
   const [snap, setSnap] = useState(null)
   const [newMessage, setNewMessage] = useState('')
   const [loadingSend, setLoadingSend] = useState(false)
+  const [listing, setListing] = useState(null) //data du listing sélectionné
+  const navigate = useNavigate()
   useEffect(()=>{
     async function getChatsWith(){
       try{
@@ -53,7 +56,19 @@ export default function Messaging() {
   }, [])
 
   useEffect(()=>{
+    async function getListingData(){
+      let docId = selectedChat.chatId
+      const {uuid1, uuid2, listingId} = parseDocId(docId)
+      try {
+        const data = await getDoc(doc(db, 'Listings', listingId))
+        setListing({id: data.id, data: data.data()})
+        console.log({id: data.id, data: data.data()})
+      } catch (error) {
+        alert(error.message)
+      }
+    }
     if(selectedChat){
+      getListingData();
       let docId = selectedChat.chatId
       const subscriber = onSnapshot(doc(db, 'Chats', docId), snap=>{setSnap(snap)})
       return () => {subscriber()}}
@@ -93,8 +108,26 @@ export default function Messaging() {
     if(selectedChat == ''){return (<div>Clique sur ta gauche pour selectionner un chat</div>)}
       
     const messages = chatData ? chatData.data.texts : []
-   
+    if(!listing){return}
     return(
+      <>
+      <div onClick={(e)=>{e.preventDefault();navigate(`/listings/${listing.id}`)}}>
+      <Box position="sticky" top="0" display="flex" alignItems="center" borderWidth={1} borderColor="gray.200" borderRadius={6} boxShadow='base' marginX={4} marginBottom={2} p={4}>
+        <Box width="250px" height="150px">
+          <Image
+            borderRadius="12px"
+            boxSize="100%"
+            src={listing.data.imgUrls[0]}
+            alt="Image de l'annonce"
+          />
+        </Box>
+        <VStack align="start" spacing={1} ml={4}>
+          <Text color="black" fontWeight="bold">{listing.data.type} de {listing.data.surface}m2 à {listing.data.ville}</Text> 
+          <Text color="black">Loyer: {listing.data.loyer}€</Text>
+          <Text color="black">{listing.data.desc}</Text>
+        </VStack>
+    </Box>
+    </div>
       <VStack spacing={1} align="stretch">
         {messages.map((t, index) => {
           const alignSelf = t.from === auth.currentUser.uid ? 'flex-end' : 'flex-start';
@@ -117,6 +150,7 @@ export default function Messaging() {
           )
         })}      
       </VStack>
+      </>
     )
   }  
   
@@ -134,26 +168,6 @@ export default function Messaging() {
     }
   }
 
-  function renderAnnonce() {
-    return (
-      <Box position="sticky" top="0" display="flex" alignItems="center" borderWidth={1} borderColor="gray.200" borderRadius={6} boxShadow='base' marginX={4} marginBottom={2} p={4}>
-        <Box width="250px" height="150px">
-          <Image
-            borderRadius="12px"
-            boxSize="100%"
-            src="https://images.unsplash.com/photo-1555041469-a586c61ea9bc?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1770&q=80"
-            alt="Image de l'annonce"
-          />
-        </Box>
-        <VStack align="start" spacing={1} ml={4}>
-          <Text color="black" fontWeight="bold">Nom de l'annonce</Text> 
-          <Text color="black">Prix: 100€</Text>
-          <Text color="black">#tag1 #tag2</Text>
-        </VStack>
-    </Box>
-    )
-}
-
   return (
     <Flex h="calc(100vh - 64px)" overflow="hidden">
       <Box
@@ -169,7 +183,6 @@ export default function Messaging() {
 
       <Flex direction="column" justifyContent="flex-start" w="80%" overflowY="auto">
         <Flex direction="column" h="100%">
-          {renderAnnonce()}
           <VStack align="stretch" spacing={4} flex="1" overflowY="auto">
             {renderMessages()}
           </VStack>
