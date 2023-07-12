@@ -106,7 +106,7 @@ export default function Recherche() {
         const index = filteredAnnonces.findIndex(annonce => annonce.id === id);
         if (annonceRefs.current[index]) {
           annonceRefs.current[index].current.scrollIntoView({
-            behavior: "smooth",
+            behavior: "instant",
             block: "center",
           });
         }
