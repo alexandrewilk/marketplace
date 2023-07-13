@@ -10,6 +10,7 @@ import {HiOutlineMapPin} from 'react-icons/hi2';
 import CustomBadge from '../components/CustomBadge';
 import SendMessagePopup from '../components/SendMessagePopup';
 import {useAuthStatus} from '../hooks/useAuthStatus'
+import { CheckCircleIcon } from '@chakra-ui/icons';
 
 export default function Listing() {
   const gridTemplateColumnsThree = useBreakpointValue({ base: "repeat(1, 1fr)", md: "repeat(2, 1fr)" });
@@ -38,10 +39,7 @@ export default function Listing() {
         }
         fetchListing();
     }, [params.listingID])
-    const containerStyle = {
-        width: '400px',
-        height: '400px'
-      };
+
    
     return (
       <Box maxW="1200px" marginX="auto" mt={6} paddingX="2.5%">
@@ -88,19 +86,42 @@ export default function Listing() {
               Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam, eaque ipsa quae ab illo inventore veritatis et quasi architecto beatae vitae dicta sunt explicabo. Nemo enim ipsam voluptatem quia voluptas sit aspernatur aut odit aut fugit, sed quia consequuntur magni dolores eos qui ratione voluptatem sequi nesciunt. Neque porro quisquam est, qui dolorem ipsum quia dolor sit amet, consectetur, adipisci velit, sed quia non numquam eius modi tempora incidunt ut labore et dolore magnam aliquam quaerat voluptatem. Ut enim ad minima veniam, quis nostrum exercitationem ullam corporis suscipit laboriosam, nisi ut aliquid ex ea commodi consequatur? Quis autem vel eum iure reprehenderit qui in ea voluptate velit esse quam nihil molestiae consequatur, vel illum qui dolorem eum fugiat quo voluptas nulla pariatur?
             </Text>
           </Box>
+         
+          <Box w="100%" h="auto" borderWidth="1px" boxShadow='base' borderColor="gray.200" borderRadius="12px" padding={4}>
+            <Heading as="h2" size="md" marginTop={3}>Equipement de la colocation</Heading>
+            <Divider marginY={3}/>
+
+            <Grid templateColumns="repeat(2, 1fr)" gap={3} >
+              <Box display="flex" alignItems="center">
+                <Icon as={CheckCircleIcon} w={6} h={6} />
+                <Text ml={2}>Texte pour l'icône 1</Text>
+              </Box>
+              <Box display="flex" alignItems="center">
+                <Icon as={CheckCircleIcon} w={6} h={6} />
+                <Text ml={2}>Texte pour l'icône 2</Text>
+              </Box>
+              <Box display="flex" alignItems="center">
+                <Icon as={CheckCircleIcon} w={6} h={6} />
+                <Text ml={2}>Texte pour l'icône 3</Text>
+              </Box>
+              <Box display="flex" alignItems="center">
+                <Icon as={CheckCircleIcon} w={6} h={6} />
+                <Text ml={2}>Texte pour l'icône 4</Text>
+              </Box>
+            </Grid>
+          </Box>
+          
+          <Box w="100%" h="auto" borderWidth="1px" boxShadow='base' borderColor="gray.200" borderRadius="12px" padding={4}>
+            <Heading as="h2" size="md" marginTop={3}>Règles spéciales</Heading>
+            <Divider marginY={3}/>
+          </Box>
+
           <Box w="100%" h="auto" borderWidth="1px" boxShadow='base' borderColor="gray.200" borderRadius="12px" padding={4}>
             <Heading as="h2" size="md" marginTop={3}>Visites 3D</Heading>
             <Divider marginY={3}/>
             <iframe width='100%' height='480' src='https://my.matterport.com/show/?m=MovEKusCHsf' frameborder='0' allowfullscreen allow='xr-spatial-tracking' borderRadius='6px'></iframe>
           </Box>
-          <Box w="100%" h="auto" borderWidth="1px" boxShadow='base' borderColor="gray.200" borderRadius="12px" padding={4}>
-            <Heading as="h2" size="md" marginTop={3}>Equipement de la colocation</Heading>
-            <Divider marginY={3}/>
-          </Box>
-          <Box w="100%" h="auto" borderWidth="1px" boxShadow='base' borderColor="gray.200" borderRadius="12px" padding={4}>
-            <Heading as="h2" size="md" marginTop={3}>Règles spéciales</Heading>
-            <Divider marginY={3}/>
-          </Box>
+
           </VStack>
 
           <Box w="100%" h="300" bg="white" borderWidth="1px" borderColor="gray.200" boxShadow='md' borderRadius="12px" position="sticky" top="0" padding="2.5%">
@@ -112,28 +133,32 @@ export default function Listing() {
                 </Flex>
                 <Divider marginY={4}/>
 
-                <Flex flexDirection="row" justifyContent="space-between">
-                  <Text>Charge</Text>
-                  <Text>Charge</Text>
-                </Flex>
+                <Flex flexDir="column" gap={4}>
+                  <Flex flexDirection="row" justifyContent="space-between">
+                    <Text>Charge</Text>
+                    <Text>Charge</Text>
+                  </Flex>
 
-                <Flex flexDirection="row" justifyContent="space-between">
-                  <Text>Charge</Text>
-                  <Text>Charge</Text>
-                </Flex>
+                  <Flex flexDirection="row" justifyContent="space-between">
+                    <Text>Charge</Text>
+                    <Text>Charge</Text>
+                  </Flex>
 
-                <Flex flexDirection="row" justifyContent="space-between">
-                  <Text>Charge</Text>
-                  <Text>Charge</Text>
+                  <Flex flexDirection="row" justifyContent="space-between">
+                    <Text>Charge</Text>
+                    <Text>Charge</Text>
+                  </Flex>
                 </Flex>
               </Box>
               <SendMessagePopup listing={listing}/>
             </Flex>
           </Box>
-
-          
         </Grid>
-        <Box backgroundColor="red" h="100vh"/>
+
+        <Box w="100%" h="auto" borderWidth="1px" boxShadow='base' borderColor="gray.200" borderRadius="12px" padding={4} marginTop={3}>
+            <Heading as="h2" size="md" marginTop={3}>Localisation</Heading>
+            <Divider marginY={3}/>
+          </Box>
       </Box>
     );
     
