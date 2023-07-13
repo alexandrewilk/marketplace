@@ -2,23 +2,41 @@ import { doc, getDoc } from 'firebase/firestore';
 import React, { useEffect, useState } from 'react'
 import { useParams } from 'react-router-dom';
 import { db } from '../firebase';
-import { Dots } from 'react-activity';
-import { Box, Grid, Image, Heading, useBreakpointValue, Divider, Text, Button, Flex, Icon, VStack} from "@chakra-ui/react";
+import { Box, Grid, Image, Heading, useBreakpointValue, Divider, Text, Flex, Icon, VStack, Modal, ModalOverlay, ModalContent, ModalBody,  Button, IconButton, useDisclosure, HStack} from "@chakra-ui/react";
 import SignInImage from '../assets/images/SignIn.jpg';
-import {AiOutlineShareAlt, AiOutlineHeart, AiFillHeart} from 'react-icons/ai';
+import NoPP from '../assets/images/NoPP.webp'
+import {AiOutlineShareAlt, AiOutlineHeart} from 'react-icons/ai';
 import {HiOutlineMapPin} from 'react-icons/hi2';
 import CustomBadge from '../components/CustomBadge';
 import SendMessagePopup from '../components/SendMessagePopup';
-import {useAuthStatus} from '../hooks/useAuthStatus'
 import { CheckCircleIcon } from '@chakra-ui/icons';
+import { ChevronLeftIcon, ChevronRightIcon, CloseIcon } from "@chakra-ui/icons";
+import { BiImages } from "react-icons/bi";
 
 export default function Listing() {
   const gridTemplateColumnsThree = useBreakpointValue({ base: "repeat(1, 1fr)", md: "repeat(2, 1fr)" });
   const gridTemplateRow = useBreakpointValue({ base: "repeat(1, 1fr)", md: "repeat(2, 1fr)" });
   const gridTemplateColumnsSecondary = useBreakpointValue({ base: "1fr", md: "2fr 1fr" });
   const gridTemplateColumns = useBreakpointValue({ base: "2fr 1fr", md: "repeat(2, 1fr)" });
-  const imageMaxHeight = useBreakpointValue({ base: "300px", md: "auto" });
+  const MainImageMaxHeight = useBreakpointValue({ base: "300px", md: "376px" });
+  const OtherImageMaxHeight = useBreakpointValue({ base: "300px", md: "182px" });
+  const MainImageMaxWidth = useBreakpointValue({ base: "auto", md: "558px" });
+  const OtherImageMaxWidth = useBreakpointValue({ base: "auto", md: "273px" });
   const displayImageFour = useBreakpointValue({ base: "none", md: "block" });
+
+  const images = [SignInImage, SignInImage, SignInImage, SignInImage, NoPP];
+  const { isOpen, onOpen, onClose } = useDisclosure();
+  const [selectedImageIndex, setSelectedImageIndex] = useState(0);
+
+  const nextImage = () => {
+    setSelectedImageIndex((selectedImageIndex + 1) % images.length);
+  };
+
+  const prevImage = () => {
+    setSelectedImageIndex((selectedImageIndex - 1 + images.length) % images.length);
+  };
+
+
     const params = useParams();
     const [listing, setListing] = useState(null);
     const [loadingData, setLoadingData] = useState(true);
@@ -43,19 +61,38 @@ export default function Listing() {
    
     return (
       <Box maxW="1200px" marginX="auto" mt={6} paddingX="2.5%">
-        <Grid templateColumns={gridTemplateColumns} gap={3} >
-          <Box w="100%" h="auto">
-            <Image src={SignInImage} alt="Description de l'image 1" boxSize="100%" maxH={imageMaxHeight} objectFit="cover" borderRadius="12px"/> 
-          </Box>
-          <Box w="100%" h="auto">
-            <Grid templateColumns={gridTemplateColumnsThree} templateRows={gridTemplateRow} gap={3}>
-              <Image src={SignInImage} alt="Description de l'image 2" boxSize="100%" maxH={imageMaxHeight} objectFit="cover" borderRadius="12px"/>
-              <Image src={SignInImage} alt="Description de l'image 3" boxSize="100%" maxH={imageMaxHeight} objectFit="cover" borderRadius="12px"/>
-              <Image src={SignInImage} alt="Description de l'image 4" boxSize="100%" maxH={imageMaxHeight} objectFit="cover" borderRadius="12px"/>
-              <Image src={SignInImage} alt="Description de l'image 5" boxSize="100%" maxH={imageMaxHeight} objectFit="cover" borderRadius="12px" display={displayImageFour}/>
-            </Grid>
-          </Box>
-        </Grid>
+       <Grid templateColumns={gridTemplateColumns} gap={3} >
+       <Box w="100%" h="auto" position="relative">
+        <Image src={SignInImage} alt="Description de l'image 1" boxSize="100%" maxH={MainImageMaxHeight} maxW={MainImageMaxWidth} objectFit="cover" borderRadius="12px" onClick={onOpen}/>
+        <Box position="absolute" bottom="2" right="2" bg="white" px={2} py={1} borderWidth="1px" borderColor="black" borderRadius="6px" onClick={e => {e.stopPropagation(); onOpen();}}>
+          <HStack spacing={1}>
+            <Icon as={BiImages} boxSize="20px"/>
+            <Text fontSize="sm" color="black">Afficher toutes les photos</Text>
+          </HStack>
+        </Box>
+      </Box>
+        <Box w="100%" h="auto">
+          <Grid templateColumns={gridTemplateColumnsThree} templateRows={gridTemplateRow} gap={3}>
+            {images.slice(1).map((image, index) => (
+              <Image key={index} src={image} alt={`Description de l'image ${index + 2}`} boxSize="100%" maxH={OtherImageMaxHeight} maxW={OtherImageMaxWidth} objectFit="cover" borderRadius="12px" display={index === 3 ? displayImageFour : "block"} onClick={() => {onOpen(); setSelectedImageIndex(index + 1);}}/>
+            ))}
+          </Grid>
+        </Box>
+      </Grid>
+
+      <Modal isOpen={isOpen} onClose={onClose} closeOnOverlayClick={true} size="xl">
+        <ModalOverlay />
+        <ModalContent mx="auto" my="auto" w="auto" h="auto" maxH="90vh" maxW="90vw" bg="transparent" boxShadow="none">
+          <ModalBody p={0}>
+            <Flex justify="space-between" align="center">
+              <IconButton icon={<ChevronLeftIcon boxSize="30px"/>} boxSize="50px" color="black" variant="ghost" onClick={prevImage} borderRadius="12px" right="5px" />
+              <Image src={images[selectedImageIndex]} alt={`Description de l'image ${selectedImageIndex + 1}`} objectFit="contain" maxH="80vh" maxW="80vw" />
+              <IconButton icon={<ChevronRightIcon boxSize="30px"/>} boxSize="50px" color="black" variant="ghost" onClick={nextImage} borderRadius="12px" left="5px" />
+            </Flex>
+            <IconButton icon={<CloseIcon />} colorScheme="red" variant="ghost" position="absolute" top="0" right="5px" onClick={onClose} />
+          </ModalBody>
+        </ModalContent>
+      </Modal>
 
         <Grid templateColumns={gridTemplateColumnsSecondary} gap={3} marginTop={6}>
         <VStack w="100%" spacing={3}>
@@ -156,8 +193,9 @@ export default function Listing() {
         </Grid>
 
         <Box w="100%" h="auto" borderWidth="1px" boxShadow='base' borderColor="gray.200" borderRadius="12px" padding={4} marginTop={3}>
-            <Heading as="h2" size="md" marginTop={3}>Localisation</Heading>
+            <Heading as="h2" size="md" marginTop={3}>Où se situe la colocation</Heading>
             <Divider marginY={3}/>
+            <Text>LA tu fou la map avec lat et long en props.</Text>
           </Box>
       </Box>
     );
