@@ -20,6 +20,7 @@ import { auth } from '../firebase';
 import { LikesContext } from '../context/LikesContext';
 import SaveAlerteButton from '../components/SaveAlerteButton';
 import AnnonceCardMap from '../components/AnnnonceCardMap';
+import home from "../styles/home.css"
 
 function createPriceMarker(price) {
   let svgMarkup = `

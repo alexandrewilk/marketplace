@@ -7,3 +7,57 @@ body {
   background-color: transparent !important;
   box-shadow: none;
 }
+
+.leaflet-popup-content-wrapper {
+  padding: 0 !important;  /* supprimer la marge */
+}
+
+.leaflet-popup-content {
+  margin: 0px !important;  /* supprimer la marge */
+}
+
+.leaflet-popup-content p{
+  margin: 0px !important;  /* supprimer la marge */
+}
+
+.leaflet-popup-close-button {
+  color: transparent !important;  /* change cross color to red */
+  position: absolute;
+  top: 10px;  /* adjust as per your requirement */
+  left: 10px;  /* adjust as per your requirement */
+}
+
+.leaflet-popup-content-wrapper {
+  padding: 0 !important;  /* remove margin */
+}
+
+.leaflet-popup-content p {
+  /* margin: 17px 0; */
+  /* margin: 1.3em 0; */
+  margin: 0px;
+}
+
+.leaflet-popup-close-button::before {
+  content: '×';  /* add a red cross */
+  color: white;
+  font-size: 20px;  /* increase the size of the cross */
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-85%, -35%);
+  z-index: 2;
+}
+
+.leaflet-popup-close-button::after {
+  content: ""; 
+  display: block;
+  width: 25px;  
+  height: 25px;  
+  background-color: black;
+  border-radius: 50%;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-70%, -30%);
+  z-index: 1;
+}
