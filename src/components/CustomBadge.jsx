@@ -1,8 +1,10 @@
 import React from "react";
-import { Badge } from "@chakra-ui/react";
+import { Badge, Box } from "@chakra-ui/react";
 
 export default function CustomBadge(props) {
   return (
-        <Badge colorScheme="blue" width="64px">{props.text}</Badge>
+        <Box>
+        <Badge colorScheme="blue"  width="-moz-fit-content" maxWidth="-moz-fit-content">{props.text}</Badge>
+        </Box>
   );
 }
