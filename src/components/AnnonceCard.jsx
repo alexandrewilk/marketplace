@@ -1,8 +1,9 @@
 import { Box, Image, Flex, Text, IconButton } from "@chakra-ui/react";
 import CustomBadge from './CustomBadge';
 import IconBadge from './IconBadge';
-import { FaHouseUser, FaRegHeart, FaBed, FaBath } from "react-icons/fa";
+import { FaHouseUser, FaRegHeart, FaBed, FaBath,  } from "react-icons/fa";
 import { AiOutlineHeart, AiFillHeart } from 'react-icons/ai'
+import { MdEventAvailable } from 'react-icons/md'
 import { LikesContext } from "../context/LikesContext";
 import { useContext, forwardRef } from "react";
 import { arrayRemove, arrayUnion, doc, updateDoc } from "firebase/firestore";
@@ -11,14 +12,20 @@ import { useNavigate } from "react-router-dom";
 
 
 const AnnonceCard = forwardRef(({ data, id, hovered, handleAnnonceHover }, ref) => {
-  const { imgUrls, type, loyer, nbPieces } = data;
+  const { imgUrls, type, loyer, nbPieces, surface, userRef } = data;
   const navigate = useNavigate();
   const badgeProperties = [
-    { icon: FaBed, text: "5 chambres" },
-    { icon: FaHouseUser, text: "300m²" },
+    { icon: MdEventAvailable, text: "13 Juil" },
+    { icon: FaHouseUser, text: "3 pers." },
   ];
 
   const [userLikes, setUserLikes] = useContext(LikesContext)
+  function renderCustomBadge(){
+    if (userRef == "cartecoloc"){
+      return <CustomBadge text="La Carte des Colocs"/>
+    }
+    return <CustomBadge text="Coloc.fr"/>
+  }
 
   async function handleLike(){  
     try {
@@ -75,12 +82,14 @@ const AnnonceCard = forwardRef(({ data, id, hovered, handleAnnonceHover }, ref) 
 
         <Flex direction="column" padding={2} h="100%">
           <Flex flexDirection="column" justifyContent="space-around" h="100%" onClick={(e)=>{e.preventDefault();navigate(`/listings/${id}`)}}>
-            <CustomBadge text="SeLoger"/>
+ 
+            {renderCustomBadge()}
+        
             <Text fontSize="lg" color="#172ACE" as='b'>
               {loyer}€
             </Text>
             <Text fontSize="md" fontWeight="semibold" whiteSpace="nowrap" overflow="hidden" textOverflow="ellipsis">
-              {type}, loyer de {loyer}€, {nbPieces} pièces
+              {type} {nbPieces} de {surface} m2
             </Text>
             <Flex>
               {badgeProperties.map((badge, index) => (
