@@ -50,7 +50,7 @@ export default function Listing() {
             const docRef=doc(db, 'Listings', params.listingID)
             const docSnap = await getDoc(docRef)
             if(docSnap.exists()){
-        
+                console.log('here')
                 setListing({id: docSnap.id, data: docSnap.data()})
             }
             }catch(error){
@@ -71,9 +71,11 @@ export default function Listing() {
     if(loadingData){
       return <Dots/>
     }
-    
-    const images = listing.data.imgUrls
 
+    if(!listing){
+      return <Flex>Cette annonce n'existe pas ou plus !</Flex>
+    }
+    const images = listing.data.imgUrls
     return (
       
       <Box maxW="1200px" marginX="auto" mt={6} paddingX="2.5%">

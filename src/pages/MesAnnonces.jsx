@@ -55,7 +55,7 @@ export default function MesAnnonces() {
       </Flex>
       
       {listings.map((l)=>{return(
-        <AnnonceCard key = {l.id} data={l.data}/>
+        <AnnonceCard key = {l.id} data={l.data} id={l.id}/>
       )})}
     </Container>
     

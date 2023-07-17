@@ -6,7 +6,7 @@ import { AiFillHeart } from 'react-icons/ai'
 import { useNavigate } from "react-router-dom";
 
 export default function AnnonceCard({ data, id }) {
-  const { imgUrls, type, loyer, nbPieces } = data;
+  const { imgUrls, type, loyer, nbPieces, surface } = data;
   const navigate = useNavigate();
   const badgeProperties = [
     { icon: FaBed, text: "5 chambres" },
@@ -70,7 +70,7 @@ return (
             {loyer}€
           </Text>
           <Text fontSize="md" fontWeight="semibold" whiteSpace="nowrap" overflow="hidden" textOverflow="ellipsis">
-            {type}, loyer de {loyer}€, {nbPieces} pièces
+            {type} {nbPieces} pièces de {surface} m2 
           </Text>
           <Flex>
             {badgeProperties.map((badge, index) => (
