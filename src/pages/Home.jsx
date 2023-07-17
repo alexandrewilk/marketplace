@@ -118,6 +118,7 @@ export default function Home() {
                       width="100%"
                       align="start"
                       _hover={{ bg: "gray.200" }}
+                      onClick={(e)=>{e.preventDefault();navigate(`/recherche/${s}`)}}
                     >
                       {s}
                     </ListItem>
