@@ -58,6 +58,7 @@ export default function CreateListing() {
     const bg = useColorModeValue("gray.200", "gray.700");
     const formColumnWidth = useBreakpointValue({ base: "100%", md: "50%" });
     const [isLargerThan768] = useMediaQuery("(min-width: 768px)");
+    const [isLargerThan400] = useMediaQuery("(min-width: 400px)");
 
     // Initialisation des autres librairies
     const { isLoaded } = useJsApiLoader({
@@ -193,22 +194,22 @@ export default function CreateListing() {
           <Breadcrumb>
             <BreadcrumbItem>
               <BreadcrumbLink href='/Settings'>
-                 <Box maxWidth={'100px'} isTruncated>Paramètres</Box>
+                 <Box maxWidth={isLargerThan400 ? 'auto' : '100px'} isTruncated={isLargerThan400 ? false : true}>Paramètres</Box>
               </BreadcrumbLink>
             </BreadcrumbItem>
             <BreadcrumbItem>
               <BreadcrumbLink href='/MesAnnonces'>
-                <Box maxWidth={'100px'} isTruncated>Mes annonces</Box>
+                <Box maxWidth={isLargerThan400 ? 'auto' : '100px'} isTruncated={isLargerThan400 ? false : true}>Mes annonces</Box>
               </BreadcrumbLink>
             </BreadcrumbItem>
             <BreadcrumbItem>
               <BreadcrumbLink href='/create-listing'>
-                <Box maxWidth={'100px'} isTruncated>Ajouter une annonce</Box>
+                <Box maxWidth={isLargerThan400 ? 'auto' : '100px'} isTruncated={isLargerThan400 ? false : true}>Ajouter une annonce</Box>
               </BreadcrumbLink>
             </BreadcrumbItem>
           </Breadcrumb>
 
-          <Text fontSize="4xl" as="b">Ajouter une annonce</Text>
+          <Text fontSize={isLargerThan768 ? "4xl" : "2xl"} as="b">Ajouter une annonce</Text>
 
           <Flex flexDir="column" width="100%">
             <Flex alignItems="center" justifyContent="center" mb={8}>
@@ -236,7 +237,7 @@ export default function CreateListing() {
               {index === 0 && 
                   <form>
                   <Flex direction={{ base: 'column', md: 'row' }} gap='10'>
-                    <Stack spacing={4} width={{ base: '100%', md: '50%' }} height="300px">
+                    <Stack spacing={4} width={{ base: '100%', md: '50%' }} height={isLargerThan768 ? "300px" : "400px"}>
                       <Flex direction={{ base: 'column', md: 'row' }} gap='2'>
                         <FormControl id="logement" isRequired onFocus={() => handleFocus("section1")} onBlur={() => handleFocus(null)}>
                           <FormLabel>Type de Logement</FormLabel>
@@ -280,7 +281,7 @@ export default function CreateListing() {
               {index === 1 && 
                 <form>
                   <Flex direction={{ base: 'column', md: 'row' }} gap='10'>
-                    <Stack spacing={4} width={{ base: '100%', md: '50%' }} height="300px">
+                    <Stack spacing={4} width={{ base: '100%', md: '50%' }} height={isLargerThan768 ? "300px" : "400px"}>
                       <Flex direction={{ base: 'column', md: 'row' }} gap='2'>
                         <FormControl id="loyer" isRequired onFocus={() => handleFocus("section4")} onBlur={() => handleFocus(null)}>
                           <FormLabel>Loyer</FormLabel>
@@ -337,7 +338,7 @@ export default function CreateListing() {
               {index === 2 && 
                 <form>
                   <Flex direction={{ base: 'column', md: 'row' }} gap='10'>
-                    <Stack spacing={4} width={{ base: '100%', md: '50%' }} height="300px">
+                    <Stack spacing={4} width={{ base: '100%', md: '50%' }} height={isLargerThan768 ? "300px" : "400px"}>
                       <Flex direction={{ base: 'column', md: 'row' }} gap='2'>
                         <FormControl id="co" onFocus={() => handleFocus("section8")} onBlur={() => handleFocus(null)}>
                           <FormLabel>Colocation ou Coliving ?</FormLabel>

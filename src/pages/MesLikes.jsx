@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react'
-import { Text, Container, Grid, Breadcrumb, Box, BreadcrumbItem, BreadcrumbLink, BreadcrumbSeparator, } from '@chakra-ui/react';
+import { Text, Container, Grid, Breadcrumb, Box, BreadcrumbItem, BreadcrumbLink, useMediaQuery } from '@chakra-ui/react';
 import { doc, getDoc } from 'firebase/firestore';
 import { db, auth } from '../firebase';
 import { Dots } from 'react-activity';
@@ -8,6 +8,8 @@ import AnnonceCard from '../components/AnnonceCardPageMesLikes';
 
 export default function MesLikes() {
   const [loading, setLoading] = useState(true)
+  const [isLargerThan768] = useMediaQuery("(min-width: 768px)");
+  const [isLargerThan400] = useMediaQuery("(min-width: 400px)");
   const [likes, setLikes] = useState([])
   useEffect(()=>{
     async function getData(){
@@ -34,16 +36,16 @@ export default function MesLikes() {
     <Breadcrumb>
       <BreadcrumbItem>
         <BreadcrumbLink href='/Settings'>
-          <Box maxWidth={'100px'} isTruncated>Paramètres</Box>
+          <Box maxWidth={isLargerThan400 ? 'auto' : '100px'} isTruncated={isLargerThan400 ? false : true}>Paramètres</Box>
         </BreadcrumbLink>
       </BreadcrumbItem>
       <BreadcrumbItem>
         <BreadcrumbLink href='/MesLikes'>
-          <Box maxWidth={'100px'} isTruncated>Mes annonces sauvegardées</Box>
+          <Box maxWidth={isLargerThan400 ? 'auto' : '100px'} isTruncated={isLargerThan400 ? false : true}>Mes annonces sauvegardées</Box>
         </BreadcrumbLink>
       </BreadcrumbItem>
     </Breadcrumb>
-    <Text fontSize="4xl" as="b">Mes annonces sauvegardées</Text>
+    <Text fontSize={isLargerThan768 ? "4xl" : "2xl"} as="b">Mes annonces sauvegardées</Text>
     {loading ? <Dots/> : 
               <Grid templateColumns={{ base: "1fr", md: "repeat(5, 1fr)" }} gap={4} mt={4}>
                 {likes.map((l)=>{return(

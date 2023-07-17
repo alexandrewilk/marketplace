@@ -6,12 +6,14 @@ import { doc, getDocs, orderBy, updateDoc, collection, query, where } from 'fire
 import { 
   Flex, Spacer, Text, Box, Container, Breadcrumb, BreadcrumbItem, 
   BreadcrumbLink, Accordion, AccordionItem, AccordionButton, 
-  AccordionPanel, AccordionIcon,Button, FormControl, FormLabel, Input, Spinner 
+  AccordionPanel, AccordionIcon,Button, FormControl, FormLabel, Input, Spinner, useMediaQuery
 } 
 from '@chakra-ui/react';
 import {auth, db} from '../firebase';
 
 export default function Profile() {
+  const [isLargerThan768] = useMediaQuery("(min-width: 768px)");
+  const [isLargerThan400] = useMediaQuery("(min-width: 400px)");
   const [listings, setListings] = useState([]);
   const [loadingList, setLoadingList] = useState(false);
   const [formData, setFormData] = useState({
@@ -81,16 +83,16 @@ export default function Profile() {
       <Breadcrumb>
         <BreadcrumbItem>
           <BreadcrumbLink href='/Settings'>
-            <Box maxWidth={'100px'} isTruncated>Paramètres</Box>
+            <Box maxWidth={isLargerThan400 ? 'auto' : '100px'} isTruncated={isLargerThan400 ? false : true}>Paramètres</Box>
           </BreadcrumbLink>
         </BreadcrumbItem>
         <BreadcrumbItem>
           <BreadcrumbLink href='/MesLikes'>
-            <Box maxWidth={'auto'} isTruncated>Mes informations personnelles</Box>
+            <Box maxWidth={isLargerThan400 ? 'auto' : '100px'} isTruncated={isLargerThan400 ? false : true}>Mes informations personnelles</Box>
           </BreadcrumbLink>
-        </BreadcrumbItem>
+        </BreadcrumbItem> 
       </Breadcrumb>
-      <Text fontSize="4xl" as="b">Mes informations personnelles</Text>
+      <Text fontSize={isLargerThan768 ? "4xl" : "2xl"} as="b">Mes informations personnelles</Text>
 
 
   <Accordion allowToggle mt="32px">

@@ -3,12 +3,14 @@ import { Link as RouterLink } from 'react-router-dom';
 import { Dots } from 'react-activity';
 import 'react-activity/dist/library.css';
 import { MdAdd } from 'react-icons/md';
-import { Text, Container, Breadcrumb, BreadcrumbItem, BreadcrumbLink, Button, Icon, Box, Flex } from '@chakra-ui/react';
+import { Text, Container, Breadcrumb, BreadcrumbItem, BreadcrumbLink, Button, Icon, Box, Flex, useMediaQuery } from '@chakra-ui/react';
 import { query, getDocs, where, orderBy, collection } from 'firebase/firestore';
 import { auth, db } from '../firebase';
 import AnnonceCard from '../components/AnnonceCardPageMesLikes'
 
 export default function MesAnnonces() {
+  const [isLargerThan768] = useMediaQuery("(min-width: 768px)");
+  const [isLargerThan400] = useMediaQuery("(min-width: 400px)");
   const [listings, setListings] = useState([]);
   const [loadingList, setLoadingList] = useState(false);
   const getUserListing = async () => {
@@ -38,17 +40,17 @@ export default function MesAnnonces() {
       <Breadcrumb>
         <BreadcrumbItem>
           <BreadcrumbLink href='/Settings'>
-            <Box maxWidth={'100px'} isTruncated>Paramètres</Box>
+            <Box maxWidth={isLargerThan400 ? 'auto' : '100px'} isTruncated={isLargerThan400 ? false : true}>Paramètres</Box>
           </BreadcrumbLink>
         </BreadcrumbItem>
         <BreadcrumbItem>
           <BreadcrumbLink href='/MesAnnonces'>
-            <Box maxWidth={'100px'} isTruncated>Mes annonces</Box>
+            <Box maxWidth={isLargerThan400 ? 'auto' : '100px'} isTruncated={isLargerThan400 ? false : true}>Mes annonces</Box>
           </BreadcrumbLink>
         </BreadcrumbItem>
       </Breadcrumb>
-      <Flex flexDirection="row" justifyContent="space-between" alignItems="flex-end">
-        <Text fontSize="4xl" as="b">Mes annonces</Text>
+      <Flex flexDirection={isLargerThan768 ? "row" : "column"} justifyContent="space-between" alignItems={isLargerThan768 ? "flex-end" : "flex-start"}>
+        <Text fontSize={isLargerThan768 ? "4xl" : "2xl"} as="b">Mes annonces</Text>
         <Button colorScheme='blue' size='sm' leftIcon={<Icon as={MdAdd} />}>
           <RouterLink to='/create-listing'>Ajouter une annonce</RouterLink>
         </Button>

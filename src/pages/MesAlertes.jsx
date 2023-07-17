@@ -1,11 +1,13 @@
 import React, { useState } from 'react'
-import { Text, Box, Container, Grid, Breadcrumb, BreadcrumbItem, BreadcrumbLink, BreadcrumbSeparator,  Table, Thead, Tbody, Tfoot, Tr, Th, Td, TableCaption, TableContainer, Button, Input} from '@chakra-ui/react';
+import { Text, Box, Container, Grid, Breadcrumb, BreadcrumbItem, BreadcrumbLink, useMediaQuery,  Table, Thead, Tbody, Tfoot, Tr, Th, Td, TableCaption, TableContainer, Button, Input} from '@chakra-ui/react';
 import { useEffect } from 'react';
 import { FieldValue, doc, getDoc, updateDoc } from 'firebase/firestore';
 import { auth, db } from '../firebase';
 import { Dots } from 'react-activity';
 
 export default function MesAlertes() {
+  const [isLargerThan768] = useMediaQuery("(min-width: 768px)");
+  const [isLargerThan400] = useMediaQuery("(min-width: 400px)");
   const [alertes, setAlertes ] = useState([])
   const [loading, setLoading] = useState(false)
   const [nom, setNom] = useState('')
@@ -55,16 +57,16 @@ export default function MesAlertes() {
     <Breadcrumb>
       <BreadcrumbItem>
         <BreadcrumbLink href='/Settings'>
-          <Box maxWidth={'100px'} isTruncated>Paramètres</Box>
+          <Box maxWidth={isLargerThan400 ? 'auto' : '100px'} isTruncated={isLargerThan400 ? false : true}>Paramètres</Box>
         </BreadcrumbLink>
       </BreadcrumbItem>
       <BreadcrumbItem>
         <BreadcrumbLink href='/MesAlertes'>
-          <Box maxWidth={'100px'} isTruncated>Mes alertes</Box>
+          <Box maxWidth={isLargerThan400 ? 'auto' : '100px'} isTruncated={isLargerThan400 ? false : true}>Mes alertes</Box>
         </BreadcrumbLink>
       </BreadcrumbItem>
     </Breadcrumb>
-    <Text fontSize="4xl" as="b">Mes alertes</Text>
+    <Text fontSize={isLargerThan768 ? "4xl" : "2xl"} as="b">Mes alertes</Text>
 
   <TableContainer mt="20px">
   <Table size='md'>
