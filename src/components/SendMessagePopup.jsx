@@ -65,21 +65,14 @@ export default function SendMessagePopup({ listing }) {
         <Button>Cette annonce vous appartient</Button>
       )
     }
-    //todo : logic pr check si déjà contacter et sinon creer doc + serverside cloudfunctions pr chatsWith doc user
-    // useEffect(()=>{
-    //     async function getData(){
-    //         try {
-    //             setLoading(true)
-    //             const infos = await getDoc(doc(db, 'Users', receveurUid))
-    //             setReceveurInfors({id: infos.id, data: infos.data()})
-                
+    if(listing.data.userRef == 'cartecoloc'){
+      return (
+      <a href={"https://www.lacartedescolocs.fr/logements/"+listing.data.ville} rel='noreferrer' target='_blank'>
+      <Button>Voir cette annonce sur la carte des colocs</Button>
+      </a>
+      )
+    }
 
-    //         } catch (error) {
-    //             alert(error.message)
-    //         }finally{setLoading(false)}
-    //     }
-    //     getData();
-    // }, [])
     async function handleSendNewMessage(){
       if(message==''){alert('Le message est vide!'); return}
       let docId = auth.currentUser.uid < listing.data.userRef ? auth.currentUser.uid+'AND='+listing.data.userRef+'REF='+listing.id : listing.data.userRef+'AND='+auth.currentUser.uid+'REF='+listing.id
