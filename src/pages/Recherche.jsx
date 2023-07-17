@@ -377,7 +377,6 @@ function ChangeView({ center, zoom }) {
         <Grid templateColumns={isLargerThan750 && isMapVisible ? 'repeat(2, 1fr)' : 'repeat(1, 1fr)'} w="100vw">
             <GridItem 
               mx={isMapVisible ? '0px' : '10%'} 
-              maxW={isMapVisible ? 'auto' : '1200px'} 
               overflowY="scroll" 
               maxHeight="calc(100vh - 134px)"
               css={{
