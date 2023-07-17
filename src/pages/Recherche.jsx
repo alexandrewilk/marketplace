@@ -203,8 +203,8 @@ export default function Recherche() {
   if (filteredAnnonces.length === 0) return <h1>PAS DANNONCES DANS CETTE VILLE</h1>;
 
   return (
-    <Grid templateColumns={isLargerThan750 && !isMapVisible ? 'repeat(4, 1fr)' : 'repeat(3, 1fr)'} gap={3}>
-      {filteredAnnonces.map((a, index) => (
+      <Grid templateColumns={isLargerThan750 && !isMapVisible ? 'repeat(auto-fill, minmax(200px, 1fr))' : 'repeat(auto-fill, minmax(200px, 1fr))'} gap={3}> 
+       {filteredAnnonces.map((a, index) => (
         <AnnonceCard 
           key={a.id} 
           data={a.data} 
@@ -374,33 +374,33 @@ function ChangeView({ center, zoom }) {
 
 
       <Flex direction="column" alignItems="center">
-      <Grid templateColumns={isLargerThan750 && isMapVisible ? 'repeat(2, 1fr)' : 'repeat(1, 1fr)'} w="100vw">
-      <GridItem 
-        mx={isMapVisible ? '0px' : '10%'} 
-        maxW={isMapVisible ? 'auto' : '1200px'} 
-        overflowY="scroll" 
-        maxHeight="calc(100vh - 134px)"
-        css={{
-          ...(isMapVisible
-            ? {}
-            : {
-                '&::-webkit-scrollbar': {
-                  width: '4px',
-                },
-                '&::-webkit-scrollbar-track': {
-                  background: '#f1f1f1',
-                },
-                '&::-webkit-scrollbar-thumb': {
-                  background: '#888',
-                  borderRadius: '10px',
-                  height: '8',
-                },
-                '&::-webkit-scrollbar-thumb:hover': {
-                  background: '#555',
-                },
-              }),
-        }}
-      >
+        <Grid templateColumns={isLargerThan750 && isMapVisible ? 'repeat(2, 1fr)' : 'repeat(1, 1fr)'} w="100vw">
+            <GridItem 
+              mx={isMapVisible ? '0px' : '10%'} 
+              maxW={isMapVisible ? 'auto' : '1200px'} 
+              overflowY="scroll" 
+              maxHeight="calc(100vh - 134px)"
+              css={{
+                ...(isMapVisible
+                  ? {}
+                  : {
+                      '&::-webkit-scrollbar': {
+                        width: '4px',
+                      },
+                      '&::-webkit-scrollbar-track': {
+                        background: '#f1f1f1',
+                      },
+                      '&::-webkit-scrollbar-thumb': {
+                        background: '#888',
+                        borderRadius: '10px',
+                        height: '8',
+                      },
+                      '&::-webkit-scrollbar-thumb:hover': {
+                        background: '#555',
+                      },
+                    }),
+              }}
+            >
 
             {isLargerThan750 && (
               <Flex align="center" w="95%" marginX="2.5%" marginY="12px">
