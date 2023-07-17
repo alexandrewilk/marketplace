@@ -3,7 +3,7 @@ import { Box, Accordion, AccordionItem, AccordionButton, AccordionPanel, Accordi
 
 export default function FAQ() {
     return (
-        <Box maxWidth="1400px" width="1400px">
+        <Box maxWidth="1400px">
             <Heading as='h3' size='lg' marginY={4}>Encore des questions ?</Heading>
             <Accordion defaultIndex={[0]} allowMultiple>
                 <AccordionItem>

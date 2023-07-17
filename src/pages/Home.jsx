@@ -1,6 +1,6 @@
 import React, { useState } from 'react'
 import '../styles/home.css'
-import { Box, Heading, Input, InputGroup, InputLeftElement, VStack, ListItem, List, Image, Text } from '@chakra-ui/react';
+import { Box, Heading, Input, InputGroup, InputLeftElement, VStack, ListItem, List, Image, Text, useMediaQuery } from '@chakra-ui/react';
 import { SearchIcon } from '@chakra-ui/icons';
 import { useNavigate, useLocation } from 'react-router-dom';
 import HowItWorks from '../components/HowItWorks';
@@ -15,6 +15,7 @@ function search(input){
 }
 
 export default function Home() {
+  const [isLargerThan768] = useMediaQuery("(min-width: 768px)");
   const [ville, setVille] = useState('');
   const [suggestions, setSuggestions] = useState([])
   const [activeSuggestionIndex, setActiveSuggestionIndex] = useState(0);
@@ -55,77 +56,102 @@ export default function Home() {
         display="flex"
         alignItems="center"
         justifyContent="center"
-        margin="auto"
         flexDirection="column"
         textAlign="center"
         borderRadius="12px"
+        marginX="auto"
         height="86vh"
         maxWidth="1400px"
         maxHeight="676px"
         background="linear-gradient(white, deepskyblue)"
       >
-        
-        <Box position="relative" width="500px" height="100px">
-          <Heading as="h1" size="2xl" color="white" position="absolute" top="50%" left="0" transform="translateY(-60%)" m={0} whiteSpace="nowrap">
-              Trouve la colocation 
-              <Box position="relative" display="inline">
-                  <Text as="span" position="relative">  idéale</Text>
-                  <Image src={Entourement} alt="Description of SVG" position="absolute" top={0} left={0} width="100%" height="100%"/>
-              </Box>
-          </Heading>
-        </Box>
+        <Box
+          display="flex"
+          flexDirection="column"
+          justifyContent="center"
+          alignItems="center"
+        >
+          <Box width="100%" marginY="2rem">
+            <Heading
+              as="h1"
+              size="2xl"
+              color="white"
+              m={0}
+              textAlign="center" 
+              whiteSpace={isLargerThan768 ? "nowrap" : "normal"}
+            >
+              {isLargerThan768
+                ? <>
+                    {`Trouve la colocation `}
+                    <Box position="relative" display="inline">
+                      <Text as="span" position="relative">  idéale</Text>
+                      <Image src={Entourement} alt="Description of SVG" position="absolute" top={0} left={0} width="100%" height="100%"/>
+                    </Box>
+                  </>
+                : <>
+                    {`Trouve la colocation `}
+                    <br />
+                    <Box position="relative" display="inline">
+                      <Text as="span" position="relative">  idéale</Text>
+                      <Image src={Entourement} alt="Description of SVG" position="absolute" top={0} left={0} width="100%" height="100%"/>
+                    </Box>
+                  </>
+              }
+            </Heading>
+          </Box>
+          </Box>
 
-        <Box position="relative" maxWidth="400px" marginBottom="2rem">
-          <InputGroup>
-            <InputLeftElement
-              height="50"
-              pointerEvents="none"
-              children={<SearchIcon color="gray" />}
-            />
-            <Input
-              height="50"
-              width="500px"
-              type="search"
-              backgroundColor="white"
-              borderColor="white"
-              placeholder="Entrez le nom de la ville..."
-              onKeyDown={handleKeyDown}
-              onChange={handleInput}
-            />
-          </InputGroup>
-          {suggestions.length > 0 && (
-              <VStack 
-                align="start" 
-                spacing={2} 
-                width="100%" 
-                maxHeight="200px" 
-                overflowY="auto" 
-                boxShadow="md" 
-                borderRadius="md" 
-                p={2} 
-                backgroundColor="white" 
-                position="absolute"
-                mt={2} 
-                zIndex={1}
-              >
-                <List w="100%">
-                  {suggestions.map((s, index) => (
-                    <ListItem 
-                      key={s} 
-                      p={2} 
-                      bg={index === activeSuggestionIndex ? "gray.200" : "white"} 
+            <Box position="relative" maxWidth="400px" marginBottom="2rem">
+                <InputGroup>
+                  <InputLeftElement
+                    height="50"
+                    pointerEvents="none"
+                    children={<SearchIcon color="gray" />}
+                  />
+                  <Input
+                    height="50"
+                    width={isLargerThan768 ? "500px" : "250px"}
+                    type="search"
+                    backgroundColor="white"
+                    borderColor="white"
+                    placeholder="Entrez le nom de la ville..."
+                    onKeyDown={handleKeyDown}
+                    onChange={handleInput}
+                  />
+                </InputGroup>
+                {suggestions.length > 0 && (
+                    <VStack 
+                      align="start" 
+                      spacing={2} 
+                      width="100%" 
+                      maxHeight="200px" 
+                      overflowY="auto" 
+                      boxShadow="md" 
                       borderRadius="md" 
-                      width="100%"
-                      align="start"
-                      _hover={{ bg: "gray.200" }}
-                      onClick={(e)=>{e.preventDefault();navigate(`/recherche/${s}`)}}
+                      p={2} 
+                      backgroundColor="white" 
+                      position="absolute"
+                      mt={2} 
+                      zIndex={1}
                     >
-                      {s}
-                    </ListItem>
-                  ))}
-                </List>
-              </VStack>
-            )}
+                      <List w="100%">
+                        {suggestions.map((s, index) => (
+                          <ListItem 
+                            key={s} 
+                            p={2} 
+                            bg={index === activeSuggestionIndex ? "gray.200" : "white"} 
+                            borderRadius="md" 
+                            width="100%"
+                            align="start"
+                            _hover={{ bg: "gray.200" }}
+                            onClick={(e)=>{e.preventDefault();navigate(`/recherche/${s}`)}}
+                          >
+                            {s}
+                          </ListItem>
+                        ))}
+                      </List>
+                    </VStack>
+                  )}
 
         </Box>
       </Box>
