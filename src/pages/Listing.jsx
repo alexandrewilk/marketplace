@@ -12,6 +12,10 @@ import SendMessagePopup from '../components/SendMessagePopup';
 import { CheckCircleIcon } from '@chakra-ui/icons';
 import { ChevronLeftIcon, ChevronRightIcon, CloseIcon } from "@chakra-ui/icons";
 import { BiImages } from "react-icons/bi";
+import { toast } from 'react-toastify';
+import { Dots } from 'react-activity';
+import { MapContainer, Marker, TileLayer } from 'react-leaflet';
+import 'leaflet/dist/leaflet.css';
 
 export default function Listing() {
   const gridTemplateColumnsThree = useBreakpointValue({ base: "repeat(1, 1fr)", md: "repeat(2, 1fr)" });
@@ -24,7 +28,7 @@ export default function Listing() {
   const OtherImageMaxWidth = useBreakpointValue({ base: "auto", md: "273px" });
   const displayImageFour = useBreakpointValue({ base: "none", md: "block" });
 
-  const images = [SignInImage, SignInImage, SignInImage, SignInImage, NoPP];
+  // const images = [SignInImage, SignInImage, SignInImage, SignInImage, NoPP];
   const { isOpen, onOpen, onClose } = useDisclosure();
   const [selectedImageIndex, setSelectedImageIndex] = useState(0);
 
@@ -59,11 +63,23 @@ export default function Listing() {
     }, [params.listingID])
 
    
+    async function handlePartager(){
+      const url = window.location.href;
+      navigator.clipboard.writeText(url).then(()=>{toast.success("Le lien de l'annonce a été copié dans le presse papier !")})
+    }
+
+    if(loadingData){
+      return <Dots/>
+    }
+    
+    const images = listing.data.imgUrls
+
     return (
+      
       <Box maxW="1200px" marginX="auto" mt={6} paddingX="2.5%">
        <Grid templateColumns={gridTemplateColumns} gap={3} >
        <Box w="100%" h="auto" position="relative">
-        <Image src={SignInImage} alt="Description de l'image 1" boxSize="100%" maxH={MainImageMaxHeight} maxW={MainImageMaxWidth} objectFit="cover" borderRadius="12px" onClick={onOpen}/>
+       <Image src={images[0]} alt="Description de l'image 1" boxSize="100%" maxH={MainImageMaxHeight} maxW={MainImageMaxWidth} objectFit="cover" borderRadius="12px" onClick={onOpen}/>
         <Box position="absolute" bottom="2" right="2" bg="white" px={2} py={1} borderWidth="1px" borderColor="black" borderRadius="6px" onClick={e => {e.stopPropagation(); onOpen();}}>
           <HStack spacing={1}>
             <Icon as={BiImages} boxSize="20px"/>
@@ -73,8 +89,8 @@ export default function Listing() {
       </Box>
         <Box w="100%" h="auto">
           <Grid templateColumns={gridTemplateColumnsThree} templateRows={gridTemplateRow} gap={3}>
-            {images.slice(1).map((image, index) => (
-              <Image key={index} src={image} alt={`Description de l'image ${index + 2}`} boxSize="100%" maxH={OtherImageMaxHeight} maxW={OtherImageMaxWidth} objectFit="cover" borderRadius="12px" display={index === 3 ? displayImageFour : "block"} onClick={() => {onOpen(); setSelectedImageIndex(index + 1);}}/>
+            {images.length == 1 ? '' : images.map((imgUrl, index) => (
+              <Image key={index} src={imgUrl} alt={`L'image n'a pas pu être chargée !`} boxSize="100%" maxH={OtherImageMaxHeight} maxW={OtherImageMaxWidth} objectFit="cover" borderRadius="12px" display={index === 3 ? displayImageFour : "block"} onClick={() => {onOpen(); setSelectedImageIndex(index);}}/>
             ))}
           </Grid>
         </Box>
@@ -98,9 +114,9 @@ export default function Listing() {
         <VStack w="100%" spacing={3}>
           <Box w="100%" h="auto" borderWidth="1px" boxShadow='base' borderColor="gray.200" borderRadius="12px" padding={4}>
           <Flex justifyContent="space-between" alignItems="center" marginBottom={4}>
-            <CustomBadge text="SeLoger"/>
+            <CustomBadge text={listing.data.userRef == 'cartecoloc' ? 'La carte des colocs' : 'Coloc.fr'}/>
             <Flex direction="row" justify="space-between">
-              <Box onClick={() => console.log('Partager')} cursor="pointer" display="flex" alignItems="center">
+              <Box onClick={(e) => {e.preventDefault(); handlePartager()}} cursor="pointer" display="flex" alignItems="center">
                 <Icon as={AiOutlineShareAlt} boxSize={6}/>
                 <Text ml={1}>Partager</Text> 
               </Box>
@@ -111,16 +127,16 @@ export default function Listing() {
             </Flex>
 
           </Flex>
-            <Heading as='h1' size='xl' noOfLines={1}> Appartement teh les brid</Heading>
+            <Heading as='h1' size='xl' noOfLines={1}> {listing.data.type} {listing.data.nbPieces ? listing.data.nbPieces+' Pièces': ""} de {listing.data.surface} m2</Heading>
 
             <Flex flexDirection="row" alignItems="center">
               <Icon as={HiOutlineMapPin} boxSize={6}/>
-              <Heading as="h3" size="md" marginY={3}> 13ème arrondissement de Paris</Heading>
+              <Heading as="h3" size="md" marginY={3}>{listing.data.ville}</Heading>
             </Flex>
             
             <Divider/>
             <Text marginY={3}>
-              Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam, eaque ipsa quae ab illo inventore veritatis et quasi architecto beatae vitae dicta sunt explicabo. Nemo enim ipsam voluptatem quia voluptas sit aspernatur aut odit aut fugit, sed quia consequuntur magni dolores eos qui ratione voluptatem sequi nesciunt. Neque porro quisquam est, qui dolorem ipsum quia dolor sit amet, consectetur, adipisci velit, sed quia non numquam eius modi tempora incidunt ut labore et dolore magnam aliquam quaerat voluptatem. Ut enim ad minima veniam, quis nostrum exercitationem ullam corporis suscipit laboriosam, nisi ut aliquid ex ea commodi consequatur? Quis autem vel eum iure reprehenderit qui in ea voluptate velit esse quam nihil molestiae consequatur, vel illum qui dolorem eum fugiat quo voluptas nulla pariatur?
+              {listing.data.desc}
             </Text>
           </Box>
          
@@ -165,11 +181,11 @@ export default function Listing() {
             <Flex flexDirection="column" justifyContent="space-between" height="100%">
               <Box>
                 <Flex flexDirection="row" alignItems="end">
-                  <Heading as="h3" size="lg">876€</Heading>
+                  <Heading as="h3" size="lg">{listing.data.loyer}€</Heading>
                   <Text fontSize='xl'>/mois</Text>
                 </Flex>
                 <Divider marginY={4}/>
-
+{/* 
                 <Flex flexDir="column" gap={4}>
                   <Flex flexDirection="row" justifyContent="space-between">
                     <Text>Charge</Text>
@@ -185,7 +201,7 @@ export default function Listing() {
                     <Text>Charge</Text>
                     <Text>Charge</Text>
                   </Flex>
-                </Flex>
+                </Flex> */}
               </Box>
               <SendMessagePopup listing={listing}/>
             </Flex>
@@ -195,9 +211,18 @@ export default function Listing() {
         <Box w="100%" h="auto" borderWidth="1px" boxShadow='base' borderColor="gray.200" borderRadius="12px" padding={4} marginTop={3}>
             <Heading as="h2" size="md" marginTop={3}>Où se situe la colocation</Heading>
             <Divider marginY={3}/>
-            <Text>LA tu fou la map avec lat et long en props.</Text>
+            <MapContainer center={[listing.data.geolocation.lat, listing.data.geolocation.lng]} zoom={13} style={{ height: '100vh' }} zoomControl={false} scrollWheelZoom={false}>
+            <TileLayer
+                  attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
+                  url="https://{s}.basemaps.cartocdn.com/rastertiles/voyager/{z}/{x}/{y}{r}.png'"
+                />
+              <Marker position={[listing.data.geolocation.lat, listing.data.geolocation.lng]}>
+                
+              </Marker>
+            </MapContainer>
           </Box>
       </Box>
+            
     );
     
 }
