@@ -80,10 +80,14 @@ export default function Profile() {
     <Container maxWidth="1200px" pt={70}>
       <Breadcrumb>
         <BreadcrumbItem>
-          <BreadcrumbLink href='/Settings'>Paramètres</BreadcrumbLink>
+          <BreadcrumbLink href='/Settings'>
+            <Box maxWidth={'100px'} isTruncated>Paramètres</Box>
+          </BreadcrumbLink>
         </BreadcrumbItem>
         <BreadcrumbItem>
-          <BreadcrumbLink href='/MesLikes'>Mes informations personnelles</BreadcrumbLink>
+          <BreadcrumbLink href='/MesLikes'>
+            <Box maxWidth={'auto'} isTruncated>Mes informations personnelles</Box>
+          </BreadcrumbLink>
         </BreadcrumbItem>
       </Breadcrumb>
       <Text fontSize="4xl" as="b">Mes informations personnelles</Text>

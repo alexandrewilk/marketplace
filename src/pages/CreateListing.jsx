@@ -192,13 +192,19 @@ export default function CreateListing() {
         <Container maxWidth="1200px" mt={70} mb={70}>
           <Breadcrumb>
             <BreadcrumbItem>
-              <BreadcrumbLink href='/Settings'>Paramètres</BreadcrumbLink>
+              <BreadcrumbLink href='/Settings'>
+                 <Box maxWidth={'100px'} isTruncated>Paramètres</Box>
+              </BreadcrumbLink>
             </BreadcrumbItem>
             <BreadcrumbItem>
-              <BreadcrumbLink href='/MesAnnonces'>Mes annonces</BreadcrumbLink>
+              <BreadcrumbLink href='/MesAnnonces'>
+                <Box maxWidth={'100px'} isTruncated>Mes annonces</Box>
+              </BreadcrumbLink>
             </BreadcrumbItem>
             <BreadcrumbItem>
-              <BreadcrumbLink href='/create-listing'>Ajouter une annonce</BreadcrumbLink>
+              <BreadcrumbLink href='/create-listing'>
+                <Box maxWidth={'100px'} isTruncated>Ajouter une annonce</Box>
+              </BreadcrumbLink>
             </BreadcrumbItem>
           </Breadcrumb>
 

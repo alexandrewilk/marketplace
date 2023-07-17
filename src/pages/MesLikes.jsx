@@ -33,10 +33,14 @@ export default function MesLikes() {
     <Container maxWidth="1200px" mt={70}>
     <Breadcrumb>
       <BreadcrumbItem>
-        <BreadcrumbLink href='/Settings'>Paramètres</BreadcrumbLink>
+        <BreadcrumbLink href='/Settings'>
+          <Box maxWidth={'100px'} isTruncated>Paramètres</Box>
+        </BreadcrumbLink>
       </BreadcrumbItem>
       <BreadcrumbItem>
-        <BreadcrumbLink href='/MesLikes'>Mes annonces sauvegardées</BreadcrumbLink>
+        <BreadcrumbLink href='/MesLikes'>
+          <Box maxWidth={'100px'} isTruncated>Mes annonces sauvegardées</Box>
+        </BreadcrumbLink>
       </BreadcrumbItem>
     </Breadcrumb>
     <Text fontSize="4xl" as="b">Mes annonces sauvegardées</Text>

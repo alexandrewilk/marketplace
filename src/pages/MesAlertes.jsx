@@ -54,10 +54,14 @@ export default function MesAlertes() {
     <Container maxWidth="1200px" mt={70}>
     <Breadcrumb>
       <BreadcrumbItem>
-        <BreadcrumbLink href='/Settings'>Paramètres</BreadcrumbLink>
+        <BreadcrumbLink href='/Settings'>
+          <Box maxWidth={'100px'} isTruncated>Paramètres</Box>
+        </BreadcrumbLink>
       </BreadcrumbItem>
       <BreadcrumbItem>
-        <BreadcrumbLink href='/MesAlertes'>Mes alertes</BreadcrumbLink>
+        <BreadcrumbLink href='/MesAlertes'>
+          <Box maxWidth={'100px'} isTruncated>Mes alertes</Box>
+        </BreadcrumbLink>
       </BreadcrumbItem>
     </Breadcrumb>
     <Text fontSize="4xl" as="b">Mes alertes</Text>

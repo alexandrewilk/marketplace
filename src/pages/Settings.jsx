@@ -1,11 +1,12 @@
 import React, {useState} from 'react';
-import { Text, Box, Container, Grid } from '@chakra-ui/react';
+import { Text, Box, Container, Grid, useMediaQuery } from '@chakra-ui/react';
 import SettingsCard from '../components/SettingsCard';
 import { AiOutlineMessage, AiOutlineUser, AiOutlineHeart, AiOutlineBell, AiOutlineAppstoreAdd, AiOutlineDashboard } from 'react-icons/ai';
 import { auth } from '../firebase';
 
 export default function Settings() {
 
+  const [isLargerThan750] = useMediaQuery("(min-width: 750px)");
   const [formData, setFormData] = useState({
     name: auth.currentUser ? auth.currentUser.displayName : '',
     email: auth.currentUser ? auth.currentUser.email : ''
@@ -13,7 +14,7 @@ export default function Settings() {
   const {name, email} = formData
 
   return (
-    <Box height="calc(100vh - 64px)">
+    <Box height={isLargerThan750 ? "calc(100vh - 64px)" : ""}>
     <Container maxWidth="1200px" mt={70}>
       <Box mb={12}>
       <Text fontSize="4xl" as="b">

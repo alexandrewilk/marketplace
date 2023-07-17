@@ -37,10 +37,14 @@ export default function MesAnnonces() {
     <Container maxWidth="1200px" mt={70} mb={70} h="calc(100vh - 64px)">
       <Breadcrumb>
         <BreadcrumbItem>
-          <BreadcrumbLink href='/Settings'>Paramètres</BreadcrumbLink>
+          <BreadcrumbLink href='/Settings'>
+            <Box maxWidth={'100px'} isTruncated>Paramètres</Box>
+          </BreadcrumbLink>
         </BreadcrumbItem>
         <BreadcrumbItem>
-          <BreadcrumbLink href='/MesAnnonces'>Mes annonces</BreadcrumbLink>
+          <BreadcrumbLink href='/MesAnnonces'>
+            <Box maxWidth={'100px'} isTruncated>Mes annonces</Box>
+          </BreadcrumbLink>
         </BreadcrumbItem>
       </Breadcrumb>
       <Flex flexDirection="row" justifyContent="space-between" alignItems="flex-end">
