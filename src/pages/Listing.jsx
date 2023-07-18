@@ -187,33 +187,16 @@ export default function Listing() {
                   <Text fontSize='xl'>/mois</Text>
                 </Flex>
                 <Divider marginY={4}/>
-{/* 
-                <Flex flexDir="column" gap={4}>
-                  <Flex flexDirection="row" justifyContent="space-between">
-                    <Text>Charge</Text>
-                    <Text>Charge</Text>
-                  </Flex>
-
-                  <Flex flexDirection="row" justifyContent="space-between">
-                    <Text>Charge</Text>
-                    <Text>Charge</Text>
-                  </Flex>
-
-                  <Flex flexDirection="row" justifyContent="space-between">
-                    <Text>Charge</Text>
-                    <Text>Charge</Text>
-                  </Flex>
-                </Flex> */}
               </Box>
               <SendMessagePopup listing={listing}/>
             </Flex>
           </Box>
         </Grid>
 
-        <Box w="100%" h="auto" borderWidth="1px" boxShadow='base' borderColor="gray.200" borderRadius="12px" padding={4} marginTop={3}>
+        <Box w="100%" h="auto" borderWidth="1px" boxShadow='base' borderColor="gray.200" borderRadius="12px" padding={4} marginTop={3} marginBottom="120px">
             <Heading as="h2" size="md" marginTop={3}>Où se situe la colocation</Heading>
             <Divider marginY={3}/>
-            <MapContainer center={[listing.data.geolocation.lat, listing.data.geolocation.lng]} zoom={13} style={{ height: '100vh' }} zoomControl={false} scrollWheelZoom={false}>
+            <MapContainer center={[listing.data.geolocation.lat, listing.data.geolocation.lng]} zoom={13} style={{ height: '480px' }} zoomControl={false} scrollWheelZoom={false}>
             <TileLayer
                   attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
                   url="https://{s}.basemaps.cartocdn.com/rastertiles/voyager/{z}/{x}/{y}{r}.png'"
