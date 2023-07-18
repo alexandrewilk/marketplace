@@ -218,14 +218,9 @@ export default function Recherche() {
     </Grid>
   );
 }
-
 function ChangeView({ center, zoom }) {
   const map = useMap();
-  
-  useEffect(() => {
-    map.setView(center, zoom);
-  }, [center, zoom, map]);
-
+  map.setView(center, zoom);
   return null;
 }
   
@@ -439,7 +434,7 @@ function ChangeView({ center, zoom }) {
           {isLargerThan750 && isMapVisible && (
             <GridItem h="calc(100vh - 134px)">
               <MapContainer center={center} zoom={13}  style={{height : "calc(100vh - 134px)"}}>
-                <ChangeView center={center} zoom={13}/>
+                {/*<ChangeView center={center} zoom={13}/> */}
                 <TileLayer
                   attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
                   url="https://{s}.basemaps.cartocdn.com/rastertiles/voyager/{z}/{x}/{y}{r}.png'"

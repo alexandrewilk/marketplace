@@ -32,13 +32,17 @@ const cities = [
 
 export default function VilleCarroussel() {
     return (
-        <Box maxWidth="1400px" margin="auto">
-            <Heading as='h3' size='lg' marginY={4}>Découvrez nos colocations par ville</Heading>
-            <Flex wrap="nowrap" overflowX="auto">
-                {cities.map((city, index) => (
-                <RechercheCard city={city} key={index} />
-                ))}
-            </Flex>
-        </Box>
+      <Box maxWidth="1400px" margin="auto">
+          <Heading as='h3' size='lg' marginY={4}>Découvrez nos colocations par ville</Heading>
+          <Flex 
+              flexDirection={{ base: "column", md: "row" }} 
+              flexWrap={{ base: "nowrap", md: "wrap" }} 
+              overflowX={{ base: "visible", md: "auto" }}
+          >
+              {cities.map((city, index) => (
+                  <RechercheCard city={city} key={index} />
+              ))}
+          </Flex>
+      </Box>
     )
 }
