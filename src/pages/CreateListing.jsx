@@ -13,7 +13,11 @@ import { Step, Steps, useSteps } from "chakra-ui-steps";
 import { useBreakpointValue, useColorModeValue } from "@chakra-ui/react"
 import MultiSelect from 'react-select';
 import HelpForm from '../components/HelpForm';
-
+import DatePicker from "react-datepicker";
+import "react-datepicker/dist/react-datepicker.css";
+import fr from 'date-fns/locale/fr'
+import { registerLocale, setDefaultLocale } from  "react-datepicker";
+registerLocale('fr', fr)
 const logements = ['Villa', 'Appartement', 'Maison', 'Studio'];
 const rooms = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]
 const libraries = ['places']
@@ -41,9 +45,9 @@ export default function CreateListing() {
     const [regles, setRegles] = useState([]);
     const [meuble, setMeuble] = useState(null);
     const [equipement, setEquipement] = useState([]);
-    const [dateDispo, setDateDispo] = useState(null);
     const [surface, setSurface] = useState('');
-    
+    const [nbOccupants, setNbOccupants] = useState(null);
+    const [dispoDate, setDispoDate] = useState(new Date())
     // Constante pour faire fonctionner les steps
     const { nextStep, prevStep, reset, activeStep, setStep } = useSteps({
       initialStep: 0,
@@ -169,6 +173,8 @@ export default function CreateListing() {
           regles : regles ? regles : [],
           meuble : meuble ? meuble : null,
           surface: surface ? surface : '',
+          nbOccupants : nbOccupants ? nbOccupants : 0,
+          dispoDate : dispoDate
         };
         const collectionRef = collection(db, 'Listings');
         const docRef = await addDoc(collectionRef, entry);
@@ -264,6 +270,13 @@ export default function CreateListing() {
                             <Input ref={adresseRef} placeholder="Adresse"/>
                           </Autocomplete>
                         </FormControl>
+                        <FormControl isRequired id="nbOccupants">
+                          <Select placeholder="Nombre d'occupants" onChange={(e)=> setNbOccupants(e.target.value)}>
+                          {rooms.map((option, index) => (
+                                <option value={option} key={option}>{index === 9 ? option + '+' : option}</option>
+                              ))}
+                          </Select>
+                        </FormControl>
                       </Stack>
 
                       {isLargerThan768 && (
@@ -354,6 +367,10 @@ export default function CreateListing() {
                             <option value={true}>Oui</option>
                             <option value={false}>Non</option>
                           </Select>
+                        </FormControl>
+                        <FormControl>
+                          <FormLabel>Disponible à partir de...</FormLabel>
+                          <DatePicker selected={dispoDate} onChange={(date)=>setDispoDate(date)} locale="fr"/>
                         </FormControl>
                       </Flex>
 
