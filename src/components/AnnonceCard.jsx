@@ -1,4 +1,4 @@
-import { Box, Image, Flex, Text, IconButton } from "@chakra-ui/react";
+import { Box, Image, Flex, Text, IconButton, useBreakpointValue } from "@chakra-ui/react";
 import CustomBadge from './CustomBadge';
 import IconBadge from './IconBadge';
 import { FaHouseUser, FaRegHeart, FaBed, FaBath,  } from "react-icons/fa";
@@ -12,14 +12,17 @@ import { useNavigate } from "react-router-dom";
 
 
 const AnnonceCard = forwardRef(({ data, id, hovered, handleAnnonceHover }, ref) => {
+  
   const { imgUrls, type, loyer, nbPieces, surface, userRef } = data;
   const navigate = useNavigate();
   const badgeProperties = [
     { icon: MdEventAvailable, text: "13 Juil" },
     { icon: FaHouseUser, text: "3 pers." },
   ];
+  const [userLikes, setUserLikes] = useContext(LikesContext) 
+  const cardWidth = useBreakpointValue({ base: "170px", md: "240px" });
 
-  const [userLikes, setUserLikes] = useContext(LikesContext)
+
   function renderCustomBadge(){
     if (userRef == "cartecoloc"){
       return <CustomBadge text="La Carte des Colocs"/>
@@ -62,7 +65,7 @@ const AnnonceCard = forwardRef(({ data, id, hovered, handleAnnonceHover }, ref) 
       onMouseLeave={() => handleAnnonceHover(null)}
       transition="box-shadow 0.2s"
       mb={4}
-      maxW="240px"
+      maxW={cardWidth}
       minH="280px"
     >
       <Flex direction={{ base: "column", md: "column" }} h="100%">

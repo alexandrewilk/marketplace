@@ -69,6 +69,7 @@ const availableFilters = ['type', 'nbPieces', 'prixMax', 'co', 'regles', 'meuble
 
 export default function Recherche() {
     const [isLargerThan750] = useMediaQuery("(min-width: 750px)");
+    const [isLargerThan450] = useMediaQuery("(min-width: 450px)");
     const {loggedIn, loadingAuth} = useAuthStatus();
     const [loadingAlerte, setLoadingAlerte] = useState(false)
     const [userLikes, setUserLikes] = useState([])
@@ -203,7 +204,7 @@ export default function Recherche() {
   if (filteredAnnonces.length === 0) return <h1>PAS DANNONCES DANS CETTE VILLE</h1>;
 
   return (
-      <Grid templateColumns={isLargerThan750 && !isMapVisible ? 'repeat(auto-fill, minmax(200px, 1fr))' : 'repeat(auto-fill, minmax(200px, 1fr))'} gap={3}> 
+      <Grid templateColumns={isLargerThan450 ? 'repeat(auto-fill, minmax(200px, 1fr))' : 'repeat(auto-fill, minmax(170px, 1fr))'} gap={isLargerThan450 ? '3' : '0'}> 
        {filteredAnnonces.map((a, index) => (
         <AnnonceCard 
           key={a.id} 
@@ -217,9 +218,14 @@ export default function Recherche() {
     </Grid>
   );
 }
+
 function ChangeView({ center, zoom }) {
   const map = useMap();
-  map.setView(center, zoom);
+  
+  useEffect(() => {
+    map.setView(center, zoom);
+  }, [center, zoom, map]);
+
   return null;
 }
   
@@ -401,22 +407,26 @@ function ChangeView({ center, zoom }) {
               }}
             >
 
-            {isLargerThan750 && (
+            
               <Flex align="center" w="95%" marginX="2.5%" marginY="12px">
                 <Heading as="h4" size="md">
-                  {filteredAnnonces.length} {`annonce${filteredAnnonces.length ==1 ? '' : 's'}`} à {params.ville}
+                  {filteredAnnonces.length}{`+ annonce${filteredAnnonces.length ==1 ? '' : 's'}`} à {params.ville}
                 </Heading>
                 <Spacer />
                 <Select placeholder='Trier par' maxW="150px" size='sm' mr={4} onChange={(e)=>{setSorter(e.target.value)}} value={sorter}>
                   <option value='timestamp'>Trier par Date (par défaut)</option>
                   <option value='loyer'>Trier par Loyer</option>
                 </Select>
-                <Heading as="h4" size="md" mr="12px">
-                  Carte
-                </Heading>
-                <Switch size="md" isChecked={isMapVisible} onChange={(e) => setMapVisible(e.target.checked)} />
+                {isLargerThan450 && (
+                  <Flex alignItems="center">
+                    <Heading as="h4" size="md" mr="12px">
+                      Carte
+                    </Heading>
+                      <Switch size="md" isChecked={isMapVisible} onChange={(e) => setMapVisible(e.target.checked)} />
+                  </Flex>
+                  )}
               </Flex>
-            )}
+           
             <Box width="95%" marginX="2.5%">
               <LikesContext.Provider value={[userLikes, setUserLikes]}>
                 {renderContent()}
@@ -429,7 +439,7 @@ function ChangeView({ center, zoom }) {
           {isLargerThan750 && isMapVisible && (
             <GridItem h="calc(100vh - 134px)">
               <MapContainer center={center} zoom={13}  style={{height : "calc(100vh - 134px)"}}>
-                {/*<ChangeView center={center} zoom={13}/> */}
+                <ChangeView center={center} zoom={13}/>
                 <TileLayer
                   attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
                   url="https://{s}.basemaps.cartocdn.com/rastertiles/voyager/{z}/{x}/{y}{r}.png'"
