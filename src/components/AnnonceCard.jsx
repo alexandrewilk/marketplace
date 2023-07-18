@@ -11,13 +11,16 @@ import { db, auth } from "../firebase";
 import { useNavigate } from "react-router-dom";
 
 
+
 const AnnonceCard = forwardRef(({ data, id, hovered, handleAnnonceHover }, ref) => {
   
-  const { imgUrls, type, loyer, nbPieces, surface, userRef } = data;
+  const { imgUrls, type, loyer, nbPieces, surface, userRef, nbOccupants, dispoDate } = data;
   const navigate = useNavigate();
+ 
+  console.log(new Date(dispoDate?.seconds*1000))
   const badgeProperties = [
-    { icon: MdEventAvailable, text: "13 Juil" },
-    { icon: FaHouseUser, text: "3 pers." },
+    { icon: MdEventAvailable, text: dispoDate ? new Date(dispoDate.seconds*1000) <= new Date() ? 'Dispo' : (new Date(dispoDate.seconds*1000)).toDateString() : 'Dispo'},
+    { icon: FaHouseUser, text: nbOccupants ? nbOccupants : nbPieces + ' pers.'},
   ];
   const [userLikes, setUserLikes] = useContext(LikesContext) 
   const cardWidth = useBreakpointValue({ base: "170px", md: "240px" });
