@@ -1,9 +1,10 @@
 import React, { useEffect, useState } from 'react';
-import { Box, Flex, VStack, Text, Input, Button, Image } from '@chakra-ui/react';
+import { Box, Flex, VStack, Text, Input, Image, Drawer, DrawerBody, DrawerHeader, DrawerOverlay, DrawerContent, DrawerCloseButton, Button, useDisclosure, useMediaQuery, IconButton, Heading } from '@chakra-ui/react';
 import { doc, getDoc, onSnapshot, serverTimestamp, updateDoc } from 'firebase/firestore';
 import { auth, db } from '../firebase';
 import { Dots } from 'react-activity';
 import { useNavigate } from 'react-router-dom';
+import { HamburgerIcon } from '@chakra-ui/icons';
 
 //j'ai caché de la data dans l'id du doc ahah ! maintenant il faut parser tout ça lol
 function parseDocId(id){
@@ -24,6 +25,11 @@ export default function Messaging() {
   const [newMessage, setNewMessage] = useState('')
   const [loadingSend, setLoadingSend] = useState(false)
   const [listing, setListing] = useState(null) //data du listing sélectionné
+  const { isOpen, onOpen, onClose } = useDisclosure()
+  const [isLessThan999] = useMediaQuery("(max-width: 999px)");
+  const [isMoreThan1000] = useMediaQuery("(min-width: 1000px)");
+  const btnRef = React.useRef()
+
   const navigate = useNavigate()
   useEffect(()=>{
     async function getChatsWith(){
@@ -169,7 +175,40 @@ export default function Messaging() {
   }
 
   return (
-    <Flex h="calc(100vh - 64px)" overflow="hidden">
+    <>
+    {isLessThan999 && (
+       <Box >
+         <Flex alignItems="flex-end" mb={4}>
+         <IconButton
+        aria-label="Menu"
+        icon={<HamburgerIcon />}
+        size="md"
+        variant="outline"
+        onClick={onOpen}
+      />
+        <Heading as='h4' size='md' ml={2}>Messagerie</Heading>
+         </Flex>
+       
+     <Drawer
+       isOpen={isOpen}
+       placement="left"
+       onClose={onClose}
+       finalFocusRef={btnRef}
+     >
+       <DrawerOverlay />
+       <DrawerContent>
+         <DrawerCloseButton />
+         <DrawerHeader>Conversations</DrawerHeader>
+
+         <DrawerBody>
+           {renderConversationBox()}
+         </DrawerBody>
+       </DrawerContent>
+     </Drawer>
+     </Box>
+     )}
+    <Flex h={isLessThan999 ? "calc(100vh - 124px)" : "calc(100vh - 64px)"} overflow="hidden">
+  {isMoreThan1000 && (
       <Box
         w="20%"
         borderRightWidth={1}
@@ -180,8 +219,9 @@ export default function Messaging() {
             {renderConversationBox()}
         </VStack>
       </Box>
+  )}
 
-      <Flex direction="column" justifyContent="flex-start" w="80%" overflowY="auto">
+      <Flex direction="column" justifyContent="flex-start" w="100%" overflowY="auto">
         <Flex direction="column" h="100%">
           <VStack align="stretch" spacing={4} flex="1" overflowY="auto">
             {renderMessages()}
@@ -190,5 +230,6 @@ export default function Messaging() {
         </Flex>
       </Flex>
     </Flex>
+    </>
   );
 }
