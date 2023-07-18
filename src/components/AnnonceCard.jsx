@@ -92,7 +92,7 @@ const AnnonceCard = forwardRef(({ data, id, hovered, handleAnnonceHover }, ref) 
               {loyer}€
             </Text>
             <Text fontSize="md" fontWeight="semibold" whiteSpace="nowrap" overflow="hidden" textOverflow="ellipsis">
-              {type} {nbPieces} de {surface} m2
+              {type} {nbPieces} pièces de {surface} m2
             </Text>
             <Flex>
               {badgeProperties.map((badge, index) => (
