@@ -200,8 +200,8 @@ export default function Recherche() {
 
  function renderContent() {
   if (loading) return <Dots />;
-  if (!villeInfo) return <h1>VILLE CLOCHARDE DSL PAS SUPPORTÉ</h1>;
-  if (filteredAnnonces.length === 0) return <h1>PAS DANNONCES DANS CETTE VILLE</h1>;
+  if (!villeInfo) return <h1>Ta ville n'est pas encore disponible sur coloc.fr</h1>;
+  if (filteredAnnonces.length === 0) return <h1>Il n'y pas encore d'annonce dans cette ville. Dépose en une!</h1>;
 
   return (
       <Grid templateColumns={isLargerThan450 ? 'repeat(auto-fill, minmax(200px, 1fr))' : 'repeat(auto-fill, minmax(170px, 1fr))'} gap={isLargerThan450 ? '3' : '0'}> 
