@@ -2,9 +2,7 @@ import { doc, getDoc } from 'firebase/firestore';
 import React, { useEffect, useState } from 'react'
 import { useParams } from 'react-router-dom';
 import { db } from '../firebase';
-import { Box, Grid, Image, Heading, useBreakpointValue, Divider, Text, Flex, Icon, VStack, Modal, ModalOverlay, ModalContent, ModalBody,  Button, IconButton, useDisclosure, HStack} from "@chakra-ui/react";
-import SignInImage from '../assets/images/SignIn.jpg';
-import NoPP from '../assets/images/NoPP.webp'
+import { Box, Grid, Image, Heading, useBreakpointValue, Divider, Text, Flex, Icon, VStack, Modal, ModalOverlay, ModalContent, ModalBody,  IconButton, useDisclosure, HStack} from "@chakra-ui/react";
 import {AiOutlineShareAlt, AiOutlineHeart} from 'react-icons/ai';
 import {HiOutlineMapPin} from 'react-icons/hi2';
 import CustomBadge from '../components/CustomBadge';
@@ -14,8 +12,22 @@ import { ChevronLeftIcon, ChevronRightIcon, CloseIcon } from "@chakra-ui/icons";
 import { BiImages } from "react-icons/bi";
 import { toast } from 'react-toastify';
 import { Dots } from 'react-activity';
-import { MapContainer, Marker, TileLayer } from 'react-leaflet';
+import { MapContainer, Marker, TileLayer, Popup } from 'react-leaflet';
 import 'leaflet/dist/leaflet.css';
+import L from 'leaflet';
+
+const svgMarkup = `<svg width="86" height="86" viewBox="0 0 86 86" fill="none" xmlns="http://www.w3.org/2000/svg">
+<circle cx="43" cy="43" r="43" fill="#172ACE"/>
+<path d="M42.5 25L22 40.375H27.125V60.875H37.375V50.625H47.625V60.875H57.875V40.2213L63 40.375L42.5 25Z" fill="white"/>
+</svg>
+`;
+const url = "data:image/svg+xml," + encodeURIComponent(svgMarkup);
+
+const customIcon = new L.Icon({
+  iconUrl: url,
+  iconSize: [32, 32],
+});
+
 
 export default function Listing() {
   const gridTemplateColumnsThree = useBreakpointValue({ base: "repeat(1, 1fr)", md: "repeat(2, 1fr)" });
@@ -196,13 +208,12 @@ export default function Listing() {
         <Box w="100%" h="auto" borderWidth="1px" boxShadow='base' borderColor="gray.200" borderRadius="12px" padding={4} marginTop={3} marginBottom="120px">
             <Heading as="h2" size="md" marginTop={3}>Où se situe la colocation</Heading>
             <Divider marginY={3}/>
-            <MapContainer center={[listing.data.geolocation.lat, listing.data.geolocation.lng]} zoom={13} style={{ height: '480px' }} zoomControl={false} scrollWheelZoom={false}>
-            <TileLayer
-                  attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
-                  url="https://{s}.basemaps.cartocdn.com/rastertiles/voyager/{z}/{x}/{y}{r}.png'"
-                />
-              <Marker position={[listing.data.geolocation.lat, listing.data.geolocation.lng]}>
-                
+            <MapContainer center={[listing.data.geolocation.lat, listing.data.geolocation.lng]} zoom={13} style={{ height: '480px' }} zoomControl={true} scrollWheelZoom={false}>
+              <TileLayer
+                attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
+                url="https://{s}.basemaps.cartocdn.com/rastertiles/voyager/{z}/{x}/{y}{r}.png'"
+              />
+              <Marker position={[listing.data.geolocation.lat, listing.data.geolocation.lng]} icon={customIcon}>
               </Marker>
             </MapContainer>
           </Box>
