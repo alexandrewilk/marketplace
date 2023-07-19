@@ -41,14 +41,19 @@ export default function Home() {
 
   function handleInput(e){
     e.preventDefault();
-    if(e.target.value==''){
+    let input = e.target.value;
+    if(input.length > 0){
+      input = input.charAt(0).toUpperCase() + input.slice(1);
+    }
+    setVille(input);
+    if(input == ''){
       setSuggestions([]);
       setActiveSuggestionIndex(0);
       return;
     }
-    setVille(e.target.value);
-    setSuggestions([...search(e.target.value)])
+    setSuggestions([...search(input)]);
   }
+  
 
   return (
     <Box>
@@ -109,6 +114,7 @@ export default function Home() {
                     children={<SearchIcon color="gray" />}
                   />
                   <Input
+                    value={ville} 
                     height="50"
                     width={isLargerThan768 ? "500px" : "250px"}
                     type="search"

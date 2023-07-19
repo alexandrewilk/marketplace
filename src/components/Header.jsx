@@ -55,15 +55,17 @@ export default function Nav() {
 
   function handleInput(e){
     e.preventDefault();
-    setVille(e.target.value);
-    
-    if(e.target.value==''){
+    const inputValue = e.target.value;
+    const capitalizedInputValue = inputValue.charAt(0).toUpperCase() + inputValue.slice(1);
+    setVille(capitalizedInputValue);
+  
+    if(inputValue==''){
       setSuggestions([]);
       setActiveSuggestionIndex(0);
       return;
     }
-    
-    setSuggestions([...search(e.target.value)])
+  
+    setSuggestions([...search(capitalizedInputValue)]);
   }
   
 
@@ -103,7 +105,6 @@ export default function Nav() {
             />
           <Input
             value={ville}
-            
             type="search"
             borderColor="gray"
             placeholder="Entrez le nom de la ville..."
