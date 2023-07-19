@@ -61,3 +61,11 @@ body {
   transform: translate(-70%, -30%);
   z-index: 1;
 }
+
+.my-datepicker {
+  background-color: white !important;
+  width: 270px !important;
+  height: 38px !important;
+  border: 1px solid rgb(215, 215, 215) !important;
+  border-radius: 4px !important;
+}

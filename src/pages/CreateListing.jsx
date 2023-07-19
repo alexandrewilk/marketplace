@@ -270,8 +270,10 @@ export default function CreateListing() {
                             <Input ref={adresseRef} placeholder="Adresse"/>
                           </Autocomplete>
                         </FormControl>
+                        
                         <FormControl isRequired id="nbOccupants">
-                          <Select placeholder="Nombre d'occupants" onChange={(e)=> setNbOccupants(e.target.value)}>
+                          <FormLabel>Nombre de colocataire</FormLabel>
+                          <Select placeholder="Nombre de colocataire" onChange={(e)=> setNbOccupants(e.target.value)}>
                           {rooms.map((option, index) => (
                                 <option value={option} key={option}>{index === 9 ? option + '+' : option}</option>
                               ))}
@@ -368,14 +370,16 @@ export default function CreateListing() {
                             <option value={false}>Non</option>
                           </Select>
                         </FormControl>
-                        <FormControl>
-                          <FormLabel>Disponible à partir de...</FormLabel>
-                          <DatePicker selected={dispoDate} onChange={(date)=>setDispoDate(date)} locale="fr"/>
-                        </FormControl>
                       </Flex>
 
+                      <Flex direction={{ base: 'column', md: 'row' }} gap='2'>
+                      <FormControl>
+                          <FormLabel>Disponible à partir de...</FormLabel>
+                          <DatePicker selected={dispoDate} onChange={(date)=>setDispoDate(date)} locale="fr" className="my-datepicker"/>
+                        </FormControl>
+
                       <FormControl id="regles" onFocus={() => handleFocus("section10")} onBlur={() => handleFocus(null)}>
-                        <FormLabel>Règles particulières de la colocation</FormLabel>
+                        <FormLabel>Règles particulières</FormLabel>
                           <MultiSelect
                             isMulti
                             isSearchable={false}
@@ -389,6 +393,7 @@ export default function CreateListing() {
                               ]}
                           />
                         </FormControl>
+                        </Flex>
                       </Stack> 
 
                       {isLargerThan768 && (
