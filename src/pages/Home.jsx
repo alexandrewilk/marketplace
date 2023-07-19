@@ -66,7 +66,7 @@ export default function Home() {
         borderRadius="12px"
         marginX="auto"
         height="86vh"
-        maxWidth="1400px"
+        maxWidth="1900px"
         maxHeight="676px"
         background="linear-gradient(white, deepskyblue)"
       >
