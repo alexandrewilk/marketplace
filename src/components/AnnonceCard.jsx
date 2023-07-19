@@ -20,7 +20,7 @@ const AnnonceCard = forwardRef(({ data, id, hovered, handleAnnonceHover }, ref) 
   console.log(new Date(dispoDate?.seconds*1000))
   const badgeProperties = [
     { icon: MdEventAvailable, text: dispoDate ? new Date(dispoDate.seconds*1000) <= new Date() ? 'Dispo' : (new Date(dispoDate.seconds*1000)).toDateString() : 'Dispo'},
-    { icon: FaHouseUser, text: nbOccupants ? nbOccupants : nbPieces + ' pers.'},
+    { icon: FaHouseUser, text: nbOccupants ? nbOccupants : nbPieces + ' colocataires'},
   ];
   const [userLikes, setUserLikes] = useContext(LikesContext) 
   const cardWidth = useBreakpointValue({ base: "170px", md: "240px" });
@@ -99,7 +99,7 @@ const AnnonceCard = forwardRef(({ data, id, hovered, handleAnnonceHover }, ref) 
             </Text>
             <Flex>
               {badgeProperties.map((badge, index) => (
-                <IconBadge key={index} icon={badge.icon} text={badge.text} marginRight="4px" />
+                <IconBadge key={index} icon={badge.icon} text={badge.text} marginRight="16px" />
               ))}
             </Flex>
           </Flex>

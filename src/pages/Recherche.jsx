@@ -198,6 +198,14 @@ export default function Recherche() {
       return res
     }
 
+    const ChangeView = ({ center }) => {
+      const map = useMap();
+      useEffect(() => {
+        map.flyTo(center, 13, { duration: 2 });
+      }, [center]);
+      return null;
+  }
+
  function renderContent() {
   if (loading) return <Dots />;
   if (!villeInfo) return <h1>Ta ville n'est pas encore disponible sur coloc.fr</h1>;
@@ -217,13 +225,7 @@ export default function Recherche() {
       ))}
     </Grid>
   );
-}
-function ChangeView({ center, zoom }) {
-  const map = useMap();
-  map.setView(center, zoom);
-  return null;
-}
-  
+}  
 
   return (
     <Box>
@@ -434,7 +436,7 @@ function ChangeView({ center, zoom }) {
           {isLargerThan750 && isMapVisible && (
             <GridItem h="calc(100vh - 134px)">
               <MapContainer center={center} zoom={13}  style={{height : "calc(100vh - 134px)"}}>
-                {/*<ChangeView center={center} zoom={13}/> */}
+              {/*<ChangeView center={center} /> */}
                 <TileLayer
                   attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
                   url="https://{s}.basemaps.cartocdn.com/rastertiles/voyager/{z}/{x}/{y}{r}.png'"
