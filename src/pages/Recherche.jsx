@@ -70,6 +70,7 @@ const availableFilters = ['type', 'nbPieces', 'prixMax', 'co', 'regles', 'meuble
 export default function Recherche() {
     const [isLargerThan750] = useMediaQuery("(min-width: 750px)");
     const [isLargerThan450] = useMediaQuery("(min-width: 450px)");
+    const [lastFlyToVille, setLastFlyToVille] = useState("");
     const {loggedIn, loadingAuth} = useAuthStatus();
     const [loadingAlerte, setLoadingAlerte] = useState(false)
     const [userLikes, setUserLikes] = useState([])
@@ -201,8 +202,12 @@ export default function Recherche() {
     const ChangeView = ({ center }) => {
       const map = useMap();
       useEffect(() => {
-        map.flyTo(center, 13, { duration: 2 });
-      }, [center]);
+        if (map && params.ville !== lastFlyToVille) {
+          map.flyTo(center, 13, { duration: 2 });
+          setLastFlyToVille(params.ville);
+        }
+      }, [params.ville, map]);
+      
       return null;
   }
 
@@ -436,7 +441,7 @@ export default function Recherche() {
           {isLargerThan750 && isMapVisible && (
             <GridItem h="calc(100vh - 134px)">
               <MapContainer center={center} zoom={13}  style={{height : "calc(100vh - 134px)"}}>
-              {/*<ChangeView center={center} /> */}
+              <ChangeView center={center} /> 
                 <TileLayer
                   attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
                   url="https://{s}.basemaps.cartocdn.com/rastertiles/voyager/{z}/{x}/{y}{r}.png'"
