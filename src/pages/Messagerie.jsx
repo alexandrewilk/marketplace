@@ -221,7 +221,7 @@ export default function Messaging() {
            <Flex justifyContent="center" mt={12}>
             <Center flexDirection="column" mt="80px">
                 <img src={No_Conversation} alt="maison"/>
-                <Text fontSize="xl" fontWeight="bold" marginBottom="1rem" marginTop="12px">Tu n'as aucune annonce conversation</Text>
+                <Text fontSize="xl" fontWeight="bold" marginBottom="1rem" marginTop="12px">Tu n'as aucune conversation</Text>
             </Center>
           </Flex>
         </Flex>

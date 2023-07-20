@@ -66,7 +66,7 @@ export default function MesAnnonces() {
           <Flex justifyContent="center">
           <Center flexDirection="column" mt="80px">
               <img src={No_Ville} alt="maison"/>
-              <Text fontSize="xl" fontWeight="bold" marginBottom="1rem">Tu n'as aucune annonce sauvegardées</Text>
+              <Text fontSize="xl" fontWeight="bold" marginBottom="1rem">Tu n'as aucune annonce publiées</Text>
           </Center>
         </Flex>
       }
