@@ -1,10 +1,12 @@
 import React, { useEffect, useState } from 'react';
-import { Box, Flex, VStack, Text, Input, Image, Drawer, DrawerBody, DrawerHeader, DrawerOverlay, DrawerContent, DrawerCloseButton, Button, useDisclosure, useMediaQuery, IconButton, Heading } from '@chakra-ui/react';
+import { Box, Flex, VStack, Text, Input, Center, Image, Drawer, DrawerBody, DrawerHeader, DrawerOverlay, DrawerContent, DrawerCloseButton, Button, useDisclosure, useMediaQuery, IconButton, Heading } from '@chakra-ui/react';
 import { doc, getDoc, onSnapshot, serverTimestamp, updateDoc } from 'firebase/firestore';
 import { auth, db } from '../firebase';
 import { Dots } from 'react-activity';
 import { useNavigate } from 'react-router-dom';
 import { HamburgerIcon } from '@chakra-ui/icons';
+import No_Conversation from '../assets/images/No_Conversation.png';
+
 
 //j'ai caché de la data dans l'id du doc ahah ! maintenant il faut parser tout ça lol
 function parseDocId(id){
@@ -176,60 +178,79 @@ export default function Messaging() {
 
   return (
     <>
-    {isLessThan999 && (
-       <Box >
-         <Flex alignItems="flex-end" mb={4}>
-         <IconButton
-        aria-label="Menu"
-        icon={<HamburgerIcon />}
-        size="md"
-        variant="outline"
-        onClick={onOpen}
-      />
-        <Heading as='h4' size='md' ml={2}>Messagerie</Heading>
-         </Flex>
-       
-     <Drawer
-       isOpen={isOpen}
-       placement="left"
-       onClose={onClose}
-       finalFocusRef={btnRef}
-     >
-       <DrawerOverlay />
-       <DrawerContent>
-         <DrawerCloseButton />
-         <DrawerHeader>Conversations</DrawerHeader>
+      {isLessThan999 && (
+        <Box>
+          <Flex alignItems="flex-end" mb={4}>
+            <IconButton
+              aria-label="Menu"
+              icon={<HamburgerIcon />}
+              size="md"
+              variant="outline"
+              onClick={onOpen}
+            />
+            <Heading as='h4' size='md' ml={2}>Messagerie</Heading>
+          </Flex>
 
-         <DrawerBody>
-           {renderConversationBox()}
-         </DrawerBody>
-       </DrawerContent>
-     </Drawer>
-     </Box>
-     )}
-    <Flex h={isLessThan999 ? "calc(100vh - 124px)" : "calc(100vh - 64px)"} overflow="hidden">
-  {isMoreThan1000 && (
-      <Box
-        w="20%"
-        borderRightWidth={1}
-        borderRightColor="gray.300"
-        overflowY="auto"
-      >
-        <VStack align="stretch" spacing={4} p={4}>
-            {renderConversationBox()}
-        </VStack>
-      </Box>
-  )}
+          <Drawer
+            isOpen={isOpen}
+            placement="left"
+            onClose={onClose}
+            finalFocusRef={btnRef}
+          >
+            <DrawerOverlay />
+            <DrawerContent>
+              <DrawerCloseButton />
+              <DrawerHeader>Conversations</DrawerHeader>
 
-      <Flex direction="column" justifyContent="flex-start" w="100%" overflowY="auto">
-        <Flex direction="column" h="100%">
-          <VStack align="stretch" spacing={4} flex="1" overflowY="auto">
-            {renderMessages()}
-          </VStack>
-          {renderMessageInput()}
+              <DrawerBody>
+                {renderConversationBox()}
+              </DrawerBody>
+            </DrawerContent>
+          </Drawer>
+        </Box>
+      )}
+
+      {chatsWithData.length === 0 ? (
+        <Flex
+          width="100%"
+          height="100%"
+          alignItems="center"
+          justifyContent="center"
+          direction="column"
+        >
+           <Flex justifyContent="center" mt={12}>
+            <Center flexDirection="column" mt="80px">
+                <img src={No_Conversation} alt="maison"/>
+                <Text fontSize="xl" fontWeight="bold" marginBottom="1rem" marginTop="12px">Tu n'as aucune annonce conversation</Text>
+            </Center>
+          </Flex>
         </Flex>
-      </Flex>
-    </Flex>
+      ) : (
+        <Flex h={isLessThan999 ? "calc(100vh - 124px)" : "calc(100vh - 64px)"} overflow="hidden">
+          {isMoreThan1000 && (
+            <Box
+              w="20%"
+              borderRightWidth={1}
+              borderRightColor="gray.300"
+              overflowY="auto"
+            >
+              <VStack align="stretch" spacing={4} p={4}>
+                {renderConversationBox()}
+              </VStack>
+            </Box>
+          )}
+
+          <Flex direction="column" justifyContent="flex-start" w="100%" overflowY="auto">
+            <Flex direction="column" h="100%">
+              <VStack align="stretch" spacing={4} flex="1" overflowY="auto">
+                {renderMessages()}
+              </VStack>
+              {renderMessageInput()}
+            </Flex>
+          </Flex>
+        </Flex>
+      )}
     </>
   );
+
 }

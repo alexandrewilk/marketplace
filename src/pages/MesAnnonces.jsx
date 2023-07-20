@@ -3,10 +3,12 @@ import { Link as RouterLink } from 'react-router-dom';
 import { Dots } from 'react-activity';
 import 'react-activity/dist/library.css';
 import { MdAdd } from 'react-icons/md';
-import { Text, Container, Breadcrumb, BreadcrumbItem, BreadcrumbLink, Button, Icon, Box, Flex, useMediaQuery } from '@chakra-ui/react';
+import { Text, Container, Breadcrumb, BreadcrumbItem, BreadcrumbLink, Button, Icon, Box, Flex, Center, useMediaQuery } from '@chakra-ui/react';
 import { query, getDocs, where, orderBy, collection } from 'firebase/firestore';
 import { auth, db } from '../firebase';
 import AnnonceCard from '../components/AnnonceCardPageMesLikes'
+import No_Ville from '../assets/images/No_Ville.png';
+
 
 export default function MesAnnonces() {
   const [isLargerThan768] = useMediaQuery("(min-width: 768px)");
@@ -56,9 +58,18 @@ export default function MesAnnonces() {
         </Button>
       </Flex>
       
-      {listings.map((l)=>{return(
-        <AnnonceCard key = {l.id} data={l.data} id={l.id}/>
-      )})}
+      {loadingList 
+        ? <Dots/> 
+        : listings.length > 0 
+          ? listings.map((l) => <AnnonceCard key={l.id} data={l.data} id={l.id}/>) 
+          : 
+          <Flex justifyContent="center">
+          <Center flexDirection="column" mt="80px">
+              <img src={No_Ville} alt="maison"/>
+              <Text fontSize="xl" fontWeight="bold" marginBottom="1rem">Tu n'as aucune annonce sauvegardées</Text>
+          </Center>
+        </Flex>
+      }
     </Container>
     
   );

@@ -4,7 +4,7 @@ import { Dots } from 'react-activity';
 import { useNavigate, useParams, useSearchParams } from 'react-router-dom';
 import {
     Box, Select, Grid, Flex, GridItem, Button, useDisclosure, 
-    Switch, Spacer, Heading, useColorModeValue, useMediaQuery, Text
+    Switch, Spacer, Heading, useColorModeValue, useMediaQuery, Text, Center
 } from '@chakra-ui/react';
 import AnnonceCard from '../components/AnnonceCard';
 import { db } from '../firebase';
@@ -21,6 +21,8 @@ import { LikesContext } from '../context/LikesContext';
 import SaveAlerteButton from '../components/SaveAlerteButton';
 import AnnonceCardMap from '../components/AnnnonceCardMap';
 import home from "../styles/home.css"
+import No_Ville from '../assets/images/No_Ville.png';
+import No_Resultat from '../assets/images/No_Resultat.png';
 
 function createPriceMarker(price) {
   let svgMarkup = `
@@ -88,6 +90,7 @@ export default function Recherche() {
         return filterObj;
     });
 
+    
     const navigate = useNavigate();
     const [loading, setLoading] = useState(true);
     const [annonces, setAnnonces] = useState([]);
@@ -213,9 +216,27 @@ export default function Recherche() {
 
  function renderContent() {
   if (loading) return <Dots />;
-  if (!villeInfo) return <h1>Ta ville n'est pas encore disponible sur coloc.fr</h1>;
-  if (filteredAnnonces.length === 0) return <h1>Il n'y pas encore d'annonce dans cette ville. Dépose en une!</h1>;
-
+  if (!villeInfo) {
+    return (
+      <Flex justifyContent="center">
+        <Center flexDirection="column" mt="80px">
+            <img src={No_Ville} alt="maison"/>
+            <Text fontSize="xl" fontWeight="bold" marginBottom="1rem">Ta ville n'est pas encore disponible sur coloc.fr</Text>
+        </Center>
+      </Flex>
+    );
+}
+if (filteredAnnonces.length === 0) {
+  return (
+    <Flex justifyContent="center">
+      <Center flexDirection="column" mt="80px">
+          <img src={No_Resultat} alt="Image"/>
+          <Text fontSize="xl" fontWeight="bold" marginBottom="1rem" marginTop="20px">Il n'y pas encore d'annonce à {params.ville}</Text>
+          <Button colorScheme="blue" onClick={() => navigate('/create-listing')}>Dépose en une!</Button>
+      </Center>
+    </Flex>
+  );
+}
   return (
       <Grid templateColumns={isLargerThan450 ? 'repeat(auto-fill, minmax(200px, 1fr))' : 'repeat(auto-fill, minmax(170px, 1fr))'} gap={isLargerThan450 ? '3' : '0'}> 
        {filteredAnnonces.map((a, index) => (
@@ -433,8 +454,10 @@ export default function Recherche() {
               <LikesContext.Provider value={[userLikes, setUserLikes]}>
                 {renderContent()}
               </LikesContext.Provider>
-              {nextPostsLoading ? <Dots/> : <Button onClick={(e)=>{e.preventDefault(); getMorePosts()}}>Voir Plus...</Button>}
-            </Box>
+              {nextPostsLoading 
+                ? <Dots/> 
+                : (filteredAnnonces.length > 0 && <Button onClick={(e) => {e.preventDefault(); getMorePosts()}}>Voir Plus...</Button>)
+              }            </Box>
           </GridItem>
 
             {/* Partie pour gérer la map */}

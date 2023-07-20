@@ -1,9 +1,10 @@
 import React, { useEffect, useState } from 'react'
-import { Text, Container, Grid, Breadcrumb, Box, BreadcrumbItem, BreadcrumbLink, useMediaQuery } from '@chakra-ui/react';
+import { Text, Container, Grid, Breadcrumb, Box, BreadcrumbItem, BreadcrumbLink, Flex, Center, useMediaQuery } from '@chakra-ui/react';
 import { doc, getDoc } from 'firebase/firestore';
 import { db, auth } from '../firebase';
 import { Dots } from 'react-activity';
 import AnnonceCard from '../components/AnnonceCardPageMesLikes';
+import No_Like from '../assets/images/No_Like.png';
 
 
 export default function MesLikes() {
@@ -46,13 +47,20 @@ export default function MesLikes() {
       </BreadcrumbItem>
     </Breadcrumb>
     <Text fontSize={isLargerThan768 ? "4xl" : "2xl"} as="b">Mes annonces sauvegardées</Text>
-    {loading ? <Dots/> : 
-              <Grid templateColumns={{ base: "1fr", md: "repeat(5, 1fr)" }} gap={4} mt={4}>
-                {likes.map((l)=>{return(
-                  <AnnonceCard key={l.id} data={l.data} id = {l.id}/>
-                )})}
-              </Grid>
-              }
+    {loading 
+        ? <Dots/> 
+        : likes.length > 0 
+          ? <Grid templateColumns={{ base: "1fr", md: "repeat(5, 1fr)" }} gap={4} mt={4}>
+              {likes.map((l) => {return(<AnnonceCard key={l.id} data={l.data} id = {l.id}/>)})}
+            </Grid> 
+          : 
+          <Flex justifyContent="center">
+          <Center flexDirection="column" mt="80px">
+              <img src={No_Like} alt="maison"/>
+              <Text fontSize="xl" fontWeight="bold" marginBottom="1rem">Tu n'as aucune annonce sauvegardées</Text>
+          </Center>
+        </Flex>
+      }
   </Container>
   </Box>
   )
