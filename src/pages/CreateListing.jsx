@@ -66,7 +66,7 @@ export default function CreateListing() {
 
     // Initialisation des autres librairies
     const { isLoaded } = useJsApiLoader({
-      googleMapsApiKey: process.env.REACT_APP_MAPS_API_KEY,
+      googleMapsApiKey: "AIzaSyBy-Pv6t0C93aMTyaPQsziS9Al6xmLTFQo",
       libraries: libraries,
     });
     const navigate = useNavigate();
@@ -144,7 +144,7 @@ export default function CreateListing() {
         //adresseRef est ladresse autocomplete par google, on appelle ici google pr check ladresse existe et recup la data
         setLoading(true)
         const adresse = adresseRef.current.value
-        const response = await fetch(`https://maps.googleapis.com/maps/api/geocode/json?address=${adresse}&key=${process.env.REACT_APP_MAPS_API_KEY}`);
+        const response = await fetch(`https://maps.googleapis.com/maps/api/geocode/json?address=${adresse}&key=AIzaSyBy-Pv6t0C93aMTyaPQsziS9Al6xmLTFQo`);
         const data = await response.json();
         
         if(data.status !== 'OK'){
