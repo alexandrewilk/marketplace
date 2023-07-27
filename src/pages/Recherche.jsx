@@ -4,7 +4,7 @@ import { Dots } from 'react-activity';
 import { useNavigate, useParams, useSearchParams } from 'react-router-dom';
 import {
     Box, Select, Grid, Flex, GridItem, Button, useDisclosure, 
-    Switch, Spacer, Heading, useColorModeValue, useMediaQuery, Text, Center
+    Switch, Spacer, Heading, useColorModeValue, useMediaQuery, Text, Center, Slide
 } from '@chakra-ui/react';
 import AnnonceCard from '../components/AnnonceCard';
 import { db } from '../firebase';
@@ -254,6 +254,7 @@ if (filteredAnnonces.length === 0) {
 }  
 
   return (
+    <Slide direction='bottom' in={true}>
     <Box>
       <Box>
         <Box 
@@ -497,5 +498,6 @@ if (filteredAnnonces.length === 0) {
         </Grid>
       </Flex>
     </Box>
+    </Slide>
   );
 }
