@@ -119,6 +119,7 @@ export default function CreateListing() {
       if(!isLastStep){
         nextStep()
         return}
+
       if(logement == ''){
         toast.error("Merci d'indiquer un type de logement avant de continuer!");
         return;
@@ -148,13 +149,15 @@ export default function CreateListing() {
         //adresseRef est ladresse autocomplete par google, on appelle ici google pr check ladresse existe et recup la data
         setLoading(true)
         const adresse = adresseRef.current.value
-        const response = await fetch(`https://maps.googleapis.com/maps/api/geocode/json?address=${adresse}&key=${mapsapikey}`);
+        const response = await fetch(`https://maps.googleapis.com/maps/api/geocode/json?address=${adresse}&key=AIzaSyDPQKJFj0k8yKbKJlwi5K3Olt0blbsVAOs`);
         const data = await response.json();
         
         if(data.status !== 'OK'){
           alert(`ton adresse n'a pas été trouvée!`);
+          console.log(adresse)
           console.log(data.status);
-          console.log(data.results)
+          console.log(data.results);
+          console.log(data.error_message)
           setLoading(false);
           return;
         }
@@ -184,6 +187,7 @@ export default function CreateListing() {
         const collectionRef = collection(db, 'Listings');
         const docRef = await addDoc(collectionRef, entry);
         setId(docRef.id)
+        nextStep()
         setHasCompletedAllSteps(true)
       }catch(error){
         alert(error.message);
