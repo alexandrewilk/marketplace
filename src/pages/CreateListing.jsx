@@ -32,7 +32,7 @@ const steps = [
 
 
 export default function CreateListing() {
-    
+    const mapsapikey = "AIzaSyBy-Pv6t0C93aMTyaPQsziS9Al6xmLTFQo"
     // tout les hooks
     const [id, setId] = useState('')
     const [openSection, setOpenSection] = useState(null);
@@ -148,7 +148,7 @@ export default function CreateListing() {
         //adresseRef est ladresse autocomplete par google, on appelle ici google pr check ladresse existe et recup la data
         setLoading(true)
         const adresse = adresseRef.current.value
-        const response = await fetch(`https://maps.googleapis.com/maps/api/geocode/json?address=${adresse}&key=AIzaSyBy-Pv6t0C93aMTyaPQsziS9Al6xmLTFQo`);
+        const response = await fetch(`https://maps.googleapis.com/maps/api/geocode/json?address=${adresse}&key=${mapsapikey}`);
         const data = await response.json();
         
         if(data.status !== 'OK'){
