@@ -154,6 +154,7 @@ export default function CreateListing() {
         if(data.status !== 'OK'){
           alert(`ton adresse n'a pas été trouvée!`);
           console.log(data.status);
+          console.log(data.results)
           setLoading(false);
           return;
         }
