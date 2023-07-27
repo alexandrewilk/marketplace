@@ -254,7 +254,7 @@ if (filteredAnnonces.length === 0) {
 }  
 
   return (
-    <Slide direction='bottom' in={true}>
+   
     <Box>
       <Box>
         <Box 
@@ -498,6 +498,6 @@ if (filteredAnnonces.length === 0) {
         </Grid>
       </Flex>
     </Box>
-    </Slide>
+
   );
 }

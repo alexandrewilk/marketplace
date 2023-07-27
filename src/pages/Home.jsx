@@ -56,8 +56,7 @@ export default function Home() {
   
 
   return (
-    <Slide direction='top' in={true}>
-    {/* <Slide direction='bottom' in={out}> */}
+
     <Box>
       <Box
         display="flex"
@@ -170,7 +169,6 @@ export default function Home() {
             <FAQ/>
         </VStack>
     </Box>
-    {/* </Slide> */}
-    </Slide>
+
   )
 }
