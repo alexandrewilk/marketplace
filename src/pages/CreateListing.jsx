@@ -17,6 +17,7 @@ import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 import fr from 'date-fns/locale/fr'
 import { registerLocale, setDefaultLocale } from  "react-datepicker";
+import { toast } from 'react-toastify'
 registerLocale('fr', fr)
 const logements = ['Villa', 'Appartement', 'Maison', 'Studio'];
 const rooms = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]
@@ -33,6 +34,7 @@ const steps = [
 export default function CreateListing() {
     
     // tout les hooks
+    const [id, setId] = useState('')
     const [openSection, setOpenSection] = useState(null);
     const [logement, setLogement] = useState('');
     const [nbRooms, setNbRooms] = useState(null);
@@ -53,7 +55,7 @@ export default function CreateListing() {
       initialStep: 0,
     });
     const isLastStep = activeStep === steps.length - 1;
-    const hasCompletedAllSteps = activeStep === steps.length;
+    const [hasCompletedAllSteps, setHasCompletedAllSteps] = useState(false)
 
     //useRef
     const adresseRef = useRef();
@@ -114,29 +116,31 @@ export default function CreateListing() {
     // Fonction pour upload l'annonce
     async function handleAddListing(e) {
       e.preventDefault();
-      if(!isLastStep){return}
+      if(!isLastStep){
+        nextStep()
+        return}
       if(logement == ''){
-        alert('type de log');
+        toast.error("Merci d'indiquer un type de logement avant de continuer!");
         return;
       }
       if(!nbRooms){
-        alert('nb de rooms');
+        toast.error("Merci d'indiquer le nombre de pièces avant de continuer !");
         return;
       }
       if(adresseRef == ''){
-        alert('adresse?');
+        toast.error("Merci d'indiquer l'adresse avant de continuer ! (L'adresse n'est pas accessible aux autres utilisateurs)");
         return;
       }
       if(isNaN(loyer)){
-        alert('loyer?');
+        toast.error("Merci d'indiquer un loyer avant de continuer !");
         return;
       }
       if(!images){
-        alert('uploaduneimage');
+        toast.error("Merci d'uploader au moins une photo avant de continuer !");
         return;
       }
       if(images.length > 6){
-        alert('max 6 img');
+       toast.error("Au plus 6 photos peuvent être uploadées !")
         return;
       }
 
@@ -178,9 +182,8 @@ export default function CreateListing() {
         };
         const collectionRef = collection(db, 'Listings');
         const docRef = await addDoc(collectionRef, entry);
-        alert('bien créé !');
-
-        navigate(`/listings/${docRef.id}`);
+        setId(docRef.id)
+        setHasCompletedAllSteps(true)
       }catch(error){
         alert(error.message);
       }finally{
@@ -317,7 +320,7 @@ export default function CreateListing() {
                       <FormControl id="images" isRequired onFocus={() => handleFocus("section7")} onBlur={() => handleFocus(null)}>
                         <FormLabel>Image</FormLabel>
                         <Box position="relative" textAlign="center" width="100%" backgroundColor="gray.100" borderRadius="6px">
-                          <Button as="label" htmlFor="file">Choisir les fichiers</Button>
+                          <Button as="label" htmlFor="file">{images ? images.length == 0 ? "Choisir les fichiers" : images?.length+" photos ont été sélectionnées !": "Choisir les fichiers"}</Button>
                           <Input 
                             id="file"
                             type='file' 
@@ -414,6 +417,7 @@ export default function CreateListing() {
                         <Heading fontSize="xl" textAlign={"center"}>
                           Woohoo! Ton annonce est en ligne! 🎉
                         </Heading>
+                        <Heading fontSize="small" textAlign={"center"} onClick={(e)=>{e.preventDefault(); navigate(`/listings/${id}`)}}> Voir la page de l'annonce...</Heading>
                       </Box>
                     )}
 
@@ -432,7 +436,7 @@ export default function CreateListing() {
                           >
                             Précédent
                           </Button>
-                          <Button size="sm" colorScheme="blue" onClick={(e) => {handleAddListing(e);nextStep()}} isLoading={loading}>
+                          <Button size="sm" colorScheme="blue" onClick={(e) => {handleAddListing(e)}} isLoading={loading}>
                             {isLastStep ? "Lister mon Annonce" : "Suivant"}
                           </Button>
                         </>
