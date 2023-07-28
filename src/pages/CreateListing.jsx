@@ -182,7 +182,8 @@ export default function CreateListing() {
           meuble : meuble ? meuble : null,
           surface: surface ? surface : '',
           nbOccupants : nbOccupants ? nbOccupants : 0,
-          dispoDate : dispoDate
+          dispoDate : dispoDate,
+          equipements : equipement ? equipement : []
         };
         const collectionRef = collection(db, 'Listings');
         const docRef = await addDoc(collectionRef, entry);
@@ -398,6 +399,23 @@ export default function CreateListing() {
                                 {value:'only-femme', label:'Femme seulement'}, 
                                 {value:'only-homme', label:'Homme seulement'}, 
                                 {value:'ok-animaux', label:'Animaux bienvenus'}
+                              ]}
+                          />
+                        </FormControl>
+                        </Flex>
+                        <Flex direction={{ base: 'column', md: 'row' }} gap='2'>
+                        <FormControl id="regles" onFocus={() => handleFocus("section10")} onBlur={() => handleFocus(null)}>
+                        <FormLabel>Equipements</FormLabel>
+                          <MultiSelect
+                            isMulti
+                            isSearchable={true}
+                            placeholder='Equipements...'
+                            onChange={(e)=>setEquipement(e.map(elt=>elt.value))}
+                            options={[
+                                {value: 'machine-a-laver', label:'Machine à laver'}, 
+                                {value:'lave-vaisselle', label:'Lave vaisselle'}, 
+                                {value:'wifi', label:'Wi-Fi'}, 
+                                {value:'tv', label:'TV'}
                               ]}
                           />
                         </FormControl>

@@ -197,6 +197,7 @@ export default function Recherche() {
           if (key == 'regles') res = res.filter((a)=> a.data.regles.includes(currentFilters[key]))
           if (key == 'meuble') res = res.filter((a)=> a.data.meuble == currentFilters[key])
           if (key == 'surface') res = res.filter((a) => Number(a.data.surface) >= Number(currentFilters[key]))
+          if (key == 'equipement') res = res.filter((a)=> a.data.equipements.includes(currentFilters[key]))
         }
       }
       return res
@@ -355,6 +356,20 @@ if (filteredAnnonces.length === 0) {
                 value={currentFilters['meuble']=='null' || !currentFilters['meuble'] ? '' : currentFilters['meuble']}>
                 <option value="true">Oui</option>
                 <option value="false">Non</option>
+              </Select>
+
+              <Select placeholder="Equipements" minInlineSize="200px"
+              onChange={(e) =>
+                setCurrentFilters((prev) => {
+                  let filter = { ...prev, equipements: e.target.value };
+                  return filter;
+                })
+              }
+              value={(currentFilters['equipements']=='null' || !currentFilters['equipements']) ? '' : currentFilters['equipements']}>
+                <option value="wifi">Wi-Fi</option>
+                <option value="machine-a-laver">Machine à laver</option>
+                <option value="lave-vaisselle">Lave vaisselle</option>
+                <option value="tv">TV</option>
               </Select>
 
               <Select placeholder="Régles spèciales" minInlineSize="200px"
