@@ -10,8 +10,8 @@ const Card = ({ title, content }) => (
 
 export default function HowItWorks() {
   return (
-    <Box maxWidth="1400px" margin="auto">
-    <Heading marginBottom={4} size='lg' marginY={4}>Comment Coloc.fr fonctionne?</Heading>
+    <Box maxWidth="1400px" margin="auto" backgroundColor="blue.100" borderRadius="12px" p="12" mb="10">
+    <Heading mb="4" size='lg'>Comment Coloc.fr fonctionne?</Heading>
     <Flex direction={["column", "column", "row"]} justify="space-between">
       <Card
         title="Etape 1: Trouve la coloc de vos rêves"

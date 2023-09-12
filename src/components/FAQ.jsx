@@ -1,40 +1,39 @@
 import React from 'react';
-import { Box, Accordion, AccordionItem, AccordionButton, AccordionPanel, AccordionIcon, Heading } from '@chakra-ui/react';
+import { Box, Accordion, AccordionItem, AccordionButton, AccordionPanel, AccordionIcon, Heading, Container,  Text } from '@chakra-ui/react';
 
 export default function FAQ() {
     return (
-        <Box maxWidth="1400px">
-            <Heading as='h3' size='lg' marginY={4}>Encore des questions ?</Heading>
-            <Accordion defaultIndex={[0]} allowMultiple>
-                <AccordionItem>
-                    <h2>
-                        <AccordionButton>
-                            <Box flex="1" textAlign="left">
-                                Question 1
-                            </Box>
-                            <AccordionIcon />
-                        </AccordionButton>
-                    </h2>
-                    <AccordionPanel pb={4}>
-                        Lorem ipsum dolor sit amet, consectetur adipiscing elit.
-                    </AccordionPanel>
-                </AccordionItem>
+        <Box maxWidth="1400px" padding="12" bg="blue.100" width="100%" borderRadius="12">
+          <Heading size='lg' mb="4">Foire aux questions</Heading>
+          <Accordion allowToggle>
+            <AccordionItem>
+              <h2>
+                <AccordionButton>
+                  <Box flex="1" textAlign="left">
+                    Comment utiliser cette application ?
+                  </Box>
+                  <AccordionIcon />
+                </AccordionButton>
+              </h2>
+              <AccordionPanel pb={4}>
+                Pour utiliser cette application, vous devez ...
+              </AccordionPanel>
+            </AccordionItem>
 
-                <AccordionItem>
-                    <h2>
-                        <AccordionButton>
-                            <Box flex="1" textAlign="left">
-                                Question 2
-                            </Box>
-                            <AccordionIcon />
-                        </AccordionButton>
-                    </h2>
-                    <AccordionPanel pb={4}>
-                        Lorem ipsum dolor sit amet, consectetur adipiscing elit.
-                    </AccordionPanel>
-                </AccordionItem>
-                {/* Ajoutez d'autres question la */}
-            </Accordion>
+            <AccordionItem>
+              <h2>
+                <AccordionButton>
+                  <Box flex="1" textAlign="left">
+                    Quelles sont les fonctionnalités disponibles ?
+                  </Box>
+                  <AccordionIcon />
+                </AccordionButton>
+              </h2>
+              <AccordionPanel pb={4}>
+                Les fonctionnalités disponibles sont ...
+              </AccordionPanel>
+            </AccordionItem>
+          </Accordion>
         </Box>
     );
 }

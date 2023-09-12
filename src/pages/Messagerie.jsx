@@ -89,18 +89,37 @@ export default function Messaging() {
       }
     }
   }, [snap])
-  function renderConversationBox(){
-    if(loading){return <Dots/>}
-    if(chatsWithData.length == 0){return <div>PAS DE CONV</div>}
-   
-    return(
-      chatsWithData.map((user)=>{return(
-        <Box key = {user.id} bg={selectedChat.userId == user.id ? "blue.500" :"gray.100"} p={2} borderRadius="md" _hover={{ bg: "blue.500", color: "white" }} onClick={(e)=>{e.preventDefault();setSelectedChat({userId: user.id, chatId:user.chatId })}}>
-        Conversation avec {user.data.name}
-        </Box>
-      )})
+  function renderConversationBox() {
+    if (loading) {
+      return <Dots />
+    }
+    if (chatsWithData.length == 0) {
+      return <div>PAS DE CONV</div>
+    }
+  
+    return (
+      chatsWithData.map((user) => {
+        return (
+          <Box
+            key={user.id}
+            p={2}
+            borderRadius="md"
+            bg={selectedChat.userId == user.id ? "#172ACE" : "white"}
+            borderWidth={selectedChat.userId == user.id ? "0px" : "1px"}
+            borderColor={selectedChat.userId == user.id ? "" : "gray.200"}
+            color={selectedChat.userId == user.id ? "white" : "black"}
+            _hover={{ bg: "#172ACE", color: "white" }}
+            onClick={(e) => { e.preventDefault(); setSelectedChat({ userId: user.id, chatId: user.chatId }) }}
+          >
+            <Text isTruncated>
+            Conversation avec {user.data.name}
+          </Text>
+          </Box>
+        )
+      })
     )
   }
+  
   function renderMessageInput() {
     return (
       <Box position="sticky" bottom="0" p={4} bgColor={"gray.100"}>
@@ -136,7 +155,7 @@ export default function Messaging() {
         </VStack>
     </Box>
     </div>
-      <VStack spacing={1} align="stretch">
+      <VStack spacing={1} align="stretch" overflowY="auto">
         {messages.map((t, index) => {
           const alignSelf = t.from === auth.currentUser.uid ? 'flex-end' : 'flex-start';
           const bgColor = t.from === auth.currentUser.uid ? 'blue' : 'gray.200';
@@ -229,7 +248,7 @@ export default function Messaging() {
         <Flex h={isLessThan999 ? "calc(100vh - 124px)" : "calc(100vh - 64px)"} overflow="hidden">
           {isMoreThan1000 && (
             <Box
-              w="20%"
+              w="25%"
               borderRightWidth={1}
               borderRightColor="gray.300"
               overflowY="auto"
@@ -240,9 +259,9 @@ export default function Messaging() {
             </Box>
           )}
 
-          <Flex direction="column" justifyContent="flex-start" w="100%" overflowY="auto">
+          <Flex direction="column" justifyContent="flex-start" w="100%">
             <Flex direction="column" h="100%">
-              <VStack align="stretch" spacing={4} flex="1" overflowY="auto">
+              <VStack align="stretch" spacing={4} flex="1" >
                 {renderMessages()}
               </VStack>
               {renderMessageInput()}

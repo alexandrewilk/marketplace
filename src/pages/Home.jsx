@@ -56,7 +56,11 @@ export default function Home() {
   
 
   return (
-    <Box>
+    <Box 
+      width="95%"
+      marginX="2.5%"
+      maxWidth="1900px"
+    >
       <Box
         display="flex"
         alignItems="center"
@@ -64,9 +68,7 @@ export default function Home() {
         flexDirection="column"
         textAlign="center"
         borderRadius="12px"
-        marginX="auto"
         height="86vh"
-        maxWidth="1900px"
         maxHeight="676px"
         background="linear-gradient(white, deepskyblue)"
       >
@@ -162,7 +164,7 @@ export default function Home() {
         </Box>
       </Box>
       
-      <VStack spacing={10} marginBottom="20px">
+      <VStack marginBottom="20px">
             <VilleCarroussel/>
             <HowItWorks/>
             <FAQ/>
