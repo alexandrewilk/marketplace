@@ -144,14 +144,14 @@ export default function Messaging() {
           <Image
             borderRadius="12px"
             boxSize="100%"
-            src={listing.data.imgUrls[0]}
+            src={listing?.data?.imgUrls[0]}
             alt="Image de l'annonce"
           />
         </Box>
         <VStack align="start" spacing={1} ml={4}>
-          <Text color="black" fontWeight="bold">{listing.data.type} de {listing.data.surface}m2 à {listing.data.ville}</Text> 
-          <Text color="black">Loyer: {listing.data.loyer}€</Text>
-          <Text color="black">{listing.data.desc}</Text>
+          <Text color="black" fontWeight="bold">{listing?.data?.type} de {listing?.data?.surface}m2 à {listing?.data?.ville}</Text> 
+          <Text color="black">Loyer: {listing?.data?.loyer}€</Text>
+          <Text color="black">{listing?.data?.desc}</Text>
         </VStack>
     </Box>
     </div>

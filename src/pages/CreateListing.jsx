@@ -17,6 +17,7 @@ import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 import fr from 'date-fns/locale/fr'
 import { registerLocale, setDefaultLocale } from  "react-datepicker";
+import { toast } from 'react-toastify'
 registerLocale('fr', fr)
 const logements = ['Villa', 'Appartement', 'Maison', 'Studio'];
 const rooms = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]
@@ -31,8 +32,9 @@ const steps = [
 
 
 export default function CreateListing() {
-    
+    const mapsapikey = "AIzaSyBy-Pv6t0C93aMTyaPQsziS9Al6xmLTFQo"
     // tout les hooks
+    const [id, setId] = useState('')
     const [openSection, setOpenSection] = useState(null);
     const [logement, setLogement] = useState('');
     const [nbRooms, setNbRooms] = useState(null);
@@ -53,7 +55,7 @@ export default function CreateListing() {
       initialStep: 0,
     });
     const isLastStep = activeStep === steps.length - 1;
-    const hasCompletedAllSteps = activeStep === steps.length;
+    const [hasCompletedAllSteps, setHasCompletedAllSteps] = useState(false)
 
     //useRef
     const adresseRef = useRef();
@@ -66,7 +68,7 @@ export default function CreateListing() {
 
     // Initialisation des autres librairies
     const { isLoaded } = useJsApiLoader({
-      googleMapsApiKey: process.env.REACT_APP_MAPS_API_KEY,
+      googleMapsApiKey: "AIzaSyBy-Pv6t0C93aMTyaPQsziS9Al6xmLTFQo",
       libraries: libraries,
     });
     const navigate = useNavigate();
@@ -114,29 +116,32 @@ export default function CreateListing() {
     // Fonction pour upload l'annonce
     async function handleAddListing(e) {
       e.preventDefault();
-      if(!isLastStep){return}
+      if(!isLastStep){
+        nextStep()
+        return}
+
       if(logement == ''){
-        alert('type de log');
+        toast.error("Merci d'indiquer un type de logement avant de continuer!");
         return;
       }
       if(!nbRooms){
-        alert('nb de rooms');
+        toast.error("Merci d'indiquer le nombre de pièces avant de continuer !");
         return;
       }
       if(adresseRef == ''){
-        alert('adresse?');
+        toast.error("Merci d'indiquer l'adresse avant de continuer ! (L'adresse n'est pas accessible aux autres utilisateurs)");
         return;
       }
       if(isNaN(loyer)){
-        alert('loyer?');
+        toast.error("Merci d'indiquer un loyer avant de continuer !");
         return;
       }
       if(!images){
-        alert('uploaduneimage');
+        toast.error("Merci d'uploader au moins une photo avant de continuer !");
         return;
       }
       if(images.length > 6){
-        alert('max 6 img');
+       toast.error("Au plus 6 photos peuvent être uploadées !")
         return;
       }
 
@@ -144,12 +149,15 @@ export default function CreateListing() {
         //adresseRef est ladresse autocomplete par google, on appelle ici google pr check ladresse existe et recup la data
         setLoading(true)
         const adresse = adresseRef.current.value
-        const response = await fetch(`https://maps.googleapis.com/maps/api/geocode/json?address=${adresse}&key=${process.env.REACT_APP_MAPS_API_KEY}`);
+        const response = await fetch(`https://maps.googleapis.com/maps/api/geocode/json?address=${adresse}&key=AIzaSyDPQKJFj0k8yKbKJlwi5K3Olt0blbsVAOs`);
         const data = await response.json();
         
         if(data.status !== 'OK'){
           alert(`ton adresse n'a pas été trouvée!`);
+          console.log(adresse)
           console.log(data.status);
+          console.log(data.results);
+          console.log(data.error_message)
           setLoading(false);
           return;
         }
@@ -174,13 +182,14 @@ export default function CreateListing() {
           meuble : meuble ? meuble : null,
           surface: surface ? surface : '',
           nbOccupants : nbOccupants ? nbOccupants : 0,
-          dispoDate : dispoDate
+          dispoDate : dispoDate,
+          equipements : equipement ? equipement : []
         };
         const collectionRef = collection(db, 'Listings');
         const docRef = await addDoc(collectionRef, entry);
-        alert('bien créé !');
-
-        navigate(`/listings/${docRef.id}`);
+        setId(docRef.id)
+        nextStep()
+        setHasCompletedAllSteps(true)
       }catch(error){
         alert(error.message);
       }finally{
@@ -317,7 +326,7 @@ export default function CreateListing() {
                       <FormControl id="images" isRequired onFocus={() => handleFocus("section7")} onBlur={() => handleFocus(null)}>
                         <FormLabel>Image</FormLabel>
                         <Box position="relative" textAlign="center" width="100%" backgroundColor="gray.100" borderRadius="6px">
-                          <Button as="label" htmlFor="file">Choisir les fichiers</Button>
+                          <Button as="label" htmlFor="file">{images ? images.length == 0 ? "Choisir les fichiers" : images?.length+" photos ont été sélectionnées !": "Choisir les fichiers"}</Button>
                           <Input 
                             id="file"
                             type='file' 
@@ -394,6 +403,23 @@ export default function CreateListing() {
                           />
                         </FormControl>
                         </Flex>
+                        <Flex direction={{ base: 'column', md: 'row' }} gap='2'>
+                        <FormControl id="regles" onFocus={() => handleFocus("section10")} onBlur={() => handleFocus(null)}>
+                        <FormLabel>Equipements</FormLabel>
+                          <MultiSelect
+                            isMulti
+                            isSearchable={true}
+                            placeholder='Equipements...'
+                            onChange={(e)=>setEquipement(e.map(elt=>elt.value))}
+                            options={[
+                                {value: 'machine-a-laver', label:'Machine à laver'}, 
+                                {value:'lave-vaisselle', label:'Lave vaisselle'}, 
+                                {value:'wifi', label:'Wi-Fi'}, 
+                                {value:'tv', label:'TV'}
+                              ]}
+                          />
+                        </FormControl>
+                        </Flex>
                       </Stack> 
 
                       {isLargerThan768 && (
@@ -414,6 +440,7 @@ export default function CreateListing() {
                         <Heading fontSize="xl" textAlign={"center"}>
                           Woohoo! Ton annonce est en ligne! 🎉
                         </Heading>
+                        <Heading fontSize="small" textAlign={"center"} onClick={(e)=>{e.preventDefault(); navigate(`/listings/${id}`)}}> Voir la page de l'annonce...</Heading>
                       </Box>
                     )}
 
@@ -432,7 +459,7 @@ export default function CreateListing() {
                           >
                             Précédent
                           </Button>
-                          <Button size="sm" colorScheme="blue" onClick={(e) => {handleAddListing(e);nextStep()}} isLoading={loading}>
+                          <Button size="sm" colorScheme="blue" onClick={(e) => {handleAddListing(e)}} isLoading={loading}>
                             {isLastStep ? "Lister mon Annonce" : "Suivant"}
                           </Button>
                         </>
