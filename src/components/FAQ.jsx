@@ -3,7 +3,7 @@ import { Box, Accordion, AccordionItem, AccordionButton, AccordionPanel, Accordi
 
 export default function FAQ() {
     return (
-        <Box maxWidth="1400px" padding="12" bg="blue.100" width="100%" borderRadius="12">
+        <Box maxWidth="1400px" padding="12" borderWidth="1px" borderColor="gray.200" boxShadow="md" width="100%" borderRadius="12">
           <Heading size='lg' mb="4">Foire aux questions</Heading>
           <Accordion allowToggle>
             <AccordionItem>

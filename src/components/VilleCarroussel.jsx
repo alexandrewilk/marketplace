@@ -1,6 +1,7 @@
 import React from 'react'
 import { Box, Heading, Flex } from '@chakra-ui/react';
 import RechercheCard from './RechercheCard';
+import { motion } from "framer-motion";
 
 const cities = [
     {

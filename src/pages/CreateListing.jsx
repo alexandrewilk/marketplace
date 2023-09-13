@@ -18,6 +18,12 @@ import "react-datepicker/dist/react-datepicker.css";
 import fr from 'date-fns/locale/fr'
 import { registerLocale, setDefaultLocale } from  "react-datepicker";
 import { toast } from 'react-toastify'
+import { motion } from "framer-motion";
+
+
+const MotionFormControl = motion(FormControl);
+const MotionHeading = motion(Heading);
+
 registerLocale('fr', fr)
 const logements = ['Villa', 'Appartement', 'Maison', 'Studio'];
 const rooms = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]
@@ -49,6 +55,7 @@ export default function CreateListing() {
     const [equipement, setEquipement] = useState([]);
     const [surface, setSurface] = useState('');
     const [nbOccupants, setNbOccupants] = useState(null);
+    const [animateSecondPage, setAnimateSecondPage] = useState(false);
     const [dispoDate, setDispoDate] = useState(new Date())
     // Constante pour faire fonctionner les steps
     const { nextStep, prevStep, reset, activeStep, setStep } = useSteps({
@@ -246,7 +253,16 @@ export default function CreateListing() {
 
           {steps.map(({ label }, index) => (
             <Box key={label} sx={{ p: 4, rounded: "md", display: activeStep === index ? 'block' : 'none' }}>
-              <Heading fontSize="xl" textAlign="left" mb={4}>{label}</Heading>
+              <MotionHeading 
+                fontSize="xl" 
+                textAlign="left" 
+                mb={4} 
+                initial={{ opacity: 0, y: 50 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 1, delay: 0 }}
+              >
+              {label}
+              </MotionHeading>
               
               {/* Première page du form */}
               {index === 0 && 
@@ -254,47 +270,76 @@ export default function CreateListing() {
                   <Flex direction={{ base: 'column', md: 'row' }} gap='10'>
                     <Stack spacing={4} width={{ base: '100%', md: '50%' }} height={isLargerThan768 ? "300px" : "400px"}>
                       <Flex direction={{ base: 'column', md: 'row' }} gap='2'>
-                        <FormControl id="logement" isRequired onFocus={() => handleFocus("section1")} onBlur={() => handleFocus(null)}>
+                        <MotionFormControl 
+                          id="logement" 
+                          isRequired 
+                          onFocus={() => handleFocus("section1")} 
+                          onBlur={() => handleFocus(null)} 
+                          initial={activeStep === 0 ? { opacity: 0, y: 50 } : {}}
+                          animate={activeStep === 0 ? { opacity: 1, y: 0 } : {}}
+                          transition={{ duration: 1, delay: 0.2 }}
+                        >
                           <FormLabel>Type de Logement</FormLabel>
                             <Select placeholder="Type de logement" onChange={(e) => setLogement(e.target.value)}>
                               {logements.map((option) => (
                                 <option value={option} key={option}>{option}</option>
                               ))}
                             </Select>
-                          </FormControl>
+                          </MotionFormControl>
 
-                          <FormControl id="room" isRequired onFocus={() => handleFocus("section2")} onBlur={() => handleFocus(null)}>
+                          <MotionFormControl 
+                            id="room" 
+                            isRequired onFocus={() => handleFocus("section2")} 
+                            onBlur={() => handleFocus(null)} 
+                            initial={activeStep === 0 ? { opacity: 0, y: 50 } : {}}
+                            animate={activeStep === 0 ? { opacity: 1, y: 0 } : {}}
+                            transition={{ duration: 1, delay: 0.4 }}
+                          >
                             <FormLabel>Nombre de Pièces</FormLabel>
                             <Select placeholder="Nombre de pièces" onChange={(e) => setNbRooms(e.target.value)}>
                               {rooms.map((option, index) => (
                                 <option value={option} key={option}>{index === 9 ? option + '+' : option}</option>
                               ))}
                             </Select>
-                          </FormControl>
+                          </MotionFormControl>
                         </Flex>
 
-                        <FormControl id="adresse" isRequired onFocus={() => handleFocus("section3")} onBlur={() => handleFocus(null)}>
+                        <MotionFormControl 
+                          id="adresse" 
+                          isRequired 
+                          onFocus={() => handleFocus("section3")} 
+                          onBlur={() => handleFocus(null)}
+                          initial={activeStep === 0 ? { opacity: 0, y: 50 } : {}}
+                          animate={activeStep === 0 ? { opacity: 1, y: 0 } : {}}
+                          transition={{ duration: 1, delay: 0.6 }}
+                          >
                           <FormLabel>Adresse</FormLabel>
                           <Autocomplete>
                             <Input ref={adresseRef} placeholder="Adresse"/>
                           </Autocomplete>
-                        </FormControl>
+                        </MotionFormControl>
                         
-                        <FormControl isRequired id="nbOccupants">
+                        <MotionFormControl 
+                          isRequired 
+                          id="nbOccupants"
+                          initial={activeStep === 0 ? { opacity: 0, y: 50 } : {}}
+                          animate={activeStep === 0 ? { opacity: 1, y: 0 } : {}}
+                          transition={{ duration: 1, delay: 0.8 }}
+                        >
                           <FormLabel>Nombre de colocataire</FormLabel>
                           <Select placeholder="Nombre de colocataire" onChange={(e)=> setNbOccupants(e.target.value)}>
                           {rooms.map((option, index) => (
                                 <option value={option} key={option}>{index === 9 ? option + '+' : option}</option>
                               ))}
                           </Select>
-                        </FormControl>
+                        </MotionFormControl>
                       </Stack>
 
                       {isLargerThan768 && (
                         <Stack spacing={4} width={{ base: '100%', md: '50%' }} height="300px" mt={8}>
-                          <HelpForm openSection={openSection} section="section1" emoji="🏘️" title="Type du logement" helpText="Voici l'aide pour le type de logement"/>
-                          <HelpForm openSection={openSection} section="section2" emoji="🛌" title="Nombre de pièce" helpText="Voici l'aide pour le nombre de pièce"/>
-                          <HelpForm openSection={openSection} section="section3" emoji="📍" title="Adresse" helpText="Voici l'aide pour l'adresse"/>
+                          {activeStep === 0 ? <HelpForm openSection={openSection} section="section1" emoji="🏘️" title="Type du logement" helpText="Voici l'aide pour le type de logement" delay={.2}/> : null }
+                          {activeStep === 0 ? <HelpForm openSection={openSection} section="section2" emoji="🛌" title="Nombre de pièce" helpText="Voici l'aide pour le nombre de pièce" delay={.4}/> : null }
+                          {activeStep === 0 ? <HelpForm openSection={openSection} section="section3" emoji="📍" title="Adresse" helpText="Voici l'aide pour l'adresse" delay={.6}/> : null }
                         </Stack>
                       )}
                     </Flex>
@@ -307,23 +352,55 @@ export default function CreateListing() {
                   <Flex direction={{ base: 'column', md: 'row' }} gap='10'>
                     <Stack spacing={4} width={{ base: '100%', md: '50%' }} height={isLargerThan768 ? "300px" : "400px"}>
                       <Flex direction={{ base: 'column', md: 'row' }} gap='2'>
-                        <FormControl id="loyer" isRequired onFocus={() => handleFocus("section4")} onBlur={() => handleFocus(null)}>
+                        <MotionFormControl 
+                          id="loyer" 
+                          isRequired 
+                          onFocus={() => handleFocus("section4")} 
+                          onBlur={() => handleFocus(null)}
+                          initial={{ opacity: 0, y: 50 }}
+                          animate={activeStep === 1 ? { opacity: 1, y: 0 } : {}}
+                          transition={{ duration: 1, delay: 0.2 }}
+                        >
                           <FormLabel>Loyer</FormLabel>
                           <Input type="number" placeholder="Loyer" onChange={(e) => setLoyer(e.target.value)}/>
-                        </FormControl>
+                        </MotionFormControl>
 
-                        <FormControl id="m2" isRequired onFocus={() => handleFocus("section5")} onBlur={() => handleFocus(null)}>
+                        <MotionFormControl 
+                          id="m2" 
+                          isRequired 
+                          onFocus={() => handleFocus("section5")} 
+                          onBlur={() => handleFocus(null)}
+                          initial={{ opacity: 0, y: 50 }}
+                          animate={activeStep === 1 ? { opacity: 1, y: 0 } : {}}
+                          transition={{ duration: 1, delay: 0.4 }}
+                        >
                           <FormLabel>Surface en m2</FormLabel>
                           <Input type="number" placeholder="Surface" onChange={(e) => setSurface(e.target.value)}/>
-                        </FormControl>
+                        </MotionFormControl>
                       </Flex>
 
-                      <FormControl id="description" isRequired onFocus={() => handleFocus("section6")} onBlur={() => handleFocus(null)}>
+                      <MotionFormControl 
+                        id="description" 
+                        isRequired 
+                        onFocus={() => handleFocus("section6")} 
+                        onBlur={() => handleFocus(null)}
+                        initial={{ opacity: 0, y: 50 }}
+                        animate={activeStep === 1 ? { opacity: 1, y: 0 } : {}}
+                        transition={{ duration: 1, delay: 0.6 }}
+                      >
                         <FormLabel>Description</FormLabel>
                         <Textarea placeholder="Description" onChange={(e) => setDesc(e.target.value)}/>
-                      </FormControl>
+                      </MotionFormControl>
 
-                      <FormControl id="images" isRequired onFocus={() => handleFocus("section7")} onBlur={() => handleFocus(null)}>
+                      <MotionFormControl 
+                        id="images" 
+                        isRequired 
+                        onFocus={() => handleFocus("section7")} 
+                        onBlur={() => handleFocus(null)}
+                        initial={{ opacity: 0, y: 50 }}
+                        animate={activeStep === 1 ? { opacity: 1, y: 0 } : {}}
+                        transition={{ duration: 1, delay: 0.8 }}
+                      >
                         <FormLabel>Image</FormLabel>
                         <Box position="relative" textAlign="center" width="100%" backgroundColor="gray.100" borderRadius="6px">
                           <Button as="label" htmlFor="file">{images ? images.length == 0 ? "Choisir les fichiers" : images?.length+" photos ont été sélectionnées !": "Choisir les fichiers"}</Button>
@@ -343,15 +420,15 @@ export default function CreateListing() {
                             cursor="pointer"
                           />
                         </Box>
-                      </FormControl>
+                      </MotionFormControl>
                     </Stack>
 
                     {isLargerThan768 && (
                         <Stack spacing={4} width={{ base: '100%', md: '50%' }} height="300px" mt={8}>
-                          <HelpForm openSection={openSection} section="section4" emoji="💶" title="Loyer" helpText="Voici l'aide pour le loyer"/>
-                          <HelpForm openSection={openSection} section="section5" emoji="📐" title="Surface" helpText="Voici l'aide pour la surface"/>
-                          <HelpForm openSection={openSection} section="section6" emoji="💬" title="Description" helpText="Voici l'aide pour la description"/>
-                          <HelpForm openSection={openSection} section="section7" emoji="🌆" title="Image" helpText="Voici l'aide pour l'image"/>
+                          {activeStep === 1 ? <HelpForm openSection={openSection} section="section4" emoji="💶" title="Loyer" helpText="Voici l'aide pour le loyer" delay={.2}/> : null }
+                          {activeStep === 1 ? <HelpForm openSection={openSection} section="section5" emoji="📐" title="Surface" helpText="Voici l'aide pour la surface" delay={.4}/> : null }
+                          {activeStep === 1 ? <HelpForm openSection={openSection} section="section6" emoji="💬" title="Description" helpText="Voici l'aide pour la description" delay={.6}/> : null }
+                          {activeStep === 1 ? <HelpForm openSection={openSection} section="section7" emoji="🌆" title="Image" helpText="Voici l'aide pour l'image" delay={.8}/> : null }
                         </Stack>
                       )}
                   </Flex>
@@ -364,30 +441,55 @@ export default function CreateListing() {
                   <Flex direction={{ base: 'column', md: 'row' }} gap='10'>
                     <Stack spacing={4} width={{ base: '100%', md: '50%' }} height={isLargerThan768 ? "300px" : "400px"}>
                       <Flex direction={{ base: 'column', md: 'row' }} gap='2'>
-                        <FormControl id="co" onFocus={() => handleFocus("section8")} onBlur={() => handleFocus(null)}>
+                        <MotionFormControl 
+                          id="co" 
+                          onFocus={() => handleFocus("section8")} 
+                          onBlur={() => handleFocus(null)}
+                          initial={{ opacity: 0, y: 50 }}
+                          animate={activeStep === 2 ? { opacity: 1, y: 0 } : {}}
+                          transition={{ duration: 1, delay: 0.2 }}
+                        >
                           <FormLabel>Colocation ou Coliving ?</FormLabel>
                           <Select placeholder="Type de location" onChange={(e) => setCo(e.target.value)}>
                             <option value={'colocation'}>colocation</option>
                             <option value={'coliving'}>coliving</option>
                           </Select>
-                        </FormControl>
+                        </MotionFormControl>
 
-                        <FormControl id="meuble" onFocus={() => handleFocus("section9")} onBlur={() => handleFocus(null)}>
+                        <MotionFormControl 
+                          id="meuble" 
+                          onFocus={() => handleFocus("section9")} 
+                          onBlur={() => handleFocus(null)}
+                          initial={{ opacity: 0, y: 50 }}
+                          animate={activeStep === 2 ? { opacity: 1, y: 0 } : {}}
+                          transition={{ duration: 1, delay: 0.4 }}
+                          >
                           <FormLabel>Meublé ?</FormLabel>
                           <Select placeholder="Type de location" onChange={(e) => setMeuble(e.target.value)}>
                             <option value={true}>Oui</option>
                             <option value={false}>Non</option>
                           </Select>
-                        </FormControl>
+                        </MotionFormControl>
                       </Flex>
 
                       <Flex direction={{ base: 'column', md: 'row' }} gap='2'>
-                      <FormControl>
+                        <MotionFormControl
+                        initial={{ opacity: 0, y: 50 }}
+                        animate={activeStep === 2 ? { opacity: 1, y: 0 } : {}}
+                        transition={{ duration: 1, delay: 0.6 }}
+                        >
                           <FormLabel>Disponible à partir de...</FormLabel>
                           <DatePicker selected={dispoDate} onChange={(date)=>setDispoDate(date)} locale="fr" className="my-datepicker"/>
-                        </FormControl>
+                        </MotionFormControl>
 
-                      <FormControl id="regles" onFocus={() => handleFocus("section10")} onBlur={() => handleFocus(null)}>
+                      <MotionFormControl 
+                        id="regles" 
+                        onFocus={() => handleFocus("section10")} 
+                        onBlur={() => handleFocus(null)}
+                        initial={{ opacity: 0, y: 50 }}
+                        animate={activeStep === 2 ? { opacity: 1, y: 0 } : {}}
+                        transition={{ duration: 1, delay: 0.8 }}
+                      >
                         <FormLabel>Règles particulières</FormLabel>
                           <MultiSelect
                             isMulti
@@ -401,10 +503,17 @@ export default function CreateListing() {
                                 {value:'ok-animaux', label:'Animaux bienvenus'}
                               ]}
                           />
-                        </FormControl>
+                        </MotionFormControl>
                         </Flex>
                         <Flex direction={{ base: 'column', md: 'row' }} gap='2'>
-                        <FormControl id="regles" onFocus={() => handleFocus("section10")} onBlur={() => handleFocus(null)}>
+                        <MotionFormControl 
+                          id="regles" 
+                          onFocus={() => handleFocus("section10")} 
+                          onBlur={() => handleFocus(null)}
+                          initial={{ opacity: 0, y: 50 }}
+                          animate={activeStep === 2 ? { opacity: 1, y: 0 } : {}}
+                          transition={{ duration: 1, delay: 1 }}
+                        >
                         <FormLabel>Equipements</FormLabel>
                           <MultiSelect
                             isMulti
@@ -418,15 +527,15 @@ export default function CreateListing() {
                                 {value:'tv', label:'TV'}
                               ]}
                           />
-                        </FormControl>
+                        </MotionFormControl>
                         </Flex>
                       </Stack> 
 
                       {isLargerThan768 && (
                         <Stack spacing={4} width={{ base: '100%', md: '50%' }} height="300px" mt={8}>
-                          <HelpForm openSection={openSection} section="section8" emoji="🏠" title="Colocation ou coliving" helpText="Voici l'aide pour la colocation ou coliving"/>
-                          <HelpForm openSection={openSection} section="section9" emoji="🛋️" title="Meublé" helpText="Voici l'aide pour le meublé"/>
-                          <HelpForm openSection={openSection} section="section10" emoji="📕" title="Régles spéciales" helpText="Voici l'aide pour les régles spéciales"/>
+                          {activeStep === 2 ? <HelpForm openSection={openSection} section="section8" emoji="🏠" title="Colocation ou coliving" helpText="Voici l'aide pour la colocation ou coliving" delay={.2} /> : null }
+                          {activeStep === 2 ? <HelpForm openSection={openSection} section="section9" emoji="🛋️" title="Meublé" helpText="Voici l'aide pour le meublé" delay={.4}/> : null }
+                          {activeStep === 2 ? <HelpForm openSection={openSection} section="section10" emoji="📕" title="Régles spéciales" helpText="Voici l'aide pour les régles spéciales" delay={.6}/> : null }
                         </Stack>
                       )}
                     </Flex> 
@@ -459,9 +568,21 @@ export default function CreateListing() {
                           >
                             Précédent
                           </Button>
-                          <Button size="sm" colorScheme="blue" onClick={(e) => {handleAddListing(e)}} isLoading={loading}>
-                            {isLastStep ? "Lister mon Annonce" : "Suivant"}
+                          <Button 
+                            size="sm" 
+                            colorScheme="blue" 
+                            onClick={(e) => {
+                              if (isLastStep) {
+                                handleAddListing(e);
+                              } else {
+                                nextStep();  // Cela doit augmenter la valeur d'activeStep
+                              }
+                            }}
+                            isLoading={loading}
+                          >
+                            {isLastStep ? "Publier mon Annonce" : "Suivant"}
                           </Button>
+
                         </>
                       )}
                     </Flex>

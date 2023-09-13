@@ -99,7 +99,7 @@ export default function Recherche() {
     const [sorter, setSorter] = useState('timestamp')
     const center = villeInfo ? [villeInfo.lat, villeInfo.lng] : [0, 0];
 
-
+    console.log(params.ville)
 
     const annonceRefs = useRef([]);
     annonceRefs.current = annonces.map((a, i) => annonceRefs.current[i] ?? createRef());
