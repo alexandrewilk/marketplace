@@ -23,6 +23,7 @@ import AnnonceCardMap from '../components/AnnnonceCardMap';
 import home from "../styles/home.css"
 import No_Ville from '../assets/images/No_Ville.png';
 import No_Resultat from '../assets/images/No_Resultat.png';
+import { motion } from "framer-motion";
 
 function createPriceMarker(price) {
   let svgMarkup = `
@@ -241,7 +242,12 @@ if (filteredAnnonces.length === 0) {
   return (
       <Grid templateColumns={isLargerThan450 ? 'repeat(auto-fill, minmax(200px, 1fr))' : 'repeat(auto-fill, minmax(170px, 1fr))'} gap={isLargerThan450 ? '3' : '0'}> 
        {filteredAnnonces.map((a, index) => (
-        <AnnonceCard 
+        <motion.div
+        initial={{ opacity: 0, y: 50 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ delay: 0.2 * index, duration: 1 }}
+        >
+       <AnnonceCard 
           key={a.id} 
           data={a.data} 
           id={a.id} 
@@ -249,6 +255,7 @@ if (filteredAnnonces.length === 0) {
           hovered={hoveredAnnonce === a.id}
           handleAnnonceHover={handleAnnonceHover}
         />
+        </motion.div>
       ))}
     </Grid>
   );
