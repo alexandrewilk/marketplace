@@ -58,7 +58,7 @@ export default function Home() {
   return (
     <Box 
       width="95%"
-      marginX="2.5%"
+      marginX="auto"
       maxWidth="1900px"
     >
       <Box

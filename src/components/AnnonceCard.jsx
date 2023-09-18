@@ -57,7 +57,6 @@ const AnnonceCard = forwardRef(({ data, id, hovered, handleAnnonceHover }, ref) 
   return (
     <Box
       ref={ref}
-      borderWidth="1px"
       bg="white"
       borderRadius="16px"
       overflow="hidden"
@@ -71,9 +70,9 @@ const AnnonceCard = forwardRef(({ data, id, hovered, handleAnnonceHover }, ref) 
       maxW={cardWidth}
       minH="280px"
     >
-      <Flex direction={{ base: "column", md: "column" }} h="100%">
+      <Flex direction={{ base: "column", md: "column" }} h="310px">
         <Box position="relative" w="100%" onClick={(e)=>{e.preventDefault();navigate(`/listings/${id}`)}}>
-          <Image src={imgUrls ? imgUrls[0] : "https://bit.ly/2k1t6"} alt="Appartement" objectFit="cover" objectPosition="center" w="95%" h="95%" m="2.5%" borderRadius="8px"/>
+          <Image src={imgUrls ? imgUrls[0] : "https://bit.ly/2k1t6"} alt="Appartement" objectFit="cover" objectPosition="center" w="95%" h="95%" m="2.5%" borderRadius="8px" minH="169px"/>
           <Box onClick={(e)=>{e.stopPropagation();}}>
             <IconButton 
               position="absolute" 
@@ -115,7 +114,6 @@ const AnnonceCard = forwardRef(({ data, id, hovered, handleAnnonceHover }, ref) 
       
     <Box
       ref={ref}
-      borderWidth="1px"
       bg="white"
       borderRadius="16px"
       overflow="hidden"
@@ -129,7 +127,7 @@ const AnnonceCard = forwardRef(({ data, id, hovered, handleAnnonceHover }, ref) 
       maxW={cardWidth}
       minH="280px"
     >
-      <Flex direction={{ base: "column", md: "column" }} h="100%">
+      <Flex direction={{ base: "column", md: "column" }} h="310px">
         <Box position="relative" w="100%" onClick={(e)=>{e.preventDefault();goToCarteColoc()}}>
           <Image src={imgUrls ? imgUrls[0] : "https://bit.ly/2k1t6"} alt="Appartement" objectFit="cover" objectPosition="center" w="95%" h="95%" m="2.5%" borderRadius="8px"/>
           <Box onClick={(e)=>{e.stopPropagation();}}>
