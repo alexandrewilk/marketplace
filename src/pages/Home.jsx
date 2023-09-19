@@ -59,7 +59,7 @@ export default function Home() {
     <Box 
       width="95%"
       marginX="auto"
-      maxWidth="1900px"
+      maxWidth="1200px"
     >
       <Box
         display="flex"
@@ -68,6 +68,7 @@ export default function Home() {
         flexDirection="column"
         textAlign="center"
         borderRadius="12px"
+        marginTop="54px"
         height="86vh"
         maxHeight="676px"
         background="linear-gradient(white, deepskyblue)"
