@@ -1,5 +1,5 @@
 import React from 'react'
-import { Box, Heading, Flex } from '@chakra-ui/react';
+import { Box, Heading, Grid } from '@chakra-ui/react';
 import RechercheCard from './RechercheCard';
 import { motion } from "framer-motion";
 
@@ -29,23 +29,51 @@ const cities = [
       imageUrl: 'https://coloc.fr/wp-content/uploads/2023/04/Lyon.webp',
       link: '/recherche/Bordeaux'
     },
+    {
+      name: 'Rennes',
+      imageUrl: 'https://coloc.fr/wp-content/uploads/2023/04/Lyon.webp',
+      link: '/recherche/Paris'
+    },
+    {
+      name: 'Montpellier',
+      imageUrl: 'https://coloc.fr/wp-content/uploads/2023/04/Lyon.webp',
+      link: '/recherche/Lyon'
+    },
+    {
+      name: 'Nantes',
+      imageUrl: 'https://coloc.fr/wp-content/uploads/2023/04/Lyon.webp',
+      link: '/recherche/Lyon'
+    },
+    {
+      name: 'Grenoble',
+      imageUrl: 'https://coloc.fr/wp-content/uploads/2023/04/Lyon.webp',
+      link: '/recherche/Marseille'
+    },
+    {
+      name: 'Angers',
+      imageUrl: 'https://coloc.fr/wp-content/uploads/2023/04/Lyon.webp',
+      link: '/recherche/Bordeaux'
+    },
   ];
 
   export default function VilleCarroussel() {
     return (
       <Box maxWidth="1400px" margin="auto" w="100%">
-          <Heading as='h3' size='lg' marginY={4}>Découvrez nos colocations par ville</Heading>
-          <Flex 
-              width="100%"  // Ajoutez cette ligne pour que Flex prenne toute la largeur du conteneur.
-              flexDirection={{ base: "column", md: "row" }} 
-              flexWrap="nowrap" 
-              overflowX="auto" 
-              justifyContent="space-between"
+          <Heading as='h3' size='xl' marginY={4}>Découvrez nos colocations par ville</Heading>
+          <Grid
+            templateColumns={{ base: "repeat(1, 1fr)", md: "repeat(5, 1fr)" }}
+            gap={4}
           >
-              {cities.map((city, index) => (
-                  <RechercheCard city={city} key={index} />
-              ))}
-          </Flex>
+            {cities.map((city, index) => (
+               <motion.div
+               initial={{ opacity: 0, y: 50 }}
+               animate={{ opacity: 1, y: 0 }}
+               transition={{ delay: 0.2 * index, duration: 1 }}
+               >
+              <RechercheCard city={city} key={index} />
+              </motion.div>
+            ))}
+          </Grid>
       </Box>
     )
 }

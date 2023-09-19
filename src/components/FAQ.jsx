@@ -1,39 +1,73 @@
 import React from 'react';
-import { Box, Accordion, AccordionItem, AccordionButton, AccordionPanel, AccordionIcon, Heading, Container,  Text } from '@chakra-ui/react';
+import { Box, Accordion, AccordionItem, AccordionButton, AccordionPanel, AccordionIcon, Heading, Container,  Text, Center } from '@chakra-ui/react';
 
 export default function FAQ() {
     return (
-        <Box maxWidth="1400px" padding="12" borderWidth="1px" borderColor="gray.200" boxShadow="md" width="100%" borderRadius="12">
-          <Heading size='lg' mb="4">Foire aux questions</Heading>
+        <Box maxWidth="1200px" width="100%">
+        <Heading size='xl' mb="10" >Questions fréquentes</Heading>
+        <Box  borderWidth="1px" borderColor="gray.200" boxShadow="md"  borderRadius="12">
           <Accordion allowToggle>
             <AccordionItem>
-              <h2>
                 <AccordionButton>
-                  <Box flex="1" textAlign="left">
-                    Comment utiliser cette application ?
+                  <Box flex="1" textAlign="left" p={4}>
+                    Coloc.fr c'est quoi ?
                   </Box>
                   <AccordionIcon />
                 </AccordionButton>
-              </h2>
-              <AccordionPanel pb={4}>
+              <AccordionPanel pb={4} pl={8}>
                 Pour utiliser cette application, vous devez ...
               </AccordionPanel>
             </AccordionItem>
 
             <AccordionItem>
-              <h2>
                 <AccordionButton>
-                  <Box flex="1" textAlign="left">
-                    Quelles sont les fonctionnalités disponibles ?
+                  <Box flex="1" textAlign="left" p={4}>
+                    Comment trouver une application ?
                   </Box>
                   <AccordionIcon />
                 </AccordionButton>
-              </h2>
-              <AccordionPanel pb={4}>
+              <AccordionPanel pb={4} pl={8}>
+                Les fonctionnalités disponibles sont ...
+              </AccordionPanel>
+            </AccordionItem>
+
+            <AccordionItem>
+                <AccordionButton>
+                  <Box flex="1" textAlign="left" p={4}>
+                    Quel type de contrat en colocation ?
+                  </Box>
+                  <AccordionIcon />
+                </AccordionButton>
+              <AccordionPanel pb={4} pl={8}>
+                Les fonctionnalités disponibles sont ...
+              </AccordionPanel>
+            </AccordionItem>
+
+            <AccordionItem>
+                <AccordionButton>
+                  <Box flex="1" textAlign="left" p={4}>
+                    Comment fonctionne la marketplace ?
+                  </Box>
+                  <AccordionIcon />
+                </AccordionButton>
+              <AccordionPanel pb={4} pl={8}>
+                Les fonctionnalités disponibles sont ...
+              </AccordionPanel>
+            </AccordionItem>
+
+            <AccordionItem>
+                <AccordionButton>
+                  <Box flex="1" textAlign="left" p={4}>
+                    Comment puis-je vous contacter en cas de problème sur l'application ou la marketplace ?
+                  </Box>
+                  <AccordionIcon />
+                </AccordionButton>
+              <AccordionPanel pb={4} pl={8}>
                 Les fonctionnalités disponibles sont ...
               </AccordionPanel>
             </AccordionItem>
           </Accordion>
+        </Box>
         </Box>
     );
 }
