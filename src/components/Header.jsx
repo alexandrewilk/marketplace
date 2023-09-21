@@ -172,7 +172,7 @@ export default function Nav() {
               <MenuDivider />
               {pageState === 'Profile' ? (
                 <>
-                  <MenuItem onClick={() => navigate('/create-listing')}>Déposer une annonce</MenuItem>
+                  <MenuItem onClick={() => navigate('/Déposer-une-annonce')}>Déposer une annonce</MenuItem>
                   <MenuItem 
                     className={`cursor-pointer ${routeMatchPath('/Settings') ? 'active' : ''}`} 
                     onClick={() => navigate("/Settings")}

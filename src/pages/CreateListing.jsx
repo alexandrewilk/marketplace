@@ -225,7 +225,7 @@ export default function CreateListing() {
               </BreadcrumbLink>
             </BreadcrumbItem>
             <BreadcrumbItem>
-              <BreadcrumbLink href='/create-listing'>
+              <BreadcrumbLink href='/Déposer-une-annonce'>
                 <Box maxWidth={isLargerThan400 ? 'auto' : '100px'} isTruncated={isLargerThan400 ? false : true}>Ajouter une annonce</Box>
               </BreadcrumbLink>
             </BreadcrumbItem>
@@ -337,9 +337,9 @@ export default function CreateListing() {
 
                       {isLargerThan768 && (
                         <Stack spacing={4} width={{ base: '100%', md: '50%' }} height="300px" mt={8}>
-                          {activeStep === 0 ? <HelpForm openSection={openSection} section="section1" emoji="🏘️" title="Type du logement" helpText="Voici l'aide pour le type de logement" delay={.2}/> : null }
-                          {activeStep === 0 ? <HelpForm openSection={openSection} section="section2" emoji="🛌" title="Nombre de pièce" helpText="Voici l'aide pour le nombre de pièce" delay={.4}/> : null }
-                          {activeStep === 0 ? <HelpForm openSection={openSection} section="section3" emoji="📍" title="Adresse" helpText="Voici l'aide pour l'adresse" delay={.6}/> : null }
+                          {activeStep === 0 ? <HelpForm openSection={openSection} section="section1" emoji="🏘️" title="Type du logement" helpText="Sélectionnez le type de logement correspondant au mieux à la colocation." delay={.2}/> : null }
+                          {activeStep === 0 ? <HelpForm openSection={openSection} section="section2" emoji="🛌" title="Nombre de pièce" helpText="Indiquez le nombre de pièce qu'il y a dans le logement." delay={.4}/> : null }
+                          {activeStep === 0 ? <HelpForm openSection={openSection} section="section3" emoji="📍" title="Adresse" helpText="Indiquez l'adresse précise ou approximative de la colocation." delay={.6}/> : null }
                         </Stack>
                       )}
                     </Flex>
@@ -403,7 +403,7 @@ export default function CreateListing() {
                       >
                         <FormLabel>Image</FormLabel>
                         <Box position="relative" textAlign="center" width="100%" backgroundColor="gray.100" borderRadius="6px">
-                          <Button as="label" htmlFor="file">{images ? images.length == 0 ? "Choisir les fichiers" : images?.length+" photos ont été sélectionnées !": "Choisir les fichiers"}</Button>
+                          <Button as="label" htmlFor="file">{images ? images.length == 0 ? "Choisir 6 images max." : images?.length+" photos ont été sélectionnées !": "Choisir 6 images max."}</Button>
                           <Input 
                             id="file"
                             type='file' 
@@ -425,10 +425,10 @@ export default function CreateListing() {
 
                     {isLargerThan768 && (
                         <Stack spacing={4} width={{ base: '100%', md: '50%' }} height="300px" mt={8}>
-                          {activeStep === 1 ? <HelpForm openSection={openSection} section="section4" emoji="💶" title="Loyer" helpText="Voici l'aide pour le loyer" delay={.2}/> : null }
-                          {activeStep === 1 ? <HelpForm openSection={openSection} section="section5" emoji="📐" title="Surface" helpText="Voici l'aide pour la surface" delay={.4}/> : null }
-                          {activeStep === 1 ? <HelpForm openSection={openSection} section="section6" emoji="💬" title="Description" helpText="Voici l'aide pour la description" delay={.6}/> : null }
-                          {activeStep === 1 ? <HelpForm openSection={openSection} section="section7" emoji="🌆" title="Image" helpText="Voici l'aide pour l'image" delay={.8}/> : null }
+                          {activeStep === 1 ? <HelpForm openSection={openSection} section="section4" emoji="💶" title="Loyer" helpText="Indiquez le montant du loyer sans les charges." delay={.2}/> : null }
+                          {activeStep === 1 ? <HelpForm openSection={openSection} section="section5" emoji="📐" title="Surface" helpText="Précisez la surface totale du logement." delay={.4}/> : null }
+                          {activeStep === 1 ? <HelpForm openSection={openSection} section="section6" emoji="💬" title="Description" helpText="Utilisez des mots clés pertinents, soyez précis, clair et concis. Mettez en avant les atouts uniques de votre bien." delay={.6}/> : null }
+                          {activeStep === 1 ? <HelpForm openSection={openSection} section="section7" emoji="🌆" title="Image" helpText="Optez pour des photos claires, nettes, bien éclairées, et représentatives de l'espace. Variez les angles de prise de vue." delay={.8}/> : null }
                         </Stack>
                       )}
                   </Flex>
@@ -508,7 +508,7 @@ export default function CreateListing() {
                         <Flex direction={{ base: 'column', md: 'row' }} gap='2'>
                         <MotionFormControl 
                           id="regles" 
-                          onFocus={() => handleFocus("section10")} 
+                          onFocus={() => handleFocus("section11")} 
                           onBlur={() => handleFocus(null)}
                           initial={{ opacity: 0, y: 50 }}
                           animate={activeStep === 2 ? { opacity: 1, y: 0 } : {}}
@@ -533,9 +533,10 @@ export default function CreateListing() {
 
                       {isLargerThan768 && (
                         <Stack spacing={4} width={{ base: '100%', md: '50%' }} height="300px" mt={8}>
-                          {activeStep === 2 ? <HelpForm openSection={openSection} section="section8" emoji="🏠" title="Colocation ou coliving" helpText="Voici l'aide pour la colocation ou coliving" delay={.2} /> : null }
-                          {activeStep === 2 ? <HelpForm openSection={openSection} section="section9" emoji="🛋️" title="Meublé" helpText="Voici l'aide pour le meublé" delay={.4}/> : null }
-                          {activeStep === 2 ? <HelpForm openSection={openSection} section="section10" emoji="📕" title="Régles spéciales" helpText="Voici l'aide pour les régles spéciales" delay={.6}/> : null }
+                          {activeStep === 2 ? <HelpForm openSection={openSection} section="section8" emoji="🏠" title="Colocation ou coliving" helpText="Certaine personne chez un coliving ou une colocation en particulier." delay={.2} /> : null }
+                          {activeStep === 2 ? <HelpForm openSection={openSection} section="section9" emoji="🛋️" title="Meublé" helpText="Précise s'il s'agit d'un meublé ou non." delay={.4}/> : null }
+                          {activeStep === 2 ? <HelpForm openSection={openSection} section="section10" emoji="📕" title="Régles spéciales" helpText="N'hésitez pas à indiquez si vous avez des règles spéciales, elles facilitent la recherche des locataires." delay={.6}/> : null }
+                          {activeStep === 2 ? <HelpForm openSection={openSection} section="section11" emoji="📕" title="Equipement" helpText="Indiquez tout les équipements de la colocation, cela augmente grandement la valeur de votre logement." delay={.8}/> : null }
                         </Stack>
                       )}
                     </Flex> 

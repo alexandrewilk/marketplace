@@ -234,7 +234,7 @@ if (filteredAnnonces.length === 0) {
       <Center flexDirection="column" mt="80px">
           <img src={No_Resultat} alt="Image"/>
           <Text fontSize="xl" fontWeight="bold" marginBottom="1rem" marginTop="20px">Il n'y pas encore d'annonce à {params.ville}</Text>
-          <Button colorScheme="blue" onClick={() => navigate('/create-listing')}>Dépose en une!</Button>
+          <Button colorScheme="blue" onClick={() => navigate('/Déposer-une-annonce')}>Dépose en une!</Button>
       </Center>
     </Flex>
   );

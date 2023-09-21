@@ -20,7 +20,7 @@ import Messagerie from './pages/Messagerie';
 
 function Layout() {
   const location = useLocation();
-  const hideFooterFor = ["/sign-in", "/sign-up", "/forgot-password", "/Messagerie"];
+  const hideFooterFor = ["/sign-in", "/sign-up", "/mot-de-passe-oublie", "/Messagerie"];
   const isRecherchePage = location.pathname.startsWith("/recherche");
 
   return (
@@ -48,11 +48,11 @@ function Layout() {
         <Route path='/Settings' element={<PrivateRoute/>}>
           <Route path='/Settings' element={<Settings/>}/>
         </Route>
-        <Route path='/forgot-password' element={<ForgotPassword/>}/>
+        <Route path='/mot-de-passe-oublie' element={<ForgotPassword/>}/>
         <Route path='/listings/:listingID' element={<Listing/>}/>
         <Route path='/recherche/:ville' element={<Recherche/>}/>
-        <Route path='/create-listing' element={<PrivateRoute/>}>
-          <Route path='/create-listing' element={<CreateListing/>}/>
+        <Route path='/Déposer-une-annonce' element={<PrivateRoute/>}>
+          <Route path='/Déposer-une-annonce' element={<CreateListing/>}/>
         </Route>
       </Routes>
       {!hideFooterFor.includes(location.pathname) && !isRecherchePage && <Footer/>}

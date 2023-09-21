@@ -54,7 +54,7 @@ export default function MesAnnonces() {
       <Flex flexDirection={isLargerThan768 ? "row" : "column"} justifyContent="space-between" alignItems={isLargerThan768 ? "flex-end" : "flex-start"}>
         <Text fontSize={isLargerThan768 ? "4xl" : "2xl"} as="b">Mes annonces</Text>
         <Button colorScheme='blue' size='sm' leftIcon={<Icon as={MdAdd} />}>
-          <RouterLink to='/create-listing'>Ajouter une annonce</RouterLink>
+          <RouterLink to='/Déposer-une-annonce'>Ajouter une annonce</RouterLink>
         </Button>
       </Flex>
       

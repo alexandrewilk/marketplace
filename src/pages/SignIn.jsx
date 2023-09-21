@@ -136,7 +136,7 @@ export default function SignIn() {
             </Link>
           </Text>
           <Text fontSize="sm">
-            <Link as={RouterLink} to="/forgot-password" color="blue.500">
+            <Link as={RouterLink} to="/mot-de-passe-oublie" color="blue.500">
               Mot de passe oublié ?
             </Link>
           </Text>
