@@ -3,7 +3,7 @@ import { Link as RouterLink } from 'react-router-dom';
 import { Dots } from 'react-activity';
 import 'react-activity/dist/library.css';
 import { MdAdd } from 'react-icons/md';
-import { Text, Container, Breadcrumb, BreadcrumbItem, BreadcrumbLink, Button, Icon, Box, Flex, Center, useMediaQuery } from '@chakra-ui/react';
+import { Text, Container, Breadcrumb, BreadcrumbItem, BreadcrumbLink, Button, Icon, Box, Flex, Center, useMediaQuery, Grid } from '@chakra-ui/react';
 import { query, getDocs, where, orderBy, collection } from 'firebase/firestore';
 import { auth, db } from '../firebase';
 import AnnonceCard from '../components/AnnonceCardPageMesLikes'
@@ -13,6 +13,7 @@ import No_Ville from '../assets/images/No_Ville.png';
 export default function MesAnnonces() {
   const [isLargerThan768] = useMediaQuery("(min-width: 768px)");
   const [isLargerThan400] = useMediaQuery("(min-width: 400px)");
+  const [isLargerThan450] = useMediaQuery("(min-width: 450px)");
   const [listings, setListings] = useState([]);
   const [loadingList, setLoadingList] = useState(false);
   const getUserListing = async () => {
@@ -54,22 +55,25 @@ export default function MesAnnonces() {
       <Flex flexDirection={isLargerThan768 ? "row" : "column"} justifyContent="space-between" alignItems={isLargerThan768 ? "flex-end" : "flex-start"}>
         <Text fontSize={isLargerThan768 ? "4xl" : "2xl"} as="b">Mes annonces</Text>
         <Button colorScheme='blue' size='sm' leftIcon={<Icon as={MdAdd} />}>
-          <RouterLink to='/Déposer-une-annonce'>Ajouter une annonce</RouterLink>
+          <RouterLink to='/nos-offres'>Voir nos offres</RouterLink>
         </Button>
       </Flex>
-      
-      {loadingList 
-        ? <Dots/> 
-        : listings.length > 0 
-          ? listings.map((l) => <AnnonceCard key={l.id} data={l.data} id={l.id}/>) 
-          : 
-          <Flex justifyContent="center">
-          <Center flexDirection="column" mt="80px">
-              <img src={No_Ville} alt="maison"/>
-              <Text fontSize="xl" fontWeight="bold" marginBottom="1rem">Tu n'as aucune annonce publiées</Text>
-          </Center>
-        </Flex>
-      }
+
+      <Grid templateColumns={isLargerThan450 ? 'repeat(auto-fill, minmax(200px, 1fr))' : 'repeat(auto-fill, minmax(170px, 1fr))'} gap={isLargerThan450 ? '3' : '0'} mt={12}>
+        {loadingList 
+          ? <Dots/> 
+          : listings.length > 0 
+            ? listings.map((l) => <AnnonceCard key={l.id} data={l.data} id={l.id}/>) 
+            : 
+            <Flex justifyContent="center">
+            <Center flexDirection="column" mt="80px">
+                <img src={No_Ville} alt="maison"/>
+                <Text fontSize="xl" fontWeight="bold" marginBottom="1rem">Tu n'as aucune annonce publiées</Text>
+            </Center>
+          </Flex>
+        }
+      </Grid>
+
     </Container>
     
   );

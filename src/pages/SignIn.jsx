@@ -131,7 +131,7 @@ export default function SignIn() {
         <Stack spacing={2} textAlign="center">
           <Text fontSize="sm">
             Pas de compte ?{' '}
-            <Link as={RouterLink} to="/sign-up" color="blue.500">
+            <Link as={RouterLink} to="/sign-up" color="blue">
               Creer un compte
             </Link>
           </Text>

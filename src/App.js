@@ -17,6 +17,7 @@ import MesAlertes from './pages/MesAlertes';
 import Settings from './pages/Settings';
 import Recherche from "./pages/Recherche";
 import Messagerie from './pages/Messagerie';
+import PrincingTable from "./pages/Conversion";
 
 function Layout() {
   const location = useLocation();
@@ -53,6 +54,9 @@ function Layout() {
         <Route path='/recherche/:ville' element={<Recherche/>}/>
         <Route path='/Déposer-une-annonce' element={<PrivateRoute/>}>
           <Route path='/Déposer-une-annonce' element={<CreateListing/>}/>
+        </Route>
+        <Route path='/nos-offres' element={<PrivateRoute/>}>
+          <Route path='/nos-offres' element={<PrincingTable/>}/>
         </Route>
       </Routes>
       {!hideFooterFor.includes(location.pathname) && !isRecherchePage && <Footer/>}

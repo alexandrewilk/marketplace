@@ -2,11 +2,12 @@ import { useState, useEffect } from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
 import { auth } from '../firebase';
 import { onAuthStateChanged } from 'firebase/auth';
-import { Text, Box, Icon, Flex, Avatar, Button, Menu, MenuButton, MenuList, VStack, List, ListItem, MenuItem, MenuDivider, Stack, useColorMode, Center, Image, Input, InputLeftElement, InputGroup } from '@chakra-ui/react';
+import { Text, Box, Icon, Flex, Avatar, Button, Menu, MenuButton, MenuList, VStack, List, ListItem, MenuItem, MenuDivider, Stack, useColorMode, Center, Image, Input, InputLeftElement, InputGroup, Heading } from '@chakra-ui/react';
 import { useMediaQuery } from "@chakra-ui/react";
 import { useAuthStatus } from '../hooks/useAuthStatus';
 import { SearchIcon } from '@chakra-ui/icons';
 import { RxHamburgerMenu } from "react-icons/rx";
+import { Link as RouterLink } from 'react-router-dom';
 
 const villes = require('../assets/data/villes2.json').map((v)=>{return v.city})
 
@@ -84,7 +85,7 @@ export default function Nav() {
   };
 
   return (
-    <Box bg={'white.100'} px={12} paddingX={isLargerThan ? "50px" : "20px"} >
+    <Box bg={'white.100'} px={12} paddingX={isLargerThan ? "50px" : "20px"}>
       <Flex h={16} alignItems={'center'} justifyContent={'space-between'} maxWidth="1200px" margin="auto">
         <Box>
           <Image
@@ -148,6 +149,8 @@ export default function Nav() {
           </Box>
           )}
 
+    <Flex justifyContent="flex-end" alignItems="center">
+      <Heading size={'sm'} color={'grey'} mr={4}> <RouterLink to='/nos-offres'>Déposer une annonce</RouterLink></Heading>
         <Flex borderWidth="1px" borderColor="gray.3OO" borderRadius={100} alignItems="center" p={2} boxShadow="md" _hover={{ boxShadow: 'lg' }}>
           <Menu>
             <MenuButton as={Button} rounded={'full'} variant={'link'} cursor={'pointer'} minW={0}>
@@ -177,7 +180,7 @@ export default function Nav() {
                     className={`cursor-pointer ${routeMatchPath('/Settings') ? 'active' : ''}`} 
                     onClick={() => navigate("/Settings")}
                   >
-                    Paramètres
+                    Profil
                   </MenuItem>
                   <MenuItem onClick={handleLogout}>Se déconnecter</MenuItem>
                 </>
@@ -189,8 +192,8 @@ export default function Nav() {
               )}
             </MenuList>
           </Menu>
+          </Flex>
         </Flex>
-
       </Flex>
     </Box>
   );
