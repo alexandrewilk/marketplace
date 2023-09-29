@@ -1,5 +1,20 @@
-import { Box, Image, Flex, Text, IconButton, useBreakpointValue, Button } from "@chakra-ui/react";
-import CustomBadge from './CustomBadge';
+import {
+  Box,
+  Image,
+  Flex,
+  Text,
+  IconButton,
+  useBreakpointValue,
+  Button,
+  Modal,
+  ModalOverlay,
+  ModalContent,
+  ModalHeader,
+  ModalCloseButton,
+  ModalBody,
+  ModalFooter,
+  useDisclosure
+} from "@chakra-ui/react";import CustomBadge from './CustomBadge';
 import IconBadge from './IconBadge';
 import { FaHouseUser, FaRegHeart, FaBed, FaBath,  } from "react-icons/fa";
 import { AiOutlineHeart, AiFillHeart } from 'react-icons/ai'
@@ -9,15 +24,15 @@ import { useContext, forwardRef } from "react";
 import { arrayRemove, arrayUnion, doc, updateDoc } from "firebase/firestore";
 import { db, auth } from "../firebase";
 import { Link, useNavigate } from "react-router-dom";
-
+import { useAuthStatus } from '../hooks/useAuthStatus';
 
 
 const AnnonceCard = forwardRef(({ data, id, hovered, handleAnnonceHover }, ref) => {
   
   const { imgUrls, type, loyer, nbPieces, surface, userRef, nbOccupants, dispoDate, ville } = data;
   const navigate = useNavigate();
- 
-  console.log(new Date(dispoDate?.seconds*1000))
+  const { isOpen, onOpen, onClose } = useDisclosure(); // Pour le modal
+  const { loggedIn, loadingAuth } = useAuthStatus();  console.log(new Date(dispoDate?.seconds*1000))
   const badgeProperties = [
     { icon: MdEventAvailable, text: dispoDate ? new Date(dispoDate.seconds*1000) <= new Date() ? 'Dispo' : (new Date(dispoDate.seconds*1000)).toDateString() : 'Dispo'},
     { icon: FaHouseUser, text: nbOccupants ? nbOccupants : nbPieces + ' colocataires'},
@@ -33,7 +48,11 @@ const AnnonceCard = forwardRef(({ data, id, hovered, handleAnnonceHover }, ref) 
     return <CustomBadge text="Coloc.fr"/>
   }
 
-  async function handleLike(){  
+  async function handleLike() {
+    if (!loggedIn) {
+      onOpen(); // Ouvre le modal si l'utilisateur n'est pas connecté
+      return;
+    }  
     try {
       if(Array.isArray(userLikes)){
       if(userLikes.includes(id)){
@@ -53,8 +72,10 @@ const AnnonceCard = forwardRef(({ data, id, hovered, handleAnnonceHover }, ref) 
       console.log(userLikes)
     }
   }
+
   if(!(userRef =="cartecoloc")){
   return (
+    <>
     <Box
       ref={ref}
       bg="white"
@@ -105,13 +126,28 @@ const AnnonceCard = forwardRef(({ data, id, hovered, handleAnnonceHover }, ref) 
         </Flex>
       </Flex>
     </Box>
+    <Modal isOpen={isOpen} onClose={onClose}>
+    <ModalOverlay />
+    <ModalContent>
+      <ModalHeader>Connexion Requise</ModalHeader>
+      <ModalCloseButton />
+      <ModalBody>
+        <Text>Vous devez être connecté pour aimer une annonce. Voulez-vous vous connecter maintenant?</Text>
+      </ModalBody>
+      <ModalFooter>
+        <Button mr={3} onClick={onClose}>Non, merci</Button>
+        <Button colorScheme="blue" onClick={console.log('test de co')}>Se Connecter</Button>
+      </ModalFooter>
+    </ModalContent>
+  </Modal>
+  </>
   );}
   function goToCarteColoc(){
     window.open("https://www.lacartedescolocs.fr/logements/"+ville, '_blank');
   }
   return (
     
-      
+    <>
     <Box
       ref={ref}
       bg="white"
@@ -163,7 +199,21 @@ const AnnonceCard = forwardRef(({ data, id, hovered, handleAnnonceHover }, ref) 
       </Flex>
     </Box>
 
-    
+    <Modal isOpen={isOpen} onClose={onClose}>
+        <ModalOverlay />
+        <ModalContent>
+          <ModalHeader>Connexion Requise</ModalHeader>
+          <ModalCloseButton />
+          <ModalBody>
+            <Text>Vous devez être connecté pour aimer une annonce. Voulez-vous vous connecter maintenant?</Text>
+          </ModalBody>
+          <ModalFooter>
+            <Button mr={3} onClick={onClose}>Non, merci</Button>
+            <Button colorScheme="blue" onClick={console.log('test de co')}>Se Connecter</Button>
+          </ModalFooter>
+        </ModalContent>
+      </Modal>
+      </>
   )
   
 });
