@@ -25,6 +25,8 @@ import No_Ville from '../assets/images/No_Ville.png';
 import No_Resultat from '../assets/images/No_Resultat.png';
 import { motion } from "framer-motion";
 
+
+
 function createPriceMarker(price) {
   let svgMarkup = `
     <svg width="53" height="36" viewBox="0 0 53 36" fill="none" xmlns="http://www.w3.org/2000/svg">
