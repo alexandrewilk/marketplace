@@ -38,7 +38,13 @@ export default function Listing() {
   const OtherImageMaxHeight = useBreakpointValue({ base: "300px", md: "182px" });
   const MainImageMaxWidth = useBreakpointValue({ base: "auto", md: "558px" });
   const OtherImageMaxWidth = useBreakpointValue({ base: "auto", md: "273px" });
-  const displayImageFour = useBreakpointValue({ base: "none", md: "block" });
+  const rulesMapping = {
+    // "valeur-dans-BDD": "Affichage sur le navigateur"
+    "only-homme": "Homme seulement",
+    "only-femme": "Femme seulement",
+    "non-fumeur": "Non fumeur",
+    "ok-animaux": "Les animaux sont autorisés",
+  };
 
   // const images = [SignInImage, SignInImage, SignInImage, SignInImage, NoPP];
   const { isOpen, onOpen, onClose } = useDisclosure();
@@ -103,9 +109,20 @@ export default function Listing() {
       </Box>
         <Box w="100%" h="auto">
           <Grid templateColumns={gridTemplateColumnsThree} templateRows={gridTemplateRow} gap={3}>
-            {images.length == 1 ? '' : images.map((imgUrl, index) => (
-              <Image key={index} src={imgUrl} alt={`L'image n'a pas pu être chargée !`} boxSize="100%" maxH={OtherImageMaxHeight} maxW={OtherImageMaxWidth} objectFit="cover" borderRadius="12px" display={index === 3 ? displayImageFour : "block"} onClick={() => {onOpen(); setSelectedImageIndex(index);}}/>
-            ))}
+          {images.slice(1, 5).map((imgUrl, index) => (
+              <Image 
+                  key={index} 
+                  src={imgUrl} 
+                  alt={`L'image n'a pas pu être chargée !`} 
+                  boxSize="100%" 
+                  maxH={OtherImageMaxHeight} 
+                  maxW={OtherImageMaxWidth} 
+                  objectFit="cover" 
+                  borderRadius="12px" 
+                  onClick={() => {onOpen(); setSelectedImageIndex(index + 1);}}
+              />
+          ))}
+
           </Grid>
         </Box>
       </Grid>
@@ -157,36 +174,28 @@ export default function Listing() {
           <Box w="100%" h="auto" borderWidth="1px" boxShadow='base' borderColor="gray.200" borderRadius="12px" padding={4}>
             <Heading as="h2" size="md" marginTop={3}>Equipement de la colocation</Heading>
             <Divider marginY={3}/>
-
-            <Grid templateColumns="repeat(2, 1fr)" gap={3} >
-              <Box display="flex" alignItems="center">
-                <Icon as={CheckCircleIcon} w={6} h={6} />
-                <Text ml={2}>Texte pour l'icône 1</Text>
-              </Box>
-              <Box display="flex" alignItems="center">
-                <Icon as={CheckCircleIcon} w={6} h={6} />
-                <Text ml={2}>Texte pour l'icône 2</Text>
-              </Box>
-              <Box display="flex" alignItems="center">
-                <Icon as={CheckCircleIcon} w={6} h={6} />
-                <Text ml={2}>Texte pour l'icône 3</Text>
-              </Box>
-              <Box display="flex" alignItems="center">
-                <Icon as={CheckCircleIcon} w={6} h={6} />
-                <Text ml={2}>Texte pour l'icône 4</Text>
-              </Box>
+            <Grid templateColumns="repeat(2, 1fr)" gap={3}>
+              {listing.data.equipements.map((equipement, index) => (
+                <Box key={index} display="flex" alignItems="center">
+                  <Icon as={CheckCircleIcon} w={6} h={6} />
+                  <Text ml={2}>{equipement}</Text>
+                </Box>
+              ))}
             </Grid>
           </Box>
           
           <Box w="100%" h="auto" borderWidth="1px" boxShadow='base' borderColor="gray.200" borderRadius="12px" padding={4}>
             <Heading as="h2" size="md" marginTop={3}>Règles spéciales</Heading>
             <Divider marginY={3}/>
+            <Text marginY={3}>
+              {rulesMapping[listing.data.regles] || listing.data.regles}
+            </Text>
           </Box>
 
           <Box w="100%" h="auto" borderWidth="1px" boxShadow='base' borderColor="gray.200" borderRadius="12px" padding={4}>
             <Heading as="h2" size="md" marginTop={3}>Visites 3D</Heading>
             <Divider marginY={3}/>
-            <iframe width='100%' height='480' src='https://my.matterport.com/show/?m=MovEKusCHsf' frameborder='0' allowfullscreen allow='xr-spatial-tracking' borderRadius='6px'></iframe>
+            <iframe width='100%' height='480' src={listing.data.matterportLink} frameborder='0' allowfullscreen allow='xr-spatial-tracking' borderRadius='6px'></iframe>
           </Box>
 
           </VStack>

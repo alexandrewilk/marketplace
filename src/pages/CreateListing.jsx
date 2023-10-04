@@ -45,6 +45,7 @@ export default function CreateListing() {
     const [logement, setLogement] = useState('');
     const [nbRooms, setNbRooms] = useState(null);
     const [loyer, setLoyer] = useState('');
+    const [matterportLink, setMatterportLink] = useState('');
     const [images, setImages] = useState(null);
     const [loading, setLoading] = useState(false);
     const [desc, setDesc] = useState('');
@@ -182,6 +183,7 @@ export default function CreateListing() {
           timestamp: serverTimestamp(),
           userRef: auth.currentUser.uid,
           geolocation: geolocation,
+          ...(matterportLink && { matterportLink: matterportLink }),
           ville: ville,
           desc: desc,
           co : co ? co : '',
@@ -318,7 +320,7 @@ export default function CreateListing() {
                             <Input ref={adresseRef} placeholder="Adresse"/>
                           </Autocomplete>
                         </MotionFormControl>
-                        
+
                         <MotionFormControl 
                           isRequired 
                           id="nbOccupants"
@@ -529,6 +531,23 @@ export default function CreateListing() {
                           />
                         </MotionFormControl>
                         </Flex>
+
+                        <MotionFormControl 
+                          id="matterport" 
+                          onFocus={() => handleFocus("section4")} 
+                          onBlur={() => handleFocus(null)}
+                          initial={{ opacity: 0, y: 50 }}
+                          animate={activeStep === 2 ? { opacity: 1, y: 0 } : {}}
+                          transition={{ duration: 1, delay: 1.2 }}
+                      >
+                          <FormLabel>Lien Matterport</FormLabel>
+                          <Input 
+                              value={matterportLink} 
+                              onChange={(e) => setMatterportLink(e.target.value)} 
+                              placeholder="Lien du Matteport" 
+                          />
+                      </MotionFormControl>
+
                       </Stack> 
 
                       {isLargerThan768 && (
