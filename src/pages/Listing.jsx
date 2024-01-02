@@ -76,7 +76,7 @@ export default function Listing() {
             }finally{
                 setLoadingData(false)
             }
-        }
+        } 
         fetchListing();
     }, [params.listingID])
 
@@ -84,6 +84,7 @@ export default function Listing() {
     async function handlePartager(){
       const url = window.location.href;
       navigator.clipboard.writeText(url).then(()=>{toast.success("Le lien de l'annonce a été copié dans le presse papier !")})
+      console.log("Valeur de regles:", listing.data.regles);
     }
 
     if(loadingData){
@@ -188,7 +189,7 @@ export default function Listing() {
             <Heading as="h2" size="md" marginTop={3}>Règles spéciales</Heading>
             <Divider marginY={3}/>
             <Text marginY={3}>
-              {rulesMapping[listing.data.regles] || listing.data.regles}
+                {listing.data.regles.map(regle => rulesMapping[regle] || `Valeur non mappée : ${regle}`).join(', ')}
             </Text>
           </Box>
 

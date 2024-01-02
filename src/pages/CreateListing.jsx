@@ -89,12 +89,18 @@ export default function CreateListing() {
     // Fonction pour upload l'image
     async function storeImage(image) {
       return new Promise((resolve, reject) => {
+        // Vérifiez la taille de l'image avant de l'uploader
+        const MAX_SIZE = 2 * 1024 * 1024; // 2 Mo
+        if (image.size > MAX_SIZE) {
+          reject(new Error("L'image est trop grande. Veuillez télécharger une image de moins de 2 Mo."));
+          return;
+        }
+    
         const filename = `${auth.currentUser.uid}-${image.name}-${uuid()}`;
         const storageRef = ref(storage, filename);
         const uploadTask = uploadBytesResumable(storageRef, image);
         uploadTask.on('state_changed',
           (snapshot) => {
-            // Get task progress, including the number of bytes uploaded and the total number of bytes to be uploaded
             const progress = (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
             console.log('Upload is ' + progress + '% done');
             switch (snapshot.state) {
@@ -105,14 +111,11 @@ export default function CreateListing() {
                 console.log('Upload is running');
                 break;
             }
-          }, 
+          },
           (error) => {
-            // A full list of error codes is available at
-            // https://firebase.google.com/docs/storage/web/handle-errors
             reject(error);
-          }, 
+          },
           () => {
-            // Upload completed successfully, now we can get the download URL
             getDownloadURL(uploadTask.snapshot.ref).then((downloadURL) => {
               resolve(downloadURL);
             });
@@ -121,13 +124,15 @@ export default function CreateListing() {
       });
     }
     
+    
     // Fonction pour upload l'annonce
     async function handleAddListing(e) {
       e.preventDefault();
       if(!isLastStep){
         nextStep()
-        return}
-
+        return;
+      }
+    
       if(logement == ''){
         toast.error("Merci d'indiquer un type de logement avant de continuer!");
         return;
@@ -149,31 +154,31 @@ export default function CreateListing() {
         return;
       }
       if(images.length > 6){
-       toast.error("Au plus 6 photos peuvent être uploadées !")
+        toast.error("Au plus 6 photos peuvent être uploadées !");
         return;
       }
-
-      try{
-        //adresseRef est ladresse autocomplete par google, on appelle ici google pr check ladresse existe et recup la data
-        setLoading(true)
-        const adresse = adresseRef.current.value
+    
+      try {
+        setLoading(true);
+        const adresse = adresseRef.current.value;
         const response = await fetch(`https://maps.googleapis.com/maps/api/geocode/json?address=${adresse}&key=AIzaSyDPQKJFj0k8yKbKJlwi5K3Olt0blbsVAOs`);
         const data = await response.json();
-        
+    
         if(data.status !== 'OK'){
-          alert(`ton adresse n'a pas été trouvée!`);
-          console.log(adresse)
+          alert(`Votre adresse n'a pas été trouvée!`);
+          console.log(adresse);
           console.log(data.status);
           console.log(data.results);
-          console.log(data.error_message)
-          setLoading(false);
+          console.log(data.error_message);
           return;
         }
+    
         const ville = data.results[0].address_components.find(elt => elt.types.includes('locality')).long_name;
         const geolocation = {};
         geolocation.lat = data.results[0].geometry.location.lat;
         geolocation.lng = data.results[0].geometry.location.lng;
         const imgUrls = await Promise.all([...images].map((image) => storeImage(image)));
+        
         const entry = {
           type: logement,
           nbPieces: nbRooms,
@@ -186,25 +191,26 @@ export default function CreateListing() {
           ...(matterportLink && { matterportLink: matterportLink }),
           ville: ville,
           desc: desc,
-          co : co ? co : '',
-          regles : regles ? regles : [],
-          meuble : meuble ? meuble : null,
+          co: co ? co : '',
+          regles: regles ? regles : [],
+          meuble: meuble ? meuble : null,
           surface: surface ? surface : '',
-          nbOccupants : nbOccupants ? nbOccupants : 0,
-          dispoDate : dispoDate,
-          equipements : equipement ? equipement : []
+          nbOccupants: nbOccupants ? nbOccupants : 0,
+          dispoDate: dispoDate,
+          equipements: equipement ? equipement : []
         };
         const collectionRef = collection(db, 'Listings');
         const docRef = await addDoc(collectionRef, entry);
-        setId(docRef.id)
-        nextStep()
-        setHasCompletedAllSteps(true)
-      }catch(error){
+        setId(docRef.id);
+        nextStep();
+        setHasCompletedAllSteps(true);
+      } catch (error) {
         alert(error.message);
-      }finally{
+      } finally {
         setLoading(false);
       }
     }
+    
 
     // Rendu de composant
     if (!isLoaded) {

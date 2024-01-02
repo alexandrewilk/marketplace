@@ -49,34 +49,6 @@ export default function LargeWithAppLinksAndSocial() {
       marginTop="auto"
       bg={useColorModeValue('gray.50', 'gray.900')}
       color={useColorModeValue('gray.700', 'gray.200')}>
-      <Container as={Stack} maxW={'6xl'} py={10}>
-        <SimpleGrid columns={{ base: 1, sm: 2, md: 4 }} spacing={8}>
-          <Stack align={'flex-start'}>
-            <ListHeader>Coloc.fr</ListHeader>
-            <Link href={'#'}>A propos</Link>
-            <Link href={'#'}>Blog</Link>
-            <Link href={'#'}>Nous contacter</Link>
-          </Stack>
-
-          <Stack align={'flex-start'}>
-            <ListHeader>Propriètaire</ListHeader>
-            <Link href={'#'}>Nos guideslines</Link>
-            <Link href={'#'}>Modération</Link>
-          </Stack>
-
-          <Stack align={'flex-start'}>
-            <ListHeader>Légal</ListHeader>
-            <Link href={'#'}>CGU</Link>
-            <Link href={'#'}>Confidentalité</Link>
-            <Link href={'#'}>Mentions légales</Link>
-          </Stack>
-
-          <Stack align={'flex-start'}>
-            <ListHeader>Installe l'app</ListHeader>
- 
-          </Stack>
-        </SimpleGrid>
-      </Container>
 
       <Box
         borderTopWidth={1}
