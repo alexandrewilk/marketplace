@@ -1,8 +1,10 @@
-import React, { useState, useEffect, useRef, createRef, useCallback } from 'react';
+import React, { useState, useEffect, useRef, createRef } from 'react';
 import { collection, doc, getDoc, getDocs, limit, orderBy, query, startAfter, where } from 'firebase/firestore';
 import { Dots } from 'react-activity';
 import { useNavigate, useParams, useSearchParams } from 'react-router-dom';
-import { Box, Select, Grid, Flex, GridItem, Button, Switch, Spacer, Heading, useColorModeValue, useMediaQuery, Text, Center } from '@chakra-ui/react';
+import {
+    Box, Select, Grid, Flex, GridItem, Button, 
+    Switch, Spacer, Heading, useColorModeValue, useMediaQuery, Text, Center} from '@chakra-ui/react';
 import AnnonceCard from '../components/Annonce/AnnonceCard';
 import { db } from '../firebase';
 import villes from '../assets/data/villes2.json';
@@ -11,7 +13,7 @@ import 'leaflet/dist/leaflet.css';
 import L from 'leaflet';
 import icon from 'leaflet/dist/images/marker-icon.png';
 import iconShadow from 'leaflet/dist/images/marker-shadow.png';
-import '../styles/home.css';
+import '../styles/home.css'
 import { useAuthStatus } from '../hooks/useAuthStatus';
 import { auth } from '../firebase';
 import { LikesContext } from '../context/LikesContext';
@@ -20,6 +22,7 @@ import AnnonceCardMap from '../components/Annonce/AnnnonceCardMap';
 import No_Ville from '../assets/images/No_Ville.png';
 import No_Resultat from '../assets/images/No_Resultat.png';
 import { motion } from "framer-motion";
+
 
 
 function createPriceMarker(price) {
@@ -70,7 +73,8 @@ const availableFilters = ['type', 'nbPieces', 'prixMax', 'co', 'regles', 'meuble
 export default function Recherche() {
     const [isLargerThan750] = useMediaQuery("(min-width: 750px)");
     const [isLargerThan450] = useMediaQuery("(min-width: 450px)");
-    const {loggedIn} = useAuthStatus();
+    const [lastFlyToVille, setLastFlyToVille] = useState("");
+    const {loggedIn} = useAuthStatus(); 
     const [userLikes, setUserLikes] = useState([])
     const [isMapVisible, setMapVisible] = useState(true);
     const [nextPostsLoading, setNextPostsLoading] = useState(false);
@@ -90,10 +94,11 @@ export default function Recherche() {
     const [loading, setLoading] = useState(true);
     const [annonces, setAnnonces] = useState([]);
     const [filteredAnnonces, setFilteredAnnonces] = useState([]);
-    const [sorter, setSorter] = useState('timestamp')
     const villeInfo = villes.find((v) => v.city === params.ville);
+    const [sorter, setSorter] = useState('timestamp')
     const center = villeInfo ? [villeInfo.lat, villeInfo.lng] : [0, 0];
 
+    console.log(params.ville)
 
     const annonceRefs = useRef([]);
     annonceRefs.current = annonces.map((a, i) => annonceRefs.current[i] ?? createRef());
@@ -118,59 +123,41 @@ export default function Recherche() {
       setHoveredAnnonce(id);
     };
 
-    const filterAnnonces = useCallback((annonces) => {
-      let res = annonces;
-      for (let key in currentFilters){
-        if (currentFilters[key] !== 'null' && currentFilters[key]){
-          if (key === 'prixMax') res = res.filter((a)=> a.data.loyer <= currentFilters[key])
-          if (key === 'type') res = res.filter((a)=> a.data.type === currentFilters[key])
-          if (key === 'nbPieces') res = res.filter((a)=> Number(a.data.nbPieces) >= Number(currentFilters[key]))
-          if (key === 'co') res = res.filter((a)=> a.data.co === currentFilters[key])
-          if (key === 'regles') res = res.filter((a)=> a.data.regles.includes(currentFilters[key]))
-          if (key === 'meuble') res = res.filter((a)=> a.data.meuble === currentFilters[key])
-          if (key === 'surface') res = res.filter((a) => Number(a.data.surface) >= Number(currentFilters[key]))
-          if (key === 'equipement') res = res.filter((a)=> a.data.equipements.includes(currentFilters[key]))
+    useEffect(() => {
+        async function fetchData() {
+            if (!villeInfo) {
+                setLoading(false);
+                return;
+            }
+            try {
+                setLoading(true)
+                const q = query(collection(db, 'Listings'), where('ville', '==', villeInfo.city), limit(50), orderBy(sorter));
+                const querySnap = await getDocs(q);
+                const annonces = querySnap.docs.map((doc) => ({ id: doc.id, data: doc.data() }));
+                setAnnonces(annonces);
+                setFilteredAnnonces(filterAnnonces(annonces));
+                setLastKey(annonces[annonces.length-1].data[sorter])
+            } catch (error) {
+                console.log(error.message);
+            } finally {
+                setLoading(false);
+            }
         }
-      }
-      return res;
-    }, [currentFilters]);
+        fetchData();
+    }, [params.ville, sorter, searchParams]);
 
     useEffect(() => {
-      async function fetchData() {
-          if (!villeInfo) {
-              setLoading(false);
-              return;
-          }
-          try {
-              setLoading(true);
-              const q = query(collection(db, 'Listings'), where('ville', '==', villeInfo.city), limit(50), orderBy(sorter));
-              const querySnap = await getDocs(q);
-              const annonces = querySnap.docs.map((doc) => ({ id: doc.id, data: doc.data() }));
-              setAnnonces(annonces);
-              setFilteredAnnonces(filterAnnonces(annonces));
-              setLastKey(annonces[annonces.length - 1].data[sorter])
-          } catch (error) {
-              console.log(error.message);
-          } finally {
-              setLoading(false);
-          }
-      }
-      if (villeInfo) fetchData();
-  }, [params.ville, sorter, villeInfo, filterAnnonces]);
-
-
-  useEffect(() => {
-    const searchParamObj = {};
-    for (let filter of availableFilters) {
-        if (searchParams.get(filter)) {
-            searchParamObj[filter] = searchParams.get(filter);
+        const searchParamObj = {};
+        for (let filter of availableFilters) {
+            if (searchParams.get(filter)) {
+                searchParamObj[filter] = searchParams.get(filter);
+            }
         }
-    }
-    if (searchParamObj !== currentFilters) {
-        setSearchParams(currentFilters);
-    }
-    setFilteredAnnonces(filterAnnonces(annonces));
-}, [currentFilters, annonces, searchParams, setSearchParams, filterAnnonces]);
+        if (searchParamObj !== currentFilters) {
+            setSearchParams(currentFilters);
+        }
+        setFilteredAnnonces(filterAnnonces(annonces));
+    }, [currentFilters, annonces, searchParams, setSearchParams]);
 
     useEffect(()=>{
       async function getUserLikes(){
@@ -181,7 +168,7 @@ export default function Recherche() {
           }
         }
       }
-      if(loggedIn) getUserLikes();
+      getUserLikes();
     }, [loggedIn])
     
     async function getMorePosts(){
@@ -198,16 +185,32 @@ export default function Recherche() {
         alert('Toutes les annonces ont été chargées !')
       }finally{setNextPostsLoading(false)}
     }
-    
+    function filterAnnonces(annonces) {
+      let res = annonces
+      for (let key in currentFilters){
+        if (currentFilters[key] !== 'null' && currentFilters[key]){
+          if (key === 'prixMax') res = res.filter((a)=> a.data.loyer <= currentFilters[key])
+          if (key === 'type') res = res.filter((a)=> a.data.type === currentFilters[key])
+          if (key === 'nbPieces') res = res.filter((a)=> Number(a.data.nbPieces) >= Number(currentFilters[key]))
+          if (key === 'co') res = res.filter((a)=> a.data.co === currentFilters[key])
+          if (key === 'regles') res = res.filter((a)=> a.data.regles.includes(currentFilters[key]))
+          if (key === 'meuble') res = res.filter((a)=> a.data.meuble === currentFilters[key])
+          if (key === 'surface') res = res.filter((a) => Number(a.data.surface) >= Number(currentFilters[key]))
+          if (key === 'equipement') res = res.filter((a)=> a.data.equipements.includes(currentFilters[key]))
+        }
+      }
+      return res
+    }
 
     const ChangeView = ({ center }) => {
       const map = useMap();
       useEffect(() => {
-          if (map) {
-              map.flyTo(center, 13, { duration: 2 });
-          }
-      }, [center, map]); // Inclusion de 'center' dans le tableau de dépendances
-
+        if (map && params.ville !== lastFlyToVille) {
+          map.flyTo(center, 13, { duration: 2 });
+          setLastFlyToVille(params.ville);
+        }
+      }, [params.ville, map]);
+      
       return null;
   }
 
