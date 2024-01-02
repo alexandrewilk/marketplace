@@ -1,6 +1,6 @@
 import { Box, Image, Flex, Text, IconButton } from "@chakra-ui/react";
 import CustomBadge from './CustomBadge';
-import IconBadge from './IconBadge';
+import IconBadge from '../Annonce/IconBadge';
 import { FaHouseUser, FaBed, FaBath } from "react-icons/fa";
 import { AiFillHeart } from 'react-icons/ai'
 import { useNavigate } from "react-router-dom";

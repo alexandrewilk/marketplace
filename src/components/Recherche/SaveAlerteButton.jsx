@@ -1,9 +1,9 @@
 import React, {useState} from 'react'
 import { Button, Modal, ModalOverlay, ModalBody, ModalCloseButton, ModalContent, ModalHeader, ModalFooter, useDisclosure } from '@chakra-ui/react';
-import { useAuthStatus } from '../hooks/useAuthStatus';
+import { useAuthStatus } from '../../hooks/useAuthStatus';
 import { Dots } from 'react-activity';
 import { useNavigate } from 'react-router-dom';
-import { auth, db } from '../firebase';
+import { auth, db } from '../../firebase';
 import { doc, updateDoc } from 'firebase/firestore';
 
 export default function SaveAlerteButton({ville, currentFilters}) {

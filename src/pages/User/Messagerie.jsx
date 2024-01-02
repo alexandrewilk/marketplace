@@ -1,11 +1,11 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, handleKeyDown } from 'react';
 import { Box, Flex, VStack, Text, Input, Center, Image, Drawer, DrawerBody, DrawerHeader, DrawerOverlay, DrawerContent, DrawerCloseButton, Button, useDisclosure, useMediaQuery, IconButton, Heading } from '@chakra-ui/react';
 import { doc, getDoc, onSnapshot, serverTimestamp, updateDoc } from 'firebase/firestore';
-import { auth, db } from '../firebase';
+import { auth, db } from '../../firebase';
 import { Dots } from 'react-activity';
 import { useNavigate } from 'react-router-dom';
 import { HamburgerIcon } from '@chakra-ui/icons';
-import No_Conversation from '../assets/images/No_Conversation.png';
+import No_Conversation from '../../assets/images/No_Conversation.png';
 
 
 //j'ai caché de la data dans l'id du doc ahah ! maintenant il faut parser tout ça lol
@@ -16,6 +16,13 @@ function parseDocId(id){
   return {uuid1, uuid2, listingId}
 }
 
+function truncateString(str, num) {
+  if (str.length > num) {
+    return str.slice(0, num) + "...";
+  } else {
+    return str;
+  }
+}
 
 
 export default function Messaging() {
@@ -31,8 +38,8 @@ export default function Messaging() {
   const [isLessThan999] = useMediaQuery("(max-width: 999px)");
   const [isMoreThan1000] = useMediaQuery("(min-width: 1000px)");
   const btnRef = React.useRef()
-
   const navigate = useNavigate()
+
   useEffect(()=>{
     async function getChatsWith(){
       try{
@@ -121,14 +128,28 @@ export default function Messaging() {
   }
   
   function renderMessageInput() {
+    // Définir handleKeyDown ici
+    const handleKeyDown = (event) => {
+      if (event.key === 'Enter' && !event.shiftKey) {
+        event.preventDefault();
+        handleSendNewMessage();
+      }
+    };
+
     return (
       <Box position="sticky" bottom="0" p={4} bgColor={"gray.100"}>
         <Flex align="center">
-          <Input placeholder="Écrivez votre message..." onChange={(e)=>setNewMessage(e.target.value)} value={newMessage} borderColor={"blue"}/>
-          {loadingSend ? <Dots/> : <Button ml={2} colorScheme="blue" onClick={(e)=>{e.preventDefault();handleSendNewMessage()}}>Envoyer</Button>}
+          <Input 
+            placeholder="Écrivez votre message..." 
+            onChange={(e) => setNewMessage(e.target.value)} 
+            value={newMessage} 
+            borderColor={"blue"}
+            onKeyDown={handleKeyDown} // Ajouter onKeyDown ici
+          />
+          {loadingSend ? <Dots/> : <Button ml={2} colorScheme="blue" onClick={(e) => {e.preventDefault(); handleSendNewMessage()}}>Envoyer</Button>}
         </Flex>
       </Box>
-    )
+    );
   }
 
   function renderMessages(){
@@ -139,7 +160,7 @@ export default function Messaging() {
     return(
       <>
       <div onClick={(e)=>{e.preventDefault();navigate(`/listings/${listing.id}`)}}>
-      <Box position="sticky" top="0" display="flex" alignItems="center" borderWidth={1} borderColor="gray.200" borderRadius={6} boxShadow='base' marginX={4} marginBottom={2} p={4}>
+      <Box position="sticky" top="0" display="flex" borderWidth={1} borderColor="gray.200" borderRadius={6} boxShadow='base' marginX={4} marginBottom={2} p={4}>
         <Box width="250px" height="150px">
           <Image
             borderRadius="12px"
@@ -151,7 +172,7 @@ export default function Messaging() {
         <VStack align="start" spacing={1} ml={4}>
           <Text color="black" fontWeight="bold">{listing?.data?.type} de {listing?.data?.surface}m2 à {listing?.data?.ville}</Text> 
           <Text color="black">Loyer: {listing?.data?.loyer}€</Text>
-          <Text color="black">{listing?.data?.desc}</Text>
+          <Text color="black">{truncateString(listing?.data?.desc, 100)}</Text>
         </VStack>
     </Box>
     </div>

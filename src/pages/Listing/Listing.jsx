@@ -1,12 +1,12 @@
 import { doc, getDoc } from 'firebase/firestore';
 import React, { useEffect, useState } from 'react'
 import { useParams } from 'react-router-dom';
-import { db } from '../firebase';
+import { db } from '../../firebase';
 import { Box, Grid, Image, Heading, useBreakpointValue, Divider, Text, Flex, Icon, VStack, Modal, ModalOverlay, ModalContent, ModalBody,  IconButton, useDisclosure, HStack} from "@chakra-ui/react";
 import {AiOutlineShareAlt, AiOutlineHeart} from 'react-icons/ai';
 import {HiOutlineMapPin} from 'react-icons/hi2';
-import CustomBadge from '../components/CustomBadge';
-import SendMessagePopup from '../components/SendMessagePopup';
+import CustomBadge from '../../components/Annonce/CustomBadge';
+import SendMessagePopup from '../../components/Annonce/SendMessagePopup';
 import { CheckCircleIcon } from '@chakra-ui/icons';
 import { ChevronLeftIcon, ChevronRightIcon, CloseIcon } from "@chakra-ui/icons";
 import { BiImages } from "react-icons/bi";

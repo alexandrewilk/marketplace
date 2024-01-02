@@ -2,9 +2,9 @@ import React, { useState } from 'react'
 import { Text, Box, Container, Flex, Center, Grid, Breadcrumb, BreadcrumbItem, BreadcrumbLink, useMediaQuery,  Table, Thead, Tbody, Tfoot, Tr, Th, Td, TableCaption, TableContainer, Button, Input} from '@chakra-ui/react';
 import { useEffect } from 'react';
 import { FieldValue, doc, getDoc, updateDoc } from 'firebase/firestore';
-import { auth, db } from '../firebase';
+import { auth, db } from '../../firebase';
 import { Dots } from 'react-activity';
-import No_Alerte from '../assets/images/No_Alerte.png';
+import No_Alerte from '../../assets/images/No_Alerte.png';
 
 export default function MesAlertes() {
   const [isLargerThan768] = useMediaQuery("(min-width: 768px)");

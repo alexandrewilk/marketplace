@@ -6,7 +6,7 @@ import {
     Box, Select, Grid, Flex, GridItem, Button, useDisclosure, 
     Switch, Spacer, Heading, useColorModeValue, useMediaQuery, Text, Center, Slide
 } from '@chakra-ui/react';
-import AnnonceCard from '../components/AnnonceCard';
+import AnnonceCard from '../components/Annonce/AnnonceCard';
 import { db } from '../firebase';
 import villes from '../assets/data/villes2.json';
 import { MapContainer, TileLayer, Marker, useMap, Popup } from 'react-leaflet';
@@ -18,8 +18,8 @@ import '../styles/home.css'
 import { useAuthStatus } from '../hooks/useAuthStatus';
 import { auth } from '../firebase';
 import { LikesContext } from '../context/LikesContext';
-import SaveAlerteButton from '../components/SaveAlerteButton';
-import AnnonceCardMap from '../components/AnnnonceCardMap';
+import SaveAlerteButton from '../components/Recherche/SaveAlerteButton';
+import AnnonceCardMap from '../components/Annonce/AnnnonceCardMap';
 import home from "../styles/home.css"
 import No_Ville from '../assets/images/No_Ville.png';
 import No_Resultat from '../assets/images/No_Resultat.png';

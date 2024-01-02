@@ -1,23 +1,22 @@
 import { BrowserRouter as Router, Routes, Route, useLocation} from "react-router-dom";
 import Home from "./pages/Home";
-import ForgotPassword from "./pages/ForgotPassword";
-import SignIn from "./pages/SignIn"
-import SignUp from "./pages/SignUp"
-import Profile from "./pages/Profile"
-import Header from "./components/Header";
-import Footer from './components/Footer'
+import ForgotPassword from "./pages/Auth/ForgotPassword";
+import SignIn from "./pages/Auth/SignIn"
+import SignUp from "./pages/Auth/SignUp"
+import Profile from "./pages/User/Profile"
+import Header from "./components/Reusable/Header";
+import Footer from './components/Reusable/Footer'
 import {ToastContainer} from 'react-toastify'
 import 'react-toastify/dist/ReactToastify.css';
-import PrivateRoute from "./components/PrivateRoute";
-import CreateListing from "./pages/CreateListing";
-import Listing from "./pages/Listing";
-import MesAnnonces from './pages/MesAnnonces';
-import MesLikes from './pages/MesLikes';
-import MesAlertes from './pages/MesAlertes';
-import Settings from './pages/Settings';
+import PrivateRoute from "./components/Reusable/PrivateRoute";
+import CreateListing from "./pages/Listing/CreateListing";
+import Listing from "./pages/Listing/Listing";
+import MesAnnonces from './pages/User/MesAnnonces';
+import MesLikes from './pages/User/MesLikes';
+import MesAlertes from './pages/User/MesAlertes';
+import Settings from './pages/User/Settings';
 import Recherche from "./pages/Recherche";
-import Messagerie from './pages/Messagerie';
-import PrincingTable from "./pages/Conversion";
+import Messagerie from './pages/User/Messagerie';
 
 function Layout() {
   const location = useLocation();
@@ -55,9 +54,7 @@ function Layout() {
         <Route path='/Déposer-une-annonce' element={<PrivateRoute/>}>
           <Route path='/Déposer-une-annonce' element={<CreateListing/>}/>
         </Route>
-        <Route path='/nos-offres' element={<PrivateRoute/>}>
-          <Route path='/nos-offres' element={<PrincingTable/>}/>
-        </Route>
+
       </Routes>
       {!hideFooterFor.includes(location.pathname) && !isRecherchePage && <Footer/>}
       <ToastContainer

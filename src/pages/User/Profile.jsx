@@ -9,7 +9,7 @@ import {
   AccordionPanel, AccordionIcon,Button, FormControl, FormLabel, Input, Spinner, useMediaQuery
 } 
 from '@chakra-ui/react';
-import {auth, db} from '../firebase';
+import {auth, db} from '../../firebase';
 
 export default function Profile() {
   const [isLargerThan768] = useMediaQuery("(min-width: 768px)");

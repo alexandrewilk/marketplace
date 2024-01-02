@@ -1,8 +1,8 @@
 import React, {useState} from 'react';
 import { Text, Box, Container, Grid, useMediaQuery } from '@chakra-ui/react';
-import SettingsCard from '../components/SettingsCard';
+import SettingsCard from '../../components/Settings/SettingsCard';
 import { AiOutlineMessage, AiOutlineUser, AiOutlineHeart, AiOutlineBell, AiOutlineAppstoreAdd, AiOutlineDashboard } from 'react-icons/ai';
-import { auth } from '../firebase';
+import { auth } from '../../firebase';
 
 export default function Settings() {
 
@@ -18,7 +18,7 @@ export default function Settings() {
     <Container maxWidth="1200px" mt={70}>
       <Box mb={12}>
       <Text fontSize="4xl" as="b">
-        Paramètres
+        Mon compte
       </Text>
       <Text fontSize="lg">{auth.currentUser ? auth.currentUser.displayName : ''} </Text>
       </Box>

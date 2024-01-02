@@ -1,10 +1,10 @@
 import React, { useEffect, useState } from 'react'
 import { Text, Container, Grid, Breadcrumb, Box, BreadcrumbItem, BreadcrumbLink, Flex, Center, useMediaQuery } from '@chakra-ui/react';
 import { doc, getDoc } from 'firebase/firestore';
-import { db, auth } from '../firebase';
+import { db, auth } from '../../firebase';
 import { Dots } from 'react-activity';
-import AnnonceCard from '../components/AnnonceCardPageMesLikes';
-import No_Like from '../assets/images/No_Like.png';
+import AnnonceCard from '../../components/Annonce/AnnonceCardPageMesLikes';
+import No_Like from '../../assets/images/No_Like.png';
 
 
 export default function MesLikes() {

@@ -1,5 +1,5 @@
 import React, { useState, useRef }from 'react'
-import { storage, auth, db } from '../firebase'
+import { storage, auth, db } from '../../firebase'
 import { ref, getDownloadURL, uploadBytesResumable } from 'firebase/storage';
 import { v4 as uuid } from 'uuid'
 import { addDoc, collection, serverTimestamp } from 'firebase/firestore';
@@ -7,16 +7,16 @@ import { useNavigate } from 'react-router-dom';
 import { useJsApiLoader, Autocomplete } from '@react-google-maps/api'
 import { 
     SkeletonText, Container, Breadcrumb, BreadcrumbItem, BreadcrumbLink, Text, Box, Button, Flex, Heading,
-    Input, Grid, useMediaQuery, Stack, FormControl, FormLabel, Select, Textarea
+    Input, useMediaQuery, Stack, FormControl, FormLabel, Select, Textarea
   } from '@chakra-ui/react' 
-import { Step, Steps, useSteps } from "chakra-ui-steps";
+import { useSteps } from "chakra-ui-steps";
 import { useBreakpointValue, useColorModeValue } from "@chakra-ui/react"
 import MultiSelect from 'react-select';
-import HelpForm from '../components/HelpForm';
+import HelpForm from '../../components/CreateListing/HelpForm';
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 import fr from 'date-fns/locale/fr'
-import { registerLocale, setDefaultLocale } from  "react-datepicker";
+import { registerLocale } from  "react-datepicker";
 import { toast } from 'react-toastify'
 import { motion } from "framer-motion";
 

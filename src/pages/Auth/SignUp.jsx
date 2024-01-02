@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { Link as RouterLink, useNavigate } from 'react-router-dom';
-import { auth, db, provider } from '../firebase';
+import { auth, db, provider } from '../../firebase';
 import { createUserWithEmailAndPassword, updateProfile } from 'firebase/auth';
 import { serverTimestamp, setDoc, doc } from 'firebase/firestore';
 import { toast } from 'react-toastify';
@@ -71,7 +71,7 @@ export default function SignUp() {
   return (
     <Flex direction={flexDirection} w="100vw" h="91vh">
       <Box flex={{ base: "1", md: "2"}} display={displayValue} alignItems="center" justifyContent="center" p="20px">
-        <Image src={require('../assets/images/SignIn.jpg')} alt="Image description" objectFit="cover" borderRadius="10px" h="100%" />
+        <Image src={require('../../assets/images/SignIn.jpg')} alt="Image description" objectFit="cover" borderRadius="10px" h="100%" />
       </Box>
       <Box
         flex="1"

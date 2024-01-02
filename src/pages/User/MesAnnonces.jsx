@@ -5,9 +5,9 @@ import 'react-activity/dist/library.css';
 import { MdAdd } from 'react-icons/md';
 import { Text, Container, Breadcrumb, BreadcrumbItem, BreadcrumbLink, Button, Icon, Box, Flex, Center, useMediaQuery, Grid } from '@chakra-ui/react';
 import { query, getDocs, where, orderBy, collection } from 'firebase/firestore';
-import { auth, db } from '../firebase';
-import AnnonceCard from '../components/AnnonceCardPageMesLikes'
-import No_Ville from '../assets/images/No_Ville.png';
+import { auth, db } from '../../firebase';
+import AnnonceCard from '../../components/Annonce/AnnonceCardPageMesLikes'
+import No_Ville from '../../assets/images/No_Ville.png';
 
 
 export default function MesAnnonces() {
@@ -55,7 +55,7 @@ export default function MesAnnonces() {
       <Flex flexDirection={isLargerThan768 ? "row" : "column"} justifyContent="space-between" alignItems={isLargerThan768 ? "flex-end" : "flex-start"}>
         <Text fontSize={isLargerThan768 ? "4xl" : "2xl"} as="b">Mes annonces</Text>
         <Button colorScheme='blue' size='sm' leftIcon={<Icon as={MdAdd} />}>
-          <RouterLink to='/nos-offres'>Voir nos offres</RouterLink>
+          <RouterLink to='/Déposer-une-annonce'>Déposer une annonce</RouterLink>
         </Button>
       </Flex>
 

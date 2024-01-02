@@ -1,9 +1,9 @@
 import React, { useEffect, useState } from 'react'
 import { Button, Modal, ModalOverlay, ModalContent, ModalHeader, ModalBody, FormControl, Input, FormLabel, ModalFooter, useDisclosure, ModalCloseButton, Textarea } from '@chakra-ui/react'
 import { doc, getDoc, setDoc } from 'firebase/firestore'
-import { db, auth } from '../firebase'
+import { db, auth } from '../../firebase'
 import { Dots } from 'react-activity'
-import { useAuthStatus } from '../hooks/useAuthStatus'
+import { useAuthStatus } from '../../hooks/useAuthStatus'
 import { useNavigate } from 'react-router-dom'
 
 //todo: modifierstructurebdd pr add listingId 

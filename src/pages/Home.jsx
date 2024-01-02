@@ -1,13 +1,10 @@
-import React, { useState, useEffect } from 'react'
+import React, { useState } from 'react'
 import '../styles/home.css'
-import { Box, Heading, Input, InputGroup, InputLeftElement, VStack, ListItem, List, Image, Text, useMediaQuery, ScaleFade } from '@chakra-ui/react';
+import { Box, Heading, Input, InputGroup, InputLeftElement, VStack, ListItem, List, Image, Text, useMediaQuery } from '@chakra-ui/react';
 import { SearchIcon } from '@chakra-ui/icons';
 import { useNavigate, useLocation } from 'react-router-dom';
-import HowItWorks from '../components/HowItWorks';
-import FAQ from '../components/FAQ';
-import VilleCarroussel from '../components/VilleCarroussel';
+import VilleCarroussel from '../components/HomePage/VilleCarroussel';
 import Entourement from '../assets/images/Entourement.svg';
-import { Fade, Slide, useDisclosure } from '@chakra-ui/react';
 
 const villes = require('../assets/data/villes2.json').map((v)=>{return v.city})
 
@@ -167,8 +164,6 @@ export default function Home() {
       
       <VStack marginY={20} spacing={20}>
             <VilleCarroussel/>
-            <HowItWorks/>
-            <FAQ/>
         </VStack>
     </Box>
 

@@ -15,16 +15,16 @@ import {
   ModalFooter,
   useDisclosure
 } from "@chakra-ui/react";import CustomBadge from './CustomBadge';
-import IconBadge from './IconBadge';
+import IconBadge from '../Annonce/IconBadge';
 import { FaHouseUser, FaRegHeart, FaBed, FaBath,  } from "react-icons/fa";
 import { AiOutlineHeart, AiFillHeart } from 'react-icons/ai'
 import { MdEventAvailable } from 'react-icons/md'
-import { LikesContext } from "../context/LikesContext";
+import { LikesContext } from "../../context/LikesContext";
 import { useContext, forwardRef } from "react";
 import { arrayRemove, arrayUnion, doc, updateDoc } from "firebase/firestore";
-import { db, auth } from "../firebase";
+import { db, auth } from "../../firebase";
 import { Link, useNavigate } from "react-router-dom";
-import { useAuthStatus } from '../hooks/useAuthStatus';
+import { useAuthStatus } from '../../hooks/useAuthStatus';
 
 
 const AnnonceCard = forwardRef(({ data, id, hovered, handleAnnonceHover }, ref) => {
