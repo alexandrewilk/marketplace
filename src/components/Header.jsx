@@ -12,7 +12,7 @@ import { Link as RouterLink } from 'react-router-dom';
 const villes = require('../assets/data/villes2.json').map((v)=>{return v.city})
 
 function search(input){
-  return villes.filter((v)=>{return(v.slice(0, input.length) == input)})
+  return villes.filter((v)=>{return(v.slice(0, input.length) === input)})
 }
 
 export default function Nav() {

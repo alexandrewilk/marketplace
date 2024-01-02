@@ -42,7 +42,7 @@ const AnnonceCard = forwardRef(({ data, id, hovered, handleAnnonceHover }, ref) 
 
 
   function renderCustomBadge(){
-    if (userRef == "cartecoloc"){
+    if (userRef === "cartecoloc"){
       return <CustomBadge text="La Carte des Colocs"/>
     }
     return <CustomBadge text="Coloc.fr"/>
@@ -73,7 +73,7 @@ const AnnonceCard = forwardRef(({ data, id, hovered, handleAnnonceHover }, ref) 
     }
   }
 
-  if(!(userRef =="cartecoloc")){
+  if(!(userRef === "cartecoloc")){
   return (
     <>
     <Box
