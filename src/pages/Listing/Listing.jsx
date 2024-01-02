@@ -152,10 +152,10 @@ export default function Listing() {
                 <Icon as={AiOutlineShareAlt} boxSize={6}/>
                 <Text ml={1}>Partager</Text> 
               </Box>
-              <Box onClick={() => console.log('Enregistrer')} cursor="pointer" display="flex" alignItems="center">
+              {/* <Box onClick={() => console.log('Enregistrer')} cursor="pointer" display="flex" alignItems="center">
                 <Icon as={AiOutlineHeart} boxSize={6} ml={4}/>
                 <Text ml={1}>Enregistrer</Text>
-              </Box>
+              </Box> */}
             </Flex>
 
           </Flex>
@@ -185,6 +185,7 @@ export default function Listing() {
             </Grid>
           </Box>
           
+          {listing.data.matterportLink && (
           <Box w="100%" h="auto" borderWidth="1px" boxShadow='base' borderColor="gray.200" borderRadius="12px" padding={4}>
             <Heading as="h2" size="md" marginTop={3}>Règles spéciales</Heading>
             <Divider marginY={3}/>
@@ -192,12 +193,16 @@ export default function Listing() {
                 {listing.data.regles.map(regle => rulesMapping[regle] || `Valeur non mappée : ${regle}`).join(', ')}
             </Text>
           </Box>
+          )}
 
-          <Box w="100%" h="auto" borderWidth="1px" boxShadow='base' borderColor="gray.200" borderRadius="12px" padding={4}>
-            <Heading as="h2" size="md" marginTop={3}>Visites 3D</Heading>
-            <Divider marginY={3}/>
-            <iframe width='100%' height='480' src={listing.data.matterportLink} frameborder='0' allowfullscreen allow='xr-spatial-tracking' borderRadius='6px'></iframe>
-          </Box>
+          {listing.data.matterportLink && (
+            <Box w="100%" h="auto" borderWidth="1px" boxShadow='base' borderColor="gray.200" borderRadius="12px" padding={4}>
+              <Heading as="h2" size="md" marginTop={3}>Visites 3D</Heading>
+              <Divider marginY={3}/>
+              <iframe width='100%' height='480' src={listing.data.matterportLink} frameborder='0' allowfullscreen allow='xr-spatial-tracking' borderRadius='6px'></iframe>
+            </Box>
+          )}
+
 
           </VStack>
 

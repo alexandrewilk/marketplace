@@ -1,11 +1,8 @@
-import React, { useState, useEffect, useRef, createRef } from 'react';
+import React, { useState, useEffect, useRef, createRef, useCallback } from 'react';
 import { collection, doc, getDoc, getDocs, limit, orderBy, query, startAfter, where } from 'firebase/firestore';
 import { Dots } from 'react-activity';
 import { useNavigate, useParams, useSearchParams } from 'react-router-dom';
-import {
-    Box, Select, Grid, Flex, GridItem, Button, useDisclosure, 
-    Switch, Spacer, Heading, useColorModeValue, useMediaQuery, Text, Center, Slide
-} from '@chakra-ui/react';
+import { Box, Select, Grid, Flex, GridItem, Button, Switch, Spacer, Heading, useColorModeValue, useMediaQuery, Text, Center } from '@chakra-ui/react';
 import AnnonceCard from '../components/Annonce/AnnonceCard';
 import { db } from '../firebase';
 import villes from '../assets/data/villes2.json';
@@ -14,17 +11,15 @@ import 'leaflet/dist/leaflet.css';
 import L from 'leaflet';
 import icon from 'leaflet/dist/images/marker-icon.png';
 import iconShadow from 'leaflet/dist/images/marker-shadow.png';
-import '../styles/home.css'
+import '../styles/home.css';
 import { useAuthStatus } from '../hooks/useAuthStatus';
 import { auth } from '../firebase';
 import { LikesContext } from '../context/LikesContext';
 import SaveAlerteButton from '../components/Recherche/SaveAlerteButton';
 import AnnonceCardMap from '../components/Annonce/AnnnonceCardMap';
-import home from "../styles/home.css"
 import No_Ville from '../assets/images/No_Ville.png';
 import No_Resultat from '../assets/images/No_Resultat.png';
 import { motion } from "framer-motion";
-
 
 
 function createPriceMarker(price) {
@@ -75,12 +70,9 @@ const availableFilters = ['type', 'nbPieces', 'prixMax', 'co', 'regles', 'meuble
 export default function Recherche() {
     const [isLargerThan750] = useMediaQuery("(min-width: 750px)");
     const [isLargerThan450] = useMediaQuery("(min-width: 450px)");
-    const [lastFlyToVille, setLastFlyToVille] = useState("");
-    const {loggedIn, loadingAuth} = useAuthStatus();
-    const [loadingAlerte, setLoadingAlerte] = useState(false)
+    const {loggedIn} = useAuthStatus();
     const [userLikes, setUserLikes] = useState([])
     const [isMapVisible, setMapVisible] = useState(true);
-    const { isOpen, onOpen, onClose } = useDisclosure();
     const [nextPostsLoading, setNextPostsLoading] = useState(false);
     const [lastKey, setLastKey] = useState("")
     const params = useParams();
@@ -98,11 +90,10 @@ export default function Recherche() {
     const [loading, setLoading] = useState(true);
     const [annonces, setAnnonces] = useState([]);
     const [filteredAnnonces, setFilteredAnnonces] = useState([]);
-    const villeInfo = villes.find((v) => v.city === params.ville);
     const [sorter, setSorter] = useState('timestamp')
+    const villeInfo = villes.find((v) => v.city === params.ville);
     const center = villeInfo ? [villeInfo.lat, villeInfo.lng] : [0, 0];
 
-    console.log(params.ville)
 
     const annonceRefs = useRef([]);
     annonceRefs.current = annonces.map((a, i) => annonceRefs.current[i] ?? createRef());
@@ -127,41 +118,59 @@ export default function Recherche() {
       setHoveredAnnonce(id);
     };
 
-    useEffect(() => {
-        async function fetchData() {
-            if (!villeInfo) {
-                setLoading(false);
-                return;
-            }
-            try {
-                setLoading(true)
-                const q = query(collection(db, 'Listings'), where('ville', '==', villeInfo.city), limit(50), orderBy(sorter));
-                const querySnap = await getDocs(q);
-                const annonces = querySnap.docs.map((doc) => ({ id: doc.id, data: doc.data() }));
-                setAnnonces(annonces);
-                setFilteredAnnonces(filterAnnonces(annonces));
-                setLastKey(annonces[annonces.length-1].data[sorter])
-            } catch (error) {
-                console.log(error.message);
-            } finally {
-                setLoading(false);
-            }
+    const filterAnnonces = useCallback((annonces) => {
+      let res = annonces;
+      for (let key in currentFilters){
+        if (currentFilters[key] !== 'null' && currentFilters[key]){
+          if (key === 'prixMax') res = res.filter((a)=> a.data.loyer <= currentFilters[key])
+          if (key === 'type') res = res.filter((a)=> a.data.type === currentFilters[key])
+          if (key === 'nbPieces') res = res.filter((a)=> Number(a.data.nbPieces) >= Number(currentFilters[key]))
+          if (key === 'co') res = res.filter((a)=> a.data.co === currentFilters[key])
+          if (key === 'regles') res = res.filter((a)=> a.data.regles.includes(currentFilters[key]))
+          if (key === 'meuble') res = res.filter((a)=> a.data.meuble === currentFilters[key])
+          if (key === 'surface') res = res.filter((a) => Number(a.data.surface) >= Number(currentFilters[key]))
+          if (key === 'equipement') res = res.filter((a)=> a.data.equipements.includes(currentFilters[key]))
         }
-        fetchData();
-    }, [params.ville, sorter]);
+      }
+      return res;
+    }, [currentFilters]);
 
     useEffect(() => {
-        const searchParamObj = {};
-        for (let filter of availableFilters) {
-            if (searchParams.get(filter)) {
-                searchParamObj[filter] = searchParams.get(filter);
-            }
+      async function fetchData() {
+          if (!villeInfo) {
+              setLoading(false);
+              return;
+          }
+          try {
+              setLoading(true);
+              const q = query(collection(db, 'Listings'), where('ville', '==', villeInfo.city), limit(50), orderBy(sorter));
+              const querySnap = await getDocs(q);
+              const annonces = querySnap.docs.map((doc) => ({ id: doc.id, data: doc.data() }));
+              setAnnonces(annonces);
+              setFilteredAnnonces(filterAnnonces(annonces));
+              setLastKey(annonces[annonces.length - 1].data[sorter])
+          } catch (error) {
+              console.log(error.message);
+          } finally {
+              setLoading(false);
+          }
+      }
+      if (villeInfo) fetchData();
+  }, [params.ville, sorter, villeInfo, filterAnnonces]);
+
+
+  useEffect(() => {
+    const searchParamObj = {};
+    for (let filter of availableFilters) {
+        if (searchParams.get(filter)) {
+            searchParamObj[filter] = searchParams.get(filter);
         }
-        if (searchParamObj !== currentFilters) {
-            setSearchParams(currentFilters);
-        }
-        setFilteredAnnonces(filterAnnonces(annonces));
-    }, [currentFilters]);
+    }
+    if (searchParamObj !== currentFilters) {
+        setSearchParams(currentFilters);
+    }
+    setFilteredAnnonces(filterAnnonces(annonces));
+}, [currentFilters, annonces, searchParams, setSearchParams, filterAnnonces]);
 
     useEffect(()=>{
       async function getUserLikes(){
@@ -172,7 +181,7 @@ export default function Recherche() {
           }
         }
       }
-      getUserLikes();
+      if(loggedIn) getUserLikes();
     }, [loggedIn])
     
     async function getMorePosts(){
@@ -189,32 +198,16 @@ export default function Recherche() {
         alert('Toutes les annonces ont été chargées !')
       }finally{setNextPostsLoading(false)}
     }
-    function filterAnnonces(annonces) {
-      let res = annonces
-      for (let key in currentFilters){
-        if (currentFilters[key] !== 'null' && currentFilters[key]){
-          if (key === 'prixMax') res = res.filter((a)=> a.data.loyer <= currentFilters[key])
-          if (key === 'type') res = res.filter((a)=> a.data.type === currentFilters[key])
-          if (key === 'nbPieces') res = res.filter((a)=> Number(a.data.nbPieces) >= Number(currentFilters[key]))
-          if (key == 'co') res = res.filter((a)=> a.data.co == currentFilters[key])
-          if (key == 'regles') res = res.filter((a)=> a.data.regles.includes(currentFilters[key]))
-          if (key == 'meuble') res = res.filter((a)=> a.data.meuble == currentFilters[key])
-          if (key == 'surface') res = res.filter((a) => Number(a.data.surface) >= Number(currentFilters[key]))
-          if (key == 'equipement') res = res.filter((a)=> a.data.equipements.includes(currentFilters[key]))
-        }
-      }
-      return res
-    }
+    
 
     const ChangeView = ({ center }) => {
       const map = useMap();
       useEffect(() => {
-        if (map && params.ville !== lastFlyToVille) {
-          map.flyTo(center, 13, { duration: 2 });
-          setLastFlyToVille(params.ville);
-        }
-      }, [params.ville, map]);
-      
+          if (map) {
+              map.flyTo(center, 13, { duration: 2 });
+          }
+      }, [center, map]); // Inclusion de 'center' dans le tableau de dépendances
+
       return null;
   }
 
@@ -234,7 +227,7 @@ if (filteredAnnonces.length === 0) {
   return (
     <Flex justifyContent="center">
       <Center flexDirection="column" mt="80px">
-          <img src={No_Resultat} alt="Image"/>
+          <img src={No_Resultat} alt="Pas de resultat"/>
           <Text fontSize="xl" fontWeight="bold" marginBottom="1rem" marginTop="20px">Il n'y pas encore d'annonce à {params.ville}</Text>
           <Button colorScheme="blue" onClick={() => navigate('/Déposer-une-annonce')}>Dépose en une!</Button>
       </Center>
@@ -297,7 +290,7 @@ if (filteredAnnonces.length === 0) {
                     return filter;
                   })
                 }
-                value={(currentFilters['co']=='null' || !currentFilters['co']) ? '' : currentFilters['co']}>
+                value={(currentFilters['co']==='null' || !currentFilters['co']) ? '' : currentFilters['co']}>
                 <option value="coliving">Coliving</option>
                 <option value="colocation">Colocation</option>
               </Select>
@@ -311,7 +304,7 @@ if (filteredAnnonces.length === 0) {
                     return filter;
                   })
                 }
-                value={(currentFilters['type']=='null' || !currentFilters['type']) ? '' : currentFilters['type']}>
+                value={(currentFilters['type']==='null' || !currentFilters['type']) ? '' : currentFilters['type']}>
                 <option value="Maison">Maison</option>
                 <option value="Appartement">Appartement</option>
                 <option value="Villa">Villa</option>
@@ -327,7 +320,7 @@ if (filteredAnnonces.length === 0) {
                     return filter;
                   })
                 }
-                value={(currentFilters['nbPieces']=='null' || !currentFilters['nbPieces']) ? '' : currentFilters['nbPieces']}>
+                value={(currentFilters['nbPieces']==='null' || !currentFilters['nbPieces']) ? '' : currentFilters['nbPieces']}>
                 <option value="1">1</option>
                 <option value="2">2</option>
                 <option value="3">3</option>
@@ -349,7 +342,7 @@ if (filteredAnnonces.length === 0) {
                     return filter;
                   })
                 }
-                value={(currentFilters['prixMax']=='null' || !currentFilters['prixMax']) ? '' : currentFilters['prixMax']}>
+                value={(currentFilters['prixMax']==='null' || !currentFilters['prixMax']) ? '' : currentFilters['prixMax']}>
                 <option value="500">500€</option>
                 <option value="1000">1000€</option>
                 <option value="1500">1500€</option>
@@ -362,7 +355,7 @@ if (filteredAnnonces.length === 0) {
                   let filter = { ...prev, meuble: e.target.value };
                   return filter;
                 })}
-                value={currentFilters['meuble']=='null' || !currentFilters['meuble'] ? '' : currentFilters['meuble']}>
+                value={currentFilters['meuble']==='null' || !currentFilters['meuble'] ? '' : currentFilters['meuble']}>
                 <option value="true">Oui</option>
                 <option value="false">Non</option>
               </Select>
@@ -374,7 +367,7 @@ if (filteredAnnonces.length === 0) {
                   return filter;
                 })
               }
-              value={(currentFilters['equipements']=='null' || !currentFilters['equipements']) ? '' : currentFilters['equipements']}>
+              value={(currentFilters['equipements']==='null' || !currentFilters['equipements']) ? '' : currentFilters['equipements']}>
                 <option value="wifi">Wi-Fi</option>
                 <option value="machine-a-laver">Machine à laver</option>
                 <option value="lave-vaisselle">Lave vaisselle</option>
@@ -388,7 +381,7 @@ if (filteredAnnonces.length === 0) {
                   return filter;
                 })
               }
-              value={(currentFilters['regles']=='null' || !currentFilters['regles']) ? '' : currentFilters['regles']}>
+              value={(currentFilters['regles']==='null' || !currentFilters['regles']) ? '' : currentFilters['regles']}>
                 <option value="ok-animaux">Animaux bienvenus</option>
                 <option value="only-homme">Homme seulement</option>
                 <option value="only-femme">Femme seulement</option>
@@ -402,7 +395,7 @@ if (filteredAnnonces.length === 0) {
                   return filter;
                 })
               }
-              value={(currentFilters['surface']=='null' || !currentFilters['surface']) ? '' : currentFilters['surface']}>
+              value={(currentFilters['surface']==='null' || !currentFilters['surface']) ? '' : currentFilters['surface']}>
                 <option value="20">20m2</option>
                 <option value="30">30m2</option>
                 <option value="40">40m2</option>
@@ -458,7 +451,7 @@ if (filteredAnnonces.length === 0) {
             
               <Flex align="center" w="95%" marginX="2.5%" marginY="12px">
                 <Heading as="h4" size="md">
-                  {filteredAnnonces.length}{`+ annonce${filteredAnnonces.length ==1 ? '' : 's'}`} à {params.ville}
+                  {filteredAnnonces.length}{`+ annonce${filteredAnnonces.length === 1 ? '' : 's'}`} à {params.ville}
                 </Heading>
                 <Spacer />
                 <Select placeholder='Trier par' maxW="150px" size='sm' mr={4} onChange={(e)=>{setSorter(e.target.value)}} value={sorter}>

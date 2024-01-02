@@ -1,6 +1,6 @@
-import React, { useEffect, useState, handleKeyDown } from 'react';
+import React, { useEffect, useState } from 'react';
 import { Box, Flex, VStack, Text, Input, Center, Image, Drawer, DrawerBody, DrawerHeader, DrawerOverlay, DrawerContent, DrawerCloseButton, Button, useDisclosure, useMediaQuery, IconButton, Heading } from '@chakra-ui/react';
-import { doc, getDoc, onSnapshot, serverTimestamp, updateDoc } from 'firebase/firestore';
+import { doc, getDoc, onSnapshot, updateDoc } from 'firebase/firestore';
 import { auth, db } from '../../firebase';
 import { Dots } from 'react-activity';
 import { useNavigate } from 'react-router-dom';
@@ -49,8 +49,8 @@ export default function Messaging() {
           let chatsWith = userData.data().chatsWith
           var chatsWithDataSetter = []
           for(var i=0;i<chatsWith.length;i++){
-            const {uuid1, uuid2, listingId} = parseDocId(chatsWith[i])
-            let uidEtranger = uuid1 == auth.currentUser.uid ? uuid2 : uuid1
+            const {uuid1, uuid2} = parseDocId(chatsWith[i])
+            let uidEtranger = uuid1 === auth.currentUser.uid ? uuid2 : uuid1
             let chatterData = await getDoc(doc(db, 'Users', uidEtranger))
             if(!(chatsWithDataSetter.includes({id: chatterData.id, data: chatterData.data()}))){
             chatsWithDataSetter.push({id: chatterData.id, data: chatterData.data(), chatId: chatsWith[i]})}
@@ -73,7 +73,7 @@ export default function Messaging() {
   useEffect(()=>{
     async function getListingData(){
       let docId = selectedChat.chatId
-      const {uuid1, uuid2, listingId} = parseDocId(docId)
+      const {listingId} = parseDocId(docId)
       try {
         const data = await getDoc(doc(db, 'Listings', listingId))
         setListing({id: data.id, data: data.data()})
@@ -100,7 +100,7 @@ export default function Messaging() {
     if (loading) {
       return <Dots />
     }
-    if (chatsWithData.length == 0) {
+    if (chatsWithData.length === 0) {
       return <div>PAS DE CONV</div>
     }
   
@@ -111,10 +111,10 @@ export default function Messaging() {
             key={user.id}
             p={2}
             borderRadius="md"
-            bg={selectedChat.userId == user.id ? "#172ACE" : "white"}
-            borderWidth={selectedChat.userId == user.id ? "0px" : "1px"}
-            borderColor={selectedChat.userId == user.id ? "" : "gray.200"}
-            color={selectedChat.userId == user.id ? "white" : "black"}
+            bg={selectedChat.userId === user.id ? "#172ACE" : "white"}
+            borderWidth={selectedChat.userId === user.id ? "0px" : "1px"}
+            borderColor={selectedChat.userId === user.id ? "" : "gray.200"}
+            color={selectedChat.userId === user.id ? "white" : "black"}
             _hover={{ bg: "#172ACE", color: "white" }}
             onClick={(e) => { e.preventDefault(); setSelectedChat({ userId: user.id, chatId: user.chatId }) }}
           >
@@ -153,7 +153,7 @@ export default function Messaging() {
   }
 
   function renderMessages(){
-    if(selectedChat == ''){return (<div>Clique sur ta gauche pour selectionner un chat</div>)}
+    if(selectedChat === ''){return (<div>Clique sur ta gauche pour selectionner un chat</div>)}
       
     const messages = chatData ? chatData.data.texts : []
     if(!listing){return}

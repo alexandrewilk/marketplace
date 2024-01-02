@@ -1,7 +1,6 @@
-import React, { useState } from 'react'
-import { Text, Box, Container, Flex, Center, Grid, Breadcrumb, BreadcrumbItem, BreadcrumbLink, useMediaQuery,  Table, Thead, Tbody, Tfoot, Tr, Th, Td, TableCaption, TableContainer, Button, Input} from '@chakra-ui/react';
-import { useEffect } from 'react';
-import { FieldValue, doc, getDoc, updateDoc } from 'firebase/firestore';
+import React, { useState, useEffect } from 'react';
+import { Text, Box, Container, Flex, Center, Breadcrumb, BreadcrumbItem, BreadcrumbLink, useMediaQuery, Table, Thead, Tbody, Tr, Th, Td, TableContainer, Button } from '@chakra-ui/react';
+import { doc, getDoc, updateDoc } from 'firebase/firestore';
 import { auth, db } from '../../firebase';
 import { Dots } from 'react-activity';
 import No_Alerte from '../../assets/images/No_Alerte.png';
@@ -9,49 +8,54 @@ import No_Alerte from '../../assets/images/No_Alerte.png';
 export default function MesAlertes() {
   const [isLargerThan768] = useMediaQuery("(min-width: 768px)");
   const [isLargerThan400] = useMediaQuery("(min-width: 400px)");
-  const [alertes, setAlertes ] = useState([])
-  const [loading, setLoading] = useState(false)
-  const [nom, setNom] = useState('')
-  const [logement, setLogement] = useState('')
-  const [nbPieces, setNbPieces] = useState('')
-  const [prixMax, setPrixMax] = useState('')
-  useEffect(()=>{
-    async function getAlerts(){
-      const data = await getDoc(doc(db, 'Users', auth.currentUser.uid))
-      let alertes = []
-      if(data.data().alertes){
-        data.data().alertes.forEach((a)=>alertes.push(a))
+  const [alertes, setAlertes] = useState([]);
+  const [loading, setLoading] = useState(false);
+
+  // Utiliser pour créer des alertes
+  // const [nom, setNom] = useState('');
+  // const [logement, setLogement] = useState('');
+  // const [nbPieces, setNbPieces] = useState('');
+  // const [prixMax, setPrixMax] = useState('');
+
+  useEffect(() => {
+    async function getAlerts() {
+      const data = await getDoc(doc(db, 'Users', auth.currentUser.uid));
+      let alertes = [];
+      if (data.data().alertes) {
+        data.data().alertes.forEach((a) => alertes.push(a));
       }
-      setAlertes(alertes)
+      setAlertes(alertes);
     }
     getAlerts();
-  }, [])
+  }, []);
 
-  async function handleDelete(alert){
-    try {
-      setLoading(true)
-      let alertesUpdated = alertes.filter(a=>a!==alert)
-      await updateDoc(doc(db, 'Users', auth.currentUser.uid), {alertes: alertesUpdated})
-      window.location.reload(true);
-    } catch (error) {
-      alert(error.message)
-    }finally{
-      setLoading(false)
-    }
-  }
-
-  async function handleAddAlertes(){
+  async function handleDelete(alert) {
     try {
       setLoading(true);
-      let alertesUpdated = [...alertes, {nom: nom, type: logement, nbPieces: nbPieces, prixMax: prixMax}];
-      await updateDoc(doc(db, 'Users', auth.currentUser.uid), {alertes: alertesUpdated});
-      window.location.reload(true)
+      let alertesUpdated = alertes.filter(a => a !== alert);
+      await updateDoc(doc(db, 'Users', auth.currentUser.uid), { alertes: alertesUpdated });
+      window.location.reload(true);
     } catch (error) {
-      alert(error.message)
-    }finally{
-      setLoading(false)
+      alert(error.message);
+    } finally {
+      setLoading(false);
     }
   }
+
+  // Utiliser pour créer des alertes
+  // async function handleAddAlertes(){
+  //   try {
+  //     setLoading(true);
+  //     let alertesUpdated = [...alertes, {nom: nom, type: logement, nbPieces: nbPieces, prixMax: prixMax}];
+  //     await updateDoc(doc(db, 'Users', auth.currentUser.uid), {alertes: alertesUpdated});
+  //     window.location.reload(true)
+  //   } catch (error) {
+  //     alert(error.message)
+  //   }finally{
+  //     setLoading(false)
+  //   }
+  // }
+
   return (
     <Box height="calc(100vh - 64px)">
     <Container maxWidth="1200px" mt={70}>

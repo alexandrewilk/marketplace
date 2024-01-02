@@ -133,7 +133,7 @@ export default function CreateListing() {
         return;
       }
     
-      if(logement == ''){
+      if(logement === ''){
         toast.error("Merci d'indiquer un type de logement avant de continuer!");
         return;
       }
@@ -141,7 +141,7 @@ export default function CreateListing() {
         toast.error("Merci d'indiquer le nombre de pièces avant de continuer !");
         return;
       }
-      if(adresseRef == ''){
+      if(adresseRef === ''){
         toast.error("Merci d'indiquer l'adresse avant de continuer ! (L'adresse n'est pas accessible aux autres utilisateurs)");
         return;
       }
@@ -411,7 +411,7 @@ export default function CreateListing() {
                       >
                         <FormLabel>Image</FormLabel>
                         <Box position="relative" textAlign="center" width="100%" backgroundColor="gray.100" borderRadius="6px">
-                          <Button as="label" htmlFor="file">{images ? images.length == 0 ? "Choisir 6 images max." : images?.length+" photos ont été sélectionnées !": "Choisir 6 images max."}</Button>
+                          <Button as="label" htmlFor="file">{images ? images.length === 0 ? "Choisir 6 images max." : images?.length+" photos ont été sélectionnées !": "Choisir 6 images max."}</Button>
                           <Input 
                             id="file"
                             type='file' 

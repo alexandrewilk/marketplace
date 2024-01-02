@@ -1,60 +1,23 @@
-import React, {useState, useEffect} from 'react';
-import { useNavigate } from 'react-router-dom';
-import {toast} from 'react-toastify';
+import React, { useState } from 'react';
+import { toast } from 'react-toastify';
 import { updateProfile } from 'firebase/auth';
-import { doc, getDocs, orderBy, updateDoc, collection, query, where } from 'firebase/firestore';
-import { 
-  Flex, Spacer, Text, Box, Container, Breadcrumb, BreadcrumbItem, 
-  BreadcrumbLink, Accordion, AccordionItem, AccordionButton, 
-  AccordionPanel, AccordionIcon,Button, FormControl, FormLabel, Input, Spinner, useMediaQuery
-} 
-from '@chakra-ui/react';
-import {auth, db} from '../../firebase';
+import { doc, updateDoc } from 'firebase/firestore';
+import {
+  Flex, Spacer, Text, Box, Container, Breadcrumb, BreadcrumbItem,
+  BreadcrumbLink, Accordion, AccordionItem, AccordionButton,
+  AccordionPanel, AccordionIcon, Button, FormControl, FormLabel, Input, Spinner, useMediaQuery
+} from '@chakra-ui/react';
+import { auth, db } from '../../firebase';
 
 export default function Profile() {
   const [isLargerThan768] = useMediaQuery("(min-width: 768px)");
   const [isLargerThan400] = useMediaQuery("(min-width: 400px)");
-  const [listings, setListings] = useState([]);
-  const [loadingList, setLoadingList] = useState(false);
-  const [formData, setFormData] = useState({
-    name: auth.currentUser.displayName,
-    email: auth.currentUser.email
-  });
   const [newName, setNewName] = useState('');
   const [loading, setLoading] = useState(false);
-  const navigate = useNavigate();
-  
-  const {name, email} = formData;
 
-  const getUserListing = async () => {
-    try {
-      setLoadingList(true);
-      const q = query(collection(db, 'Listings'), where('userRef', '==', auth.currentUser.uid), orderBy('timestamp', 'desc'));
-      const querySnap = await getDocs(q);
-      let listings = [];
-      querySnap.forEach((doc) => {
-        listings.push({
-          id: doc.id,
-          data: doc.data()
-        });
-      });
-      setListings(listings);
-    } catch (error) {
-      alert(error.message);
-    } finally {
-      setLoadingList(false);
-    }
-  }
-
-  useEffect(() => {
-    getUserListing();
-  }, []);
-
-  const handleLogout = (e) => {
-    e.preventDefault();
-    auth.signOut();
-    navigate('/');
-  };
+  // Simplifiez l'accès aux données de l'utilisateur sans utiliser formData
+  const name = auth.currentUser.displayName;
+  const email = auth.currentUser.email;
 
   const onChange = (e) => {
     e.preventDefault();
@@ -65,10 +28,10 @@ export default function Profile() {
     e.preventDefault();
     try {
       setLoading(true);
-      if(auth.currentUser.displayName !== newName) {
-        await updateProfile(auth.currentUser, {displayName: newName});
+      if (auth.currentUser.displayName !== newName) {
+        await updateProfile(auth.currentUser, { displayName: newName });
         const docRef = doc(db, 'Users', auth.currentUser.uid);
-        await updateDoc(docRef, {name: newName});
+        await updateDoc(docRef, { name: newName });
         window.location.reload(true);
       }
     } catch (error) {
