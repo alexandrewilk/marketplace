@@ -40,7 +40,7 @@ export default function SignUp() {
       formDataCopy.timestamp = serverTimestamp();
 
       await setDoc(doc(db, 'Users', userCredential.user.uid), formDataCopy);
-      navigate('/');
+      navigate('app.coloc.fr')
     } catch (error) {
       toast.error(error.message);
     } finally {
@@ -133,7 +133,7 @@ export default function SignUp() {
           />
           <InputRightElement width='4.5rem'>
             <Button h='1.75rem' size='sm' onClick={handleClick}>
-              {show ? 'Hide' : 'Show'}
+              {show ? 'Cacher' : 'Révéler'}
             </Button>
           </InputRightElement>
     </InputGroup>

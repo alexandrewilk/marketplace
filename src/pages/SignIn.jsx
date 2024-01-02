@@ -47,7 +47,7 @@ export default function SignIn() {
         }
         try {
           await setDoc(doc(db, 'Users', res.user.uid), entry)
-          navigate('/')
+          navigate('app.coloc.fr')
         } catch (error) {
           alert(error.message)
         }
