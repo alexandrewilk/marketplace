@@ -156,7 +156,7 @@ export default function Nav() {
             <MenuButton as={Button} rounded={'full'} variant={'link'} cursor={'pointer'} minW={0}>
               <Flex alignItems={'center'}>
                 <Icon as={RxHamburgerMenu} w={4} h={4} mr={2} />
-                <Avatar size={'xs'} src={pageState === 'Profile' ? 'https://avatars.dicebear.com/api/male/username.svg' : '/assets/NoPP.webp'} />
+                <Avatar size={'xs'} src={pageState === 'Profile' ? '../../assets/images/SignIn.jpg' : '../../assets/images/NoPP.webp'} />
               </Flex>
             </MenuButton>
 
@@ -164,7 +164,7 @@ export default function Nav() {
               <Center mt={2} mb={2}>
                 <Avatar 
                   size={'lg'}                   
-                  src={pageState === 'Profile' ? 'https://avatars.dicebear.com/api/male/username.svg' : '/assets/NoPP.webp'}
+                  src={pageState === 'Profile' ? '../../assets/images/SignIn.jpg' : '../../assets/images/NoPP.webp'}
                 />
               </Center>
               {pageState === 'Profile' && (
