@@ -13,7 +13,7 @@ import {
   ModalCloseButton,
   ModalBody,
   ModalFooter,
-  useDisclosure
+  useDisclosure,
 } from "@chakra-ui/react";import CustomBadge from './CustomBadge';
 import IconBadge from '../Annonce/IconBadge';
 import { FaHouseUser,  } from "react-icons/fa";
@@ -25,7 +25,7 @@ import { arrayRemove, arrayUnion, doc, updateDoc } from "firebase/firestore";
 import { db, auth } from "../../firebase";
 import { useNavigate } from "react-router-dom";
 import { useAuthStatus } from '../../hooks/useAuthStatus';
-
+import colors from "../../constant/color";
 
 const AnnonceCard = forwardRef(({ data, id, hovered, handleAnnonceHover }, ref) => {
   
@@ -83,7 +83,7 @@ const AnnonceCard = forwardRef(({ data, id, hovered, handleAnnonceHover }, ref) 
       overflow="hidden"
       boxShadow="md"
       borderWidth={hovered ? '1px' : '0px'}
-      borderColor={hovered ? '#172ACE' : 'gray.100'}
+      borderColor={hovered ? colors.primary : 'gray.100'}
       onMouseEnter={() => handleAnnonceHover(id)} 
       onMouseLeave={() => handleAnnonceHover(null)}
       transition="box-shadow 0.2s"
@@ -111,7 +111,7 @@ const AnnonceCard = forwardRef(({ data, id, hovered, handleAnnonceHover }, ref) 
  
             {renderCustomBadge()}
         
-            <Text fontSize="lg" color="#172ACE" as='b'>
+            <Text fontSize="lg" color={colors.primary} as='b'>
               {loyer}€
             </Text>
             <Text fontSize="md" fontWeight="semibold" whiteSpace="nowrap" overflow="hidden" textOverflow="ellipsis">
@@ -155,7 +155,7 @@ const AnnonceCard = forwardRef(({ data, id, hovered, handleAnnonceHover }, ref) 
       overflow="hidden"
       boxShadow="md"
       borderWidth={hovered ? '1px' : '0px'}
-      borderColor={hovered ? '#172ACE' : 'gray.100'}
+      borderColor={hovered ? colors.primary : 'gray.100'}
       onMouseEnter={() => handleAnnonceHover(id)} 
       onMouseLeave={() => handleAnnonceHover(null)}
       transition="box-shadow 0.2s"
@@ -183,7 +183,7 @@ const AnnonceCard = forwardRef(({ data, id, hovered, handleAnnonceHover }, ref) 
           <Flex flexDirection="column" justifyContent="space-around" h="100%" onClick={(e)=>{e.preventDefault(); goToCarteColoc()}}>
             {renderCustomBadge()}
         
-            <Text fontSize="lg" color="#172ACE" as='b'>
+            <Text fontSize="lg" color={colors.primary} as='b'>
               {loyer}€
             </Text>
             <Text fontSize="md" fontWeight="semibold" whiteSpace="nowrap" overflow="hidden" textOverflow="ellipsis">
