@@ -6,12 +6,13 @@ import { useNavigate } from "react-router-dom";
 
 
 const AnnonceCardMap = ({ data, id}) => {
-  const { imgUrls, type, loyer, nbPieces } = data;
+  const { imgUrls, type, loyer, nbPieces, surface, userRef, nbOccupants, dispoDate, ville } = data;
   const navigate = useNavigate();
   const badgeProperties = [
-    { icon: FaBed, text: "5 chambres" },
-    { icon: FaHouseUser, text: "300m²" },
+    { icon: FaBed, text: nbPieces + " chambres" },
+    { icon: FaHouseUser, text: surface + "m²" },
   ];
+  
 
   return (
       <Flex direction="column">
