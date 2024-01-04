@@ -477,7 +477,7 @@ if (filteredAnnonces.length === 0) {
               </LikesContext.Provider>
               {nextPostsLoading 
                 ? <Dots/> 
-                : (filteredAnnonces.length > 0 && <Button onClick={(e) => {e.preventDefault(); getMorePosts()}}>Voir Plus...</Button>)
+                : (filteredAnnonces.length > 50 && <Button onClick={(e) => {e.preventDefault(); getMorePosts()}}>Voir Plus...</Button>)
               }            </Box>
           </GridItem>
 
