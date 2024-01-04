@@ -2,14 +2,14 @@ import React, { useState } from 'react'
 import '../styles/home.css'
 import { Box, Heading, Input, InputGroup, InputLeftElement, VStack, ListItem, List, Image, Text, useMediaQuery } from '@chakra-ui/react';
 import { SearchIcon } from '@chakra-ui/icons';
-import { useNavigate, useLocation } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import VilleCarroussel from '../components/HomePage/VilleCarroussel';
 import Entourement from '../assets/images/Entourement.svg';
 
 const villes = require('../assets/data/villes2.json').map((v)=>{return v.city})
 
 function search(input){
-  return villes.filter((v)=>{return(v.slice(0, input.length) == input)})
+  return villes.filter((v)=>{return(v.slice(0, input.length) === input)})
 }
 
 export default function Home() {
@@ -18,24 +18,27 @@ export default function Home() {
   const [suggestions, setSuggestions] = useState([])
   const [activeSuggestionIndex, setActiveSuggestionIndex] = useState(0);
   const navigate = useNavigate();
-  const location = useLocation();
   function handleKeyDown(e){ 
     switch(e.key) {
-      case 'Enter': // naviguer quand l'utilisateur presse entré
-        navigate(`/recherche/${suggestions[activeSuggestionIndex]}`);
-        break;
-      case 'ArrowUp': // sélectionner la suggestion précédente
-        if (activeSuggestionIndex > 0) {
-          setActiveSuggestionIndex(activeSuggestionIndex - 1);
-        }
-        break;
-      case 'ArrowDown': // sélectionner la suggestion suivante
-        if (activeSuggestionIndex < suggestions.length - 1) {
-          setActiveSuggestionIndex(activeSuggestionIndex + 1);
-        }
-        break;
+        case 'Enter': // naviguer quand l'utilisateur presse entré
+            navigate(`/recherche/${suggestions[activeSuggestionIndex]}`);
+            break;
+        case 'ArrowUp': // sélectionner la suggestion précédente
+            if (activeSuggestionIndex > 0) {
+                setActiveSuggestionIndex(activeSuggestionIndex - 1);
+            }
+            break;
+        case 'ArrowDown': // sélectionner la suggestion suivante
+            if (activeSuggestionIndex < suggestions.length - 1) {
+                setActiveSuggestionIndex(activeSuggestionIndex + 1);
+            }
+            break;
+        default:
+            // Gérer tout autre cas ici, par exemple:
+            console.log(`Key pressed ${e.key} is not handled`);
     }
-  }
+}
+
   function handleInput(e){
     e.preventDefault();
     let input = e.target.value;
@@ -43,7 +46,7 @@ export default function Home() {
       input = input.charAt(0).toUpperCase() + input.slice(1);
     }
     setVille(input);
-    if(input == ''){
+    if(input === ''){
       setSuggestions([]);
       setActiveSuggestionIndex(0);
       return;

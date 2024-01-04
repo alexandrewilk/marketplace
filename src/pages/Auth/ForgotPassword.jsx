@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { VStack, Heading, FormControl, Input, Button, Text, Box, Link } from '@chakra-ui/react';
-import { Link as RouterLink, useNavigate } from 'react-router-dom';
+import { Link as RouterLink } from 'react-router-dom';
 import { toast } from 'react-toastify';
 import { auth } from '../../firebase';
 import { sendPasswordResetEmail } from 'firebase/auth';
