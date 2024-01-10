@@ -58,8 +58,8 @@ const cities = [
 
   export default function VilleCarroussel() {
     return (
-      <Box maxWidth="1400px" margin="auto" w="100%">
-          <Heading as='h3' size='xl' marginY={4}>Découvrez nos colocations par ville</Heading>
+      <Box backgroundColor={"#0049AC"} padding={"2.5%"}>
+          <Heading as='h3' size='xl' marginY={4} color={"#F5F2ED"}>Découvrez nos colocations par ville</Heading>
           <Grid
             templateColumns={{ base: "repeat(1, 1fr)", md: "repeat(5, 1fr)" }}
             gap={4}

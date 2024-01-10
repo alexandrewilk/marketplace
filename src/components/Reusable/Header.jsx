@@ -2,11 +2,10 @@ import { useState, useEffect } from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
 import { auth } from '../../firebase';
 import { onAuthStateChanged } from 'firebase/auth';
-import { Text, Box, Icon, Flex, Avatar, Button, Menu, MenuButton, MenuList, VStack, List, ListItem, MenuItem, MenuDivider, Stack, useColorMode, Center, Image, Input, InputLeftElement, InputGroup, Heading } from '@chakra-ui/react';
+import { Box, Flex, Button, VStack, HStack, List, ListItem, useColorMode, Image, Input, InputLeftElement, InputGroup, Heading } from '@chakra-ui/react';
 import { useMediaQuery } from "@chakra-ui/react";
 import { useAuthStatus } from '../../hooks/useAuthStatus';
 import { SearchIcon } from '@chakra-ui/icons';
-import { RxHamburgerMenu } from "react-icons/rx";
 import { Link as RouterLink } from 'react-router-dom';
 
 const villes = require('../../assets/data/villes2.json').map((v)=>{return v.city})
@@ -85,14 +84,14 @@ export default function Nav() {
   };
 
   return (
-    <Box bg={'white.100'} px={12} paddingX={isLargerThan ? "50px" : "20px"}>
-      <Flex h={16} alignItems={'center'} justifyContent={'space-between'} maxWidth="1200px" margin="auto">
+    <Box bg={'white'} h={"80px"} paddingX={"20px"} margin={"34px"} borderRadius={"22px"}>
+      <Flex alignItems={'center'} justifyContent={'space-between'} margin="auto">
         <Box>
           <Image
           src='https://coloc.fr/wp-content/uploads/2023/01/Coloc.fr_-1.png'
           alt='Coloc.fr'
           objectFit="contain" 
-          boxSize={"100px"}
+          boxSize={"80px"}
           onClick={(e)=>{e.preventDefault();navigate('/')}}
           />        
         </Box>
@@ -148,10 +147,18 @@ export default function Nav() {
           )}
           </Box>
           )}
+  <Flex gap={8} alignItems="center">
+    <HStack spacing={6}>
+      {pageState === 'Profile' ? (
+        <Heading size={'sm'}> <RouterLink to='/Settings'>Profil</RouterLink></Heading>
+      ) : (
+        <Heading size={'sm'}> <RouterLink to='/sign-up'>S'inscrire</RouterLink></Heading>
+      )}
+      <Heading size={'sm'}> <RouterLink to='/sign-up'>Tarif</RouterLink></Heading>
+      <Heading size={'sm'}> <RouterLink to='/sign-up'>Aides</RouterLink></Heading>
+  </HStack>
 
-    <Flex justifyContent="flex-end" alignItems="center">
-      <Heading size={'sm'} color={'grey'} mr={4}> <RouterLink to='/Déposer-une-annonce'>Déposer une annonce</RouterLink></Heading>
-        <Flex borderWidth="1px" borderColor="gray.3OO" borderRadius={100} alignItems="center" p={2} boxShadow="md" _hover={{ boxShadow: 'lg' }}>
+        {/*<Flex borderWidth="1px" borderColor="gray.3OO" borderRadius={100} alignItems="center" p={2} boxShadow="md" _hover={{ boxShadow: 'lg' }}>
           <Menu>
             <MenuButton as={Button} rounded={'full'} variant={'link'} cursor={'pointer'} minW={0}>
               <Flex alignItems={'center'}>
@@ -192,7 +199,9 @@ export default function Nav() {
               )}
             </MenuList>
           </Menu>
-          </Flex>
+          </Flex> */}
+        
+          <Button colorScheme='blue' h={"44px"} borderRadius={"12px"} backgroundColor={"#0049AC"} onClick={() => navigate('/Déposer-une-annonce')}>Déposer une annonce</Button>
         </Flex>
       </Flex>
     </Box>

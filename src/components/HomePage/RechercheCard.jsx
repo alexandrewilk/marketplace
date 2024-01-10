@@ -9,6 +9,7 @@ const RechercheCard = ({ city }) => (
     css={{ ':not(:last-child)': { marginRight: 12 } }} 
     boxShadow="md"
     _hover={{ boxShadow: "lg" }}
+    backgroundColor={"#F5F2ED"}
   >
     <LinkOverlay href={city.link}>
       <Flex direction={'column'} h="100%">

@@ -1,4 +1,4 @@
-import React, { useState, useRef }from 'react'
+import React, { useState, useRef, useEffect }from 'react'
 import { storage, auth, db } from '../../firebase'
 import { ref, getDownloadURL, uploadBytesResumable } from 'firebase/storage';
 import { v4 as uuid } from 'uuid'
@@ -10,7 +10,6 @@ import {
     Input, useMediaQuery, Stack, FormControl, FormLabel, Select, Textarea
   } from '@chakra-ui/react' 
 import { useSteps } from "chakra-ui-steps";
-import { useBreakpointValue, useColorModeValue } from "@chakra-ui/react"
 import MultiSelect from 'react-select';
 import HelpForm from '../../components/CreateListing/HelpForm';
 import DatePicker from "react-datepicker";
@@ -38,7 +37,6 @@ const steps = [
 
 
 export default function CreateListing() {
-    const mapsapikey = "AIzaSyBy-Pv6t0C93aMTyaPQsziS9Al6xmLTFQo"
     // tout les hooks
     const [id, setId] = useState('')
     const [openSection, setOpenSection] = useState(null);
@@ -50,16 +48,15 @@ export default function CreateListing() {
     const [loading, setLoading] = useState(false);
     const [desc, setDesc] = useState('');
     const [co, setCo] = useState(null);
-    const [source, setSource] = useState(null);
     const [regles, setRegles] = useState([]);
     const [meuble, setMeuble] = useState(null);
     const [equipement, setEquipement] = useState([]);
     const [surface, setSurface] = useState('');
+    const [redirectCountdown, setRedirectCountdown] = useState(5);
     const [nbOccupants, setNbOccupants] = useState(null);
-    const [animateSecondPage, setAnimateSecondPage] = useState(false);
     const [dispoDate, setDispoDate] = useState(new Date())
     // Constante pour faire fonctionner les steps
-    const { nextStep, prevStep, reset, activeStep, setStep } = useSteps({
+    const { nextStep, prevStep, reset, activeStep } = useSteps({
       initialStep: 0,
     });
     const isLastStep = activeStep === steps.length - 1;
@@ -69,8 +66,6 @@ export default function CreateListing() {
     const adresseRef = useRef();
 
     // const pour l'UI
-    const bg = useColorModeValue("gray.200", "gray.700");
-    const formColumnWidth = useBreakpointValue({ base: "100%", md: "50%" });
     const [isLargerThan768] = useMediaQuery("(min-width: 768px)");
     const [isLargerThan400] = useMediaQuery("(min-width: 400px)");
 
@@ -85,6 +80,19 @@ export default function CreateListing() {
     const handleFocus = (section) => {
       setOpenSection(section);
     };
+
+    useEffect(() => {
+      let timer;
+      if (hasCompletedAllSteps && redirectCountdown > 0) {
+        timer = setTimeout(() => {
+          setRedirectCountdown(redirectCountdown - 1);
+        }, 1000);
+      } else if (redirectCountdown === 0) {
+        navigate(`/listings/${id}`);
+      }
+      return () => clearTimeout(timer);
+    }, [hasCompletedAllSteps, redirectCountdown, navigate, id]);
+  
 
     // Fonction pour upload l'image
     async function storeImage(image) {
@@ -105,12 +113,16 @@ export default function CreateListing() {
             console.log('Upload is ' + progress + '% done');
             switch (snapshot.state) {
               case 'paused':
-                console.log('Upload is paused');
-                break;
+                  console.log('Upload is paused');
+                  break;
               case 'running':
-                console.log('Upload is running');
-                break;
-            }
+                  console.log('Upload is running');
+                  break;
+              default:
+                  // Logique pour un cas non prévu
+                  console.log('Unexpected state: ', snapshot.state);
+                  break;
+          }          
           },
           (error) => {
             reject(error);
@@ -570,15 +582,16 @@ export default function CreateListing() {
                 </Box>  
               ))}
 
-                    {hasCompletedAllSteps && (
-                      <Box sx={{ my: 8, p: 8, rounded: "md" }}>
-                        <Heading fontSize="xl" textAlign={"center"}>
-                          Woohoo! Ton annonce est en ligne! 🎉
-                        </Heading>
-                        <Heading fontSize="small" textAlign={"center"} onClick={(e)=>{e.preventDefault(); navigate(`/listings/${id}`)}}> Voir la page de l'annonce...</Heading>
-                      </Box>
-                    )}
-
+                  {hasCompletedAllSteps && (
+                        <Box sx={{ my: 8, p: 8, rounded: "md" }}>
+                          <Heading fontSize="xl" textAlign={"center"}>
+                            Woohoo! Ton annonce est en ligne! 🎉
+                          </Heading>
+                          <Text fontSize="small" textAlign={"center"}>
+                            Redirection dans {redirectCountdown} secondes...
+                          </Text>
+                        </Box>
+                      )}
                     <Flex width="100%" justify="flex-end" gap={4}>
                       {hasCompletedAllSteps ? (
                         <Button size="sm" onClick={reset}>
