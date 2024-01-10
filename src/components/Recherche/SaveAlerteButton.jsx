@@ -5,6 +5,7 @@ import { Dots } from 'react-activity';
 import { useNavigate } from 'react-router-dom';
 import { auth, db } from '../../firebase';
 import { doc, updateDoc } from 'firebase/firestore';
+import colors from '../../constant/color';
 
 export default function SaveAlerteButton({ville, currentFilters}) {
     const { isOpen, onOpen, onClose } = useDisclosure();
@@ -31,7 +32,7 @@ export default function SaveAlerteButton({ville, currentFilters}) {
 <>
     {loggedIn ? 
     <>
-    <Button onClick={onOpen}  minInlineSize="100px" bgColor="blue" textColor="white">Alerte</Button>
+    <Button onClick={onOpen}  minInlineSize="100px" bgColor={colors.primary} textColor="white">Alerte</Button>
     <Modal isOpen={isOpen} onClose={onClose}>
       <ModalOverlay />
       <ModalContent>

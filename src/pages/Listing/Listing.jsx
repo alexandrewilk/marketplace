@@ -3,7 +3,7 @@ import React, { useEffect, useState } from 'react'
 import { useParams } from 'react-router-dom';
 import { db } from '../../firebase';
 import { Box, Grid, Image, Heading, useBreakpointValue, Divider, Text, Flex, Icon, VStack, Modal, ModalOverlay, ModalContent, ModalBody,  IconButton, useDisclosure, HStack} from "@chakra-ui/react";
-import {AiOutlineShareAlt, AiOutlineHeart} from 'react-icons/ai';
+import {AiOutlineShareAlt} from 'react-icons/ai';
 import {HiOutlineMapPin} from 'react-icons/hi2';
 import CustomBadge from '../../components/Annonce/CustomBadge';
 import SendMessagePopup from '../../components/Annonce/SendMessagePopup';
@@ -12,7 +12,7 @@ import { ChevronLeftIcon, ChevronRightIcon, CloseIcon } from "@chakra-ui/icons";
 import { BiImages } from "react-icons/bi";
 import { toast } from 'react-toastify';
 import { Dots } from 'react-activity';
-import { MapContainer, Marker, TileLayer, Popup } from 'react-leaflet';
+import { MapContainer, Marker, TileLayer } from 'react-leaflet';
 import 'leaflet/dist/leaflet.css';
 import L from 'leaflet';
 
@@ -146,7 +146,7 @@ export default function Listing() {
         <VStack w="100%" spacing={3}>
           <Box w="100%" h="auto" borderWidth="1px" boxShadow='base' borderColor="gray.200" borderRadius="12px" padding={4}>
           <Flex justifyContent="space-between" alignItems="center" marginBottom={4}>
-            <CustomBadge text={listing.data.userRef == 'cartecoloc' ? 'La carte des colocs' : 'Coloc.fr'}/>
+            <CustomBadge text={listing.data.userRef === 'cartecoloc' ? 'La carte des colocs' : 'Coloc.fr'}/>
             <Flex direction="row" justify="space-between">
               <Box onClick={(e) => {e.preventDefault(); handlePartager()}} cursor="pointer" display="flex" alignItems="center">
                 <Icon as={AiOutlineShareAlt} boxSize={6}/>
@@ -199,7 +199,7 @@ export default function Listing() {
             <Box w="100%" h="auto" borderWidth="1px" boxShadow='base' borderColor="gray.200" borderRadius="12px" padding={4}>
               <Heading as="h2" size="md" marginTop={3}>Visites 3D</Heading>
               <Divider marginY={3}/>
-              <iframe width='100%' height='480' src={listing.data.matterportLink} frameborder='0' allowfullscreen allow='xr-spatial-tracking' borderRadius='6px'></iframe>
+              <iframe title="Visite 3D Matterport" width='100%' height='480' src={listing.data.matterportLink} frameborder='0' allowfullscreen allow='xr-spatial-tracking' borderRadius='6px'></iframe>
             </Box>
           )}
 

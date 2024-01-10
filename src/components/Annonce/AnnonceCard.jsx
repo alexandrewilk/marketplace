@@ -13,26 +13,26 @@ import {
   ModalCloseButton,
   ModalBody,
   ModalFooter,
-  useDisclosure
+  useDisclosure,
 } from "@chakra-ui/react";import CustomBadge from './CustomBadge';
 import IconBadge from '../Annonce/IconBadge';
-import { FaHouseUser, FaRegHeart, FaBed, FaBath,  } from "react-icons/fa";
+import { FaHouseUser,  } from "react-icons/fa";
 import { AiOutlineHeart, AiFillHeart } from 'react-icons/ai'
 import { MdEventAvailable } from 'react-icons/md'
 import { LikesContext } from "../../context/LikesContext";
 import { useContext, forwardRef } from "react";
 import { arrayRemove, arrayUnion, doc, updateDoc } from "firebase/firestore";
 import { db, auth } from "../../firebase";
-import { Link, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import { useAuthStatus } from '../../hooks/useAuthStatus';
-
+import colors from "../../constant/color";
 
 const AnnonceCard = forwardRef(({ data, id, hovered, handleAnnonceHover }, ref) => {
   
   const { imgUrls, type, loyer, nbPieces, surface, userRef, nbOccupants, dispoDate, ville } = data;
   const navigate = useNavigate();
   const { isOpen, onOpen, onClose } = useDisclosure(); // Pour le modal
-  const { loggedIn, loadingAuth } = useAuthStatus();  console.log(new Date(dispoDate?.seconds*1000))
+  const { loggedIn } = useAuthStatus();  console.log(new Date(dispoDate?.seconds*1000))
   const badgeProperties = [
     { icon: MdEventAvailable, text: dispoDate ? new Date(dispoDate.seconds*1000) <= new Date() ? 'Dispo' : (new Date(dispoDate.seconds*1000)).toDateString() : 'Dispo'},
     { icon: FaHouseUser, text: nbOccupants ? nbOccupants : nbPieces + ' colocataires'},
@@ -83,7 +83,7 @@ const AnnonceCard = forwardRef(({ data, id, hovered, handleAnnonceHover }, ref) 
       overflow="hidden"
       boxShadow="md"
       borderWidth={hovered ? '1px' : '0px'}
-      borderColor={hovered ? '#172ACE' : 'gray.100'}
+      borderColor={hovered ? colors.primary : 'gray.100'}
       onMouseEnter={() => handleAnnonceHover(id)} 
       onMouseLeave={() => handleAnnonceHover(null)}
       transition="box-shadow 0.2s"
@@ -111,7 +111,7 @@ const AnnonceCard = forwardRef(({ data, id, hovered, handleAnnonceHover }, ref) 
  
             {renderCustomBadge()}
         
-            <Text fontSize="lg" color="#172ACE" as='b'>
+            <Text fontSize="lg" color={colors.primary} as='b'>
               {loyer}€
             </Text>
             <Text fontSize="md" fontWeight="semibold" whiteSpace="nowrap" overflow="hidden" textOverflow="ellipsis">
@@ -155,7 +155,7 @@ const AnnonceCard = forwardRef(({ data, id, hovered, handleAnnonceHover }, ref) 
       overflow="hidden"
       boxShadow="md"
       borderWidth={hovered ? '1px' : '0px'}
-      borderColor={hovered ? '#172ACE' : 'gray.100'}
+      borderColor={hovered ? colors.primary : 'gray.100'}
       onMouseEnter={() => handleAnnonceHover(id)} 
       onMouseLeave={() => handleAnnonceHover(null)}
       transition="box-shadow 0.2s"
@@ -183,7 +183,7 @@ const AnnonceCard = forwardRef(({ data, id, hovered, handleAnnonceHover }, ref) 
           <Flex flexDirection="column" justifyContent="space-around" h="100%" onClick={(e)=>{e.preventDefault(); goToCarteColoc()}}>
             {renderCustomBadge()}
         
-            <Text fontSize="lg" color="#172ACE" as='b'>
+            <Text fontSize="lg" color={colors.primary} as='b'>
               {loyer}€
             </Text>
             <Text fontSize="md" fontWeight="semibold" whiteSpace="nowrap" overflow="hidden" textOverflow="ellipsis">

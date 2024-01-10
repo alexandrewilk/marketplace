@@ -4,7 +4,6 @@ import { auth } from '../../firebase';
 import { onAuthStateChanged } from 'firebase/auth';
 import { Box, Flex, Button, VStack, HStack, List, ListItem, useColorMode, Image, Input, InputLeftElement, InputGroup, Heading } from '@chakra-ui/react';
 import { useMediaQuery } from "@chakra-ui/react";
-import { useAuthStatus } from '../../hooks/useAuthStatus';
 import { SearchIcon } from '@chakra-ui/icons';
 import { Link as RouterLink } from 'react-router-dom';
 
@@ -19,39 +18,37 @@ export default function Nav() {
   const [suggestions, setSuggestions] = useState([])
   const [activeSuggestionIndex, setActiveSuggestionIndex] = useState(0);
   const [isLargerThan] = useMediaQuery("(min-width: 650px)");
-  const {loggedId, loading} = useAuthStatus();
-  const { colorMode, toggleColorMode } = useColorMode();
   const location = useLocation();
   const navigate = useNavigate();
   const [isLargerThan750] = useMediaQuery("(min-width: 750px)");
-  const [searchValue, setSearchValue] = useState('');
   const [pageState, setPageState] = useState('Se connecter');
   
   useEffect(() => {
     onAuthStateChanged(auth, (user) => {
-      setPageState(user ? 'Profile' : 'Se connecter');
+        setPageState(user ? 'Profile' : 'Se connecter');
     });
-  }, [auth]);
+}, []);
 
-  function handleKeyDown(e){ 
-    switch(e.key) {
-      case 'Enter': // naviguer quand l'utilisateur presse entré
-        navigate(`/recherche/${suggestions[activeSuggestionIndex]}`);
-        setSuggestions([]); //reset des suggestions apres entrer
-        setVille(''); //reset de l'input apres entrer
-        break;
-      case 'ArrowUp': // sélectionner la suggestion précédente
-        if (activeSuggestionIndex > 0) {
-          setActiveSuggestionIndex(activeSuggestionIndex - 1);
-        }
-        break;
-      case 'ArrowDown': // sélectionner la suggestion suivante
-        if (activeSuggestionIndex < suggestions.length - 1) {
-          setActiveSuggestionIndex(activeSuggestionIndex + 1);
-        }
-        break;
-    }
+function handleKeyDown(e){ 
+  switch(e.key) {
+      case 'Enter':
+          navigate(`/recherche/${suggestions[activeSuggestionIndex]}`);
+          setSuggestions([]); // reset des suggestions après entrer
+          setVille(''); // reset de l'input après entrer
+          break;
+      case 'ArrowUp':
+          if (activeSuggestionIndex > 0) {
+              setActiveSuggestionIndex(activeSuggestionIndex - 1);
+          }
+          break;
+      case 'ArrowDown':
+          if (activeSuggestionIndex < suggestions.length - 1) {
+              setActiveSuggestionIndex(activeSuggestionIndex + 1);
+          }
+          break;
+      default:
   }
+}
 
   function handleInput(e){
     e.preventDefault();
@@ -59,7 +56,7 @@ export default function Nav() {
     const capitalizedInputValue = inputValue.charAt(0).toUpperCase() + inputValue.slice(1);
     setVille(capitalizedInputValue);
   
-    if(inputValue==''){
+    if(inputValue===''){
       setSuggestions([]);
       setActiveSuggestionIndex(0);
       return;

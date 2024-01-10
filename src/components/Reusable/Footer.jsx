@@ -3,22 +3,12 @@ import {
   Box,
   Container,
   Stack,
-  SimpleGrid,
   Text,
-  Link,
   VisuallyHidden,
   chakra,
   useColorModeValue,
 } from '@chakra-ui/react';
 import { FaTwitter, FaYoutube, FaInstagram } from 'react-icons/fa';
-
-const ListHeader = (props) => {
-  return (
-    <Text fontWeight={'500'} fontSize={'lg'} mb={2}>
-      {props.children}
-    </Text>
-  );
-};
 
 const SocialButton = (props) => {
   return (

@@ -6,8 +6,8 @@ import heroImage from '../assets/images/Hero-Img.png';
 
 const villes = require('../assets/data/villes2.json').map(v => v.city);
 
-function search(input) {
-  return villes.filter(v => v.startsWith(input));
+function search(input){
+  return villes.filter((v)=>{return(v.slice(0, input.length) == input)})
 }
 
 export default function Home() {
@@ -16,30 +16,39 @@ export default function Home() {
   const [suggestions, setSuggestions] = useState([]);
   const [activeSuggestionIndex, setActiveSuggestionIndex] = useState(0);
   const navigate = useNavigate();
-  const heroRef = useRef();
-
-  const handleKeyDown = (e) => {
-    switch (e.key) {
-      case 'Enter':
+  const location = useLocation();
+  function handleKeyDown(e){ 
+    switch(e.key) {
+      case 'Enter': // naviguer quand l'utilisateur presse entré
         navigate(`/recherche/${suggestions[activeSuggestionIndex]}`);
         break;
-      case 'ArrowUp':
-        setActiveSuggestionIndex(Math.max(activeSuggestionIndex - 1, 0));
+      case 'ArrowUp': // sélectionner la suggestion précédente
+        if (activeSuggestionIndex > 0) {
+          setActiveSuggestionIndex(activeSuggestionIndex - 1);
+        }
         break;
-      case 'ArrowDown':
-        setActiveSuggestionIndex(Math.min(activeSuggestionIndex + 1, suggestions.length - 1));
-        break;
-      default:
+      case 'ArrowDown': // sélectionner la suggestion suivante
+        if (activeSuggestionIndex < suggestions.length - 1) {
+          setActiveSuggestionIndex(activeSuggestionIndex + 1);
+        }
         break;
     }
-  };
-
-  const handleInput = (e) => {
-    const input = e.target.value.charAt(0).toUpperCase() + e.target.value.slice(1);
+  }
+  function handleInput(e){
+    e.preventDefault();
+    let input = e.target.value;
+    if(input.length > 0){
+      input = input.charAt(0).toUpperCase() + input.slice(1);
+    }
     setVille(input);
-    setSuggestions(input ? search(input) : []);
-    setActiveSuggestionIndex(0);
-  };
+    if(input == ''){
+      setSuggestions([]);
+      setActiveSuggestionIndex(0);
+      return;
+    }
+    setSuggestions([...search(input)]);
+  }
+  
 
   return (
     <Box>

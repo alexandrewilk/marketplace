@@ -1,5 +1,5 @@
-import React, { useEffect, useState } from 'react'
-import { Button, Modal, ModalOverlay, ModalContent, ModalHeader, ModalBody, FormControl, Input, FormLabel, ModalFooter, useDisclosure, ModalCloseButton, Textarea } from '@chakra-ui/react'
+import React, { useState } from 'react'
+import { Button, Modal, ModalOverlay, ModalContent, ModalHeader, ModalBody, FormControl, FormLabel, ModalFooter, useDisclosure, ModalCloseButton, Textarea } from '@chakra-ui/react'
 import { doc, getDoc, setDoc } from 'firebase/firestore'
 import { db, auth } from '../../firebase'
 import { Dots } from 'react-activity'
@@ -17,8 +17,6 @@ export default function SendMessagePopup({ listing }) {
     const [message, setMessage] = useState('')
 
     //setup data
-    const [loadingData, setLoadingData] = useState(false)
-    const [receveurInfos, setReceveurInfors] = useState(null)
     const{loggedIn, loading} = useAuthStatus(); 
     if(loading){
       return <Dots/>
@@ -60,12 +58,12 @@ export default function SendMessagePopup({ listing }) {
     if(!listing){
       return <Dots/>
     }
-    if(auth.currentUser.uid == listing.data.userRef){
+    if(auth.currentUser.uid === listing.data.userRef){
       return(
         <Button>Cette annonce vous appartient</Button>
       )
     }
-    if(listing.data.userRef == 'cartecoloc'){
+    if(listing.data.userRef === 'cartecoloc'){
       return (
       <a href={"https://www.lacartedescolocs.fr/logements/"+listing.data.ville} rel='noreferrer' target='_blank'>
       <Button>Voir cette annonce sur la carte des colocs</Button>
@@ -74,7 +72,7 @@ export default function SendMessagePopup({ listing }) {
     }
 
     async function handleSendNewMessage(){
-      if(message==''){alert('Le message est vide!'); return}
+      if(message===''){alert('Le message est vide!'); return}
       let docId = auth.currentUser.uid < listing.data.userRef ? auth.currentUser.uid+'AND='+listing.data.userRef+'REF='+listing.id : listing.data.userRef+'AND='+auth.currentUser.uid+'REF='+listing.id
       try{
       const chatDoc = await getDoc(doc(db, 'Chats', docId))
