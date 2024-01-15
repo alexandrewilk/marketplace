@@ -1,12 +1,10 @@
 import React, { useState, useEffect } from 'react';
-import { Text, Box, Container, Flex, Center, Breadcrumb, BreadcrumbItem, BreadcrumbLink, useMediaQuery, Table, Thead, Tbody, Tr, Th, Td, TableContainer, Button } from '@chakra-ui/react';
-import { doc, getDoc, updateDoc } from 'firebase/firestore';
+import { Text, Box, Container, Flex, Center, Breadcrumb, BreadcrumbItem, BreadcrumbLink, useMediaQuery } from '@chakra-ui/react';
+import { doc, getDoc } from 'firebase/firestore';
 import { auth, db } from '../../firebase';
-import { Dots } from 'react-activity';
 import No_Alerte from '../../assets/images/No_Alerte.png';
 
 export default function MesAlertes() {
-  const [isLargerThan768] = useMediaQuery("(min-width: 768px)");
   const [isLargerThan400] = useMediaQuery("(min-width: 400px)");
   const [alertes, setAlertes] = useState([]);
   const [loading, setLoading] = useState(false);
@@ -19,28 +17,50 @@ export default function MesAlertes() {
 
   useEffect(() => {
     async function getAlerts() {
-      const data = await getDoc(doc(db, 'Users', auth.currentUser.uid));
-      let alertes = [];
-      if (data.data().alertes) {
-        data.data().alertes.forEach((a) => alertes.push(a));
+      try {
+        setLoading(true);
+        const docRef = doc(db, 'Users', auth.currentUser.uid);
+        const docSnap = await getDoc(docRef);
+  
+        if (docSnap.exists()) {
+          const userData = docSnap.data();
+          let alertesArray = [];
+  
+          if (userData.alertes && typeof userData.alertes === 'object') {
+            alertesArray = Object.keys(userData.alertes).map(key => {
+              return { id: key, value: userData.alertes[key] };
+            });
+            console.log(alertesArray)
+          }
+  
+          setAlertes(alertesArray);
+        } else {
+          console.log("Document n'existe pas");
+        }
+      } catch (error) {
+        console.error("Erreur lors de la récupération des alertes:", error);
+      } finally {
+        setLoading(false);
       }
-      setAlertes(alertes);
     }
+  
     getAlerts();
   }, []);
+  
+  
 
-  async function handleDelete(alert) {
-    try {
-      setLoading(true);
-      let alertesUpdated = alertes.filter(a => a !== alert);
-      await updateDoc(doc(db, 'Users', auth.currentUser.uid), { alertes: alertesUpdated });
-      window.location.reload(true);
-    } catch (error) {
-      alert(error.message);
-    } finally {
-      setLoading(false);
-    }
-  }
+  // async function handleDelete(alert) {
+  //   try {
+  //     setLoading(true);
+  //     let alertesUpdated = alertes.filter(a => a !== alert);
+  //     await updateDoc(doc(db, 'Users', auth.currentUser.uid), { alertes: alertesUpdated });
+  //     window.location.reload(true);
+  //   } catch (error) {
+  //     alert(error.message);
+  //   } finally {
+  //     setLoading(false);
+  //   }
+  // }
 
   // Utiliser pour créer des alertes
   // async function handleAddAlertes(){
@@ -71,48 +91,26 @@ export default function MesAlertes() {
         </BreadcrumbLink>
       </BreadcrumbItem>
     </Breadcrumb>
-    <Text fontSize={isLargerThan768 ? "4xl" : "2xl"} as="b">Mes alertes</Text>
-      {alertes.length > 0 ? (
-        <TableContainer mt="20px">
-        <Table size='md'>
-          <Thead>
-            <Tr>
-              <Th>Nom</Th>
-              <Th>Logement</Th>
-              <Th >Nombre de pièces</Th>
-              <Th >Prix max.</Th>
-              <Th>Action</Th>
-            </Tr>
-          </Thead>
-          <Tbody>
-            {alertes.map((a)=>{return(
-              <Tr key={a}>
-                <Td>{a.nom}</Td>
-                <Td>{a.type}</Td>
-                <Td>{a.nbPieces}</Td>
-                <Td>{a.prixMax}€</Td>
-                <Td>{loading ? <Dots/> : <Button size='xs' colorScheme="red" onClick={(e) => {e.preventDefault();handleDelete(a)}}>Supprimer</Button>}</Td>
-              </Tr>
-            )})}
-            {/*<Tr>
-                <Td><Input onChange={(e)=>{e.preventDefault(); setNom(e.target.value)}} placeholder='Nom'/></Td>
-                <Td><Input onChange={(e)=>{e.preventDefault(); setLogement(e.target.value)}} placeholder='Type de Logement'/></Td>
-                <Td><Input onChange={(e)=>{e.preventDefault(); setNbPieces(e.target.value)}} placeholder='Nombre de Pièces min.'/></Td>
-                <Td><Input onChange={(e)=>{e.preventDefault(); setPrixMax(e.target.value)}} placeholder='Loyer max.'/></Td>
-                <Td>{loading ? <Dots/> : <Button size='sm' colorScheme="green" onClick={(e)=>{e.preventDefault(); handleAddAlertes()}}>Creer une nouvelle alerte</Button>}</Td>
-            </Tr>*/}
-          </Tbody>
-        </Table>
-      </TableContainer>
+    {loading ? (
+        <Text>Chargement des alertes...</Text>
+      ) : alertes.length > 0 ? (
+        <Box>
+          {alertes.map((alerte, index) => (
+            <Box key={index} /* ou une autre clé unique si disponible */>
+              <Text fontSize="lg"><b>{alerte.id}:</b> {alerte.value}</Text>
+              {/* Vous pouvez ajouter des boutons ou d'autres actions ici */}
+            </Box>
+          ))}
+        </Box>
       ) : (
         <Flex justifyContent="center">
           <Center flexDirection="column" mt="80px">
-              <img src={No_Alerte} alt="maison"/>
-              <Text fontSize="xl" fontWeight="bold" marginBottom="1rem">Tu n'as aucune alerte paramétrée</Text>
+            <img src={No_Alerte} alt="Pas d'alerte"/>
+            <Text fontSize="xl" fontWeight="bold" marginBottom="1rem">Tu n'as aucune alerte paramétrée</Text>
           </Center>
         </Flex>
       )}
-  </Container>
+    </Container>
   </Box>
   )
 }

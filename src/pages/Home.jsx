@@ -1,6 +1,6 @@
-import React, { useRef, useState } from 'react';
-import { Box, Flex, Heading, Input, InputGroup, InputLeftElement, InputRightElement, VStack, ListItem, List, useMediaQuery, Button } from '@chakra-ui/react';
-import { useNavigate } from 'react-router-dom';
+import React, { useState } from 'react';
+import { Box, Flex, Heading, Input, InputGroup, InputRightElement, VStack, ListItem, List, useMediaQuery, Button } from '@chakra-ui/react';
+import { useNavigate, useLocation } from 'react-router-dom';
 import VilleCarroussel from '../components/HomePage/VilleCarroussel';
 import heroImage from '../assets/images/Hero-Img.png';
 

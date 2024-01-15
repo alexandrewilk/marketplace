@@ -10,6 +10,7 @@ import { useNavigate } from 'react-router-dom'
 export default function SendMessagePopup({ listing }) {
     //setup modal
     const { isOpen, onOpen, onClose } = useDisclosure()
+    const [errorMessage, setErrorMessage] = useState('');
     const initialRef = React.useRef(null)
     const finalRef = React.useRef(null)
     //random setup
@@ -72,12 +73,12 @@ export default function SendMessagePopup({ listing }) {
     }
 
     async function handleSendNewMessage(){
-      if(message===''){alert('Le message est vide!'); return}
+      if(message===''){setErrorMessage('Le message est vide!'); return}
       let docId = auth.currentUser.uid < listing.data.userRef ? auth.currentUser.uid+'AND='+listing.data.userRef+'REF='+listing.id : listing.data.userRef+'AND='+auth.currentUser.uid+'REF='+listing.id
       try{
       const chatDoc = await getDoc(doc(db, 'Chats', docId))
       if(chatDoc.exists()){
-        alert("Vous avez déjà contacté l'annonceur, retrouvez votre échange avec lui dans l'onglet paramètres ")
+        setErrorMessage("Vous avez déjà contacté l'annonceur, retrouvez votre échange avec lui dans l'onglet paramètres ")
         return
       }
       const entry = {
@@ -91,10 +92,10 @@ export default function SendMessagePopup({ listing }) {
         lastMessage : Date.now()
       }
       await setDoc(doc(db, 'Chats', docId), entry)
-      alert("L'annonceur a bien reçu votre message. Vous serez prévenu par mail de sa réponse. Retrouvez l'historique de vos messages dans l'onglet paramètre")
+      setErrorMessage("L'annonceur a bien reçu votre message. Vous serez prévenu par mail de sa réponse. Retrouvez l'historique de vos messages dans l'onglet paramètre");
       window.location.reload()
     }catch(err){
-      alert(err.message); return
+      setErrorMessage(err.message); return
     }
     }
 
@@ -113,15 +114,16 @@ export default function SendMessagePopup({ listing }) {
             <ModalCloseButton />
             {loading ? <Dots/> : 
             <ModalBody pb={6}>
+              {errorMessage && <div style={{ color: 'red' }}>{errorMessage}</div>}
               <div>L'annonceur recevra un email. Vous pouvez retrouver l'historique de vos messages dans l'onglet Paramètres.</div>
               <FormControl mt={4}>
                 <FormLabel>Message</FormLabel>
-                <Textarea placeholder='Envoyer un message...' onChange={(e)=>setMessage(e.target.value)}/>
+                <Textarea placeholder='Envoyer un message...' value={message} onChange={(e) => setMessage(e.target.value)} />
               </FormControl>
             </ModalBody>}
   
             <ModalFooter>
-              <Button colorScheme='blue' mr={3} onClick={(e)=>{e.preventDefault();handleSendNewMessage()}}>
+              <Button colorScheme='blue' mr={3} onClick={(e) => {e.preventDefault(); handleSendNewMessage();}}>
                 Envoyer
               </Button>
               <Button onClick={onClose}>Annuler</Button>
