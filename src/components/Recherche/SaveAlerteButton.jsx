@@ -43,14 +43,18 @@ export default function SaveAlerteButton({ ville, currentFilters }) {
                       <ModalContent>
                           <ModalHeader>Alerte</ModalHeader>
                           <ModalCloseButton />
-                            <ModalBody>
-                                {message && <div style={{
-                              color: 'green' }}>{message}</div>}
-                              <em>En cliquant sur enregistrer, vous recevrez par mail des updates hebdomadaires sur les derniers logements correspondant aux filtres que vous avez sélectionnés.</em>
-                              <br></br>
-                              <br></br>
-                              Gérez toutes vos alertes dans l'onglet Paramètres !
-                            </ModalBody>
+                          <ModalBody>
+                            {message && <div style={{ color: 'green' }}>{message}</div>}
+                            <em>En cliquant sur enregistrer, vous recevrez par mail des updates hebdomadaires sur les derniers logements correspondant aux filtres que vous avez sélectionnés.</em>
+                            <br /><br />
+                            <strong>Filtres sélectionnés :</strong>
+                            <ul>
+                                {Object.entries(currentFilters).filter(([key, value]) => value != null).map(([key, value]) => (
+                                    <li key={key}>{`${key}: ${value}`}</li>
+                                ))}
+                            </ul>
+                            Gérez toutes vos alertes dans l'onglet Paramètres !
+                        </ModalBody>
                       <ModalFooter>
                           {loading ? <Dots /> : 
                           <Button colorScheme='blue' mr={3} onClick={handleAddAlerte}>
